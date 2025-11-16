@@ -22,11 +22,9 @@ export async function getUsers(): Promise<Array<User & { password: string }>> {
   try {
     const data = await fs.readFile(path.join(DATA_DIR, 'users.json'), 'utf-8');
     return JSON.parse(data);
-  } catch (readError) {
-    console.log('Users file not found, creating default user...', readError);
+  } catch {
     // Default users - generate fresh hash
     const hashedPassword = await bcrypt.hash('admin123', 10);
-    console.log('Generated hash for admin123');
     const defaultUsers = [
       {
         id: '1',
@@ -37,12 +35,7 @@ export async function getUsers(): Promise<Array<User & { password: string }>> {
         createdAt: new Date().toISOString(),
       },
     ];
-    try {
-      await saveUsers(defaultUsers);
-      console.log('Successfully saved default users');
-    } catch (saveError) {
-      console.error('Failed to save users:', saveError);
-    }
+    await saveUsers(defaultUsers);
     return defaultUsers;
   }
 }
@@ -134,9 +127,7 @@ export async function verifyCredentials(email: string, password: string): Promis
   const user = users.find((u) => u.email === email);
   if (!user) return null;
 
-  console.log('Comparing password:', password, 'against hash:', user.password);
   const isValid = await bcrypt.compare(password, user.password);
-  console.log('bcrypt.compare result:', isValid);
   if (!isValid) return null;
 
   const { password: _, ...userWithoutPassword } = user;
