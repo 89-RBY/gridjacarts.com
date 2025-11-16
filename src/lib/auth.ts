@@ -23,14 +23,15 @@ export async function getUsers(): Promise<Array<User & { password: string }>> {
     const data = await fs.readFile(path.join(DATA_DIR, 'users.json'), 'utf-8');
     return JSON.parse(data);
   } catch {
-    // Default users
+    // Default users - generate fresh hash
+    const hashedPassword = await bcrypt.hash('admin123', 10);
     const defaultUsers = [
       {
         id: '1',
         email: 'admin@gridjacarts.com',
         name: 'Admin',
         role: 'admin' as const,
-        password: '$2a$10$rHxJvEuUMeL4h3LzKTqvqeYG5fRVFQNVHGpUqN8VXdqSN3GxHNE2e', // "admin123"
+        password: hashedPassword,
         createdAt: new Date().toISOString(),
       },
     ];
