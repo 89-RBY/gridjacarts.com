@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyCredentials, createToken } from '@/lib/auth';
+import { verifyCredentials, createToken, getUsers } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json();
+
+    console.log('Login attempt:', { email, password: '***' });
 
     if (!email || !password) {
       return NextResponse.json(
@@ -12,7 +14,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Debug: show all users
+    const allUsers = await getUsers();
+    console.log('Available users:', allUsers.map(u => ({ email: u.email, role: u.role })));
+
     const user = await verifyCredentials(email, password);
+    console.log('Verification result:', user ? 'SUCCESS' : 'FAILED');
 
     if (!user) {
       return NextResponse.json(
