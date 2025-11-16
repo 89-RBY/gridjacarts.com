@@ -1,36 +1,31 @@
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { getBlogPostBySlug, getBlogPosts } from '@/lib/data';
+import { getBlogPostBySlug } from '@/lib/data';
 import { Calendar, User, ArrowLeft, Tag } from 'lucide-react';
 
 interface BlogPostPageProps {
   params: { locale: string; slug: string };
 }
 
-export async function generateStaticParams() {
-  const posts = await getBlogPosts();
-  const locales = ['ro', 'en', 'it'];
-
-  return posts.flatMap((post) =>
-    locales.map((locale) => ({
-      locale,
-      slug: post.slug,
-    }))
-  );
-}
+// Force dynamic rendering - no static generation at build time
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params: { locale, slug } }: BlogPostPageProps) {
-  const post = await getBlogPostBySlug(slug);
+  try {
+    const post = await getBlogPostBySlug(slug);
 
-  if (!post) {
-    return { title: 'Post Not Found' };
+    if (!post) {
+      return { title: 'Post Not Found' };
+    }
+
+    return {
+      title: post.title[locale as keyof typeof post.title] || post.title.en,
+      description: post.excerpt[locale as keyof typeof post.excerpt] || post.excerpt.en,
+    };
+  } catch {
+    return { title: 'Blog Post' };
   }
-
-  return {
-    title: post.title[locale as keyof typeof post.title] || post.title.en,
-    description: post.excerpt[locale as keyof typeof post.excerpt] || post.excerpt.en,
-  };
 }
 
 export default async function BlogPostPage({ params: { locale, slug } }: BlogPostPageProps) {
