@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, User } from 'lucide-react';
 import Logo from './Logo';
 
 interface HeaderProps {
@@ -95,6 +95,17 @@ export default function Header({ locale }: HeaderProps) {
               )}
             </div>
 
+            {/* Login Button */}
+            <Link
+              href={`/${locale}/login`}
+              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-primary-600 transition-colors"
+            >
+              <User className="w-4 h-4" />
+              <span className="hidden lg:inline">
+                {locale === 'ro' ? 'Login' : locale === 'it' ? 'Accedi' : 'Login'}
+              </span>
+            </Link>
+
             {/* CTA Button */}
             <Link
               href={`/${locale}/contact`}
@@ -132,6 +143,17 @@ export default function Header({ locale }: HeaderProps) {
                 {item.name}
               </Link>
             ))}
+
+            {/* Mobile Login Button */}
+            <Link
+              href={`/${locale}/login`}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              <User className="w-5 h-5" />
+              {locale === 'ro' ? 'Login / Cont' : locale === 'it' ? 'Accedi / Account' : 'Login / Account'}
+            </Link>
+
             <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
               <p className="px-3 py-2 text-sm font-medium text-gray-500">Limba / Language</p>
               <div className="flex gap-2">
