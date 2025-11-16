@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json();
 
-    console.log('Login attempt:', { email, password: '***' });
+    console.log('Login attempt:', { email, passwordLength: password?.length, password });
 
     if (!email || !password) {
       return NextResponse.json(
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     // Debug: show all users
     const allUsers = await getUsers();
-    console.log('Available users:', allUsers.map(u => ({ email: u.email, role: u.role })));
+    console.log('Available users:', allUsers.map(u => ({ email: u.email, role: u.role, passwordHash: u.password })));
 
     const user = await verifyCredentials(email, password);
     console.log('Verification result:', user ? 'SUCCESS' : 'FAILED');

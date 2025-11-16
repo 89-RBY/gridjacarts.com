@@ -134,7 +134,9 @@ export async function verifyCredentials(email: string, password: string): Promis
   const user = users.find((u) => u.email === email);
   if (!user) return null;
 
+  console.log('Comparing password:', password, 'against hash:', user.password);
   const isValid = await bcrypt.compare(password, user.password);
+  console.log('bcrypt.compare result:', isValid);
   if (!isValid) return null;
 
   const { password: _, ...userWithoutPassword } = user;
