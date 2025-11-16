@@ -37,3 +37,11 @@ next-env.d.ts
 # data
 /data/*.json
 !/data/.gitkeep
+
+# prisma
+/prisma/*.db
+/prisma/*.db-journal
+
+# uploads
+/public/uploads/*
+!/public/uploads/.gitkeep

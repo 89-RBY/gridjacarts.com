@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("partner") // admin or partner
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  partner   Partner?
+}
+
+model Partner {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName   String
+  contactPerson String
+  email         String
+  phone         String
+  address       String
+  taxId         String
+  markup        Float    @default(20)
+  status        String   @default("pending") // pending, approved, rejected, suspended
+  notes         String   @default("")
+  approvedAt    DateTime?
+  approvedBy    String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model PartnerApplication {
+  id            String   @id @default(cuid())
+  companyName   String
+  contactPerson String
+  email         String
+  phone         String
+  address       String
+  taxId         String
+  message       String
+  status        String   @default("pending") // pending, approved, rejected
+  reviewedAt    DateTime?
+  reviewedBy    String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  titleRo     String
+  titleEn     String
+  titleIt     String
+  contentRo   String
+  contentEn   String
+  contentIt   String
+  excerptRo   String
+  excerptEn   String
+  excerptIt   String
+  author      String
+  tags        String   @default("[]") // JSON string array
+  status      String   @default("draft") // draft or published
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  name        String
+  basePrice   Float
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SiteSettings {
+  id            String   @id @default("main")
+  analyticsCode String   @default("")
+  chatbotCode   String   @default("")
+  updatedAt     DateTime @updatedAt
+}

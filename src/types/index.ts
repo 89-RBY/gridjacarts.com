@@ -6,6 +6,38 @@ export interface User {
   createdAt: string;
 }
 
+export interface Partner {
+  id: string;
+  userId: string;
+  companyName: string;
+  contactPerson: string;
+  email: string;
+  phone: string;
+  address: string;
+  taxId: string;
+  markup: number; // Percentage markup for this partner
+  status: 'pending' | 'approved' | 'rejected' | 'suspended';
+  notes: string;
+  createdAt: string;
+  approvedAt?: string;
+  approvedBy?: string;
+}
+
+export interface PartnerApplication {
+  id: string;
+  companyName: string;
+  contactPerson: string;
+  email: string;
+  phone: string;
+  address: string;
+  taxId: string;
+  message: string;
+  status: 'pending' | 'approved' | 'rejected';
+  createdAt: string;
+  reviewedAt?: string;
+  reviewedBy?: string;
+}
+
 export interface BlogPost {
   id: string;
   slug: string;

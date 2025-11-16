@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { BlogPost, Service, SiteSettings, PartnerPricing } from '@/types';
+import { BlogPost, Service, SiteSettings, PartnerPricing, Partner, PartnerApplication } from '@/types';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 
@@ -146,4 +146,122 @@ export function calculatePartnerPricing(services: Service[], markup: number = 20
     partnerMarkup: markup,
     finalPrice: service.basePrice * (1 + markup / 100),
   }));
+}
+
+// Partners Management
+export async function getPartners(): Promise<Partner[]> {
+  await ensureDataDir();
+  try {
+    const data = await fs.readFile(path.join(DATA_DIR, 'partners.json'), 'utf-8');
+    return JSON.parse(data);
+  } catch {
+    return [];
+  }
+}
+
+export async function savePartners(partners: Partner[]): Promise<void> {
+  await ensureDataDir();
+  await fs.writeFile(path.join(DATA_DIR, 'partners.json'), JSON.stringify(partners, null, 2));
+}
+
+export async function getPartnerById(id: string): Promise<Partner | null> {
+  const partners = await getPartners();
+  return partners.find((p) => p.id === id) || null;
+}
+
+export async function getPartnerByUserId(userId: string): Promise<Partner | null> {
+  const partners = await getPartners();
+  return partners.find((p) => p.userId === userId) || null;
+}
+
+export async function createPartner(partnerData: Omit<Partner, 'id' | 'createdAt'>): Promise<Partner> {
+  const partners = await getPartners();
+
+  const newPartner: Partner = {
+    ...partnerData,
+    id: Date.now().toString(),
+    createdAt: new Date().toISOString(),
+  };
+
+  partners.push(newPartner);
+  await savePartners(partners);
+  return newPartner;
+}
+
+export async function updatePartner(id: string, updates: Partial<Partner>): Promise<Partner | null> {
+  const partners = await getPartners();
+  const index = partners.findIndex((p) => p.id === id);
+
+  if (index === -1) return null;
+
+  partners[index] = { ...partners[index], ...updates };
+  await savePartners(partners);
+  return partners[index];
+}
+
+export async function deletePartner(id: string): Promise<boolean> {
+  const partners = await getPartners();
+  const filteredPartners = partners.filter((p) => p.id !== id);
+
+  if (partners.length === filteredPartners.length) return false;
+
+  await savePartners(filteredPartners);
+  return true;
+}
+
+// Partner Applications
+export async function getPartnerApplications(): Promise<PartnerApplication[]> {
+  await ensureDataDir();
+  try {
+    const data = await fs.readFile(path.join(DATA_DIR, 'partner-applications.json'), 'utf-8');
+    return JSON.parse(data);
+  } catch {
+    return [];
+  }
+}
+
+export async function savePartnerApplications(applications: PartnerApplication[]): Promise<void> {
+  await ensureDataDir();
+  await fs.writeFile(path.join(DATA_DIR, 'partner-applications.json'), JSON.stringify(applications, null, 2));
+}
+
+export async function createPartnerApplication(
+  applicationData: Omit<PartnerApplication, 'id' | 'status' | 'createdAt'>
+): Promise<PartnerApplication> {
+  const applications = await getPartnerApplications();
+
+  const newApplication: PartnerApplication = {
+    ...applicationData,
+    id: Date.now().toString(),
+    status: 'pending',
+    createdAt: new Date().toISOString(),
+  };
+
+  applications.unshift(newApplication);
+  await savePartnerApplications(applications);
+  return newApplication;
+}
+
+export async function updatePartnerApplication(
+  id: string,
+  updates: Partial<PartnerApplication>
+): Promise<PartnerApplication | null> {
+  const applications = await getPartnerApplications();
+  const index = applications.findIndex((a) => a.id === id);
+
+  if (index === -1) return null;
+
+  applications[index] = { ...applications[index], ...updates };
+  await savePartnerApplications(applications);
+  return applications[index];
+}
+
+export async function deletePartnerApplication(id: string): Promise<boolean> {
+  const applications = await getPartnerApplications();
+  const filtered = applications.filter((a) => a.id !== id);
+
+  if (applications.length === filtered.length) return false;
+
+  await savePartnerApplications(filtered);
+  return true;
 }

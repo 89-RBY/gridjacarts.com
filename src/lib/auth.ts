@@ -1,31 +1,128 @@
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { promises as fs } from 'fs';
+import path from 'path';
 import { User } from '@/types';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'gridjacarts-secret-key-change-in-production';
+const DATA_DIR = path.join(process.cwd(), 'data');
 
-// In production, use a real database. This is for demo purposes.
-const users: Array<User & { password: string }> = [
-  {
-    id: '1',
-    email: 'admin@gridjacarts.com',
-    name: 'Admin',
-    role: 'admin',
-    password: '$2a$10$rHxJvEuUMeL4h3LzKTqvqeYG5fRVFQNVHGpUqN8VXdqSN3GxHNE2e', // "admin123"
+async function ensureDataDir() {
+  try {
+    await fs.access(DATA_DIR);
+  } catch {
+    await fs.mkdir(DATA_DIR, { recursive: true });
+  }
+}
+
+// User management with file storage
+export async function getUsers(): Promise<Array<User & { password: string }>> {
+  await ensureDataDir();
+  try {
+    const data = await fs.readFile(path.join(DATA_DIR, 'users.json'), 'utf-8');
+    return JSON.parse(data);
+  } catch {
+    // Default users
+    const defaultUsers = [
+      {
+        id: '1',
+        email: 'admin@gridjacarts.com',
+        name: 'Admin',
+        role: 'admin' as const,
+        password: '$2a$10$rHxJvEuUMeL4h3LzKTqvqeYG5fRVFQNVHGpUqN8VXdqSN3GxHNE2e', // "admin123"
+        createdAt: new Date().toISOString(),
+      },
+    ];
+    await saveUsers(defaultUsers);
+    return defaultUsers;
+  }
+}
+
+export async function saveUsers(users: Array<User & { password: string }>): Promise<void> {
+  await ensureDataDir();
+  await fs.writeFile(path.join(DATA_DIR, 'users.json'), JSON.stringify(users, null, 2));
+}
+
+export async function createUser(userData: {
+  email: string;
+  name: string;
+  password: string;
+  role: 'admin' | 'partner';
+}): Promise<User> {
+  const users = await getUsers();
+
+  // Check if email already exists
+  if (users.find((u) => u.email === userData.email)) {
+    throw new Error('Email already exists');
+  }
+
+  const hashedPassword = await hashPassword(userData.password);
+  const newUser = {
+    id: Date.now().toString(),
+    email: userData.email,
+    name: userData.name,
+    role: userData.role,
+    password: hashedPassword,
     createdAt: new Date().toISOString(),
-  },
-  {
-    id: '2',
-    email: 'partner@example.com',
-    name: 'Partner Demo',
-    role: 'partner',
-    password: '$2a$10$rHxJvEuUMeL4h3LzKTqvqeYG5fRVFQNVHGpUqN8VXdqSN3GxHNE2e', // "admin123"
-    createdAt: new Date().toISOString(),
-  },
-];
+  };
+
+  users.push(newUser);
+  await saveUsers(users);
+
+  const { password: _, ...userWithoutPassword } = newUser;
+  return userWithoutPassword;
+}
+
+export async function updateUser(
+  id: string,
+  updates: Partial<{ email: string; name: string; password: string; role: 'admin' | 'partner' }>
+): Promise<User | null> {
+  const users = await getUsers();
+  const index = users.findIndex((u) => u.id === id);
+
+  if (index === -1) return null;
+
+  if (updates.email && updates.email !== users[index].email) {
+    if (users.find((u) => u.email === updates.email)) {
+      throw new Error('Email already exists');
+    }
+    users[index].email = updates.email;
+  }
+
+  if (updates.name) users[index].name = updates.name;
+  if (updates.role) users[index].role = updates.role;
+  if (updates.password) {
+    users[index].password = await hashPassword(updates.password);
+  }
+
+  await saveUsers(users);
+
+  const { password: _, ...userWithoutPassword } = users[index];
+  return userWithoutPassword;
+}
+
+export async function deleteUser(id: string): Promise<boolean> {
+  const users = await getUsers();
+  const filteredUsers = users.filter((u) => u.id !== id);
+
+  if (users.length === filteredUsers.length) return false;
+
+  await saveUsers(filteredUsers);
+  return true;
+}
+
+export async function getUserById(id: string): Promise<User | null> {
+  const users = await getUsers();
+  const user = users.find((u) => u.id === id);
+  if (!user) return null;
+
+  const { password: _, ...userWithoutPassword } = user;
+  return userWithoutPassword;
+}
 
 export async function verifyCredentials(email: string, password: string): Promise<User | null> {
+  const users = await getUsers();
   const user = users.find((u) => u.email === email);
   if (!user) return null;
 
