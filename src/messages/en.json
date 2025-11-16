@@ -1,0 +1,134 @@
+{
+  "common": {
+    "brand": "Gridjac Art's",
+    "tagline": "Your Partner in Digital Growth",
+    "learnMore": "Learn More",
+    "contactUs": "Contact Us",
+    "getStarted": "Get Started",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "followUs": "Follow Us"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "title": "Growing Together",
+      "subtitle": "We are your strategic partner in digital transformation. We find the right technologies for every need and support you at every stage of your growth.",
+      "cta": "Let's Talk"
+    },
+    "services": {
+      "title": "Our Services",
+      "subtitle": "Complete solutions for your digital presence"
+    },
+    "whyUs": {
+      "title": "Why Choose Us?",
+      "partner": {
+        "title": "Trusted Partner",
+        "description": "We're not just providers, we're allies in your success"
+      },
+      "technology": {
+        "title": "Right Technologies",
+        "description": "We choose solutions that fit your specific needs"
+      },
+      "growth": {
+        "title": "Focus on Growth",
+        "description": "Every decision is made with the goal of helping you grow"
+      }
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "mission": {
+      "title": "Our Mission",
+      "content": "Our mission is to be a client's ally, standing by their side to support their growth. We believe that success is built together, through partnerships based on trust and transparency."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "content": "We want to be recognized as the trusted partner that transforms digital visions into reality, using the right technologies for each specific need."
+    },
+    "values": {
+      "title": "Our Values",
+      "partnership": "Partnership",
+      "innovation": "Innovation",
+      "quality": "Quality",
+      "transparency": "Transparency"
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Complete solutions for your digital transformation",
+    "webDesign": {
+      "title": "Web Design",
+      "description": "Modern, responsive, and conversion-oriented designs that reflect your brand identity"
+    },
+    "webDev": {
+      "title": "Web Development",
+      "description": "Custom web development with modern technologies and optimal performance"
+    },
+    "seo": {
+      "title": "SEO",
+      "description": "Search engine optimization that brings you organic traffic and visibility"
+    },
+    "smm": {
+      "title": "Social Media Marketing",
+      "description": "Social media marketing strategies that connect your brand with the right audience"
+    },
+    "advertising": {
+      "title": "Online Advertising",
+      "description": "Effective advertising campaigns that generate measurable results"
+    },
+    "virtualTours": {
+      "title": "Virtual Tours",
+      "description": "Immersive 360° experiences that showcase your spaces in a captivating way"
+    },
+    "fullStack": {
+      "title": "Full Stack Development",
+      "description": "Complete web applications, from backend to frontend, scalable and secure"
+    }
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Projects that speak for themselves",
+    "viewProject": "View Project",
+    "category": "Category",
+    "client": "Client"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Let's discuss your project",
+    "locations": {
+      "romania": "Romania",
+      "italy": "Italy"
+    },
+    "sendEmail": "Send Email",
+    "callUs": "Call Us"
+  },
+  "footer": {
+    "description": "We are your partner in digital transformation. We use the right technologies to help you grow.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "newsletter": "Newsletter",
+    "newsletterText": "Subscribe for industry news and tips",
+    "subscribe": "Subscribe",
+    "rights": "All rights reserved",
+    "privacy": "Privacy Policy",
+    "terms": "Terms and Conditions"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Articles and resources about digital transformation",
+    "readTime": "min read",
+    "publishedOn": "Published on",
+    "by": "by"
+  }
+}

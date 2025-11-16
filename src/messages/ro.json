@@ -1,0 +1,134 @@
+{
+  "common": {
+    "brand": "Gridjac Art's",
+    "tagline": "Partenerul tău în creștere digitală",
+    "learnMore": "Află mai multe",
+    "contactUs": "Contactează-ne",
+    "getStarted": "Începe acum",
+    "viewAll": "Vezi toate",
+    "readMore": "Citește mai mult",
+    "email": "Email",
+    "phone": "Telefon",
+    "address": "Adresă",
+    "followUs": "Urmărește-ne"
+  },
+  "nav": {
+    "home": "Acasă",
+    "about": "Despre Noi",
+    "services": "Servicii",
+    "portfolio": "Portofoliu",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "title": "Creștem împreună",
+      "subtitle": "Suntem partenerul tău strategic în transformarea digitală. Găsim tehnologiile potrivite pentru fiecare nevoie și te susținem în fiecare etapă a creșterii tale.",
+      "cta": "Hai să discutăm"
+    },
+    "services": {
+      "title": "Serviciile Noastre",
+      "subtitle": "Soluții complete pentru prezența ta digitală"
+    },
+    "whyUs": {
+      "title": "De ce să ne alegi?",
+      "partner": {
+        "title": "Partener de încredere",
+        "description": "Nu suntem doar furnizori, suntem aliați în succesul tău"
+      },
+      "technology": {
+        "title": "Tehnologii potrivite",
+        "description": "Alegem soluțiile care se potrivesc nevoilor tale specifice"
+      },
+      "growth": {
+        "title": "Focus pe creștere",
+        "description": "Fiecare decizie este luată cu scopul de a te ajuta să crești"
+      }
+    }
+  },
+  "about": {
+    "title": "Despre Noi",
+    "mission": {
+      "title": "Misiunea Noastră",
+      "content": "Misiunea noastră este de a fi un aliat al clientului, care îi este alături pentru a-l susține în creșterea acestuia. Credem că succesul se construiește împreună, prin parteneriate bazate pe încredere și transparență."
+    },
+    "vision": {
+      "title": "Viziunea Noastră",
+      "content": "Ne dorim să fim recunoscuți ca partenerul de încredere care transformă viziunile digitale în realitate, folosind tehnologiile potrivite pentru fiecare nevoie specifică."
+    },
+    "values": {
+      "title": "Valorile Noastre",
+      "partnership": "Parteneriat",
+      "innovation": "Inovație",
+      "quality": "Calitate",
+      "transparency": "Transparență"
+    }
+  },
+  "services": {
+    "title": "Serviciile Noastre",
+    "subtitle": "Soluții complete pentru transformarea ta digitală",
+    "webDesign": {
+      "title": "Web Design",
+      "description": "Design-uri moderne, responsive și orientate spre conversie care reflectă identitatea brandului tău"
+    },
+    "webDev": {
+      "title": "Web Development",
+      "description": "Dezvoltare web personalizată cu tehnologii moderne și performanță optimă"
+    },
+    "seo": {
+      "title": "SEO",
+      "description": "Optimizare pentru motoarele de căutare care îți aduce trafic organic și vizibilitate"
+    },
+    "smm": {
+      "title": "Social Media Marketing",
+      "description": "Strategii de marketing social media care conectează brandul tău cu audiența potrivită"
+    },
+    "advertising": {
+      "title": "Publicitate Online",
+      "description": "Campanii publicitare eficiente care generează rezultate măsurabile"
+    },
+    "virtualTours": {
+      "title": "Tururi Virtuale",
+      "description": "Experiențe imersive 360° care prezintă spațiile tale într-un mod captivant"
+    },
+    "fullStack": {
+      "title": "Full Stack Development",
+      "description": "Aplicații web complete, de la backend la frontend, scalabile și securizate"
+    }
+  },
+  "portfolio": {
+    "title": "Portofoliu",
+    "subtitle": "Proiecte care vorbesc de la sine",
+    "viewProject": "Vezi proiectul",
+    "category": "Categorie",
+    "client": "Client"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Hai să discutăm despre proiectul tău",
+    "locations": {
+      "romania": "România",
+      "italy": "Italia"
+    },
+    "sendEmail": "Trimite email",
+    "callUs": "Sună-ne"
+  },
+  "footer": {
+    "description": "Suntem partenerul tău în transformarea digitală. Folosim tehnologiile potrivite pentru a te ajuta să crești.",
+    "quickLinks": "Link-uri Rapide",
+    "contact": "Contact",
+    "newsletter": "Newsletter",
+    "newsletterText": "Abonează-te pentru noutăți și sfaturi din industrie",
+    "subscribe": "Abonează-te",
+    "rights": "Toate drepturile rezervate",
+    "privacy": "Politica de Confidențialitate",
+    "terms": "Termeni și Condiții"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Articole și resurse despre transformarea digitală",
+    "readTime": "min citire",
+    "publishedOn": "Publicat pe",
+    "by": "de"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "common": {
+    "brand": "Gridjac Art's",
+    "tagline": "Il tuo partner nella crescita digitale",
+    "learnMore": "Scopri di più",
+    "contactUs": "Contattaci",
+    "getStarted": "Inizia ora",
+    "viewAll": "Vedi tutti",
+    "readMore": "Leggi di più",
+    "email": "Email",
+    "phone": "Telefono",
+    "address": "Indirizzo",
+    "followUs": "Seguici"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "Chi Siamo",
+    "services": "Servizi",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "contact": "Contatti"
+  },
+  "home": {
+    "hero": {
+      "title": "Cresciamo insieme",
+      "subtitle": "Siamo il tuo partner strategico nella trasformazione digitale. Troviamo le tecnologie giuste per ogni esigenza e ti supportiamo in ogni fase della tua crescita.",
+      "cta": "Parliamone"
+    },
+    "services": {
+      "title": "I Nostri Servizi",
+      "subtitle": "Soluzioni complete per la tua presenza digitale"
+    },
+    "whyUs": {
+      "title": "Perché sceglierci?",
+      "partner": {
+        "title": "Partner affidabile",
+        "description": "Non siamo solo fornitori, siamo alleati nel tuo successo"
+      },
+      "technology": {
+        "title": "Tecnologie giuste",
+        "description": "Scegliamo soluzioni che si adattano alle tue esigenze specifiche"
+      },
+      "growth": {
+        "title": "Focus sulla crescita",
+        "description": "Ogni decisione è presa con l'obiettivo di aiutarti a crescere"
+      }
+    }
+  },
+  "about": {
+    "title": "Chi Siamo",
+    "mission": {
+      "title": "La Nostra Missione",
+      "content": "La nostra missione è essere un alleato del cliente, al suo fianco per supportare la sua crescita. Crediamo che il successo si costruisca insieme, attraverso partnership basate sulla fiducia e trasparenza."
+    },
+    "vision": {
+      "title": "La Nostra Visione",
+      "content": "Vogliamo essere riconosciuti come il partner affidabile che trasforma le visioni digitali in realtà, utilizzando le tecnologie giuste per ogni esigenza specifica."
+    },
+    "values": {
+      "title": "I Nostri Valori",
+      "partnership": "Partnership",
+      "innovation": "Innovazione",
+      "quality": "Qualità",
+      "transparency": "Trasparenza"
+    }
+  },
+  "services": {
+    "title": "I Nostri Servizi",
+    "subtitle": "Soluzioni complete per la tua trasformazione digitale",
+    "webDesign": {
+      "title": "Web Design",
+      "description": "Design moderni, responsive e orientati alla conversione che riflettono l'identità del tuo brand"
+    },
+    "webDev": {
+      "title": "Sviluppo Web",
+      "description": "Sviluppo web personalizzato con tecnologie moderne e prestazioni ottimali"
+    },
+    "seo": {
+      "title": "SEO",
+      "description": "Ottimizzazione per i motori di ricerca che ti porta traffico organico e visibilità"
+    },
+    "smm": {
+      "title": "Social Media Marketing",
+      "description": "Strategie di social media marketing che connettono il tuo brand con il pubblico giusto"
+    },
+    "advertising": {
+      "title": "Pubblicità Online",
+      "description": "Campagne pubblicitarie efficaci che generano risultati misurabili"
+    },
+    "virtualTours": {
+      "title": "Tour Virtuali",
+      "description": "Esperienze immersive a 360° che presentano i tuoi spazi in modo accattivante"
+    },
+    "fullStack": {
+      "title": "Sviluppo Full Stack",
+      "description": "Applicazioni web complete, dal backend al frontend, scalabili e sicure"
+    }
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Progetti che parlano da soli",
+    "viewProject": "Vedi Progetto",
+    "category": "Categoria",
+    "client": "Cliente"
+  },
+  "contact": {
+    "title": "Contatti",
+    "subtitle": "Parliamo del tuo progetto",
+    "locations": {
+      "romania": "Romania",
+      "italy": "Italia"
+    },
+    "sendEmail": "Invia Email",
+    "callUs": "Chiamaci"
+  },
+  "footer": {
+    "description": "Siamo il tuo partner nella trasformazione digitale. Utilizziamo le tecnologie giuste per aiutarti a crescere.",
+    "quickLinks": "Link Rapidi",
+    "contact": "Contatti",
+    "newsletter": "Newsletter",
+    "newsletterText": "Iscriviti per notizie e consigli del settore",
+    "subscribe": "Iscriviti",
+    "rights": "Tutti i diritti riservati",
+    "privacy": "Politica sulla Privacy",
+    "terms": "Termini e Condizioni"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Articoli e risorse sulla trasformazione digitale",
+    "readTime": "min di lettura",
+    "publishedOn": "Pubblicato il",
+    "by": "di"
+  }
+}
