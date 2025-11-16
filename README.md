@@ -26,10 +26,10 @@ Site web modern pentru agenția Gridjac Art's SRL, construit cu Next.js 14, Type
 - **Portal Dedicat**: Prețuri calculate automat cu markup-ul personalizat
 
 ### Database
-- **Prisma ORM**: Schema completă pentru SQLite
+- **Prisma ORM**: Schema completă pentru PostgreSQL
+- **Railway Ready**: Configurare optimizată pentru Railway deployment
 - **Migrări**: Suport pentru database migrations
 - **Seed Data**: Script de populare cu date inițiale
-- **Fallback JSON**: Funcționează și cu stocare JSON pentru development
 
 ## Tehnologii
 
@@ -37,7 +37,7 @@ Site web modern pentru agenția Gridjac Art's SRL, construit cu Next.js 14, Type
 - **Language**: TypeScript 5.4
 - **Styling**: Tailwind CSS 3.4
 - **i18n**: next-intl 3.15
-- **Database**: Prisma 5.14 cu SQLite
+- **Database**: Prisma 5.14 cu PostgreSQL
 - **Auth**: bcryptjs & jsonwebtoken
 - **Icons**: Lucide React
 
@@ -194,16 +194,79 @@ npx prisma studio
 # JWT Secret (required)
 JWT_SECRET=your-secret-key
 
-# Database URL pentru Prisma
-DATABASE_URL="file:./dev.db"
+# Database URL pentru Prisma (PostgreSQL)
+DATABASE_URL="postgresql://user:password@host:port/database"
+
+# Node Environment
+NODE_ENV=production
 ```
 
-## Deployment
+## Deployment pe Railway
+
+### Pași Rapizi
+
+1. **Creează cont Railway**: https://railway.app
+2. **New Project** → **Deploy from GitHub repo**
+3. **Adaugă PostgreSQL**:
+   - Click "New" → "Database" → "PostgreSQL"
+   - Railway setează automat `DATABASE_URL`
+4. **Configurează Environment Variables**:
+   ```
+   JWT_SECRET=your-super-secret-key-change-this
+   NODE_ENV=production
+   ```
+5. **Deploy**: Railway face automat `npm install` și `npm run build`
+6. **Inițializează DB**:
+   ```bash
+   # În Railway CLI sau terminal
+   npx prisma db push
+   npm run db:seed
+   ```
+
+### Railway CLI (Opțional)
+
+```bash
+# Instalează Railway CLI
+npm install -g @railway/cli
+
+# Login
+railway login
+
+# Link la proiect
+railway link
+
+# Deploy
+railway up
+
+# Rulează comenzi în cloud
+railway run npx prisma db push
+railway run npm run db:seed
+```
+
+### Variables Railway
+
+Railway setează automat:
+- `DATABASE_URL` - connection string PostgreSQL
+
+Tu trebuie să setezi:
+- `JWT_SECRET` - cheie secretă pentru JWT tokens
+- `NODE_ENV` - setează la "production"
+
+### Build Command (Automat)
+
+Railway detectează Next.js și rulează:
+```bash
+npm install
+npm run build  # include prisma generate
+npm start
+```
+
+## Deployment Manual
 
 1. **Setup environment**: Configurează `.env` cu secretele de producție
 2. **Install**: `npm install`
 3. **Database**: `npx prisma generate && npx prisma db push`
-4. **Seed**: `npx ts-node prisma/seed.ts`
+4. **Seed**: `npm run db:seed`
 5. **Build**: `npm run build`
 6. **Start**: `npm start`
 

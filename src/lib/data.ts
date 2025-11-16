@@ -1,140 +1,202 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+import { prisma } from './prisma';
 import { BlogPost, Service, SiteSettings, PartnerPricing, Partner, PartnerApplication } from '@/types';
-
-const DATA_DIR = path.join(process.cwd(), 'data');
-
-// Ensure data directory exists
-async function ensureDataDir() {
-  try {
-    await fs.access(DATA_DIR);
-  } catch {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-  }
-}
 
 // Blog Posts
 export async function getBlogPosts(): Promise<BlogPost[]> {
-  await ensureDataDir();
-  try {
-    const data = await fs.readFile(path.join(DATA_DIR, 'posts.json'), 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    // Return sample posts if file doesn't exist
-    const samplePosts: BlogPost[] = [
-      {
-        id: '1',
-        slug: 'importanta-seo-2024',
-        title: {
-          ro: 'Importanța SEO în 2024',
-          en: 'The Importance of SEO in 2024',
-          it: "L'importanza della SEO nel 2024",
-        },
-        content: {
-          ro: 'SEO rămâne unul dintre cele mai importante aspecte ale prezenței online...',
-          en: 'SEO remains one of the most important aspects of online presence...',
-          it: 'La SEO rimane uno degli aspetti più importanti della presenza online...',
-        },
-        excerpt: {
-          ro: 'Descoperă de ce SEO este esențial pentru succesul afacerii tale online.',
-          en: 'Discover why SEO is essential for your online business success.',
-          it: 'Scopri perché la SEO è essenziale per il successo del tuo business online.',
-        },
-        author: 'Gridjac Team',
-        publishedAt: '2024-01-15T10:00:00Z',
-        updatedAt: '2024-01-15T10:00:00Z',
-        tags: ['SEO', 'Digital Marketing'],
-        status: 'published',
-      },
-      {
-        id: '2',
-        slug: 'tendinte-web-design',
-        title: {
-          ro: 'Tendințe Web Design pentru 2024',
-          en: 'Web Design Trends for 2024',
-          it: 'Tendenze Web Design per il 2024',
-        },
-        content: {
-          ro: 'Design-ul web evoluează constant, iar anul 2024 aduce noi tendințe...',
-          en: 'Web design is constantly evolving, and 2024 brings new trends...',
-          it: 'Il web design è in continua evoluzione e il 2024 porta nuove tendenze...',
-        },
-        excerpt: {
-          ro: 'Explorează cele mai noi tendințe în design-ul web.',
-          en: 'Explore the latest trends in web design.',
-          it: 'Esplora le ultime tendenze nel web design.',
-        },
-        author: 'Gridjac Team',
-        publishedAt: '2024-02-01T10:00:00Z',
-        updatedAt: '2024-02-01T10:00:00Z',
-        tags: ['Web Design', 'UI/UX'],
-        status: 'published',
-      },
-    ];
-    await saveBlogPosts(samplePosts);
-    return samplePosts;
+  const posts = await prisma.blogPost.findMany({
+    orderBy: { publishedAt: 'desc' },
+  });
+
+  // If no posts exist, create sample posts
+  if (posts.length === 0) {
+    const samplePostData = {
+      slug: 'importanta-seo-2024',
+      titleRo: 'Importanța SEO în 2024',
+      titleEn: 'The Importance of SEO in 2024',
+      titleIt: "L'importanza della SEO nel 2024",
+      contentRo: 'SEO rămâne unul dintre cele mai importante aspecte ale prezenței online...',
+      contentEn: 'SEO remains one of the most important aspects of online presence...',
+      contentIt: 'La SEO rimane uno degli aspetti più importanti della presenza online...',
+      excerptRo: 'Descoperă de ce SEO este esențial pentru succesul afacerii tale online.',
+      excerptEn: 'Discover why SEO is essential for your online business success.',
+      excerptIt: 'Scopri perché la SEO è essenziale per il successo del tuo business online.',
+      author: 'Gridjac Team',
+      tags: JSON.stringify(['SEO', 'Digital Marketing']),
+      status: 'published',
+    };
+
+    const samplePost = await prisma.blogPost.create({ data: samplePostData });
+    return [mapBlogPost(samplePost)];
   }
+
+  return posts.map(mapBlogPost);
+}
+
+function mapBlogPost(post: {
+  id: string;
+  slug: string;
+  titleRo: string;
+  titleEn: string;
+  titleIt: string;
+  contentRo: string;
+  contentEn: string;
+  contentIt: string;
+  excerptRo: string;
+  excerptEn: string;
+  excerptIt: string;
+  author: string;
+  tags: string;
+  status: string;
+  publishedAt: Date;
+  updatedAt: Date;
+}): BlogPost {
+  return {
+    id: post.id,
+    slug: post.slug,
+    title: {
+      ro: post.titleRo,
+      en: post.titleEn,
+      it: post.titleIt,
+    },
+    content: {
+      ro: post.contentRo,
+      en: post.contentEn,
+      it: post.contentIt,
+    },
+    excerpt: {
+      ro: post.excerptRo,
+      en: post.excerptEn,
+      it: post.excerptIt,
+    },
+    author: post.author,
+    tags: JSON.parse(post.tags),
+    status: post.status as 'draft' | 'published',
+    publishedAt: post.publishedAt.toISOString(),
+    updatedAt: post.updatedAt.toISOString(),
+  };
 }
 
 export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
-  await ensureDataDir();
-  await fs.writeFile(path.join(DATA_DIR, 'posts.json'), JSON.stringify(posts, null, 2));
+  // Delete all existing posts and insert new ones
+  await prisma.blogPost.deleteMany();
+  for (const post of posts) {
+    await prisma.blogPost.create({
+      data: {
+        id: post.id,
+        slug: post.slug,
+        titleRo: post.title.ro,
+        titleEn: post.title.en,
+        titleIt: post.title.it,
+        contentRo: post.content.ro,
+        contentEn: post.content.en,
+        contentIt: post.content.it,
+        excerptRo: post.excerpt.ro,
+        excerptEn: post.excerpt.en,
+        excerptIt: post.excerpt.it,
+        author: post.author,
+        tags: JSON.stringify(post.tags),
+        status: post.status,
+        publishedAt: new Date(post.publishedAt),
+      },
+    });
+  }
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  const posts = await getBlogPosts();
-  return posts.find((p) => p.slug === slug) || null;
+  const post = await prisma.blogPost.findUnique({ where: { slug } });
+  if (!post) return null;
+  return mapBlogPost(post);
 }
 
 // Services
 export async function getServices(): Promise<Service[]> {
-  await ensureDataDir();
-  try {
-    const data = await fs.readFile(path.join(DATA_DIR, 'services.json'), 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    const defaultServices: Service[] = [
-      { id: '1', name: 'Web Design - Basic', basePrice: 500, description: 'Single page website' },
-      { id: '2', name: 'Web Design - Standard', basePrice: 1500, description: 'Multi-page website' },
-      { id: '3', name: 'Web Design - Premium', basePrice: 3000, description: 'Custom web application' },
-      { id: '4', name: 'SEO Audit', basePrice: 300, description: 'Complete SEO analysis' },
-      { id: '5', name: 'SEO Monthly', basePrice: 500, description: 'Monthly SEO optimization' },
-      { id: '6', name: 'Social Media Setup', basePrice: 200, description: 'Social media account setup' },
-      { id: '7', name: 'Social Media Monthly', basePrice: 400, description: 'Monthly social media management' },
-      { id: '8', name: 'Virtual Tour - Basic', basePrice: 300, description: 'Up to 5 locations' },
-      { id: '9', name: 'Virtual Tour - Premium', basePrice: 800, description: 'Up to 20 locations' },
-      { id: '10', name: 'Full Stack App - Basic', basePrice: 5000, description: 'Basic web application' },
+  const services = await prisma.service.findMany();
+
+  // If no services exist, create default services
+  if (services.length === 0) {
+    const defaultServicesData = [
+      { name: 'Web Design - Basic', basePrice: 500, description: 'Single page website' },
+      { name: 'Web Design - Standard', basePrice: 1500, description: 'Multi-page website' },
+      { name: 'Web Design - Premium', basePrice: 3000, description: 'Custom web application' },
+      { name: 'SEO Audit', basePrice: 300, description: 'Complete SEO analysis' },
+      { name: 'SEO Monthly', basePrice: 500, description: 'Monthly SEO optimization' },
+      { name: 'Social Media Setup', basePrice: 200, description: 'Social media account setup' },
+      { name: 'Social Media Monthly', basePrice: 400, description: 'Monthly social media management' },
+      { name: 'Virtual Tour - Basic', basePrice: 300, description: 'Up to 5 locations' },
+      { name: 'Virtual Tour - Premium', basePrice: 800, description: 'Up to 20 locations' },
+      { name: 'Full Stack App - Basic', basePrice: 5000, description: 'Basic web application' },
     ];
-    await saveServices(defaultServices);
-    return defaultServices;
+
+    const createdServices = [];
+    for (const serviceData of defaultServicesData) {
+      const service = await prisma.service.create({ data: serviceData });
+      createdServices.push(service);
+    }
+
+    return createdServices.map((s) => ({
+      id: s.id,
+      name: s.name,
+      basePrice: s.basePrice,
+      description: s.description,
+    }));
   }
+
+  return services.map((s) => ({
+    id: s.id,
+    name: s.name,
+    basePrice: s.basePrice,
+    description: s.description,
+  }));
 }
 
 export async function saveServices(services: Service[]): Promise<void> {
-  await ensureDataDir();
-  await fs.writeFile(path.join(DATA_DIR, 'services.json'), JSON.stringify(services, null, 2));
+  await prisma.service.deleteMany();
+  for (const service of services) {
+    await prisma.service.create({
+      data: {
+        id: service.id,
+        name: service.name,
+        basePrice: service.basePrice,
+        description: service.description,
+      },
+    });
+  }
 }
 
 // Site Settings
 export async function getSiteSettings(): Promise<SiteSettings> {
-  await ensureDataDir();
-  try {
-    const data = await fs.readFile(path.join(DATA_DIR, 'settings.json'), 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    const defaultSettings: SiteSettings = {
-      analyticsCode: '',
-      chatbotCode: '',
-      updatedAt: new Date().toISOString(),
-    };
-    await saveSiteSettings(defaultSettings);
-    return defaultSettings;
+  let settings = await prisma.siteSettings.findUnique({ where: { id: 'main' } });
+
+  if (!settings) {
+    settings = await prisma.siteSettings.create({
+      data: {
+        id: 'main',
+        analyticsCode: '',
+        chatbotCode: '',
+      },
+    });
   }
+
+  return {
+    analyticsCode: settings.analyticsCode,
+    chatbotCode: settings.chatbotCode,
+    updatedAt: settings.updatedAt.toISOString(),
+  };
 }
 
-export async function saveSiteSettings(settings: SiteSettings): Promise<void> {
-  await ensureDataDir();
-  await fs.writeFile(path.join(DATA_DIR, 'settings.json'), JSON.stringify(settings, null, 2));
+export async function saveSiteSettings(settingsData: SiteSettings): Promise<void> {
+  await prisma.siteSettings.upsert({
+    where: { id: 'main' },
+    update: {
+      analyticsCode: settingsData.analyticsCode,
+      chatbotCode: settingsData.chatbotCode,
+    },
+    create: {
+      id: 'main',
+      analyticsCode: settingsData.analyticsCode,
+      chatbotCode: settingsData.chatbotCode,
+    },
+  });
 }
 
 // Partner Pricing Calculator
@@ -150,118 +212,296 @@ export function calculatePartnerPricing(services: Service[], markup: number = 20
 
 // Partners Management
 export async function getPartners(): Promise<Partner[]> {
-  await ensureDataDir();
-  try {
-    const data = await fs.readFile(path.join(DATA_DIR, 'partners.json'), 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
+  const partners = await prisma.partner.findMany();
+  return partners.map((p) => ({
+    id: p.id,
+    userId: p.userId,
+    companyName: p.companyName,
+    contactPerson: p.contactPerson,
+    email: p.email,
+    phone: p.phone,
+    address: p.address,
+    taxId: p.taxId,
+    markup: p.markup,
+    status: p.status as 'pending' | 'approved' | 'rejected' | 'suspended',
+    notes: p.notes,
+    createdAt: p.createdAt.toISOString(),
+    approvedAt: p.approvedAt?.toISOString(),
+    approvedBy: p.approvedBy || undefined,
+  }));
 }
 
 export async function savePartners(partners: Partner[]): Promise<void> {
-  await ensureDataDir();
-  await fs.writeFile(path.join(DATA_DIR, 'partners.json'), JSON.stringify(partners, null, 2));
+  // This is a bulk operation - delete all and recreate
+  // In production, you'd want more granular updates
+  await prisma.partner.deleteMany();
+  for (const partner of partners) {
+    await prisma.partner.create({
+      data: {
+        id: partner.id,
+        userId: partner.userId,
+        companyName: partner.companyName,
+        contactPerson: partner.contactPerson,
+        email: partner.email,
+        phone: partner.phone,
+        address: partner.address,
+        taxId: partner.taxId,
+        markup: partner.markup,
+        status: partner.status,
+        notes: partner.notes,
+        approvedAt: partner.approvedAt ? new Date(partner.approvedAt) : null,
+        approvedBy: partner.approvedBy || null,
+      },
+    });
+  }
 }
 
 export async function getPartnerById(id: string): Promise<Partner | null> {
-  const partners = await getPartners();
-  return partners.find((p) => p.id === id) || null;
+  const partner = await prisma.partner.findUnique({ where: { id } });
+  if (!partner) return null;
+  return {
+    id: partner.id,
+    userId: partner.userId,
+    companyName: partner.companyName,
+    contactPerson: partner.contactPerson,
+    email: partner.email,
+    phone: partner.phone,
+    address: partner.address,
+    taxId: partner.taxId,
+    markup: partner.markup,
+    status: partner.status as 'pending' | 'approved' | 'rejected' | 'suspended',
+    notes: partner.notes,
+    createdAt: partner.createdAt.toISOString(),
+    approvedAt: partner.approvedAt?.toISOString(),
+    approvedBy: partner.approvedBy || undefined,
+  };
 }
 
 export async function getPartnerByUserId(userId: string): Promise<Partner | null> {
-  const partners = await getPartners();
-  return partners.find((p) => p.userId === userId) || null;
+  const partner = await prisma.partner.findUnique({ where: { userId } });
+  if (!partner) return null;
+  return {
+    id: partner.id,
+    userId: partner.userId,
+    companyName: partner.companyName,
+    contactPerson: partner.contactPerson,
+    email: partner.email,
+    phone: partner.phone,
+    address: partner.address,
+    taxId: partner.taxId,
+    markup: partner.markup,
+    status: partner.status as 'pending' | 'approved' | 'rejected' | 'suspended',
+    notes: partner.notes,
+    createdAt: partner.createdAt.toISOString(),
+    approvedAt: partner.approvedAt?.toISOString(),
+    approvedBy: partner.approvedBy || undefined,
+  };
 }
 
-export async function createPartner(partnerData: Omit<Partner, 'id' | 'createdAt'>): Promise<Partner> {
-  const partners = await getPartners();
+export async function createPartner(
+  partnerData: Omit<Partner, 'id' | 'createdAt'>
+): Promise<Partner> {
+  const newPartner = await prisma.partner.create({
+    data: {
+      userId: partnerData.userId,
+      companyName: partnerData.companyName,
+      contactPerson: partnerData.contactPerson,
+      email: partnerData.email,
+      phone: partnerData.phone,
+      address: partnerData.address,
+      taxId: partnerData.taxId,
+      markup: partnerData.markup,
+      status: partnerData.status,
+      notes: partnerData.notes,
+      approvedAt: partnerData.approvedAt ? new Date(partnerData.approvedAt) : null,
+      approvedBy: partnerData.approvedBy || null,
+    },
+  });
 
-  const newPartner: Partner = {
-    ...partnerData,
-    id: Date.now().toString(),
-    createdAt: new Date().toISOString(),
+  return {
+    id: newPartner.id,
+    userId: newPartner.userId,
+    companyName: newPartner.companyName,
+    contactPerson: newPartner.contactPerson,
+    email: newPartner.email,
+    phone: newPartner.phone,
+    address: newPartner.address,
+    taxId: newPartner.taxId,
+    markup: newPartner.markup,
+    status: newPartner.status as 'pending' | 'approved' | 'rejected' | 'suspended',
+    notes: newPartner.notes,
+    createdAt: newPartner.createdAt.toISOString(),
+    approvedAt: newPartner.approvedAt?.toISOString(),
+    approvedBy: newPartner.approvedBy || undefined,
   };
-
-  partners.push(newPartner);
-  await savePartners(partners);
-  return newPartner;
 }
 
 export async function updatePartner(id: string, updates: Partial<Partner>): Promise<Partner | null> {
-  const partners = await getPartners();
-  const index = partners.findIndex((p) => p.id === id);
+  try {
+    const updateData: Record<string, unknown> = {};
 
-  if (index === -1) return null;
+    if (updates.companyName) updateData.companyName = updates.companyName;
+    if (updates.contactPerson) updateData.contactPerson = updates.contactPerson;
+    if (updates.email) updateData.email = updates.email;
+    if (updates.phone) updateData.phone = updates.phone;
+    if (updates.address) updateData.address = updates.address;
+    if (updates.taxId) updateData.taxId = updates.taxId;
+    if (updates.markup !== undefined) updateData.markup = updates.markup;
+    if (updates.status) updateData.status = updates.status;
+    if (updates.notes !== undefined) updateData.notes = updates.notes;
+    if (updates.approvedAt) updateData.approvedAt = new Date(updates.approvedAt);
+    if (updates.approvedBy) updateData.approvedBy = updates.approvedBy;
 
-  partners[index] = { ...partners[index], ...updates };
-  await savePartners(partners);
-  return partners[index];
+    const updatedPartner = await prisma.partner.update({
+      where: { id },
+      data: updateData,
+    });
+
+    return {
+      id: updatedPartner.id,
+      userId: updatedPartner.userId,
+      companyName: updatedPartner.companyName,
+      contactPerson: updatedPartner.contactPerson,
+      email: updatedPartner.email,
+      phone: updatedPartner.phone,
+      address: updatedPartner.address,
+      taxId: updatedPartner.taxId,
+      markup: updatedPartner.markup,
+      status: updatedPartner.status as 'pending' | 'approved' | 'rejected' | 'suspended',
+      notes: updatedPartner.notes,
+      createdAt: updatedPartner.createdAt.toISOString(),
+      approvedAt: updatedPartner.approvedAt?.toISOString(),
+      approvedBy: updatedPartner.approvedBy || undefined,
+    };
+  } catch {
+    return null;
+  }
 }
 
 export async function deletePartner(id: string): Promise<boolean> {
-  const partners = await getPartners();
-  const filteredPartners = partners.filter((p) => p.id !== id);
-
-  if (partners.length === filteredPartners.length) return false;
-
-  await savePartners(filteredPartners);
-  return true;
+  try {
+    await prisma.partner.delete({ where: { id } });
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 // Partner Applications
 export async function getPartnerApplications(): Promise<PartnerApplication[]> {
-  await ensureDataDir();
-  try {
-    const data = await fs.readFile(path.join(DATA_DIR, 'partner-applications.json'), 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
+  const applications = await prisma.partnerApplication.findMany({
+    orderBy: { createdAt: 'desc' },
+  });
+
+  return applications.map((a) => ({
+    id: a.id,
+    companyName: a.companyName,
+    contactPerson: a.contactPerson,
+    email: a.email,
+    phone: a.phone,
+    address: a.address,
+    taxId: a.taxId,
+    message: a.message,
+    status: a.status as 'pending' | 'approved' | 'rejected',
+    createdAt: a.createdAt.toISOString(),
+    reviewedAt: a.reviewedAt?.toISOString(),
+    reviewedBy: a.reviewedBy || undefined,
+  }));
 }
 
 export async function savePartnerApplications(applications: PartnerApplication[]): Promise<void> {
-  await ensureDataDir();
-  await fs.writeFile(path.join(DATA_DIR, 'partner-applications.json'), JSON.stringify(applications, null, 2));
+  await prisma.partnerApplication.deleteMany();
+  for (const app of applications) {
+    await prisma.partnerApplication.create({
+      data: {
+        id: app.id,
+        companyName: app.companyName,
+        contactPerson: app.contactPerson,
+        email: app.email,
+        phone: app.phone,
+        address: app.address,
+        taxId: app.taxId,
+        message: app.message,
+        status: app.status,
+        reviewedAt: app.reviewedAt ? new Date(app.reviewedAt) : null,
+        reviewedBy: app.reviewedBy || null,
+      },
+    });
+  }
 }
 
 export async function createPartnerApplication(
   applicationData: Omit<PartnerApplication, 'id' | 'status' | 'createdAt'>
 ): Promise<PartnerApplication> {
-  const applications = await getPartnerApplications();
+  const newApplication = await prisma.partnerApplication.create({
+    data: {
+      companyName: applicationData.companyName,
+      contactPerson: applicationData.contactPerson,
+      email: applicationData.email,
+      phone: applicationData.phone,
+      address: applicationData.address,
+      taxId: applicationData.taxId,
+      message: applicationData.message,
+      status: 'pending',
+    },
+  });
 
-  const newApplication: PartnerApplication = {
-    ...applicationData,
-    id: Date.now().toString(),
-    status: 'pending',
-    createdAt: new Date().toISOString(),
+  return {
+    id: newApplication.id,
+    companyName: newApplication.companyName,
+    contactPerson: newApplication.contactPerson,
+    email: newApplication.email,
+    phone: newApplication.phone,
+    address: newApplication.address,
+    taxId: newApplication.taxId,
+    message: newApplication.message,
+    status: newApplication.status as 'pending' | 'approved' | 'rejected',
+    createdAt: newApplication.createdAt.toISOString(),
+    reviewedAt: newApplication.reviewedAt?.toISOString(),
+    reviewedBy: newApplication.reviewedBy || undefined,
   };
-
-  applications.unshift(newApplication);
-  await savePartnerApplications(applications);
-  return newApplication;
 }
 
 export async function updatePartnerApplication(
   id: string,
   updates: Partial<PartnerApplication>
 ): Promise<PartnerApplication | null> {
-  const applications = await getPartnerApplications();
-  const index = applications.findIndex((a) => a.id === id);
+  try {
+    const updateData: Record<string, unknown> = {};
 
-  if (index === -1) return null;
+    if (updates.status) updateData.status = updates.status;
+    if (updates.reviewedAt) updateData.reviewedAt = new Date(updates.reviewedAt);
+    if (updates.reviewedBy) updateData.reviewedBy = updates.reviewedBy;
 
-  applications[index] = { ...applications[index], ...updates };
-  await savePartnerApplications(applications);
-  return applications[index];
+    const updatedApp = await prisma.partnerApplication.update({
+      where: { id },
+      data: updateData,
+    });
+
+    return {
+      id: updatedApp.id,
+      companyName: updatedApp.companyName,
+      contactPerson: updatedApp.contactPerson,
+      email: updatedApp.email,
+      phone: updatedApp.phone,
+      address: updatedApp.address,
+      taxId: updatedApp.taxId,
+      message: updatedApp.message,
+      status: updatedApp.status as 'pending' | 'approved' | 'rejected',
+      createdAt: updatedApp.createdAt.toISOString(),
+      reviewedAt: updatedApp.reviewedAt?.toISOString(),
+      reviewedBy: updatedApp.reviewedBy || undefined,
+    };
+  } catch {
+    return null;
+  }
 }
 
 export async function deletePartnerApplication(id: string): Promise<boolean> {
-  const applications = await getPartnerApplications();
-  const filtered = applications.filter((a) => a.id !== id);
-
-  if (applications.length === filtered.length) return false;
-
-  await savePartnerApplications(filtered);
-  return true;
+  try {
+    await prisma.partnerApplication.delete({ where: { id } });
+    return true;
+  } catch {
+    return false;
+  }
 }

@@ -1,48 +1,46 @@
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { prisma } from './prisma';
 import { User } from '@/types';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'gridjacarts-secret-key-change-in-production';
-const DATA_DIR = path.join(process.cwd(), 'data');
 
-async function ensureDataDir() {
-  try {
-    await fs.access(DATA_DIR);
-  } catch {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-  }
-}
-
-// User management with file storage
+// User management with Prisma
 export async function getUsers(): Promise<Array<User & { password: string }>> {
-  await ensureDataDir();
-  try {
-    const data = await fs.readFile(path.join(DATA_DIR, 'users.json'), 'utf-8');
-    return JSON.parse(data);
-  } catch {
-    // Default users - generate fresh hash
+  const users = await prisma.user.findMany();
+
+  // If no users exist, create default admin
+  if (users.length === 0) {
     const hashedPassword = await bcrypt.hash('admin123', 10);
-    const defaultUsers = [
-      {
-        id: '1',
+    const defaultUser = await prisma.user.create({
+      data: {
         email: 'admin@gridjacarts.com',
         name: 'Admin',
-        role: 'admin' as const,
+        role: 'admin',
         password: hashedPassword,
-        createdAt: new Date().toISOString(),
+      },
+    });
+    return [
+      {
+        id: defaultUser.id,
+        email: defaultUser.email,
+        name: defaultUser.name,
+        role: defaultUser.role as 'admin' | 'partner',
+        password: defaultUser.password,
+        createdAt: defaultUser.createdAt.toISOString(),
       },
     ];
-    await saveUsers(defaultUsers);
-    return defaultUsers;
   }
-}
 
-export async function saveUsers(users: Array<User & { password: string }>): Promise<void> {
-  await ensureDataDir();
-  await fs.writeFile(path.join(DATA_DIR, 'users.json'), JSON.stringify(users, null, 2));
+  return users.map((u) => ({
+    id: u.id,
+    email: u.email,
+    name: u.name,
+    role: u.role as 'admin' | 'partner',
+    password: u.password,
+    createdAt: u.createdAt.toISOString(),
+  }));
 }
 
 export async function createUser(userData: {
@@ -51,87 +49,90 @@ export async function createUser(userData: {
   password: string;
   role: 'admin' | 'partner';
 }): Promise<User> {
-  const users = await getUsers();
-
-  // Check if email already exists
-  if (users.find((u) => u.email === userData.email)) {
-    throw new Error('Email already exists');
-  }
-
   const hashedPassword = await hashPassword(userData.password);
-  const newUser = {
-    id: Date.now().toString(),
-    email: userData.email,
-    name: userData.name,
-    role: userData.role,
-    password: hashedPassword,
-    createdAt: new Date().toISOString(),
+  const newUser = await prisma.user.create({
+    data: {
+      email: userData.email,
+      name: userData.name,
+      role: userData.role,
+      password: hashedPassword,
+    },
+  });
+
+  return {
+    id: newUser.id,
+    email: newUser.email,
+    name: newUser.name,
+    role: newUser.role as 'admin' | 'partner',
+    createdAt: newUser.createdAt.toISOString(),
   };
-
-  users.push(newUser);
-  await saveUsers(users);
-
-  const { password: _, ...userWithoutPassword } = newUser;
-  return userWithoutPassword;
 }
 
 export async function updateUser(
   id: string,
   updates: Partial<{ email: string; name: string; password: string; role: 'admin' | 'partner' }>
 ): Promise<User | null> {
-  const users = await getUsers();
-  const index = users.findIndex((u) => u.id === id);
+  const updateData: Record<string, string> = {};
 
-  if (index === -1) return null;
+  if (updates.email) updateData.email = updates.email;
+  if (updates.name) updateData.name = updates.name;
+  if (updates.role) updateData.role = updates.role;
+  if (updates.password) updateData.password = await hashPassword(updates.password);
 
-  if (updates.email && updates.email !== users[index].email) {
-    if (users.find((u) => u.email === updates.email)) {
-      throw new Error('Email already exists');
-    }
-    users[index].email = updates.email;
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id },
+      data: updateData,
+    });
+
+    return {
+      id: updatedUser.id,
+      email: updatedUser.email,
+      name: updatedUser.name,
+      role: updatedUser.role as 'admin' | 'partner',
+      createdAt: updatedUser.createdAt.toISOString(),
+    };
+  } catch {
+    return null;
   }
-
-  if (updates.name) users[index].name = updates.name;
-  if (updates.role) users[index].role = updates.role;
-  if (updates.password) {
-    users[index].password = await hashPassword(updates.password);
-  }
-
-  await saveUsers(users);
-
-  const { password: _, ...userWithoutPassword } = users[index];
-  return userWithoutPassword;
 }
 
 export async function deleteUser(id: string): Promise<boolean> {
-  const users = await getUsers();
-  const filteredUsers = users.filter((u) => u.id !== id);
-
-  if (users.length === filteredUsers.length) return false;
-
-  await saveUsers(filteredUsers);
-  return true;
+  try {
+    await prisma.user.delete({ where: { id } });
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export async function getUserById(id: string): Promise<User | null> {
-  const users = await getUsers();
-  const user = users.find((u) => u.id === id);
+  const user = await prisma.user.findUnique({ where: { id } });
   if (!user) return null;
 
-  const { password: _, ...userWithoutPassword } = user;
-  return userWithoutPassword;
+  return {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    role: user.role as 'admin' | 'partner',
+    createdAt: user.createdAt.toISOString(),
+  };
 }
 
 export async function verifyCredentials(email: string, password: string): Promise<User | null> {
-  const users = await getUsers();
-  const user = users.find((u) => u.email === email);
+  const user = await prisma.user.findUnique({ where: { email } });
   if (!user) return null;
 
   const isValid = await bcrypt.compare(password, user.password);
   if (!isValid) return null;
 
-  const { password: _, ...userWithoutPassword } = user;
-  return userWithoutPassword;
+  return {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    role: user.role as 'admin' | 'partner',
+    createdAt: user.createdAt.toISOString(),
+  };
 }
 
 export function createToken(user: User): string {
