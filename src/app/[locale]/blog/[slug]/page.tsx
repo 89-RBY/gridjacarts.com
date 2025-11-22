@@ -96,11 +96,12 @@ export default async function BlogPostPage({ params: { locale, slug } }: BlogPos
             </div>
 
             {/* Content */}
-            <div className="prose prose-lg dark:prose-invert max-w-none">
-              <div className="whitespace-pre-wrap text-gray-700 dark:text-gray-300 leading-relaxed">
-                {post.content[locale as keyof typeof post.content] || post.content.en}
-              </div>
-            </div>
+            <div
+              className="prose prose-lg dark:prose-invert max-w-none prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-strong:text-gray-900 dark:prose-strong:text-white prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-ol:text-gray-700 dark:prose-ol:text-gray-300"
+              dangerouslySetInnerHTML={{
+                __html: post.content[locale as keyof typeof post.content] || post.content.en,
+              }}
+            />
 
             {/* Share */}
             <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
