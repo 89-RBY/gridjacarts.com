@@ -39,6 +39,12 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   const [isCreating, setIsCreating] = useState(false);
   const [isCreatingService, setIsCreatingService] = useState(false);
   const [isCreatingPartner, setIsCreatingPartner] = useState(false);
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const [passwordMessage, setPasswordMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
     checkAuth();
@@ -119,6 +125,44 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
       body: JSON.stringify(settings),
     });
     if (res.ok) alert('Settings saved!');
+  };
+
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordMessage(null);
+
+    // Validazione client-side
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setPasswordMessage({ type: 'error', text: 'New passwords do not match' });
+      return;
+    }
+
+    if (passwordForm.newPassword.length < 6) {
+      setPasswordMessage({ type: 'error', text: 'Password must be at least 6 characters' });
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/auth/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          currentPassword: passwordForm.currentPassword,
+          newPassword: passwordForm.newPassword,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setPasswordMessage({ type: 'success', text: 'Password changed successfully!' });
+        setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+      } else {
+        setPasswordMessage({ type: 'error', text: data.error || 'Failed to change password' });
+      }
+    } catch (error) {
+      setPasswordMessage({ type: 'error', text: 'An error occurred. Please try again.' });
+    }
   };
 
   const handleDeletePost = async (id: string) => {
@@ -604,29 +648,88 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
         )}
 
         {activeTab === 'settings' && settings && (
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-            <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium mb-2">Google Analytics Code</label>
-                <textarea
-                  value={settings.analyticsCode}
-                  onChange={(e) => setSettings({ ...settings, analyticsCode: e.target.value })}
-                  rows={6}
-                  className="w-full p-3 border rounded-lg font-mono text-sm dark:bg-gray-700"
-                />
+          <div className="space-y-6">
+            {/* Site Settings */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+              <h2 className="text-xl font-semibold mb-6">Site Settings</h2>
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Google Analytics Code</label>
+                  <textarea
+                    value={settings.analyticsCode}
+                    onChange={(e) => setSettings({ ...settings, analyticsCode: e.target.value })}
+                    rows={6}
+                    className="w-full p-3 border rounded-lg font-mono text-sm dark:bg-gray-700"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Chatbot Code (Footer)</label>
+                  <textarea
+                    value={settings.chatbotCode}
+                    onChange={(e) => setSettings({ ...settings, chatbotCode: e.target.value })}
+                    rows={6}
+                    className="w-full p-3 border rounded-lg font-mono text-sm dark:bg-gray-700"
+                  />
+                </div>
+                <button onClick={handleSaveSettings} className="btn-primary inline-flex items-center gap-2">
+                  <Save className="w-5 h-5" /> Save Settings
+                </button>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Chatbot Code (Footer)</label>
-                <textarea
-                  value={settings.chatbotCode}
-                  onChange={(e) => setSettings({ ...settings, chatbotCode: e.target.value })}
-                  rows={6}
-                  className="w-full p-3 border rounded-lg font-mono text-sm dark:bg-gray-700"
-                />
-              </div>
-              <button onClick={handleSaveSettings} className="btn-primary inline-flex items-center gap-2">
-                <Save className="w-5 h-5" /> Save Settings
-              </button>
+            </div>
+
+            {/* Change Password */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+              <h2 className="text-xl font-semibold mb-6">Change Password</h2>
+              <form onSubmit={handleChangePassword} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Current Password</label>
+                  <input
+                    type="password"
+                    value={passwordForm.currentPassword}
+                    onChange={(e) => setPasswordForm({ ...passwordForm, currentPassword: e.target.value })}
+                    className="w-full max-w-md p-3 border rounded-lg dark:bg-gray-700"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">New Password</label>
+                  <input
+                    type="password"
+                    value={passwordForm.newPassword}
+                    onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
+                    className="w-full max-w-md p-3 border rounded-lg dark:bg-gray-700"
+                    required
+                    minLength={6}
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Minimum 6 characters</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Confirm New Password</label>
+                  <input
+                    type="password"
+                    value={passwordForm.confirmPassword}
+                    onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
+                    className="w-full max-w-md p-3 border rounded-lg dark:bg-gray-700"
+                    required
+                  />
+                </div>
+
+                {passwordMessage && (
+                  <div
+                    className={`p-4 rounded-lg ${
+                      passwordMessage.type === 'success'
+                        ? 'bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-400'
+                        : 'bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-400'
+                    }`}
+                  >
+                    {passwordMessage.text}
+                  </div>
+                )}
+
+                <button type="submit" className="btn-primary inline-flex items-center gap-2">
+                  <Save className="w-5 h-5" /> Change Password
+                </button>
+              </form>
             </div>
           </div>
         )}
