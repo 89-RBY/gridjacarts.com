@@ -8,6 +8,9 @@ interface BlogPageProps {
   params: { locale: string };
 }
 
+// Force dynamic rendering due to database queries and next-intl usage
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params: { locale } }: BlogPageProps) {
   const t = await getTranslations({ locale, namespace: 'blog' });
   return {

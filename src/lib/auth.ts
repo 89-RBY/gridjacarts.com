@@ -33,7 +33,7 @@ export async function getUsers(): Promise<Array<User & { password: string }>> {
     ];
   }
 
-  return users.map((u) => ({
+  return users.map((u: typeof users[0]) => ({
     id: u.id,
     email: u.email,
     name: u.name,

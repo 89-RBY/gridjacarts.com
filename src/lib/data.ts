@@ -127,13 +127,13 @@ export async function getServices(): Promise<Service[]> {
       { name: 'Full Stack App - Basic', basePrice: 5000, description: 'Basic web application' },
     ];
 
-    const createdServices = [];
+    const createdServices: Awaited<ReturnType<typeof prisma.service.create>>[] = [];
     for (const serviceData of defaultServicesData) {
       const service = await prisma.service.create({ data: serviceData });
       createdServices.push(service);
     }
 
-    return createdServices.map((s) => ({
+    return createdServices.map((s: typeof createdServices[0]) => ({
       id: s.id,
       name: s.name,
       basePrice: s.basePrice,
@@ -141,7 +141,7 @@ export async function getServices(): Promise<Service[]> {
     }));
   }
 
-  return services.map((s) => ({
+  return services.map((s: typeof services[0]) => ({
     id: s.id,
     name: s.name,
     basePrice: s.basePrice,
@@ -213,7 +213,7 @@ export function calculatePartnerPricing(services: Service[], markup: number = 20
 // Partners Management
 export async function getPartners(): Promise<Partner[]> {
   const partners = await prisma.partner.findMany();
-  return partners.map((p) => ({
+  return partners.map((p: typeof partners[0]) => ({
     id: p.id,
     userId: p.userId,
     companyName: p.companyName,
@@ -393,7 +393,7 @@ export async function getPartnerApplications(): Promise<PartnerApplication[]> {
     orderBy: { createdAt: 'desc' },
   });
 
-  return applications.map((a) => ({
+  return applications.map((a: typeof applications[0]) => ({
     id: a.id,
     companyName: a.companyName,
     contactPerson: a.contactPerson,

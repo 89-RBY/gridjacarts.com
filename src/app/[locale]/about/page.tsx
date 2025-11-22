@@ -6,6 +6,9 @@ interface AboutPageProps {
   params: { locale: string };
 }
 
+// Force dynamic rendering due to next-intl usage
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params: { locale } }: AboutPageProps) {
   const t = await getTranslations({ locale, namespace: 'about' });
   return {
