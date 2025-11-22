@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Code,
   Palette,
@@ -35,6 +36,7 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
       icon: Palette,
       title: t('webDesign.title'),
       description: t('webDesign.description'),
+      image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop',
       features: locale === 'ro'
         ? ['Design responsive', 'UI/UX optimizat', 'Branding vizual', 'Prototipare']
         : locale === 'en'
@@ -45,6 +47,7 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
       icon: Code,
       title: t('webDev.title'),
       description: t('webDev.description'),
+      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop',
       features: locale === 'ro'
         ? ['Tehnologii moderne', 'Performanță optimă', 'Securitate avansată', 'Scalabilitate']
         : locale === 'en'
@@ -55,6 +58,7 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
       icon: Search,
       title: t('seo.title'),
       description: t('seo.description'),
+      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
       features: locale === 'ro'
         ? ['Audit SEO complet', 'Optimizare on-page', 'Link building', 'Rapoarte detaliate']
         : locale === 'en'
@@ -65,6 +69,7 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
       icon: Share2,
       title: t('smm.title'),
       description: t('smm.description'),
+      image: 'https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800&h=600&fit=crop',
       features: locale === 'ro'
         ? ['Strategie de conținut', 'Gestionare conturi', 'Creștere organică', 'Analiză engagement']
         : locale === 'en'
@@ -75,6 +80,7 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
       icon: Megaphone,
       title: t('advertising.title'),
       description: t('advertising.description'),
+      image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=800&h=600&fit=crop',
       features: locale === 'ro'
         ? ['Google Ads', 'Facebook Ads', 'Remarketing', 'Optimizare ROI']
         : locale === 'en'
@@ -85,6 +91,7 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
       icon: Camera,
       title: t('virtualTours.title'),
       description: t('virtualTours.description'),
+      image: 'https://images.unsplash.com/photo-1617802690658-1173a812650d?w=800&h=600&fit=crop',
       features: locale === 'ro'
         ? ['Fotografii 360°', 'Experiențe interactive', 'Integrare Google Maps', 'Realitate virtuală']
         : locale === 'en'
@@ -95,6 +102,7 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
       icon: Layers,
       title: t('fullStack.title'),
       description: t('fullStack.description'),
+      image: 'https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?w=800&h=600&fit=crop',
       features: locale === 'ro'
         ? ['Aplicații web complete', 'API development', 'Baze de date', 'Cloud deployment']
         : locale === 'en'
@@ -150,8 +158,15 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
                   </ul>
                 </div>
                 <div className={index % 2 === 1 ? 'md:col-start-1 md:row-start-1' : ''}>
-                  <div className="aspect-[4/3] bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/30 dark:to-accent-900/30 rounded-3xl flex items-center justify-center">
-                    <service.icon className="w-24 h-24 text-primary-600/30 dark:text-primary-400/30" />
+                  <div className="aspect-[4/3] relative rounded-3xl overflow-hidden shadow-lg group">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-primary-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 </div>
               </div>
