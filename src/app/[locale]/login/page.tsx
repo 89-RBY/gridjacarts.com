@@ -5,9 +5,6 @@ import { useRouter } from 'next/navigation';
 import Logo from '@/components/Logo';
 import { Lock, Mail, AlertCircle } from 'lucide-react';
 
-// Force dynamic rendering due to middleware using next-intl
-export const dynamic = 'force-dynamic';
-
 export default function LoginPage({ params: { locale } }: { params: { locale: string } }) {
   const router = useRouter();
   const [email, setEmail] = useState('');
