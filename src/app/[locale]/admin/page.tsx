@@ -21,6 +21,9 @@ import {
 import Logo from '@/components/Logo';
 import { User, BlogPost, SiteSettings, Partner, PartnerApplication, Service } from '@/types';
 
+// Force dynamic rendering due to middleware using next-intl
+export const dynamic = 'force-dynamic';
+
 export default function AdminDashboard({ params: { locale } }: { params: { locale: string } }) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);

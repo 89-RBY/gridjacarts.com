@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { Send, CheckCircle } from 'lucide-react';
 import Logo from '@/components/Logo';
 
+// Force dynamic rendering due to middleware using next-intl
+export const dynamic = 'force-dynamic';
+
 export default function BecomePartnerPage({ params: { locale } }: { params: { locale: string } }) {
   const [formData, setFormData] = useState({
     companyName: '',
