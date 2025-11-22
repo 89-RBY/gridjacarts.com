@@ -1,6 +1,9 @@
 import { MetadataRoute } from 'next';
 import { getBlogPosts } from '@/lib/data';
 
+// Force dynamic rendering due to database queries
+export const dynamic = 'force-dynamic';
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://gridjacarts.com';
   const locales = ['ro', 'en', 'it'];
