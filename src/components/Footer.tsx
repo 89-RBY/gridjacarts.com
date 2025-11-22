@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { useState } from 'react';
+import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin, Check } from 'lucide-react';
 import Logo from './Logo';
 
 interface FooterProps {
@@ -13,6 +14,10 @@ export default function Footer({ locale }: FooterProps) {
   const t = useTranslations('footer');
   const tNav = useTranslations('nav');
   const tCommon = useTranslations('common');
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const quickLinks = [
     { name: tNav('home'), href: `/${locale}` },
@@ -28,6 +33,37 @@ export default function Footer({ locale }: FooterProps) {
     { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/gridjacarts' },
     { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/company/gridjacarts' },
   ];
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage('');
+    setSuccess(false);
+
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setMessage(data.error || 'Errore durante la sottoscrizione');
+        setSuccess(false);
+      } else {
+        setMessage(locale === 'ro' ? 'Te-ai abonat cu succes!' : locale === 'en' ? 'Successfully subscribed!' : 'Iscrizione completata!');
+        setSuccess(true);
+        setEmail('');
+      }
+    } catch (error) {
+      setMessage(locale === 'ro' ? 'Eroare de rețea' : locale === 'en' ? 'Network error' : 'Errore di rete');
+      setSuccess(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <footer className="bg-gray-900 text-gray-300">
@@ -113,18 +149,29 @@ export default function Footer({ locale }: FooterProps) {
           <div>
             <h3 className="text-white font-semibold mb-4">{t('newsletter')}</h3>
             <p className="text-sm text-gray-400 mb-4">{t('newsletterText')}</p>
-            <form className="space-y-2">
+            <form onSubmit={handleNewsletterSubmit} className="space-y-2">
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder={tCommon('email')}
-                className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                required
+                disabled={loading || success}
+                className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50"
               />
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-primary-600 to-accent-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200"
+                disabled={loading || success}
+                className="w-full bg-gradient-to-r from-primary-600 to-accent-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
               >
-                {t('subscribe')}
+                {success && <Check className="w-4 h-4" />}
+                {loading ? (locale === 'ro' ? 'Se trimite...' : locale === 'en' ? 'Sending...' : 'Invio...') : success ? (locale === 'ro' ? 'Abonat!' : locale === 'en' ? 'Subscribed!' : 'Iscritto!') : t('subscribe')}
               </button>
+              {message && (
+                <p className={`text-xs ${success ? 'text-green-400' : 'text-red-400'}`}>
+                  {message}
+                </p>
+              )}
             </form>
           </div>
         </div>

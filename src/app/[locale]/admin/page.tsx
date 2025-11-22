@@ -17,9 +17,10 @@ import {
   Check,
   XCircle,
   Package,
+  Mail,
 } from 'lucide-react';
 import Logo from '@/components/Logo';
-import { User, BlogPost, SiteSettings, Partner, PartnerApplication, Service } from '@/types';
+import { User, BlogPost, SiteSettings, Partner, PartnerApplication, Service, NewsletterSubscriber } from '@/types';
 
 export default function AdminDashboard({ params: { locale } }: { params: { locale: string } }) {
   const router = useRouter();
@@ -30,6 +31,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   const [partners, setPartners] = useState<Partner[]>([]);
   const [applications, setApplications] = useState<PartnerApplication[]>([]);
   const [services, setServices] = useState<Service[]>([]);
+  const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [editingService, setEditingService] = useState<Service | null>(null);
@@ -65,7 +67,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   };
 
   const fetchAllData = async () => {
-    await Promise.all([fetchPosts(), fetchSettings(), fetchPartners(), fetchApplications(), fetchServices()]);
+    await Promise.all([fetchPosts(), fetchSettings(), fetchPartners(), fetchApplications(), fetchServices(), fetchSubscribers()]);
   };
 
   const fetchPosts = async () => {
@@ -96,6 +98,12 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
     const res = await fetch('/api/services');
     const data = await res.json();
     if (res.ok) setServices(data.services);
+  };
+
+  const fetchSubscribers = async () => {
+    const res = await fetch('/api/newsletter');
+    const data = await res.json();
+    if (res.ok) setSubscribers(data.subscribers);
   };
 
   const handleLogout = async () => {
@@ -236,6 +244,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
             { id: 'partners', icon: Briefcase, label: 'Partners' },
             { id: 'services', icon: Package, label: 'Services' },
             { id: 'blog', icon: FileText, label: 'Blog' },
+            { id: 'newsletter', icon: Mail, label: 'Newsletter' },
             { id: 'settings', icon: Settings, label: 'Settings' },
           ].map((item) => (
             <button
@@ -275,22 +284,36 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
         </div>
 
         {activeTab === 'dashboard' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-              <h3 className="text-lg font-semibold mb-2">Posts</h3>
-              <p className="text-3xl font-bold text-primary-600">{posts.length}</p>
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                <h3 className="text-lg font-semibold mb-2">Posts</h3>
+                <p className="text-3xl font-bold text-primary-600">{posts.length}</p>
+              </div>
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                <h3 className="text-lg font-semibold mb-2">Partners</h3>
+                <p className="text-3xl font-bold text-green-600">{partners.length}</p>
+              </div>
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                <h3 className="text-lg font-semibold mb-2">Pending</h3>
+                <p className="text-3xl font-bold text-yellow-600">{pendingApplications}</p>
+              </div>
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                <h3 className="text-lg font-semibold mb-2">Services</h3>
+                <p className="text-3xl font-bold text-purple-600">{services.length}</p>
+              </div>
             </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-              <h3 className="text-lg font-semibold mb-2">Partners</h3>
-              <p className="text-3xl font-bold text-green-600">{partners.length}</p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-              <h3 className="text-lg font-semibold mb-2">Pending</h3>
-              <p className="text-3xl font-bold text-yellow-600">{pendingApplications}</p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-              <h3 className="text-lg font-semibold mb-2">Services</h3>
-              <p className="text-3xl font-bold text-purple-600">{services.length}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                <h3 className="text-lg font-semibold mb-2">Newsletter Subscribers</h3>
+                <p className="text-3xl font-bold text-blue-600">{subscribers.filter(s => s.status === 'active').length}</p>
+                <p className="text-sm text-gray-500 mt-2">Active subscribers</p>
+              </div>
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                <h3 className="text-lg font-semibold mb-2">Unsubscribed</h3>
+                <p className="text-3xl font-bold text-gray-400">{subscribers.filter(s => s.status === 'unsubscribed').length}</p>
+                <p className="text-sm text-gray-500 mt-2">Total unsubscribed</p>
+              </div>
             </div>
           </div>
         )}
@@ -522,6 +545,62 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
               setIsCreating(false);
             }}
           />
+        )}
+
+        {activeTab === 'newsletter' && (
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow">
+            <div className="p-6 border-b">
+              <h2 className="text-xl font-semibold">Newsletter Subscribers ({subscribers.length})</h2>
+              <p className="text-sm text-gray-500 mt-1">
+                Active: {subscribers.filter(s => s.status === 'active').length} |
+                Unsubscribed: {subscribers.filter(s => s.status === 'unsubscribed').length}
+              </p>
+            </div>
+            {subscribers.length === 0 ? (
+              <div className="p-6 text-center text-gray-500">No subscribers yet</div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50 dark:bg-gray-700">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-sm font-medium">Email</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium">Source</th>
+                      <th className="px-6 py-3 text-center text-sm font-medium">Status</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium">Subscribed</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y">
+                    {subscribers.map((subscriber) => (
+                      <tr key={subscriber.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <td className="px-6 py-4 font-medium">{subscriber.email}</td>
+                        <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400 capitalize">
+                          {subscriber.source}
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs ${
+                              subscriber.status === 'active'
+                                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                                : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400'
+                            }`}
+                          >
+                            {subscriber.status}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
+                          {new Date(subscriber.createdAt).toLocaleDateString(locale, {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                          })}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
         )}
 
         {activeTab === 'settings' && settings && (

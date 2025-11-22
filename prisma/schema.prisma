@@ -88,3 +88,12 @@ model SiteSettings {
   chatbotCode   String   @default("")
   updatedAt     DateTime @updatedAt
 }
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  status    String   @default("active") // active or unsubscribed
+  source    String   @default("website") // website, partner, etc
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

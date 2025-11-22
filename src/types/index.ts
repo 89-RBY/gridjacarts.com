@@ -83,3 +83,11 @@ export interface SiteSettings {
   chatbotCode: string;
   updatedAt: string;
 }
+
+export interface NewsletterSubscriber {
+  id: string;
+  email: string;
+  status: 'active' | 'unsubscribed';
+  source: string;
+  createdAt: string;
+}
