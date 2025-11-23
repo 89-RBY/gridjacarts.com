@@ -259,13 +259,29 @@ export async function createOrder(data: {
     throw new Error('Partner not found');
   }
 
-  const service = await prisma.servicePricing.findUnique({
+  const serviceFromDb = await prisma.servicePricing.findUnique({
     where: { serviceType: data.serviceType },
   });
 
-  if (!service) {
+  if (!serviceFromDb) {
     throw new Error('Service not found');
   }
+
+  // Convert Prisma result to ServicePricing type
+  const service: ServicePricing = {
+    id: serviceFromDb.id,
+    serviceType: serviceFromDb.serviceType,
+    serviceName: serviceFromDb.serviceName,
+    category: serviceFromDb.category,
+    priceRo: serviceFromDb.priceRo,
+    priceIt: serviceFromDb.priceIt,
+    priceEn: serviceFromDb.priceEn,
+    description: serviceFromDb.description,
+    isActive: serviceFromDb.isActive,
+    isRecurring: serviceFromDb.isRecurring,
+    createdAt: serviceFromDb.createdAt.toISOString(),
+    updatedAt: serviceFromDb.updatedAt.toISOString(),
+  };
 
   const amount = getServicePrice(service, data.locale);
   const discount = getTierDiscount(partner.currentTier as TierLevel);
