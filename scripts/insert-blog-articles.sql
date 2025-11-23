@@ -1777,5 +1777,163 @@ VALUES (
 )
 ON CONFLICT (slug) DO NOTHING;
 
+-- 5. DIGITAL ADVERTISING
+INSERT INTO "BlogPost" (
+  id, slug, "titleRo", "titleEn", "titleIt",
+  "contentRo", "contentEn", "contentIt",
+  "excerptRo", "excerptEn", "excerptIt",
+  author, tags, status, "publishedAt", "createdAt", "updatedAt"
+)
+VALUES (
+  'post_' || substring(md5(random()::text) from 1 for 20),
+  'publicitate-digitala-ghid-complet-2026',
+  'Publicitate Digitală 2026: Ghid Complet Google Ads, Meta Ads și Strategii ROI Maxim',
+  'Digital Advertising 2026: Complete Guide to Google Ads, Meta Ads and Maximum ROI Strategies',
+  'Pubblicità Digitale 2026: Guida Completa a Google Ads, Meta Ads e Strategie ROI Massimo',
+
+  -- Content RO
+  '<h2>Publicitatea Digitală în 2026: Investiție Strategică cu ROI Măsurabil</h2>
+<p>Publicitatea digitală a devenit pilonul central al strategiilor de marketing moderne. Spre deosebire de publicitatea tradițională, advertising-ul digital oferă targeting precis, măsurabilitate completă și optimizare în timp real. În 2026, investițiile globale în advertising digital depășesc $600 miliarde, confirmând importanța acestui canal.</p>
+
+<h3>De Ce Publicitatea Digitală Este Esențială?</h3>
+<ul>
+<li><strong>ROI măsurabil:</strong> Știi exact cât costă fiecare click, conversie, vânzare</li>
+<li><strong>Targeting precis:</strong> Ajungi exact la audiența potrivită în momentul potrivit</li>
+<li><strong>Scalabilitate:</strong> De la 100€ la 100,000€/lună - adaptabil la orice buget</li>
+<li><strong>Rapiditate:</strong> Rezultate în ore/zile, nu luni ca la SEO</li>
+<li><strong>Flexibilitate:</strong> Oprești, modifici, optimizezi campaniile instant</li>
+<li><strong>Retargeting:</strong> Urmărești utilizatorii care au arătat interes</li>
+</ul>
+
+<h3>Google Ads: Motorul Principal de Generare Lead-uri</h3>
+
+<h4>1. Google Search Ads - Captează Intenția de Cumpărare</h4>
+<p>Reclame text în rezultatele de căutare Google - cea mai puternică formă de advertising:</p>
+<ul>
+<li><strong>High intent:</strong> Utilizatorii caută activ produsul/serviciul tău</li>
+<li><strong>Pay-per-click:</strong> Plătești doar când cineva dă click</li>
+<li><strong>Keyword targeting:</strong> Targetezi termeni cu intenție de cumpărare</li>
+<li><strong>Ad extensions:</strong> Sitelinks, callouts, structured snippets pentru CTR mai mare</li>
+<li><strong>Quality Score:</strong> Optimizare pentru cost mai mic per click</li>
+</ul>
+
+<h4>2. Google Shopping Ads - Esențial pentru E-Commerce</h4>
+<p>Reclame produse cu imagine, preț, rating direct în SERP. 70% din click-urile e-commerce provin din Shopping Ads. Product feed optimization și Smart Shopping cu machine learning oferă rezultate excepționale.</p>
+
+<h4>3. Google Display Network - Brand Awareness</h4>
+<p>Bannere vizuale pe peste 2 milioane de site-uri. Reach de 90% din utilizatorii de internet cu targeting avansat: demographics, interests, remarketing.</p>
+
+<h4>4. YouTube Ads - Video Marketing</h4>
+<p>Platforma video #1 cu 2+ miliarde utilizatori. Skippable In-Stream, Non-skippable, Bumper Ads (6s), Discovery Ads cu targeting precis demografic și comportamental.</p>
+
+<h3>Meta Ads (Facebook & Instagram): Social Advertising</h3>
+<p>3 miliarde utilizatori - cea mai mare bază demografică. Custom Audiences, Lookalike Audiences, targeting pe interese și comportament. Formate: Image, Video, Carousel, Collection, Stories, Reels. Obiective: Awareness, Traffic, Engagement, Leads, Sales, Messages.</p>
+
+<h3>TikTok Ads: Viralitate și Gen Z</h3>
+<p>1+ miliard utilizatori, platformă în creștere rapidă. In-Feed Ads, Spark Ads, TopView, Branded Hashtag Challenge, TikTok Shop. Perfect pentru Gen Z (16-24), produse lifestyle, fashion, beauty, tech.</p>
+
+<h3>LinkedIn Ads: B2B Professional</h3>
+<p>Premium pentru B2B advertising. Sponsored Content, Message Ads, Dynamic Ads, Lead Gen Forms. Targeting unic: job title, company size, industry, seniority. Perfect pentru B2B sales, recruitment, events.</p>
+
+<h3>Retargeting: Convertește Vizitatorii Pierduți</h3>
+<p>97% vizitatori pleacă fără să cumpere. Site Retargeting, Dynamic Retargeting, Cart Abandonment (15-30% recovery), Email Retargeting, Search Retargeting. Segmentare inteligentă: homepage vs product vs cart, time decay, frequency capping, sequential messaging.</p>
+
+<h3>Optimizare Campanii</h3>
+<p>A/B Testing continuu: ad copy, creatives, audiences, landing pages, bidding, schedules. Conversion Rate Optimization: message match, CTA clar, social proof, speed sub 3s, mobile-optimized, remove distractions.</p>
+
+<h3>Metrici Esențiali</h3>
+<p>Base: Impressions, Clicks, CTR, CPC, CPM. Conversie: Conversions, Conversion Rate, CPA, ROAS, ROI, CLV. Benchmark 2026: Google Search CTR 3-5%, Facebook CTR 0.9-1.6%, ROAS bun 400-500%, E-commerce conversion 2-3%.</p>
+
+<h3>Tendințe 2026</h3>
+<p>AI & Machine Learning pentru bidding și creative generation, Privacy-first advertising cookieless, Voice search ads, AR ads cu virtual try-on, Shoppable ads cu checkout nativ, Connected TV (CTV), Influencer whitelisting.</p>
+
+<h3>Concluzie</h3>
+<p>Publicitatea digitală 2026 combină știință exactă cu artă creativă. Platforme potrivite, targeting precis, creativs impactante, optimizare continuă = ROI extraordinar. Cheia: testează constant, măsoară totul, optimizează neîncetat.</p>
+<p>La GridjaCards, gestionăm campanii complexe pe toate platformele: strategie, setup, optimizare zilnică, raportare transparentă. Transformăm bugetele de advertising în vânzări reale și profitabile.</p>',
+
+  -- Content EN
+  '<h2>Digital Advertising in 2026: Strategic Investment with Measurable ROI</h2>
+<p>Digital advertising has become the central pillar of modern marketing strategies. Unlike traditional advertising, digital advertising offers precise targeting, complete measurability, and real-time optimization. In 2026, global digital advertising investments exceed $600 billion, confirming this channel''s importance.</p>
+
+<h3>Why Digital Advertising Is Essential</h3>
+<p>Measurable ROI - know exact cost per click, conversion, sale. Precise targeting - reach right audience at right time. Scalability - $100 to $100,000/month adaptable to any budget. Speed - results in hours/days not months. Flexibility - stop, modify, optimize campaigns instantly. Retargeting - follow users who showed interest.</p>
+
+<h3>Google Ads: Main Lead Generation Engine</h3>
+<p>Search Ads capture purchase intent - text ads in Google results, pay-per-click, keyword targeting, ad extensions, Quality Score optimization. Shopping Ads essential for e-commerce - 70% e-commerce clicks, product feed optimization, Smart Shopping ML. Display Network for brand awareness - 2M+ sites, 90% internet reach. YouTube Ads - 2B+ users, Skippable/Non-skippable/Bumper formats.</p>
+
+<h3>Meta Ads: Social Advertising Dominant</h3>
+<p>3 billion users - largest demographic database. Custom Audiences, Lookalike Audiences, interest/behavior targeting. Formats: Image, Video, Carousel, Collection, Stories, Reels. Objectives: Awareness, Traffic, Engagement, Leads, Sales, Messages.</p>
+
+<h3>TikTok Ads: Virality & Gen Z</h3>
+<p>1B+ users, fastest growing. In-Feed Ads, Spark Ads, TopView, Branded Hashtag Challenge, TikTok Shop. Perfect for Gen Z (16-24), lifestyle, fashion, beauty, tech products.</p>
+
+<h3>LinkedIn Ads: B2B Professional</h3>
+<p>Premium B2B platform. Sponsored Content, Message Ads, Dynamic Ads, Lead Gen Forms. Unique targeting: job title, company size, industry, seniority. Perfect for B2B sales, recruitment.</p>
+
+<h3>Retargeting: Convert Lost Visitors</h3>
+<p>97% visitors leave without buying. Site Retargeting, Dynamic Retargeting, Cart Abandonment (15-30% recovery), Email/Search/Video Retargeting. Smart segmentation: page type, time decay, frequency capping, sequential messaging.</p>
+
+<h3>Campaign Optimization</h3>
+<p>Continuous A/B Testing: ad copy, creatives, audiences, landing pages, bidding, schedules. CRO: message match, clear CTA, social proof, speed under 3s, mobile-optimized, remove distractions.</p>
+
+<h3>Essential Metrics</h3>
+<p>Basic: Impressions, Clicks, CTR, CPC, CPM. Conversion: Conversions, Conversion Rate, CPA, ROAS, ROI, CLV. 2026 Benchmarks: Google Search CTR 3-5%, Facebook CTR 0.9-1.6%, Good ROAS 400-500%, E-commerce conversion 2-3%.</p>
+
+<h3>2026 Trends</h3>
+<p>AI & ML for automated bidding and creative generation. Privacy-first cookieless advertising. Voice search ads. AR ads with virtual try-on. Shoppable ads with native checkout. Connected TV (CTV). Influencer whitelisting.</p>
+
+<h3>Conclusion</h3>
+<p>Digital advertising 2026 combines exact science with creative art. Right platforms, precise targeting, impactful creatives, continuous optimization = extraordinary ROI. Key: test constantly, measure everything, optimize relentlessly.</p>
+<p>At GridjaCards, we manage complex campaigns across all platforms: strategy, setup, daily optimization, transparent reporting. We transform advertising budgets into real, profitable sales.</p>',
+
+  -- Content IT
+  '<h2>Pubblicità Digitale nel 2026: Investimento Strategico con ROI Misurabile</h2>
+<p>La pubblicità digitale è diventata il pilastro centrale delle strategie di marketing moderne. A differenza della pubblicità tradizionale, offre targeting preciso, misurabilità completa e ottimizzazione in tempo reale. Nel 2026, gli investimenti globali superano i $600 miliardi.</p>
+
+<h3>Perché la Pubblicità Digitale è Essenziale</h3>
+<p>ROI misurabile - costo esatto per click, conversione, vendita. Targeting preciso - pubblico giusto al momento giusto. Scalabilità - €100 a €100.000/mese. Velocità - risultati in ore/giorni. Flessibilità - ferma, modifica, ottimizza istantaneamente. Retargeting - segui utenti interessati.</p>
+
+<h3>Google Ads: Motore Generazione Lead</h3>
+<p>Search Ads cattura intento acquisto - annunci testuali risultati Google, pay-per-click, keyword targeting, ad extensions, Quality Score. Shopping Ads essenziale e-commerce - 70% click, product feed optimization, Smart Shopping ML. Display Network brand awareness - 2M+ siti, 90% reach internet. YouTube Ads - 2B+ utenti, formati Skippable/Non-skippable/Bumper.</p>
+
+<h3>Meta Ads: Pubblicità Social Dominante</h3>
+<p>3 miliardi utenti - database demografico più grande. Custom Audiences, Lookalike Audiences, targeting interessi/comportamento. Formati: Immagine, Video, Carousel, Collection, Stories, Reels. Obiettivi: Awareness, Traffico, Engagement, Lead, Vendite, Messaggi.</p>
+
+<h3>TikTok Ads: Viralità e Gen Z</h3>
+<p>1B+ utenti, crescita rapida. In-Feed Ads, Spark Ads, TopView, Branded Hashtag Challenge, TikTok Shop. Perfetto Gen Z (16-24), lifestyle, moda, beauty, tech.</p>
+
+<h3>LinkedIn Ads: B2B Professionale</h3>
+<p>Piattaforma premium B2B. Sponsored Content, Message Ads, Dynamic Ads, Lead Gen Forms. Targeting unico: job title, dimensione azienda, settore, seniority. Perfetto B2B sales, recruitment.</p>
+
+<h3>Retargeting: Converti Visitatori Persi</h3>
+<p>97% visitatori se ne va senza acquistare. Site Retargeting, Dynamic Retargeting, Cart Abandonment (15-30% recupero), Email/Search/Video Retargeting. Segmentazione intelligente: tipo pagina, time decay, frequency capping, sequential messaging.</p>
+
+<h3>Ottimizzazione Campagne</h3>
+<p>A/B Testing continuo: ad copy, creativi, pubblico, landing page, bidding, schedule. CRO: message match, CTA chiara, social proof, velocità sotto 3s, mobile-optimized, rimuovi distrazioni.</p>
+
+<h3>Metriche Essenziali</h3>
+<p>Base: Impressions, Click, CTR, CPC, CPM. Conversione: Conversioni, Conversion Rate, CPA, ROAS, ROI, CLV. Benchmark 2026: Google Search CTR 3-5%, Facebook CTR 0.9-1.6%, ROAS buono 400-500%, E-commerce conversion 2-3%.</p>
+
+<h3>Tendenze 2026</h3>
+<p>AI & ML per bidding automatizzato e generazione creativi. Privacy-first advertising senza cookie. Voice search ads. AR ads con virtual try-on. Shoppable ads con checkout nativo. Connected TV (CTV). Influencer whitelisting.</p>
+
+<h3>Conclusione</h3>
+<p>Pubblicità digitale 2026 combina scienza esatta con arte creativa. Piattaforme giuste, targeting preciso, creativi impattanti, ottimizzazione continua = ROI straordinario. Chiave: testa costantemente, misura tutto, ottimizza incessantemente.</p>
+<p>Da GridjaCards, gestiamo campagne complesse su tutte le piattaforme: strategia, setup, ottimizzazione quotidiana, reporting trasparente. Trasformiamo budget pubblicitari in vendite reali e profittevoli.</p>',
+
+  -- Excerpts
+  'Ghid complet publicitate digitală 2026: Google Ads, Meta Ads, TikTok. Strategii ROI maxim, targeting precis și optimizare continuă pentru rezultate măsurabile.',
+  'Complete digital advertising 2026 guide: Google Ads, Meta Ads, TikTok. Maximum ROI strategies, precise targeting and continuous optimization for measurable results.',
+  'Guida completa pubblicità digitale 2026: Google Ads, Meta Ads, TikTok. Strategie ROI massimo, targeting preciso e ottimizzazione continua per risultati misurabili.',
+
+  'GridjaCards Team',
+  '["Digital Advertising", "Google Ads", "Meta Ads", "PPC", "Retargeting", "ROI"]',
+  'published',
+  NOW(),
+  NOW(),
+  NOW()
+)
+ON CONFLICT (slug) DO NOTHING;
+
 -- Verifica inserimenti
 SELECT COUNT(*) as total_articles FROM "BlogPost" WHERE status = 'published';
