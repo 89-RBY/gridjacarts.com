@@ -1146,5 +1146,636 @@ VALUES (
 )
 ON CONFLICT (slug) DO NOTHING;
 
+-- 4. SOCIAL MEDIA MARKETING
+INSERT INTO "BlogPost" (
+  id, slug, "titleRo", "titleEn", "titleIt",
+  "contentRo", "contentEn", "contentIt",
+  "excerptRo", "excerptEn", "excerptIt",
+  author, tags, status, "publishedAt", "createdAt", "updatedAt"
+)
+VALUES (
+  'post_' || substring(md5(random()::text) from 1 for 20),
+  'social-media-marketing-strategie-complete-2026',
+  'Social Media Marketing 2026: Strategii Complete pentru Creștere Organică și Plătită',
+  'Social Media Marketing 2026: Complete Strategies for Organic and Paid Growth',
+  'Social Media Marketing 2026: Strategie Complete per Crescita Organica e a Pagamento',
+
+  -- Content RO
+  '<h2>Social Media Marketing în 2026: Esențial pentru Orice Business</h2>
+<p>Cu peste 5 miliarde de utilizatori activi pe rețelele sociale la nivel global, Social Media Marketing nu mai este opțional - este vital. În 2026, platformele sociale nu sunt doar canale de comunicare, ci ecosisteme complete de descoperire, cumpărare și loializare a clienților.</p>
+
+<h3>De Ce Este Crucial Social Media Marketing?</h3>
+<ul>
+<li><strong>Vizibilitate maximă:</strong> Publicul tău petrece 2-4 ore zilnic pe social media</li>
+<li><strong>Targeting precis:</strong> Ajungi exact la audiența potrivită demografic și comportamental</li>
+<li><strong>Engagement direct:</strong> Conversații în timp real cu clienții tăi</li>
+<li><strong>Brand awareness:</strong> Construiești o comunitate în jurul brandului tău</li>
+<li><strong>Cost-eficient:</strong> ROI superior comparativ cu publicitatea tradițională</li>
+<li><strong>Social commerce:</strong> Vinde direct pe platforme fără site extern</li>
+</ul>
+
+<h3>Platformele Esențiale Social Media 2026</h3>
+
+<h4>1. Instagram: Domeniul Visual și Shopping</h4>
+<p>Instagram rămâne regina pentru branduri lifestyle, fashion, food, travel:</p>
+<ul>
+<li><strong>Instagram Reels:</strong> Video-uri scurte (15-90s) cu potențial viral masiv</li>
+<li><strong>Stories:</strong> Conținut efemer pentru behind-the-scenes și urgență</li>
+<li><strong>Shopping:</strong> Tag produse în posts, Reels, Stories - cumpărare direct</li>
+<li><strong>Carousel Posts:</strong> Multiple imagini pentru storytelling sau tutorial</li>
+<li><strong>Colaborări Creator:</strong> Parteneri cu influenceri pentru reach extins</li>
+</ul>
+<p><strong>Best practices:</strong> Feed coerent vizual, hashtags strategice (10-15), postare consistentă (4-7 posts/săptămână), engagement în primele 60 minute.</p>
+
+<h4>2. TikTok: Viralitate și Gen Z</h4>
+<p>TikTok a explodat - platformă #1 pentru Gen Z și Millennials:</p>
+<ul>
+<li><strong>For You Page (FYP):</strong> Algoritm extrem de puternic pentru descoperire organică</li>
+<li><strong>Trend-uri:</strong> Participă la challenge-uri virale pentru visibility</li>
+<li><strong>TikTok Shop:</strong> Commerce integrat - produse în video-uri</li>
+<li><strong>Live Shopping:</strong> Vânzări live interactive cu discount-uri</li>
+<li><strong>Sound marketing:</strong> Audio-uri branded care devin virale</li>
+</ul>
+<p><strong>Strategie:</strong> Autenticitate peste producție perfectă, urmărește trending sounds, postează zilnic, colaborează cu TikTok creators.</p>
+
+<h4>3. Facebook: Comunități și Advertising</h4>
+<p>Facebook rămâne esențial pentru 25-65 ani și advertising:</p>
+<ul>
+<li><strong>Facebook Groups:</strong> Construiește comunități private super-engaged</li>
+<li><strong>Facebook Shops:</strong> Magazin integrat complet funcțional</li>
+<li><strong>Meta Ads:</strong> Cel mai sofisticat sistem de targeting publicitar</li>
+<li><strong>Video Live:</strong> Sesiuni Q&A, lansări produse, demonstrații</li>
+<li><strong>Marketplace:</strong> Vânzări locale peer-to-peer</li>
+</ul>
+
+<h4>4. LinkedIn: B2B și Professional Branding</h4>
+<p>Esențial pentru business-uri B2B și personal branding:</p>
+<ul>
+<li><strong>Thought leadership:</strong> Articole long-form pentru autoritate în industrie</li>
+<li><strong>LinkedIn Ads:</strong> Targeting pe job title, industrie, companie</li>
+<li><strong>Networking:</strong> Conexiuni strategice și colaborări B2B</li>
+<li><strong>Company Pages:</strong> Showcase produse/servicii pentru profesionisti</li>
+</ul>
+
+<h4>5. Pinterest: Discovery și Inspirație</h4>
+<p>Perfect pentru fashion, food, home decor, DIY:</p>
+<ul>
+<li>80% utilizatori iau decizii de cumpărare pe Pinterest</li>
+<li>Pin-uri cu link direct către produse/blog</li>
+<li>SEO-ul Pinterest - optimizare cuvinte cheie în descrieri</li>
+<li>Pinterest Ads cu targeting pe interese foarte specific</li>
+</ul>
+
+<h3>Strategia de Conținut Social Media</h3>
+
+<h4>Tipuri de Conținut Care Funcționează</h4>
+<ul>
+<li><strong>Educational:</strong> Tutorial, how-to, tips & tricks - valoare pentru audiență</li>
+<li><strong>Entertainment:</strong> Meme-uri, umor relevant, conținut viral</li>
+<li><strong>Inspirational:</strong> Povești de succes, citate motivaționale</li>
+<li><strong>Behind-the-scenes:</strong> Cultura companiei, procesul de producție</li>
+<li><strong>User-generated content:</strong> Repost clienți fericiți cu produsele tale</li>
+<li><strong>Product showcase:</strong> Prezentări produse, caracteristici, beneficii</li>
+<li><strong>Interactive:</strong> Polls, quiz-uri, Q&A, challenges</li>
+</ul>
+
+<h4>Regula 80/20 în Content Marketing</h4>
+<p>80% conținut care informează, distrează, inspiră<br>
+20% conținut promotional direct de vânzare</p>
+<p>Audiența urmărește branduri pentru valoare, nu pentru reclame constant.</p>
+
+<h4>Calendar Editorial și Consistență</h4>
+<p>Consistența învinge perfecțiunea:</p>
+<ul>
+<li>Planifică conținut cu 2-4 săptămâni în avans</li>
+<li>Folosește tool-uri de scheduling (Later, Buffer, Hootsuite)</li>
+<li>Balansează tipuri de conținut (educational, promotional, fun)</li>
+<li>Adaptează la evenimente (sărbători, Black Friday, industry events)</li>
+</ul>
+
+<h3>Creștere Organică: Cum Să Crești Fără Bugete Uriașe</h3>
+
+<h4>Strategii de Engagement Organic</h4>
+<ul>
+<li><strong>Hashtag Strategy:</strong> Combină hashtag-uri populare (100k-1M) cu niche (10k-100k)</li>
+<li><strong>Engagement Pods:</strong> Grupuri de branduri care se susțin reciproc</li>
+<li><strong>Colaborări:</strong> Parteneriat cu branduri complementare pentru cross-promotion</li>
+<li><strong>Răspunde la comentarii:</strong> Engagement în primele ore crește algoritmul</li>
+<li><strong>Storytelling autentic:</strong> Povești reale, emoționale care rezonează</li>
+<li><strong>Video content:</strong> Algoritm favorizează Reels/TikTok vs. imagini statice</li>
+</ul>
+
+<h4>Influencer Marketing și Colaborări</h4>
+<p>Parteneriatele cu influenceri pot multiplica reach-ul instant:</p>
+<ul>
+<li><strong>Micro-influenceri (10k-100k):</strong> Engagement rate mai mare, buget accesibil</li>
+<li><strong>Nano-influenceri (1k-10k):</strong> Comunități super-engaged, autenticitate</li>
+<li><strong>Macro-influenceri (100k-1M):</strong> Reach masiv pentru brand awareness</li>
+</ul>
+<p><strong>Tipuri colaborări:</strong> Gifted products, affiliate partnerships, sponsored posts, brand ambassadors, takeover-uri Instagram.</p>
+
+<h3>Social Media Advertising: Paid Strategies</h3>
+
+<h4>Meta Ads (Facebook & Instagram)</h4>
+<p>Cel mai puternic sistem de advertising social:</p>
+<ul>
+<li><strong>Targeting:</strong> Demografia, interese, comportament, lookalike audiences</li>
+<li><strong>Formate:</strong> Image, video, carousel, collection, Stories ads</li>
+<li><strong>Obiective:</strong> Awareness, traffic, engagement, conversions, sales</li>
+<li><strong>Retargeting:</strong> Pixel Facebook pentru remarketing vizitatori site</li>
+<li><strong>Dynamic Ads:</strong> Produse personalizate bazate pe browsing</li>
+</ul>
+
+<h4>TikTok Ads</h4>
+<ul>
+<li><strong>In-Feed Ads:</strong> Video native în For You Page</li>
+<li><strong>Spark Ads:</strong> Boost organic posts pentru reach extins</li>
+<li><strong>Hashtag Challenges:</strong> Brand challenges virale</li>
+<li><strong>TikTok Shopping Ads:</strong> Product showcase cu cumpărare directă</li>
+</ul>
+
+<h4>LinkedIn Ads</h4>
+<p>Premium dar extrem de targeted pentru B2B:</p>
+<ul>
+<li>Sponsored Content în feed</li>
+<li>Message Ads direct în InMail</li>
+<li>Dynamic Ads personalizate cu poza utilizatorului</li>
+<li>Lead Gen Forms pre-populate pentru conversii rapide</li>
+</ul>
+
+<h3>Analytics și Măsurarea Succesului</h3>
+
+<h4>Metrici Esențiali de Urmărit</h4>
+<ul>
+<li><strong>Reach:</strong> Câți utilizatori unici au văzut conținutul</li>
+<li><strong>Impressions:</strong> De câte ori a fost afișat conținutul</li>
+<li><strong>Engagement Rate:</strong> (Likes + Comments + Shares) / Reach × 100</li>
+<li><strong>Click-Through Rate (CTR):</strong> % clicuri pe link-uri</li>
+<li><strong>Conversion Rate:</strong> % care completează acțiunea dorită</li>
+<li><strong>Follower Growth Rate:</strong> Creștere audiență în timp</li>
+<li><strong>Video Completion Rate:</strong> % care urmăresc video-ul complet</li>
+<li><strong>Share of Voice:</strong> Mențiuni brand vs. competitori</li>
+</ul>
+
+<h4>Tool-uri Analytics Esențiale</h4>
+<ul>
+<li>Instagram Insights / Facebook Analytics (native)</li>
+<li>TikTok Analytics (native)</li>
+<li>Google Analytics pentru trafic de pe social la site</li>
+<li>Sprout Social / Hootsuite pentru overview multi-platformă</li>
+<li>Brand24 / Mention pentru social listening</li>
+</ul>
+
+<h3>Community Management: Construiește Relații</h3>
+<ul>
+<li><strong>Răspunde rapid:</strong> Sub 1 oră la mesaje și comentarii</li>
+<li><strong>Gestionează crisis:</strong> Protocoale clare pentru feedback negativ</li>
+<li><strong>Cultivă ambassadors:</strong> Clienți super-fericiți care promovează organic</li>
+<li><strong>Social listening:</strong> Monitorizează mențiuni brand și industrie</li>
+<li><strong>Construiește comunitate:</strong> Nu followers, ci fani adevărați</li>
+</ul>
+
+<h3>Tendințe Social Media 2026</h3>
+<ul>
+<li><strong>AI Content Creation:</strong> Tool-uri AI pentru copy, design, video editing</li>
+<li><strong>Social Commerce Expansion:</strong> Checkout nativ pe toate platformele</li>
+<li><strong>Shorter Video Dominance:</strong> Sub 60s câștigă attention span-ul</li>
+<li><strong>Authenticity over Perfection:</strong> Raw, real content > producție scumpă</li>
+<li><strong>Niche Communities:</strong> Micro-comunități super-engaged > audiențe uriașe</li>
+<li><strong>Employee Advocacy:</strong> Angajații devin ambasadori brand</li>
+<li><strong>AR Filters & Virtual Try-On:</strong> Experiențe interactive pentru produse</li>
+</ul>
+
+<h3>Erori Comune de Evitat</h3>
+<ul>
+<li>Postare inconsistentă sau abandonarea platformelor</li>
+<li>Ignorarea comentariilor și mesajelor</li>
+<li>Prea mult conținut promotional</li>
+<li>Cumpărare followers/engagement fake</li>
+<li>Ignorarea analytics-ului și nu optimizarea</li>
+<li>Același conținut copiat pe toate platformele</li>
+<li>Nu adaptat la specificul fiecărei platforme</li>
+</ul>
+
+<h3>Concluzie</h3>
+<p>Social Media Marketing în 2026 este complex dar incredibil de rewarding. Cu strategia potrivită - conținut valoros, consistență, engagement autentic și paid advertising țintit - poți construi o comunitate loială care nu doar cumpără, ci promovează activ brandul tău.</p>
+<p>La GridjaCards, dezvoltăm strategii social media complete și personalizate pentru fiecare platformă. De la content creation și community management până la paid advertising și influencer partnerships - transformăm followerii în clienți fideli.</p>',
+
+  -- Content EN
+  '<h2>Social Media Marketing in 2026: Essential for Every Business</h2>
+<p>With over 5 billion active users on social networks globally, Social Media Marketing is no longer optional - it''s vital. In 2026, social platforms are not just communication channels, but complete ecosystems for customer discovery, purchase, and loyalty.</p>
+
+<h3>Why Is Social Media Marketing Crucial?</h3>
+<ul>
+<li><strong>Maximum visibility:</strong> Your audience spends 2-4 hours daily on social media</li>
+<li><strong>Precise targeting:</strong> Reach exactly the right audience demographically and behaviorally</li>
+<li><strong>Direct engagement:</strong> Real-time conversations with your customers</li>
+<li><strong>Brand awareness:</strong> Build a community around your brand</li>
+<li><strong>Cost-effective:</strong> Superior ROI compared to traditional advertising</li>
+<li><strong>Social commerce:</strong> Sell directly on platforms without external site</li>
+</ul>
+
+<h3>Essential Social Media Platforms 2026</h3>
+
+<h4>1. Instagram: Visual Domain and Shopping</h4>
+<p>Instagram remains queen for lifestyle, fashion, food, travel brands:</p>
+<ul>
+<li><strong>Instagram Reels:</strong> Short videos (15-90s) with massive viral potential</li>
+<li><strong>Stories:</strong> Ephemeral content for behind-the-scenes and urgency</li>
+<li><strong>Shopping:</strong> Tag products in posts, Reels, Stories - direct purchase</li>
+<li><strong>Carousel Posts:</strong> Multiple images for storytelling or tutorials</li>
+<li><strong>Creator Collaborations:</strong> Partner with influencers for extended reach</li>
+</ul>
+<p><strong>Best practices:</strong> Visually coherent feed, strategic hashtags (10-15), consistent posting (4-7 posts/week), engagement in first 60 minutes.</p>
+
+<h4>2. TikTok: Virality and Gen Z</h4>
+<p>TikTok exploded - #1 platform for Gen Z and Millennials:</p>
+<ul>
+<li><strong>For You Page (FYP):</strong> Extremely powerful algorithm for organic discovery</li>
+<li><strong>Trends:</strong> Participate in viral challenges for visibility</li>
+<li><strong>TikTok Shop:</strong> Integrated commerce - products in videos</li>
+<li><strong>Live Shopping:</strong> Interactive live sales with discounts</li>
+<li><strong>Sound marketing:</strong> Branded audio that goes viral</li>
+</ul>
+<p><strong>Strategy:</strong> Authenticity over perfect production, follow trending sounds, post daily, collaborate with TikTok creators.</p>
+
+<h4>3. Facebook: Communities and Advertising</h4>
+<p>Facebook remains essential for 25-65 age group and advertising:</p>
+<ul>
+<li><strong>Facebook Groups:</strong> Build super-engaged private communities</li>
+<li><strong>Facebook Shops:</strong> Fully functional integrated store</li>
+<li><strong>Meta Ads:</strong> Most sophisticated advertising targeting system</li>
+<li><strong>Live Video:</strong> Q&A sessions, product launches, demonstrations</li>
+<li><strong>Marketplace:</strong> Local peer-to-peer sales</li>
+</ul>
+
+<h4>4. LinkedIn: B2B and Professional Branding</h4>
+<p>Essential for B2B businesses and personal branding:</p>
+<ul>
+<li><strong>Thought leadership:</strong> Long-form articles for industry authority</li>
+<li><strong>LinkedIn Ads:</strong> Targeting by job title, industry, company</li>
+<li><strong>Networking:</strong> Strategic connections and B2B collaborations</li>
+<li><strong>Company Pages:</strong> Showcase products/services for professionals</li>
+</ul>
+
+<h4>5. Pinterest: Discovery and Inspiration</h4>
+<p>Perfect for fashion, food, home decor, DIY:</p>
+<ul>
+<li>80% users make purchase decisions on Pinterest</li>
+<li>Pins with direct links to products/blog</li>
+<li>Pinterest SEO - keyword optimization in descriptions</li>
+<li>Pinterest Ads with very specific interest targeting</li>
+</ul>
+
+<h3>Social Media Content Strategy</h3>
+
+<h4>Content Types That Work</h4>
+<ul>
+<li><strong>Educational:</strong> Tutorials, how-to, tips & tricks - value for audience</li>
+<li><strong>Entertainment:</strong> Memes, relevant humor, viral content</li>
+<li><strong>Inspirational:</strong> Success stories, motivational quotes</li>
+<li><strong>Behind-the-scenes:</strong> Company culture, production process</li>
+<li><strong>User-generated content:</strong> Repost happy customers with your products</li>
+<li><strong>Product showcase:</strong> Product presentations, features, benefits</li>
+<li><strong>Interactive:</strong> Polls, quizzes, Q&A, challenges</li>
+</ul>
+
+<h4>The 80/20 Rule in Content Marketing</h4>
+<p>80% content that informs, entertains, inspires<br>
+20% direct promotional sales content</p>
+<p>Audiences follow brands for value, not constant advertising.</p>
+
+<h4>Editorial Calendar and Consistency</h4>
+<p>Consistency beats perfection:</p>
+<ul>
+<li>Plan content 2-4 weeks in advance</li>
+<li>Use scheduling tools (Later, Buffer, Hootsuite)</li>
+<li>Balance content types (educational, promotional, fun)</li>
+<li>Adapt to events (holidays, Black Friday, industry events)</li>
+</ul>
+
+<h3>Organic Growth: How to Grow Without Huge Budgets</h3>
+
+<h4>Organic Engagement Strategies</h4>
+<ul>
+<li><strong>Hashtag Strategy:</strong> Combine popular hashtags (100k-1M) with niche (10k-100k)</li>
+<li><strong>Engagement Pods:</strong> Groups of brands supporting each other</li>
+<li><strong>Collaborations:</strong> Partnership with complementary brands for cross-promotion</li>
+<li><strong>Reply to comments:</strong> Engagement in first hours boosts algorithm</li>
+<li><strong>Authentic storytelling:</strong> Real, emotional stories that resonate</li>
+<li><strong>Video content:</strong> Algorithm favors Reels/TikTok vs. static images</li>
+</ul>
+
+<h4>Influencer Marketing and Collaborations</h4>
+<p>Influencer partnerships can multiply reach instantly:</p>
+<ul>
+<li><strong>Micro-influencers (10k-100k):</strong> Higher engagement rate, accessible budget</li>
+<li><strong>Nano-influencers (1k-10k):</strong> Super-engaged communities, authenticity</li>
+<li><strong>Macro-influencers (100k-1M):</strong> Massive reach for brand awareness</li>
+</ul>
+<p><strong>Collaboration types:</strong> Gifted products, affiliate partnerships, sponsored posts, brand ambassadors, Instagram takeovers.</p>
+
+<h3>Social Media Advertising: Paid Strategies</h3>
+
+<h4>Meta Ads (Facebook & Instagram)</h4>
+<p>Most powerful social advertising system:</p>
+<ul>
+<li><strong>Targeting:</strong> Demographics, interests, behavior, lookalike audiences</li>
+<li><strong>Formats:</strong> Image, video, carousel, collection, Stories ads</li>
+<li><strong>Objectives:</strong> Awareness, traffic, engagement, conversions, sales</li>
+<li><strong>Retargeting:</strong> Facebook Pixel for remarketing site visitors</li>
+<li><strong>Dynamic Ads:</strong> Personalized products based on browsing</li>
+</ul>
+
+<h4>TikTok Ads</h4>
+<ul>
+<li><strong>In-Feed Ads:</strong> Native video in For You Page</li>
+<li><strong>Spark Ads:</strong> Boost organic posts for extended reach</li>
+<li><strong>Hashtag Challenges:</strong> Viral brand challenges</li>
+<li><strong>TikTok Shopping Ads:</strong> Product showcase with direct purchase</li>
+</ul>
+
+<h4>LinkedIn Ads</h4>
+<p>Premium but extremely targeted for B2B:</p>
+<ul>
+<li>Sponsored Content in feed</li>
+<li>Message Ads directly in InMail</li>
+<li>Dynamic Ads personalized with user photo</li>
+<li>Lead Gen Forms pre-populated for quick conversions</li>
+</ul>
+
+<h3>Analytics and Success Measurement</h3>
+
+<h4>Essential Metrics to Track</h4>
+<ul>
+<li><strong>Reach:</strong> How many unique users saw content</li>
+<li><strong>Impressions:</strong> How many times content was displayed</li>
+<li><strong>Engagement Rate:</strong> (Likes + Comments + Shares) / Reach × 100</li>
+<li><strong>Click-Through Rate (CTR):</strong> % clicks on links</li>
+<li><strong>Conversion Rate:</strong> % completing desired action</li>
+<li><strong>Follower Growth Rate:</strong> Audience growth over time</li>
+<li><strong>Video Completion Rate:</strong> % watching video completely</li>
+<li><strong>Share of Voice:</strong> Brand mentions vs. competitors</li>
+</ul>
+
+<h4>Essential Analytics Tools</h4>
+<ul>
+<li>Instagram Insights / Facebook Analytics (native)</li>
+<li>TikTok Analytics (native)</li>
+<li>Google Analytics for social to site traffic</li>
+<li>Sprout Social / Hootsuite for multi-platform overview</li>
+<li>Brand24 / Mention for social listening</li>
+</ul>
+
+<h3>Community Management: Build Relationships</h3>
+<ul>
+<li><strong>Respond quickly:</strong> Under 1 hour to messages and comments</li>
+<li><strong>Manage crisis:</strong> Clear protocols for negative feedback</li>
+<li><strong>Cultivate ambassadors:</strong> Super-happy customers who promote organically</li>
+<li><strong>Social listening:</strong> Monitor brand and industry mentions</li>
+<li><strong>Build community:</strong> Not followers, but true fans</li>
+</ul>
+
+<h3>Social Media Trends 2026</h3>
+<ul>
+<li><strong>AI Content Creation:</strong> AI tools for copy, design, video editing</li>
+<li><strong>Social Commerce Expansion:</strong> Native checkout on all platforms</li>
+<li><strong>Shorter Video Dominance:</strong> Under 60s wins attention span</li>
+<li><strong>Authenticity over Perfection:</strong> Raw, real content > expensive production</li>
+<li><strong>Niche Communities:</strong> Super-engaged micro-communities > huge audiences</li>
+<li><strong>Employee Advocacy:</strong> Employees become brand ambassadors</li>
+<li><strong>AR Filters & Virtual Try-On:</strong> Interactive experiences for products</li>
+</ul>
+
+<h3>Common Mistakes to Avoid</h3>
+<ul>
+<li>Inconsistent posting or abandoning platforms</li>
+<li>Ignoring comments and messages</li>
+<li>Too much promotional content</li>
+<li>Buying fake followers/engagement</li>
+<li>Ignoring analytics and not optimizing</li>
+<li>Same content copied across all platforms</li>
+<li>Not adapted to each platform''s specifics</li>
+</ul>
+
+<h3>Conclusion</h3>
+<p>Social Media Marketing in 2026 is complex but incredibly rewarding. With the right strategy - valuable content, consistency, authentic engagement, and targeted paid advertising - you can build a loyal community that not only buys but actively promotes your brand.</p>
+<p>At GridjaCards, we develop complete and personalized social media strategies for each platform. From content creation and community management to paid advertising and influencer partnerships - we transform followers into loyal customers.</p>',
+
+  -- Content IT
+  '<h2>Social Media Marketing nel 2026: Essenziale per Ogni Business</h2>
+<p>Con oltre 5 miliardi di utenti attivi sui social network a livello globale, il Social Media Marketing non è più opzionale - è vitale. Nel 2026, le piattaforme social non sono solo canali di comunicazione, ma ecosistemi completi per scoperta, acquisto e fidelizzazione dei clienti.</p>
+
+<h3>Perché il Social Media Marketing è Cruciale?</h3>
+<ul>
+<li><strong>Massima visibilità:</strong> Il tuo pubblico trascorre 2-4 ore giornaliere sui social media</li>
+<li><strong>Targeting preciso:</strong> Raggiungi esattamente il pubblico giusto demograficamente e comportamentalmente</li>
+<li><strong>Engagement diretto:</strong> Conversazioni in tempo reale con i tuoi clienti</li>
+<li><strong>Brand awareness:</strong> Costruisci una comunità intorno al tuo brand</li>
+<li><strong>Cost-effective:</strong> ROI superiore rispetto alla pubblicità tradizionale</li>
+<li><strong>Social commerce:</strong> Vendi direttamente sulle piattaforme senza sito esterno</li>
+</ul>
+
+<h3>Piattaforme Social Media Essenziali 2026</h3>
+
+<h4>1. Instagram: Dominio Visivo e Shopping</h4>
+<p>Instagram rimane regina per brand lifestyle, moda, food, travel:</p>
+<ul>
+<li><strong>Instagram Reels:</strong> Video brevi (15-90s) con enorme potenziale virale</li>
+<li><strong>Stories:</strong> Contenuto effimero per dietro le quinte e urgenza</li>
+<li><strong>Shopping:</strong> Tagga prodotti in post, Reels, Stories - acquisto diretto</li>
+<li><strong>Carousel Posts:</strong> Immagini multiple per storytelling o tutorial</li>
+<li><strong>Collaborazioni Creator:</strong> Partnership con influencer per reach estesa</li>
+</ul>
+<p><strong>Best practices:</strong> Feed visivamente coerente, hashtag strategici (10-15), pubblicazione costante (4-7 post/settimana), engagement nei primi 60 minuti.</p>
+
+<h4>2. TikTok: Viralità e Gen Z</h4>
+<p>TikTok è esploso - piattaforma #1 per Gen Z e Millennials:</p>
+<ul>
+<li><strong>For You Page (FYP):</strong> Algoritmo estremamente potente per scoperta organica</li>
+<li><strong>Trend:</strong> Partecipa a challenge virali per visibilità</li>
+<li><strong>TikTok Shop:</strong> Commerce integrato - prodotti nei video</li>
+<li><strong>Live Shopping:</strong> Vendite live interattive con sconti</li>
+<li><strong>Sound marketing:</strong> Audio brandizzati che diventano virali</li>
+</ul>
+<p><strong>Strategia:</strong> Autenticità sopra produzione perfetta, segui i trending sounds, pubblica quotidianamente, collabora con TikTok creators.</p>
+
+<h4>3. Facebook: Comunità e Advertising</h4>
+<p>Facebook rimane essenziale per 25-65 anni e advertising:</p>
+<ul>
+<li><strong>Facebook Groups:</strong> Costruisci comunità private super-engaged</li>
+<li><strong>Facebook Shops:</strong> Negozio integrato completamente funzionale</li>
+<li><strong>Meta Ads:</strong> Sistema di targeting pubblicitario più sofisticato</li>
+<li><strong>Video Live:</strong> Sessioni Q&A, lanci prodotti, dimostrazioni</li>
+<li><strong>Marketplace:</strong> Vendite locali peer-to-peer</li>
+</ul>
+
+<h4>4. LinkedIn: B2B e Professional Branding</h4>
+<p>Essenziale per business B2B e personal branding:</p>
+<ul>
+<li><strong>Thought leadership:</strong> Articoli long-form per autorità nel settore</li>
+<li><strong>LinkedIn Ads:</strong> Targeting per job title, settore, azienda</li>
+<li><strong>Networking:</strong> Connessioni strategiche e collaborazioni B2B</li>
+<li><strong>Company Pages:</strong> Showcase prodotti/servizi per professionisti</li>
+</ul>
+
+<h4>5. Pinterest: Scoperta e Ispirazione</h4>
+<p>Perfetto per moda, food, home decor, DIY:</p>
+<ul>
+<li>80% utenti prendono decisioni d''acquisto su Pinterest</li>
+<li>Pin con link diretti a prodotti/blog</li>
+<li>SEO Pinterest - ottimizzazione parole chiave nelle descrizioni</li>
+<li>Pinterest Ads con targeting su interessi molto specifici</li>
+</ul>
+
+<h3>Strategia di Contenuto Social Media</h3>
+
+<h4>Tipi di Contenuto Che Funzionano</h4>
+<ul>
+<li><strong>Educativo:</strong> Tutorial, how-to, tips & tricks - valore per il pubblico</li>
+<li><strong>Intrattenimento:</strong> Meme, umorismo rilevante, contenuto virale</li>
+<li><strong>Ispirazionale:</strong> Storie di successo, citazioni motivazionali</li>
+<li><strong>Dietro le quinte:</strong> Cultura aziendale, processo di produzione</li>
+<li><strong>User-generated content:</strong> Ripubblica clienti felici con i tuoi prodotti</li>
+<li><strong>Product showcase:</strong> Presentazioni prodotti, caratteristiche, benefici</li>
+<li><strong>Interattivo:</strong> Sondaggi, quiz, Q&A, sfide</li>
+</ul>
+
+<h4>La Regola 80/20 nel Content Marketing</h4>
+<p>80% contenuto che informa, intrattiene, ispira<br>
+20% contenuto promozionale diretto di vendita</p>
+<p>Il pubblico segue i brand per valore, non per pubblicità costante.</p>
+
+<h4>Calendario Editoriale e Coerenza</h4>
+<p>La coerenza batte la perfezione:</p>
+<ul>
+<li>Pianifica contenuto con 2-4 settimane di anticipo</li>
+<li>Usa strumenti di scheduling (Later, Buffer, Hootsuite)</li>
+<li>Bilancia tipi di contenuto (educativo, promozionale, divertente)</li>
+<li>Adatta agli eventi (festività, Black Friday, eventi di settore)</li>
+</ul>
+
+<h3>Crescita Organica: Come Crescere Senza Budget Enormi</h3>
+
+<h4>Strategie di Engagement Organico</h4>
+<ul>
+<li><strong>Strategia Hashtag:</strong> Combina hashtag popolari (100k-1M) con nicchia (10k-100k)</li>
+<li><strong>Engagement Pods:</strong> Gruppi di brand che si sostengono reciprocamente</li>
+<li><strong>Collaborazioni:</strong> Partnership con brand complementari per cross-promotion</li>
+<li><strong>Rispondi ai commenti:</strong> Engagement nelle prime ore aumenta l''algoritmo</li>
+<li><strong>Storytelling autentico:</strong> Storie reali, emotive che risuonano</li>
+<li><strong>Video content:</strong> L''algoritmo favorisce Reels/TikTok vs. immagini statiche</li>
+</ul>
+
+<h4>Influencer Marketing e Collaborazioni</h4>
+<p>Le partnership con influencer possono moltiplicare la reach istantaneamente:</p>
+<ul>
+<li><strong>Micro-influencer (10k-100k):</strong> Tasso di engagement più alto, budget accessibile</li>
+<li><strong>Nano-influencer (1k-10k):</strong> Comunità super-engaged, autenticità</li>
+<li><strong>Macro-influencer (100k-1M):</strong> Reach massiva per brand awareness</li>
+</ul>
+<p><strong>Tipi di collaborazioni:</strong> Prodotti regalati, partnership affiliate, post sponsorizzati, brand ambassador, Instagram takeover.</p>
+
+<h3>Social Media Advertising: Strategie a Pagamento</h3>
+
+<h4>Meta Ads (Facebook & Instagram)</h4>
+<p>Sistema di advertising social più potente:</p>
+<ul>
+<li><strong>Targeting:</strong> Demografia, interessi, comportamento, lookalike audiences</li>
+<li><strong>Formati:</strong> Immagine, video, carousel, collection, Stories ads</li>
+<li><strong>Obiettivi:</strong> Awareness, traffico, engagement, conversioni, vendite</li>
+<li><strong>Retargeting:</strong> Facebook Pixel per remarketing visitatori sito</li>
+<li><strong>Dynamic Ads:</strong> Prodotti personalizzati basati sulla navigazione</li>
+</ul>
+
+<h4>TikTok Ads</h4>
+<ul>
+<li><strong>In-Feed Ads:</strong> Video nativi nella For You Page</li>
+<li><strong>Spark Ads:</strong> Boost post organici per reach estesa</li>
+<li><strong>Hashtag Challenges:</strong> Challenge di brand virali</li>
+<li><strong>TikTok Shopping Ads:</strong> Showcase prodotti con acquisto diretto</li>
+</ul>
+
+<h4>LinkedIn Ads</h4>
+<p>Premium ma estremamente targetizzato per B2B:</p>
+<ul>
+<li>Sponsored Content nel feed</li>
+<li>Message Ads direttamente in InMail</li>
+<li>Dynamic Ads personalizzati con foto utente</li>
+<li>Lead Gen Forms pre-compilati per conversioni rapide</li>
+</ul>
+
+<h3>Analytics e Misurazione del Successo</h3>
+
+<h4>Metriche Essenziali da Monitorare</h4>
+<ul>
+<li><strong>Reach:</strong> Quanti utenti unici hanno visto il contenuto</li>
+<li><strong>Impressions:</strong> Quante volte il contenuto è stato mostrato</li>
+<li><strong>Engagement Rate:</strong> (Like + Commenti + Condivisioni) / Reach × 100</li>
+<li><strong>Click-Through Rate (CTR):</strong> % clic sui link</li>
+<li><strong>Conversion Rate:</strong> % che completa l''azione desiderata</li>
+<li><strong>Follower Growth Rate:</strong> Crescita pubblico nel tempo</li>
+<li><strong>Video Completion Rate:</strong> % che guarda il video completo</li>
+<li><strong>Share of Voice:</strong> Menzioni brand vs. competitor</li>
+</ul>
+
+<h4>Strumenti Analytics Essenziali</h4>
+<ul>
+<li>Instagram Insights / Facebook Analytics (nativi)</li>
+<li>TikTok Analytics (nativo)</li>
+<li>Google Analytics per traffico da social a sito</li>
+<li>Sprout Social / Hootsuite per panoramica multi-piattaforma</li>
+<li>Brand24 / Mention per social listening</li>
+</ul>
+
+<h3>Community Management: Costruisci Relazioni</h3>
+<ul>
+<li><strong>Rispondi rapidamente:</strong> Sotto 1 ora a messaggi e commenti</li>
+<li><strong>Gestisci le crisi:</strong> Protocolli chiari per feedback negativo</li>
+<li><strong>Coltiva ambassador:</strong> Clienti super-felici che promuovono organicamente</li>
+<li><strong>Social listening:</strong> Monitora menzioni brand e settore</li>
+<li><strong>Costruisci comunità:</strong> Non follower, ma veri fan</li>
+</ul>
+
+<h3>Tendenze Social Media 2026</h3>
+<ul>
+<li><strong>AI Content Creation:</strong> Strumenti AI per copy, design, video editing</li>
+<li><strong>Espansione Social Commerce:</strong> Checkout nativo su tutte le piattaforme</li>
+<li><strong>Dominio Video Brevi:</strong> Sotto 60s vince l''attention span</li>
+<li><strong>Autenticità sopra Perfezione:</strong> Contenuto grezzo, reale > produzione costosa</li>
+<li><strong>Comunità di Nicchia:</strong> Micro-comunità super-engaged > pubblico enorme</li>
+<li><strong>Employee Advocacy:</strong> Dipendenti diventano ambasciatori brand</li>
+<li><strong>AR Filters & Virtual Try-On:</strong> Esperienze interattive per prodotti</li>
+</ul>
+
+<h3>Errori Comuni da Evitare</h3>
+<ul>
+<li>Pubblicazione inconsistente o abbandono piattaforme</li>
+<li>Ignorare commenti e messaggi</li>
+<li>Troppo contenuto promozionale</li>
+<li>Acquistare follower/engagement falsi</li>
+<li>Ignorare analytics e non ottimizzare</li>
+<li>Stesso contenuto copiato su tutte le piattaforme</li>
+<li>Non adattato alle specifiche di ogni piattaforma</li>
+</ul>
+
+<h3>Conclusione</h3>
+<p>Il Social Media Marketing nel 2026 è complesso ma incredibilmente gratificante. Con la strategia giusta - contenuto di valore, coerenza, engagement autentico e advertising a pagamento mirato - puoi costruire una comunità fedele che non solo acquista, ma promuove attivamente il tuo brand.</p>
+<p>Da GridjaCards, sviluppiamo strategie social media complete e personalizzate per ogni piattaforma. Dalla creazione di contenuti e community management all''advertising a pagamento e partnership con influencer - trasformiamo i follower in clienti fedeli.</p>',
+
+  -- Excerpts
+  'Ghid complet Social Media Marketing 2026: strategii Instagram, TikTok, Facebook pentru creștere organică și plătită. Transformă followerii în clienți.',
+  'Complete Social Media Marketing 2026 guide: Instagram, TikTok, Facebook strategies for organic and paid growth. Transform followers into customers.',
+  'Guida completa Social Media Marketing 2026: strategie Instagram, TikTok, Facebook per crescita organica e a pagamento. Trasforma follower in clienti.',
+
+  'GridjaCards Team',
+  '["Social Media", "Instagram", "TikTok", "Facebook", "Content Marketing", "Digital Marketing"]',
+  'published',
+  NOW(),
+  NOW(),
+  NOW()
+)
+ON CONFLICT (slug) DO NOTHING;
+
 -- Verifica inserimenti
 SELECT COUNT(*) as total_articles FROM "BlogPost" WHERE status = 'published';
