@@ -16,16 +16,6 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
   const [loading, setLoading] = useState(true);
   const [tierProgress, setTierProgress] = useState<any>(null);
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  useEffect(() => {
-    if (user && user.role === 'partner') {
-      fetchPartnerData();
-    }
-  }, [user]);
-
   const checkAuth = async () => {
     try {
       const res = await fetch('/api/auth/me');
@@ -59,6 +49,18 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
     await fetch('/api/auth/logout', { method: 'POST' });
     router.push(`/${locale}/login`);
   };
+
+  useEffect(() => {
+    checkAuth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (user && user.role === 'partner') {
+      fetchPartnerData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   if (loading) {
     return (
