@@ -60,7 +60,7 @@ export async function GET() {
     });
 
     // Format bonus services
-    const bonusServices = partner.bonusServices.map((bs) => ({
+    const bonusServices = partner.bonusServices.map((bs: any) => ({
       id: bs.id,
       partnerId: bs.partnerId,
       serviceName: bs.serviceName,
@@ -77,7 +77,7 @@ export async function GET() {
     }));
 
     // Format orders
-    const orders = partner.orders.map((order) => ({
+    const orders = partner.orders.map((order: any) => ({
       id: order.id,
       partnerId: order.partnerId,
       serviceType: order.serviceType,

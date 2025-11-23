@@ -180,7 +180,7 @@ export async function getPartnerBonusServices(
     orderBy: { assignedAt: 'desc' },
   });
 
-  return services.map((service) => ({
+  return services.map((service: any) => ({
     ...service,
     assignedAt: service.assignedAt.toISOString(),
     usedAt: service.usedAt?.toISOString(),
@@ -214,7 +214,7 @@ export async function getServicePricing(): Promise<ServicePricing[]> {
     orderBy: { category: 'asc' },
   });
 
-  return services.map((service) => ({
+  return services.map((service: any) => ({
     ...service,
     createdAt: service.createdAt.toISOString(),
     updatedAt: service.updatedAt.toISOString(),
@@ -379,7 +379,7 @@ export async function getPartnerOrders(
     take: options?.take,
   });
 
-  return orders.map((order) => ({
+  return orders.map((order: any) => ({
     ...order,
     orderDate: order.orderDate.toISOString(),
     completedAt: order.completedAt?.toISOString(),
