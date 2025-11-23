@@ -629,5 +629,522 @@ VALUES (
 )
 ON CONFLICT (slug) DO NOTHING;
 
+-- 3. E-COMMERCE DEVELOPMENT
+INSERT INTO "BlogPost" (
+  id, slug, "titleRo", "titleEn", "titleIt",
+  "contentRo", "contentEn", "contentIt",
+  "excerptRo", "excerptEn", "excerptIt",
+  author, tags, status, "publishedAt", "createdAt", "updatedAt"
+)
+VALUES (
+  'post_' || substring(md5(random()::text) from 1 for 20),
+  'ghid-ecommerce-succes-2026-magazin-online',
+  'Ghid E-Commerce 2026: Cum să Construiești un Magazin Online de Succes',
+  'E-Commerce Guide 2026: How to Build a Successful Online Store',
+  'Guida E-Commerce 2026: Come Costruire un Negozio Online di Successo',
+
+  -- Content RO
+  '<h2>E-Commerce în 2026: Oportunități și Provocări</h2>
+<p>Comerțul electronic continuă să crească exponențial, cu vânzări globale estimate la peste $8 trilioane în 2026. Pentru antreprenori, acesta este momentul perfect să lanseze sau să scaleze un magazin online. Dar succesul necesită mai mult decât un site frumos - ai nevoie de o strategie completă.</p>
+
+<h3>Elementele Esențiale ale unui E-Commerce de Succes</h3>
+
+<h4>1. Platformă E-Commerce Potrivită</h4>
+<p>Alegerea platformei determină scalabilitatea afacerii tale:</p>
+<ul>
+<li><strong>Shopify:</strong> Perfect pentru beginners, setup rapid, multe integrări</li>
+<li><strong>WooCommerce:</strong> Flexibil, open-source, ideal pentru WordPress</li>
+<li><strong>Custom Solutions:</strong> Control total, scalabilitate maximă pentru business-uri mari</li>
+<li><strong>Medusa.js/Next.js:</strong> Modern, headless commerce, performanță excepțională</li>
+</ul>
+
+<h4>2. Design și Experiența Utilizatorului</h4>
+<p>Un design e-commerce eficient maximizează conversiile:</p>
+<ul>
+<li><strong>Homepage impactantă:</strong> Produse featured, oferte speciale, categorii clare</li>
+<li><strong>Navigare intuitivă:</strong> Meniuri logice, search puternic, filtre utile</li>
+<li><strong>Pagini produs optimizate:</strong> Imagini HD multiple, descrieri detaliate, reviews</li>
+<li><strong>Checkout simplificat:</strong> Pași minimali, guest checkout, progres vizibil</li>
+<li><strong>Mobile-first:</strong> 70% din cumpărături se fac pe mobile</li>
+</ul>
+
+<h3>Funcționalități Obligatorii E-Commerce 2026</h3>
+
+<h4>Sistem de Plăți Complet</h4>
+<ul>
+<li>Multiple metode: Card, PayPal, Apple Pay, Google Pay, crypto</li>
+<li>Plată în rate (Buy Now Pay Later) - creștere 300% în popularitate</li>
+<li>Securitate PCI DSS compliance</li>
+<li>Checkout one-click pentru clienți recurenți</li>
+</ul>
+
+<h4>Gestionare Inventar Inteligentă</h4>
+<ul>
+<li>Tracking stock în timp real</li>
+<li>Alerte automate pentru stoc scăzut</li>
+<li>Sincronizare multi-channel (online + offline)</li>
+<li>Predicție cerere cu AI pentru restock optim</li>
+</ul>
+
+<h4>Shipping și Logistică</h4>
+<ul>
+<li>Integrare cu curieri (FanCourier, DHL, UPS, etc.)</li>
+<li>Calcul automat costuri livrare</li>
+<li>Tracking în timp real pentru clienți</li>
+<li>Puncte pickup și easybox</li>
+<li>Livrare same-day în orașe majore</li>
+</ul>
+
+<h3>Marketing E-Commerce: Strategii Care Funcționează</h3>
+
+<h4>1. SEO pentru E-Commerce</h4>
+<p>Optimizarea pentru motoarele de căutare aduce trafic gratuit și constant:</p>
+<ul>
+<li><strong>Keyword research:</strong> Termeni cu intenție de cumpărare ("cumpără X", "X preț")</li>
+<li><strong>Descrieri produse unice:</strong> Nu copia de la furnizori - Google penalizează</li>
+<li><strong>Structured data:</strong> Rich snippets pentru rating, preț, disponibilitate</li>
+<li><strong>Optimizare imagini:</strong> Alt text, compresie, nume descriptive</li>
+<li><strong>Blog de nișă:</strong> Ghiduri de cumpărare, comparații, tutorials</li>
+</ul>
+
+<h4>2. Email Marketing</h4>
+<p>ROI mediu: $42 pentru fiecare $1 investit:</p>
+<ul>
+<li>Welcome series pentru clienți noi</li>
+<li>Abandoned cart recovery (recuperează 15-30% vânzări)</li>
+<li>Recomandări personalizate bazate pe istoric</li>
+<li>Campanii VIP pentru clienți fideli</li>
+<li>Win-back campaigns pentru clienți inactivi</li>
+</ul>
+
+<h4>3. Social Commerce</h4>
+<p>Vinde direct pe Instagram, Facebook, TikTok:</p>
+<ul>
+<li>Instagram Shopping - tag produse în posts și stories</li>
+<li>Facebook Shops - magazin integrat pe pagină</li>
+<li>TikTok Shop - explozia comerțului pe video</li>
+<li>Pinterest Shopping - perfect pentru fashion, home decor</li>
+<li>Live shopping - demonstrații produse live cu cumpărare instant</li>
+</ul>
+
+<h4>4. Paid Advertising</h4>
+<ul>
+<li><strong>Google Shopping:</strong> Esențial pentru produse - intenție de cumpărare maximă</li>
+<li><strong>Facebook/Instagram Ads:</strong> Targeting demografic precis, retargeting</li>
+<li><strong>TikTok Ads:</strong> Gen Z și Millennials, conținut video creativ</li>
+<li><strong>Remarketing:</strong> Urmărește vizitatorii pe web cu oferte personalizate</li>
+</ul>
+
+<h3>Conversie și Optimizare</h3>
+
+<h4>Tehnici de Creștere a Conversiilor</h4>
+<ul>
+<li><strong>Social proof:</strong> Reviews, ratings, număr cumpărători, trust badges</li>
+<li><strong>Urgency & scarcity:</strong> "Ultimele 3 bucăți", "Ofertă limitată"</li>
+<li><strong>Free shipping threshold:</strong> "Livrare gratuită peste 200 lei"</li>
+<li><strong>Upsell & cross-sell:</strong> "Clienții au mai cumpărat...", bundles</li>
+<li><strong>Exit-intent popups:</strong> Oferte speciale pentru cei ce vor să părăsească site-ul</li>
+<li><strong>Live chat support:</strong> Răspunde întrebărilor instant, crește conversiile cu 20%</li>
+</ul>
+
+<h4>A/B Testing Continuu</h4>
+<p>Testează și optimizează constant:</p>
+<ul>
+<li>Poziție și culoare butoane CTA</li>
+<li>Copy-ul descrierilor și titlurilor</li>
+<li>Imagini produse (lifestyle vs. pe fundal alb)</li>
+<li>Structura paginii de checkout</li>
+<li>Oferte și promoții</li>
+</ul>
+
+<h3>Tehnologii Emergente E-Commerce 2026</h3>
+
+<h4>AI și Personalizare</h4>
+<ul>
+<li>Recomandări produse bazate pe AI (machine learning)</li>
+<li>Chatbot-uri inteligente pentru customer support 24/7</li>
+<li>Predicție comportament client și prevenire churn</li>
+<li>Dynamic pricing bazat pe cerere și stoc</li>
+</ul>
+
+<h4>AR/VR Shopping Experiences</h4>
+<ul>
+<li>Virtual try-on pentru îmbrăcăminte, ochelari, machiaj</li>
+<li>AR pentru vizualizare mobilă în spațiul propriu</li>
+<li>Virtual showrooms 3D interactivi</li>
+</ul>
+
+<h4>Voice Commerce</h4>
+<ul>
+<li>Comenzi prin Alexa, Google Assistant, Siri</li>
+<li>Optimizare pentru voice search</li>
+<li>Reordering vocal pentru produse recurente</li>
+</ul>
+
+<h3>Analytics și Metrici Esențiali</h3>
+<p>Ce să urmărești pentru succes:</p>
+<ul>
+<li><strong>Conversion rate:</strong> % vizitatori care cumpără (benchmark: 2-3%)</li>
+<li><strong>Average Order Value (AOV):</strong> Valoare medie comandă</li>
+<li><strong>Customer Acquisition Cost (CAC):</strong> Cât costă să aduci un client</li>
+<li><strong>Customer Lifetime Value (CLV):</strong> Valoare totală client pe toată durata</li>
+<li><strong>Cart abandonment rate:</strong> % coșuri abandonate (media: 70%)</li>
+<li><strong>Return rate:</strong> % produse returnate</li>
+<li><strong>Traffic sources:</strong> Organic, paid, social, direct, referral</li>
+</ul>
+
+<h3>Aspecte Legale și Conformitate</h3>
+<ul>
+<li><strong>GDPR:</strong> Protecția datelor clienților UE</li>
+<li><strong>Termeni și condiții:</strong> Clari, transparenți</li>
+<li><strong>Politică de retur:</strong> Simplă, prietenoasă (14-30 zile)</li>
+<li><strong>Facturare conformă:</strong> Integrare cu ANAF (România)</li>
+<li><strong>Cookie consent:</strong> Banner conform GDPR</li>
+</ul>
+
+<h3>Concluzie</h3>
+<p>Un magazin online de succes în 2026 combină tehnologie modernă, marketing strategic și experiență utilizator excepțională. Nu e suficient să ai produse bune - trebuie să le prezinți perfect, să atragi clienții potriviți și să-i convingi să cumpere.</p>
+<p>La GridjaCards, construim platforme e-commerce complete, de la design și dezvoltare până la marketing și optimizare. Transformăm ideea ta într-un business online profitabil și scalabil.</p>',
+
+  -- Content EN
+  '<h2>E-Commerce in 2026: Opportunities and Challenges</h2>
+<p>E-commerce continues to grow exponentially, with global sales estimated at over $8 trillion in 2026. For entrepreneurs, this is the perfect time to launch or scale an online store. But success requires more than a beautiful website - you need a complete strategy.</p>
+
+<h3>Essential Elements of Successful E-Commerce</h3>
+
+<h4>1. Right E-Commerce Platform</h4>
+<p>Platform choice determines your business scalability:</p>
+<ul>
+<li><strong>Shopify:</strong> Perfect for beginners, quick setup, many integrations</li>
+<li><strong>WooCommerce:</strong> Flexible, open-source, ideal for WordPress</li>
+<li><strong>Custom Solutions:</strong> Total control, maximum scalability for large businesses</li>
+<li><strong>Medusa.js/Next.js:</strong> Modern, headless commerce, exceptional performance</li>
+</ul>
+
+<h4>2. Design and User Experience</h4>
+<p>Effective e-commerce design maximizes conversions:</p>
+<ul>
+<li><strong>Impactful homepage:</strong> Featured products, special offers, clear categories</li>
+<li><strong>Intuitive navigation:</strong> Logical menus, powerful search, useful filters</li>
+<li><strong>Optimized product pages:</strong> Multiple HD images, detailed descriptions, reviews</li>
+<li><strong>Simplified checkout:</strong> Minimal steps, guest checkout, visible progress</li>
+<li><strong>Mobile-first:</strong> 70% of purchases made on mobile</li>
+</ul>
+
+<h3>Essential E-Commerce Features 2026</h3>
+
+<h4>Complete Payment System</h4>
+<ul>
+<li>Multiple methods: Card, PayPal, Apple Pay, Google Pay, crypto</li>
+<li>Installment payments (Buy Now Pay Later) - 300% growth in popularity</li>
+<li>PCI DSS compliance security</li>
+<li>One-click checkout for returning customers</li>
+</ul>
+
+<h4>Smart Inventory Management</h4>
+<ul>
+<li>Real-time stock tracking</li>
+<li>Automatic alerts for low stock</li>
+<li>Multi-channel synchronization (online + offline)</li>
+<li>AI demand prediction for optimal restocking</li>
+</ul>
+
+<h4>Shipping and Logistics</h4>
+<ul>
+<li>Courier integration (FedEx, DHL, UPS, etc.)</li>
+<li>Automatic shipping cost calculation</li>
+<li>Real-time tracking for customers</li>
+<li>Pickup points and lockers</li>
+<li>Same-day delivery in major cities</li>
+</ul>
+
+<h3>E-Commerce Marketing: Strategies That Work</h3>
+
+<h4>1. E-Commerce SEO</h4>
+<p>Search engine optimization brings free, consistent traffic:</p>
+<ul>
+<li><strong>Keyword research:</strong> Purchase intent terms ("buy X", "X price")</li>
+<li><strong>Unique product descriptions:</strong> Don''t copy from suppliers - Google penalizes</li>
+<li><strong>Structured data:</strong> Rich snippets for ratings, price, availability</li>
+<li><strong>Image optimization:</strong> Alt text, compression, descriptive names</li>
+<li><strong>Niche blog:</strong> Buying guides, comparisons, tutorials</li>
+</ul>
+
+<h4>2. Email Marketing</h4>
+<p>Average ROI: $42 for every $1 invested:</p>
+<ul>
+<li>Welcome series for new customers</li>
+<li>Abandoned cart recovery (recovers 15-30% sales)</li>
+<li>Personalized recommendations based on history</li>
+<li>VIP campaigns for loyal customers</li>
+<li>Win-back campaigns for inactive customers</li>
+</ul>
+
+<h4>3. Social Commerce</h4>
+<p>Sell directly on Instagram, Facebook, TikTok:</p>
+<ul>
+<li>Instagram Shopping - tag products in posts and stories</li>
+<li>Facebook Shops - integrated store on page</li>
+<li>TikTok Shop - explosion of video commerce</li>
+<li>Pinterest Shopping - perfect for fashion, home decor</li>
+<li>Live shopping - live product demos with instant purchase</li>
+</ul>
+
+<h4>4. Paid Advertising</h4>
+<ul>
+<li><strong>Google Shopping:</strong> Essential for products - maximum purchase intent</li>
+<li><strong>Facebook/Instagram Ads:</strong> Precise demographic targeting, retargeting</li>
+<li><strong>TikTok Ads:</strong> Gen Z and Millennials, creative video content</li>
+<li><strong>Remarketing:</strong> Follow visitors across web with personalized offers</li>
+</ul>
+
+<h3>Conversion and Optimization</h3>
+
+<h4>Conversion Growth Techniques</h4>
+<ul>
+<li><strong>Social proof:</strong> Reviews, ratings, buyer numbers, trust badges</li>
+<li><strong>Urgency & scarcity:</strong> "Only 3 left", "Limited offer"</li>
+<li><strong>Free shipping threshold:</strong> "Free shipping over $50"</li>
+<li><strong>Upsell & cross-sell:</strong> "Customers also bought...", bundles</li>
+<li><strong>Exit-intent popups:</strong> Special offers for those leaving site</li>
+<li><strong>Live chat support:</strong> Answer questions instantly, increases conversions 20%</li>
+</ul>
+
+<h4>Continuous A/B Testing</h4>
+<p>Test and optimize constantly:</p>
+<ul>
+<li>CTA button position and color</li>
+<li>Description and title copy</li>
+<li>Product images (lifestyle vs. white background)</li>
+<li>Checkout page structure</li>
+<li>Offers and promotions</li>
+</ul>
+
+<h3>Emerging E-Commerce Technologies 2026</h3>
+
+<h4>AI and Personalization</h4>
+<ul>
+<li>AI-based product recommendations (machine learning)</li>
+<li>Intelligent chatbots for 24/7 customer support</li>
+<li>Customer behavior prediction and churn prevention</li>
+<li>Dynamic pricing based on demand and stock</li>
+</ul>
+
+<h4>AR/VR Shopping Experiences</h4>
+<ul>
+<li>Virtual try-on for clothing, glasses, makeup</li>
+<li>AR for mobile visualization in own space</li>
+<li>Interactive 3D virtual showrooms</li>
+</ul>
+
+<h4>Voice Commerce</h4>
+<ul>
+<li>Orders through Alexa, Google Assistant, Siri</li>
+<li>Voice search optimization</li>
+<li>Voice reordering for recurring products</li>
+</ul>
+
+<h3>Essential Analytics and Metrics</h3>
+<p>What to track for success:</p>
+<ul>
+<li><strong>Conversion rate:</strong> % visitors who buy (benchmark: 2-3%)</li>
+<li><strong>Average Order Value (AOV):</strong> Average order value</li>
+<li><strong>Customer Acquisition Cost (CAC):</strong> Cost to bring a customer</li>
+<li><strong>Customer Lifetime Value (CLV):</strong> Total customer value over lifetime</li>
+<li><strong>Cart abandonment rate:</strong> % abandoned carts (average: 70%)</li>
+<li><strong>Return rate:</strong> % returned products</li>
+<li><strong>Traffic sources:</strong> Organic, paid, social, direct, referral</li>
+</ul>
+
+<h3>Legal Aspects and Compliance</h3>
+<ul>
+<li><strong>GDPR:</strong> EU customer data protection</li>
+<li><strong>Terms and conditions:</strong> Clear, transparent</li>
+<li><strong>Return policy:</strong> Simple, friendly (14-30 days)</li>
+<li><strong>Compliant invoicing:</strong> Tax authority integration</li>
+<li><strong>Cookie consent:</strong> GDPR-compliant banner</li>
+</ul>
+
+<h3>Conclusion</h3>
+<p>A successful online store in 2026 combines modern technology, strategic marketing, and exceptional user experience. Having good products isn''t enough - you must present them perfectly, attract the right customers, and convince them to buy.</p>
+<p>At GridjaCards, we build complete e-commerce platforms, from design and development to marketing and optimization. We transform your idea into a profitable and scalable online business.</p>',
+
+  -- Content IT
+  '<h2>E-Commerce nel 2026: Opportunità e Sfide</h2>
+<p>L''e-commerce continua a crescere esponenzialmente, con vendite globali stimate a oltre $8 trilioni nel 2026. Per gli imprenditori, questo è il momento perfetto per lanciare o scalare un negozio online. Ma il successo richiede più di un sito bellissimo - serve una strategia completa.</p>
+
+<h3>Elementi Essenziali di un E-Commerce di Successo</h3>
+
+<h4>1. Piattaforma E-Commerce Giusta</h4>
+<p>La scelta della piattaforma determina la scalabilità del tuo business:</p>
+<ul>
+<li><strong>Shopify:</strong> Perfetto per principianti, setup veloce, molte integrazioni</li>
+<li><strong>WooCommerce:</strong> Flessibile, open-source, ideale per WordPress</li>
+<li><strong>Soluzioni Custom:</strong> Controllo totale, massima scalabilità per grandi business</li>
+<li><strong>Medusa.js/Next.js:</strong> Moderno, headless commerce, performance eccezionale</li>
+</ul>
+
+<h4>2. Design ed Esperienza Utente</h4>
+<p>Un design e-commerce efficace massimizza le conversioni:</p>
+<ul>
+<li><strong>Homepage d''impatto:</strong> Prodotti in evidenza, offerte speciali, categorie chiare</li>
+<li><strong>Navigazione intuitiva:</strong> Menu logici, ricerca potente, filtri utili</li>
+<li><strong>Pagine prodotto ottimizzate:</strong> Immagini HD multiple, descrizioni dettagliate, recensioni</li>
+<li><strong>Checkout semplificato:</strong> Step minimi, guest checkout, progresso visibile</li>
+<li><strong>Mobile-first:</strong> 70% degli acquisti avviene su mobile</li>
+</ul>
+
+<h3>Funzionalità Obbligatorie E-Commerce 2026</h3>
+
+<h4>Sistema di Pagamenti Completo</h4>
+<ul>
+<li>Metodi multipli: Carta, PayPal, Apple Pay, Google Pay, crypto</li>
+<li>Pagamenti rateali (Buy Now Pay Later) - crescita 300% in popolarità</li>
+<li>Sicurezza PCI DSS compliance</li>
+<li>Checkout one-click per clienti ricorrenti</li>
+</ul>
+
+<h4>Gestione Inventario Intelligente</h4>
+<ul>
+<li>Tracking stock in tempo reale</li>
+<li>Alert automatici per stock basso</li>
+<li>Sincronizzazione multi-canale (online + offline)</li>
+<li>Previsione domanda con AI per restock ottimale</li>
+</ul>
+
+<h4>Spedizione e Logistica</h4>
+<ul>
+<li>Integrazione con corrieri (DHL, UPS, ecc.)</li>
+<li>Calcolo automatico costi spedizione</li>
+<li>Tracking in tempo reale per clienti</li>
+<li>Punti pickup e locker</li>
+<li>Consegna same-day nelle grandi città</li>
+</ul>
+
+<h3>Marketing E-Commerce: Strategie Che Funzionano</h3>
+
+<h4>1. SEO per E-Commerce</h4>
+<p>L''ottimizzazione per i motori di ricerca porta traffico gratuito e costante:</p>
+<ul>
+<li><strong>Keyword research:</strong> Termini con intento d''acquisto ("comprare X", "X prezzo")</li>
+<li><strong>Descrizioni prodotti uniche:</strong> Non copiare dai fornitori - Google penalizza</li>
+<li><strong>Structured data:</strong> Rich snippet per rating, prezzo, disponibilità</li>
+<li><strong>Ottimizzazione immagini:</strong> Alt text, compressione, nomi descrittivi</li>
+<li><strong>Blog di nicchia:</strong> Guide all''acquisto, comparazioni, tutorial</li>
+</ul>
+
+<h4>2. Email Marketing</h4>
+<p>ROI medio: $42 per ogni $1 investito:</p>
+<ul>
+<li>Serie welcome per nuovi clienti</li>
+<li>Recupero carrello abbandonato (recupera 15-30% vendite)</li>
+<li>Raccomandazioni personalizzate basate sullo storico</li>
+<li>Campagne VIP per clienti fedeli</li>
+<li>Campagne win-back per clienti inattivi</li>
+</ul>
+
+<h4>3. Social Commerce</h4>
+<p>Vendi direttamente su Instagram, Facebook, TikTok:</p>
+<ul>
+<li>Instagram Shopping - tagga prodotti in post e stories</li>
+<li>Facebook Shops - negozio integrato sulla pagina</li>
+<li>TikTok Shop - esplosione del commercio su video</li>
+<li>Pinterest Shopping - perfetto per moda, home decor</li>
+<li>Live shopping - dimostrazioni prodotti live con acquisto istantaneo</li>
+</ul>
+
+<h4>4. Paid Advertising</h4>
+<ul>
+<li><strong>Google Shopping:</strong> Essenziale per prodotti - massimo intento d''acquisto</li>
+<li><strong>Facebook/Instagram Ads:</strong> Targeting demografico preciso, retargeting</li>
+<li><strong>TikTok Ads:</strong> Gen Z e Millennials, contenuto video creativo</li>
+<li><strong>Remarketing:</strong> Segui visitatori sul web con offerte personalizzate</li>
+</ul>
+
+<h3>Conversione e Ottimizzazione</h3>
+
+<h4>Tecniche di Crescita delle Conversioni</h4>
+<ul>
+<li><strong>Social proof:</strong> Recensioni, rating, numero acquirenti, trust badge</li>
+<li><strong>Urgency & scarcity:</strong> "Ultimi 3 pezzi", "Offerta limitata"</li>
+<li><strong>Free shipping threshold:</strong> "Spedizione gratuita sopra i 50€"</li>
+<li><strong>Upsell & cross-sell:</strong> "I clienti hanno anche comprato...", bundle</li>
+<li><strong>Exit-intent popup:</strong> Offerte speciali per chi sta lasciando il sito</li>
+<li><strong>Live chat support:</strong> Rispondi alle domande istantaneamente, aumenta conversioni 20%</li>
+</ul>
+
+<h4>A/B Testing Continuo</h4>
+<p>Testa e ottimizza costantemente:</p>
+<ul>
+<li>Posizione e colore pulsanti CTA</li>
+<li>Copy delle descrizioni e titoli</li>
+<li>Immagini prodotti (lifestyle vs. sfondo bianco)</li>
+<li>Struttura della pagina checkout</li>
+<li>Offerte e promozioni</li>
+</ul>
+
+<h3>Tecnologie Emergenti E-Commerce 2026</h3>
+
+<h4>AI e Personalizzazione</h4>
+<ul>
+<li>Raccomandazioni prodotti basate su AI (machine learning)</li>
+<li>Chatbot intelligenti per supporto clienti 24/7</li>
+<li>Previsione comportamento cliente e prevenzione churn</li>
+<li>Dynamic pricing basato su domanda e stock</li>
+</ul>
+
+<h4>Esperienze Shopping AR/VR</h4>
+<ul>
+<li>Virtual try-on per abbigliamento, occhiali, makeup</li>
+<li>AR per visualizzazione mobile nel proprio spazio</li>
+<li>Showroom virtuali 3D interattivi</li>
+</ul>
+
+<h4>Voice Commerce</h4>
+<ul>
+<li>Ordini tramite Alexa, Google Assistant, Siri</li>
+<li>Ottimizzazione per voice search</li>
+<li>Riordino vocale per prodotti ricorrenti</li>
+</ul>
+
+<h3>Analytics e Metriche Essenziali</h3>
+<p>Cosa monitorare per il successo:</p>
+<ul>
+<li><strong>Conversion rate:</strong> % visitatori che acquistano (benchmark: 2-3%)</li>
+<li><strong>Average Order Value (AOV):</strong> Valore medio ordine</li>
+<li><strong>Customer Acquisition Cost (CAC):</strong> Costo per portare un cliente</li>
+<li><strong>Customer Lifetime Value (CLV):</strong> Valore totale cliente nel tempo</li>
+<li><strong>Cart abandonment rate:</strong> % carrelli abbandonati (media: 70%)</li>
+<li><strong>Return rate:</strong> % prodotti restituiti</li>
+<li><strong>Traffic sources:</strong> Organic, paid, social, direct, referral</li>
+</ul>
+
+<h3>Aspetti Legali e Conformità</h3>
+<ul>
+<li><strong>GDPR:</strong> Protezione dati clienti UE</li>
+<li><strong>Termini e condizioni:</strong> Chiari, trasparenti</li>
+<li><strong>Politica di reso:</strong> Semplice, friendly (14-30 giorni)</li>
+<li><strong>Fatturazione conforme:</strong> Integrazione con autorità fiscali</li>
+<li><strong>Cookie consent:</strong> Banner conforme GDPR</li>
+</ul>
+
+<h3>Conclusione</h3>
+<p>Un negozio online di successo nel 2026 combina tecnologia moderna, marketing strategico ed esperienza utente eccezionale. Non basta avere buoni prodotti - devi presentarli perfettamente, attrarre i clienti giusti e convincerli ad acquistare.</p>
+<p>Da GridjaCards, costruiamo piattaforme e-commerce complete, dal design e sviluppo al marketing e ottimizzazione. Trasformiamo la tua idea in un business online profittevole e scalabile.</p>',
+
+  -- Excerpts
+  'Ghid complet e-commerce 2026: platforme, design, marketing și optimizare pentru un magazin online profitabil. De la setup la scaling.',
+  'Complete e-commerce 2026 guide: platforms, design, marketing and optimization for a profitable online store. From setup to scaling.',
+  'Guida completa e-commerce 2026: piattaforme, design, marketing e ottimizzazione per un negozio online redditizio. Dal setup allo scaling.',
+
+  'GridjaCards Team',
+  '["E-Commerce", "Online Store", "Shopify", "WooCommerce", "Digital Marketing"]',
+  'published',
+  NOW(),
+  NOW(),
+  NOW()
+)
+ON CONFLICT (slug) DO NOTHING;
+
 -- Verifica inserimenti
 SELECT COUNT(*) as total_articles FROM "BlogPost" WHERE status = 'published';
