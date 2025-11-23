@@ -103,6 +103,9 @@ export async function PUT(request: NextRequest) {
       });
 
       // Create partner profile
+      const now = new Date();
+      const fiscalYearStart = new Date(now.getFullYear(), 0, 1); // January 1st of current year
+
       await createPartner({
         userId: newUser.id,
         companyName: application.companyName,
@@ -111,7 +114,16 @@ export async function PUT(request: NextRequest) {
         phone: application.phone,
         address: application.address,
         taxId: application.taxId,
+
+        // Tier System - all new partners start at BRONZE
+        currentTier: 'BRONZE',
+        annualRevenue: 0,
+        fiscalYearStart: fiscalYearStart.toISOString(),
+        lastTierUpdate: now.toISOString(),
+
+        // Legacy field for backward compatibility
         markup: markup,
+
         status: 'approved',
         notes: notes,
         approvedAt: new Date().toISOString(),
