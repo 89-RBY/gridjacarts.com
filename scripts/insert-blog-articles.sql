@@ -18,14 +18,14 @@ INSERT INTO "BlogPost" (
 )
 VALUES (
   'post_' || substring(md5(random()::text) from 1 for 20),
-  'ghid-complet-web-design-modern-2024',
-  'Ghid Complet Web Design Modern: Tendințe și Best Practices 2024',
-  'Complete Modern Web Design Guide: Trends and Best Practices 2024',
-  'Guida Completa al Web Design Moderno: Tendenze e Best Practices 2024',
+  'ghid-complet-web-design-modern-2026',
+  'Ghid Complet Web Design Modern: Tendințe și Best Practices 2026',
+  'Complete Modern Web Design Guide: Trends and Best Practices 2026',
+  'Guida Completa al Web Design Moderno: Tendenze e Best Practices 2026',
 
   -- Content RO
-  '<h2>Ce Înseamnă Web Design Modern în 2024?</h2>
-<p>Web design-ul modern nu mai este doar despre culori și fonturi plăcute. Este o combinație perfectă între estetică, funcționalitate și experiența utilizatorului. În 2024, un site web bine realizat poate face diferența dintre succesul și eșecul unei afaceri online.</p>
+  '<h2>Ce Înseamnă Web Design Modern în 2026?</h2>
+<p>Web design-ul modern nu mai este doar despre culori și fonturi plăcute. Este o combinație perfectă între estetică, funcționalitate și experiența utilizatorului. În 2026, un site web bine realizat poate face diferența dintre succesul și eșecul unei afaceri online.</p>
 
 <h3>Principii Fundamentale ale Web Design-ului Profesional</h3>
 <p>Un design web de succes se bazează pe câteva principii esențiale:</p>
@@ -37,8 +37,8 @@ VALUES (
 <li><strong>Performanță:</strong> Timp de încărcare rapid, sub 3 secunde pentru experiență optimă</li>
 </ul>
 
-<h3>Tendințe Web Design 2024</h3>
-<p>Industria designului web evoluează constant. Iată cele mai importante tendințe pentru 2024:</p>
+<h3>Tendințe Web Design 2026</h3>
+<p>Industria designului web evoluează constant. Iată cele mai importante tendințe pentru 2026:</p>
 
 <h4>1. Dark Mode și Teme Adaptabile</h4>
 <p>Din ce în ce mai mulți utilizatori preferă dark mode pentru confort vizual. Un design modern oferă opțiunea de a comuta între teme clare și întunecate.</p>
@@ -98,8 +98,8 @@ VALUES (
 <p>La GridjaCards, creăm designuri web care combină creativitatea cu strategia, estetica cu performanța, pentru rezultate măsurabile și durabile.</p>',
 
   -- Content EN
-  '<h2>What Does Modern Web Design Mean in 2024?</h2>
-<p>Modern web design is no longer just about pretty colors and fonts. It''s the perfect combination of aesthetics, functionality, and user experience. In 2024, a well-designed website can make the difference between online business success and failure.</p>
+  '<h2>What Does Modern Web Design Mean in 2026?</h2>
+<p>Modern web design is no longer just about pretty colors and fonts. It''s the perfect combination of aesthetics, functionality, and user experience. In 2026, a well-designed website can make the difference between online business success and failure.</p>
 
 <h3>Fundamental Principles of Professional Web Design</h3>
 <p>Successful web design is based on several essential principles:</p>
@@ -111,8 +111,8 @@ VALUES (
 <li><strong>Performance:</strong> Fast loading time, under 3 seconds for optimal experience</li>
 </ul>
 
-<h3>Web Design Trends 2024</h3>
-<p>The web design industry is constantly evolving. Here are the most important trends for 2024:</p>
+<h3>Web Design Trends 2026</h3>
+<p>The web design industry is constantly evolving. Here are the most important trends for 2026:</p>
 
 <h4>1. Dark Mode and Adaptive Themes</h4>
 <p>More and more users prefer dark mode for visual comfort. Modern design offers the option to switch between light and dark themes.</p>
@@ -172,8 +172,8 @@ VALUES (
 <p>At GridjaCards, we create web designs that combine creativity with strategy, aesthetics with performance, for measurable and lasting results.</p>',
 
   -- Content IT
-  '<h2>Cosa Significa Web Design Moderno nel 2024?</h2>
-<p>Il web design moderno non è più solo questione di colori e font piacevoli. È la combinazione perfetta tra estetica, funzionalità ed esperienza utente. Nel 2024, un sito web ben progettato può fare la differenza tra successo e fallimento di un business online.</p>
+  '<h2>Cosa Significa Web Design Moderno nel 2026?</h2>
+<p>Il web design moderno non è più solo questione di colori e font piacevoli. È la combinazione perfetta tra estetica, funzionalità ed esperienza utente. Nel 2026, un sito web ben progettato può fare la differenza tra successo e fallimento di un business online.</p>
 
 <h3>Principi Fondamentali del Web Design Professionale</h3>
 <p>Un web design di successo si basa su alcuni principi essenziali:</p>
@@ -185,8 +185,8 @@ VALUES (
 <li><strong>Performance:</strong> Tempo di caricamento veloce, sotto i 3 secondi per un''esperienza ottimale</li>
 </ul>
 
-<h3>Tendenze Web Design 2024</h3>
-<p>L''industria del web design è in costante evoluzione. Ecco le tendenze più importanti per il 2024:</p>
+<h3>Tendenze Web Design 2026</h3>
+<p>L''industria del web design è in costante evoluzione. Ecco le tendenze più importanti per il 2026:</p>
 
 <h4>1. Dark Mode e Temi Adattabili</h4>
 <p>Sempre più utenti preferiscono la modalità scura per il comfort visivo. Un design moderno offre l''opzione di passare tra temi chiari e scuri.</p>
@@ -246,9 +246,9 @@ VALUES (
 <p>Da GridjaCards, creiamo web design che combinano creatività con strategia, estetica con performance, per risultati misurabili e duraturi.</p>',
 
   -- Excerpts
-  'Descoperă principiile web design-ului modern, tendințele 2024 și cum un design profesional poate transforma vizitatorii în clienți. Ghid complet cu best practices.',
-  'Discover modern web design principles, 2024 trends, and how professional design can transform visitors into customers. Complete guide with best practices.',
-  'Scopri i principi del web design moderno, le tendenze 2024 e come un design professionale può trasformare i visitatori in clienti. Guida completa con best practices.',
+  'Descoperă principiile web design-ului modern, tendințele 2026 și cum un design profesional poate transforma vizitatorii în clienți. Ghid complet cu best practices.',
+  'Discover modern web design principles, 2026 trends, and how professional design can transform visitors into customers. Complete guide with best practices.',
+  'Scopri i principi del web design moderno, le tendenze 2026 e come un design professionale può trasformare i visitatori in clienti. Guida completa con best practices.',
 
   'GridjaCards Team',
   '["Web Design", "UX/UI", "Responsive Design", "Web Development", "Digital Marketing"]',
@@ -268,10 +268,10 @@ INSERT INTO "BlogPost" (
 )
 VALUES (
   'post_' || substring(md5(random()::text) from 1 for 20),
-  'seo-ghid-complet-optimizare-motoare-cautare-2024',
-  'SEO 2024: Ghid Complet pentru Optimizarea Motoarelor de Căutare',
-  'SEO 2024: Complete Guide to Search Engine Optimization',
-  'SEO 2024: Guida Completa all''Ottimizzazione per i Motori di Ricerca',
+  'seo-ghid-complet-optimizare-motoare-cautare-2026',
+  'SEO 2026: Ghid Complet pentru Optimizarea Motoarelor de Căutare',
+  'SEO 2026: Complete Guide to Search Engine Optimization',
+  'SEO 2026: Guida Completa all''Ottimizzazione per i Motori di Ricerca',
 
   -- Content RO
   '<h2>Ce Este SEO și De Ce Este Crucial pentru Afacerea Ta?</h2>
@@ -389,7 +389,7 @@ VALUES (
 
   -- Content EN
   '<h2>What Is SEO and Why Is It Crucial for Your Business?</h2>
-<p>SEO (Search Engine Optimization) is the process of optimizing your website to achieve better positions in organic search engine results like Google. In 2024, with over 8.5 billion daily searches on Google, SEO is no longer optional - it''s essential.</p>
+<p>SEO (Search Engine Optimization) is the process of optimizing your website to achieve better positions in organic search engine results like Google. In 2026, with over 8.5 billion daily searches on Google, SEO is no longer optional - it''s essential.</p>
 
 <h3>How Do Search Engines Work?</h3>
 <p>Understanding how Google indexes and ranks websites is the foundation of any successful SEO strategy:</p>
@@ -503,7 +503,7 @@ VALUES (
 
   -- Content IT
   '<h2>Cos''è la SEO e Perché è Cruciale per il Tuo Business?</h2>
-<p>La SEO (Search Engine Optimization) è il processo di ottimizzazione del tuo sito web per ottenere posizioni migliori nei risultati organici dei motori di ricerca come Google. Nel 2024, con oltre 8,5 miliardi di ricerche giornaliere su Google, la SEO non è più opzionale - è essenziale.</p>
+<p>La SEO (Search Engine Optimization) è il processo di ottimizzazione del tuo sito web per ottenere posizioni migliori nei risultati organici dei motori di ricerca come Google. Nel 2026, con oltre 8,5 miliardi di ricerche giornaliere su Google, la SEO non è più opzionale - è essenziale.</p>
 
 <h3>Come Funzionano i Motori di Ricerca?</h3>
 <p>Comprendere come Google indicizza e classifica i siti web è il fondamento di qualsiasi strategia SEO di successo:</p>
@@ -616,9 +616,9 @@ VALUES (
 <p>Da GridjaCards, usiamo tecniche SEO white-hat (conformi Google) per risultati sostenibili. La nostra strategia combina SEO tecnica, contenuti di qualità e link building etico per crescita organica reale.</p>',
 
   -- Excerpts
-  'Ghid complet SEO 2024: strategii on-page, off-page și tehnice pentru poziții top în Google. Crește traficul organic și transformă vizitatori în clienți.',
-  'Complete SEO 2024 guide: on-page, off-page and technical strategies for top Google rankings. Grow organic traffic and convert visitors into customers.',
-  'Guida completa SEO 2024: strategie on-page, off-page e tecniche per posizioni top su Google. Aumenta il traffico organico e converti visitatori in clienti.',
+  'Ghid complet SEO 2026: strategii on-page, off-page și tehnice pentru poziții top în Google. Crește traficul organic și transformă vizitatori în clienți.',
+  'Complete SEO 2026 guide: on-page, off-page and technical strategies for top Google rankings. Grow organic traffic and convert visitors into customers.',
+  'Guida completa SEO 2026: strategie on-page, off-page e tecniche per posizioni top su Google. Aumenta il traffico organico e converti visitatori in clienti.',
 
   'GridjaCards Team',
   '["SEO", "Digital Marketing", "Google", "Content Marketing", "Link Building"]',
