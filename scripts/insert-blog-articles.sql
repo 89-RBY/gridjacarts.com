@@ -275,7 +275,7 @@ VALUES (
 
   -- Content RO
   '<h2>Ce Este SEO și De Ce Este Crucial pentru Afacerea Ta?</h2>
-<p>SEO (Search Engine Optimization) este procesul de optimizare a site-ului tău web pentru a obține poziții mai bune în rezultatele organice ale motoarelor de căutare precum Google. În 2024, cu peste 8.5 miliarde de căutări zilnice pe Google, SEO nu mai este opțional - este esențial.</p>
+<p>SEO (Search Engine Optimization) este procesul de optimizare a site-ului tău web pentru a obține poziții mai bune în rezultatele organice ale motoarelor de căutare precum Google. În 2026, cu peste 8.5 miliarde de căutări zilnice pe Google, SEO nu mai este opțional - este esențial.</p>
 
 <h3>Cum Funcționează Motoarele de Căutare?</h3>
 <p>Înțelegerea modului în care Google indexează și clasifică site-urile este fundamentul oricărei strategii SEO de succes:</p>
