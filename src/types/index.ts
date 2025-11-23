@@ -229,3 +229,25 @@ export const TIER_CONFIGS: Record<TierLevel, TierConfig> = {
     ],
   },
 };
+
+// Contract Types
+export type ContractStatus = 'PENDING' | 'SIGNED' | 'EXPIRED' | 'REJECTED' | 'ARCHIVED';
+
+export interface Contract {
+  id: string;
+  partnerId: string;
+  orderId?: string;
+  contractNumber: string;
+  contractType: string;
+  fileName: string;
+  fileUrl: string;
+  fileSize: number;
+  mimeType: string;
+  status: ContractStatus;
+  signedAt?: string;
+  expiresAt?: string;
+  notes: string;
+  uploadedAt: string;
+  createdAt: string;
+  updatedAt: string;
+}

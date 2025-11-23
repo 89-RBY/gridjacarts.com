@@ -48,6 +48,7 @@ model Partner {
   // Relations
   bonusServices   BonusService[]
   orders          Order[]
+  contracts       Contract[]
 }
 
 model PartnerApplication {
@@ -179,6 +180,30 @@ model Order {
   @@index([orderDate])
 }
 
+model Contract {
+  id              String         @id @default(cuid())
+  partnerId       String
+  partner         Partner        @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  orderId         String?        // Optional reference to an order
+  contractNumber  String         @unique // e.g., "CONTR-2024-001"
+  contractType    String         // "partnership", "service", "nda", etc.
+  fileName        String
+  fileUrl         String         // URL del file nel cloud storage
+  fileSize        Int            // Dimensione file in bytes
+  mimeType        String         // "application/pdf", ecc.
+  status          ContractStatus @default(PENDING)
+  signedAt        DateTime?
+  expiresAt       DateTime?
+  notes           String         @default("")
+  uploadedAt      DateTime       @default(now())
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([partnerId])
+  @@index([status])
+  @@index([contractNumber])
+}
+
 // Enums
 
 enum TierLevel {
@@ -199,4 +224,12 @@ enum OrderStatus {
   IN_PROGRESS  // In lavorazione
   COMPLETED    // Completato
   CANCELLED    // Annullato
+}
+
+enum ContractStatus {
+  PENDING      // In attesa di firma
+  SIGNED       // Firmato
+  EXPIRED      // Scaduto
+  REJECTED     // Rifiutato
+  ARCHIVED     // Archiviato
 }
