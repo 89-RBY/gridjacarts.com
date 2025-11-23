@@ -42,13 +42,13 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
       const data = await res.json();
 
       if (!res.ok || data.user?.role !== 'partner') {
-        router.push(\`/\${locale}/login\`);
+        router.push(`/${locale}/login`);
         return;
       }
 
       setUser(data.user);
     } catch {
-      router.push(\`/\${locale}/login\`);
+      router.push(`/${locale}/login`);
     } finally {
       setLoading(false);
     }
@@ -83,7 +83,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
 
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' });
-    router.push(\`/\${locale}/login\`);
+    router.push(`/${locale}/login`);
   };
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -184,14 +184,14 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
       </button>
 
       {/* Sidebar */}
-      <aside className={\`fixed left-0 top-0 h-full w-64 bg-gray-800 border-r border-gray-700 z-40 transform transition-transform duration-300 \${
+      <aside className={`fixed left-0 top-0 h-full w-64 bg-gray-800 border-r border-gray-700 z-40 transform transition-transform duration-300 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } lg:translate-x-0\`}>
+      } lg:translate-x-0`}>
         <div className="p-6 border-b border-gray-700">
           <Logo size="md" />
           <div className="mt-4 text-sm text-gray-400">{user?.name}</div>
           {partner && (
-            <div className={\`mt-2 inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold \${getTierColor(partner.currentTier)}\`}>
+            <div className={`mt-2 inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${getTierColor(partner.currentTier)}`}>
               <Award className="w-3 h-3 mr-1" />
               {partner.currentTier}
             </div>
@@ -203,9 +203,9 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
             <button
               key={tab.id}
               onClick={() => { setActiveTab(tab.id); setSidebarOpen(false); }}
-              className={\`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors \${
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                 activeTab === tab.id ? 'bg-primary-600 text-white' : 'text-gray-300 hover:bg-gray-700'
-              }\`}
+              }`}
             >
               <tab.icon className="w-5 h-5" />
               {tab.label}
@@ -287,7 +287,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                     <div className="w-full bg-gray-700 rounded-full h-3">
                       <div
                         className="bg-gradient-to-r from-primary-500 to-accent-500 h-3 rounded-full transition-all"
-                        style={{ width: \`\${tierProgress.progressPercent}%\` }}
+                        style={{ width: `${tierProgress.progressPercent}%` }}
                       />
                     </div>
                     <p className="text-sm text-gray-400">€{tierProgress.remainingRevenue.toFixed(2)} {t.toNextTier}</p>
@@ -307,7 +307,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                       </div>
                       <div className="flex items-center gap-4">
                         <span className="text-white font-semibold">€{order.amount.toFixed(2)}</span>
-                        <span className={\`px-3 py-1 rounded-full text-xs font-semibold \${getStatusColor(order.status)}\`}>
+                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(order.status)}`}>
                           {order.status}
                         </span>
                       </div>
@@ -343,7 +343,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                         <td className="px-4 py-4 text-right text-white">€{order.amount.toFixed(2)}</td>
                         <td className="px-4 py-4 text-right text-green-400">€{order.partnerCost.toFixed(2)}</td>
                         <td className="px-4 py-4 text-center">
-                          <span className={\`px-3 py-1 rounded-full text-xs font-semibold \${getStatusColor(order.status)}\`}>
+                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(order.status)}`}>
                             {order.status}
                           </span>
                         </td>
@@ -368,7 +368,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                   <div key={bonus.id} className="bg-gray-800 rounded-xl p-6 border border-gray-700">
                     <div className="flex items-start justify-between mb-4">
                       <Gift className="w-8 h-8 text-primary-500" />
-                      <span className={\`px-3 py-1 rounded-full text-xs font-semibold \${getStatusColor(bonus.status)}\`}>
+                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(bonus.status)}`}>
                         {bonus.status}
                       </span>
                     </div>
@@ -424,7 +424,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                         <td className="px-4 py-4 text-gray-300">{contract.fileName}</td>
                         <td className="px-4 py-4 text-gray-300">{contract.contractType}</td>
                         <td className="px-4 py-4 text-center">
-                          <span className={\`px-3 py-1 rounded-full text-xs font-semibold \${getStatusColor(contract.status)}\`}>
+                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(contract.status)}`}>
                             {contract.status}
                           </span>
                         </td>
