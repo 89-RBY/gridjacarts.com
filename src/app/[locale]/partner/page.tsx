@@ -44,10 +44,15 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
     }
   };
 
-  const fetchPricing = async () => {
-    const res = await fetch('/api/services');
-    const data = await res.json();
-    if (res.ok) setPricing(data.pricing);
+  const fetchPartnerData = async () => {
+    try {
+      // TODO: Create API endpoints for partner data
+      // For now, we'll use placeholder data
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching partner data:', error);
+      setLoading(false);
+    }
   };
 
   const handleLogout = async () => {
@@ -69,30 +74,30 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
       welcome: 'Bine ai venit',
       pricing: 'Prețuri Servicii',
       service: 'Serviciu',
-      basePrice: 'Preț Bază',
-      markup: 'Adaos (%)',
-      finalPrice: 'Preț Final',
-      description: 'Aici găsești prețurile noastre de bază cu adaosul tău de partener. Poți folosi aceste prețuri pentru a-ți calcula ofertele către clienți.',
+      basePrice: 'Preț Client',
+      markup: 'Sconto (%)',
+      finalPrice: 'Cost Partener',
+      description: 'Prețurile fixe pentru clienți și costurile tale ca partener (după aplicarea scontului tier).',
     },
     en: {
       title: 'Partner Portal',
       welcome: 'Welcome',
       pricing: 'Service Pricing',
       service: 'Service',
-      basePrice: 'Base Price',
-      markup: 'Markup (%)',
-      finalPrice: 'Final Price',
-      description: 'Here you can find our base prices with your partner markup. You can use these prices to calculate your offers to clients.',
+      basePrice: 'Client Price',
+      markup: 'Discount (%)',
+      finalPrice: 'Partner Cost',
+      description: 'Fixed client prices and your partner costs (after tier discount).',
     },
     it: {
       title: 'Portale Partner',
       welcome: 'Benvenuto',
       pricing: 'Prezzi Servizi',
       service: 'Servizio',
-      basePrice: 'Prezzo Base',
-      markup: 'Margine (%)',
-      finalPrice: 'Prezzo Finale',
-      description: 'Qui trovi i nostri prezzi base con il tuo margine partner. Puoi usare questi prezzi per calcolare le tue offerte ai clienti.',
+      basePrice: 'Prezzo Cliente',
+      markup: 'Sconto (%)',
+      finalPrice: 'Costo Partner',
+      description: 'Prezzi fissi per i clienti e i tuoi costi da partner (dopo lo sconto tier).',
     },
   };
 
@@ -147,20 +152,36 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-              {pricing.map((item) => (
-                <tr key={item.serviceId} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                  <td className="px-6 py-4 font-medium">{item.serviceName}</td>
-                  <td className="px-6 py-4 text-right text-gray-500">
-                    €{item.basePrice.toFixed(2)}
-                  </td>
-                  <td className="px-6 py-4 text-right text-yellow-600">
-                    +{item.partnerMarkup}%
-                  </td>
-                  <td className="px-6 py-4 text-right font-semibold text-green-600">
-                    €{item.finalPrice.toFixed(2)}
+              {services.length === 0 ? (
+                <tr>
+                  <td colSpan={4} className="px-6 py-8 text-center text-gray-500">
+                    {locale === 'ro' && 'Se încarcă prețurile...'}
+                    {locale === 'en' && 'Loading pricing...'}
+                    {locale === 'it' && 'Caricamento prezzi...'}
                   </td>
                 </tr>
-              ))}
+              ) : (
+                services.map((service) => {
+                  const price = locale === 'ro' ? service.priceRo : locale === 'it' ? service.priceIt : service.priceEn;
+                  const discount = partner?.currentTier ? (partner.currentTier === 'BRONZE' ? 15 : partner.currentTier === 'SILVER' ? 20 : partner.currentTier === 'GOLD' ? 25 : 30) : 15;
+                  const partnerCost = price * (1 - discount / 100);
+
+                  return (
+                    <tr key={service.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                      <td className="px-6 py-4 font-medium">{service.serviceName}</td>
+                      <td className="px-6 py-4 text-right text-gray-500">
+                        €{price.toFixed(2)}
+                      </td>
+                      <td className="px-6 py-4 text-right text-green-600">
+                        -{discount}%
+                      </td>
+                      <td className="px-6 py-4 text-right font-semibold text-green-600">
+                        €{partnerCost.toFixed(2)}
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>
