@@ -274,7 +274,16 @@ export async function getPartners(): Promise<Partner[]> {
     phone: p.phone,
     address: p.address,
     taxId: p.taxId,
-    markup: p.markup,
+
+    // Tier System fields
+    currentTier: p.currentTier as 'BRONZE' | 'SILVER' | 'GOLD' | 'PLATINUM',
+    annualRevenue: p.annualRevenue,
+    fiscalYearStart: p.fiscalYearStart.toISOString(),
+    lastTierUpdate: p.lastTierUpdate.toISOString(),
+
+    // Legacy field (optional)
+    markup: p.markup ?? undefined,
+
     status: p.status as 'pending' | 'approved' | 'rejected' | 'suspended',
     notes: p.notes,
     createdAt: p.createdAt.toISOString(),
@@ -298,7 +307,16 @@ export async function savePartners(partners: Partner[]): Promise<void> {
         phone: partner.phone,
         address: partner.address,
         taxId: partner.taxId,
+
+        // Tier System fields
+        currentTier: partner.currentTier,
+        annualRevenue: partner.annualRevenue,
+        fiscalYearStart: new Date(partner.fiscalYearStart),
+        lastTierUpdate: new Date(partner.lastTierUpdate),
+
+        // Legacy field (optional)
         markup: partner.markup,
+
         status: partner.status,
         notes: partner.notes,
         approvedAt: partner.approvedAt ? new Date(partner.approvedAt) : null,
@@ -320,7 +338,16 @@ export async function getPartnerById(id: string): Promise<Partner | null> {
     phone: partner.phone,
     address: partner.address,
     taxId: partner.taxId,
-    markup: partner.markup,
+
+    // Tier System fields
+    currentTier: partner.currentTier as 'BRONZE' | 'SILVER' | 'GOLD' | 'PLATINUM',
+    annualRevenue: partner.annualRevenue,
+    fiscalYearStart: partner.fiscalYearStart.toISOString(),
+    lastTierUpdate: partner.lastTierUpdate.toISOString(),
+
+    // Legacy field (optional)
+    markup: partner.markup ?? undefined,
+
     status: partner.status as 'pending' | 'approved' | 'rejected' | 'suspended',
     notes: partner.notes,
     createdAt: partner.createdAt.toISOString(),
@@ -341,7 +368,16 @@ export async function getPartnerByUserId(userId: string): Promise<Partner | null
     phone: partner.phone,
     address: partner.address,
     taxId: partner.taxId,
-    markup: partner.markup,
+
+    // Tier System fields
+    currentTier: partner.currentTier as 'BRONZE' | 'SILVER' | 'GOLD' | 'PLATINUM',
+    annualRevenue: partner.annualRevenue,
+    fiscalYearStart: partner.fiscalYearStart.toISOString(),
+    lastTierUpdate: partner.lastTierUpdate.toISOString(),
+
+    // Legacy field (optional)
+    markup: partner.markup ?? undefined,
+
     status: partner.status as 'pending' | 'approved' | 'rejected' | 'suspended',
     notes: partner.notes,
     createdAt: partner.createdAt.toISOString(),
@@ -362,7 +398,16 @@ export async function createPartner(
       phone: partnerData.phone,
       address: partnerData.address,
       taxId: partnerData.taxId,
+
+      // Tier System fields
+      currentTier: partnerData.currentTier,
+      annualRevenue: partnerData.annualRevenue,
+      fiscalYearStart: new Date(partnerData.fiscalYearStart),
+      lastTierUpdate: new Date(partnerData.lastTierUpdate),
+
+      // Legacy field (optional)
       markup: partnerData.markup,
+
       status: partnerData.status,
       notes: partnerData.notes,
       approvedAt: partnerData.approvedAt ? new Date(partnerData.approvedAt) : null,
@@ -379,7 +424,16 @@ export async function createPartner(
     phone: newPartner.phone,
     address: newPartner.address,
     taxId: newPartner.taxId,
-    markup: newPartner.markup,
+
+    // Tier System fields
+    currentTier: newPartner.currentTier as 'BRONZE' | 'SILVER' | 'GOLD' | 'PLATINUM',
+    annualRevenue: newPartner.annualRevenue,
+    fiscalYearStart: newPartner.fiscalYearStart.toISOString(),
+    lastTierUpdate: newPartner.lastTierUpdate.toISOString(),
+
+    // Legacy field (optional)
+    markup: newPartner.markup ?? undefined,
+
     status: newPartner.status as 'pending' | 'approved' | 'rejected' | 'suspended',
     notes: newPartner.notes,
     createdAt: newPartner.createdAt.toISOString(),
@@ -398,7 +452,16 @@ export async function updatePartner(id: string, updates: Partial<Partner>): Prom
     if (updates.phone) updateData.phone = updates.phone;
     if (updates.address) updateData.address = updates.address;
     if (updates.taxId) updateData.taxId = updates.taxId;
+
+    // Tier System fields
+    if (updates.currentTier) updateData.currentTier = updates.currentTier;
+    if (updates.annualRevenue !== undefined) updateData.annualRevenue = updates.annualRevenue;
+    if (updates.fiscalYearStart) updateData.fiscalYearStart = new Date(updates.fiscalYearStart);
+    if (updates.lastTierUpdate) updateData.lastTierUpdate = new Date(updates.lastTierUpdate);
+
+    // Legacy field
     if (updates.markup !== undefined) updateData.markup = updates.markup;
+
     if (updates.status) updateData.status = updates.status;
     if (updates.notes !== undefined) updateData.notes = updates.notes;
     if (updates.approvedAt) updateData.approvedAt = new Date(updates.approvedAt);
@@ -418,7 +481,16 @@ export async function updatePartner(id: string, updates: Partial<Partner>): Prom
       phone: updatedPartner.phone,
       address: updatedPartner.address,
       taxId: updatedPartner.taxId,
-      markup: updatedPartner.markup,
+
+      // Tier System fields
+      currentTier: updatedPartner.currentTier as 'BRONZE' | 'SILVER' | 'GOLD' | 'PLATINUM',
+      annualRevenue: updatedPartner.annualRevenue,
+      fiscalYearStart: updatedPartner.fiscalYearStart.toISOString(),
+      lastTierUpdate: updatedPartner.lastTierUpdate.toISOString(),
+
+      // Legacy field (optional)
+      markup: updatedPartner.markup ?? undefined,
+
       status: updatedPartner.status as 'pending' | 'approved' | 'rejected' | 'suspended',
       notes: updatedPartner.notes,
       createdAt: updatedPartner.createdAt.toISOString(),
