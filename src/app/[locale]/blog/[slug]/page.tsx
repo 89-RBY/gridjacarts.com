@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getBlogPostBySlug } from '@/lib/data';
 import { Calendar, User, ArrowLeft, Tag } from 'lucide-react';
+import BlogPostWrapper from '@/components/BlogPostWrapper';
 
 interface BlogPostPageProps {
   params: { locale: string; slug: string };
@@ -47,7 +48,8 @@ export default async function BlogPostPage({ params: { locale, slug } }: BlogPos
   }
 
   return (
-    <div>
+    <BlogPostWrapper slugs={post.slugs}>
+      <div>
       {/* Hero Section */}
       <section className="section-padding bg-gradient-to-br from-gray-50 to-primary-50 dark:from-gray-900 dark:to-gray-800">
         <div className="container-custom">
@@ -163,5 +165,6 @@ export default async function BlogPostPage({ params: { locale, slug } }: BlogPos
         </div>
       </section>
     </div>
+    </BlogPostWrapper>
   );
 }
