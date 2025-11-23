@@ -11,6 +11,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   if (posts.length === 0) {
     const samplePostData = {
       slug: 'importanta-seo-2024',
+      slugRo: 'importanta-seo-2024',
+      slugEn: 'importance-seo-2024',
+      slugIt: 'importanza-seo-2024',
       titleRo: 'Importanța SEO în 2024',
       titleEn: 'The Importance of SEO in 2024',
       titleIt: "L'importanza della SEO nel 2024",
