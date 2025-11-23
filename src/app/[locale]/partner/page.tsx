@@ -36,11 +36,25 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
 
   const fetchPartnerData = async () => {
     try {
-      // TODO: Create API endpoints for partner data
-      // For now, we'll use placeholder data
-      setLoading(false);
+      // Fetch dashboard data
+      const dashboardRes = await fetch('/api/partner/dashboard');
+      if (dashboardRes.ok) {
+        const dashboardData = await dashboardRes.json();
+        setPartner(dashboardData.partner);
+        setTierProgress(dashboardData.tierProgress);
+        setBonusServices(dashboardData.bonusServices || []);
+        setOrders(dashboardData.orders || []);
+      }
+
+      // Fetch services pricing
+      const servicesRes = await fetch('/api/partner/services');
+      if (servicesRes.ok) {
+        const servicesData = await servicesRes.json();
+        setServices(servicesData.services || []);
+      }
     } catch (error) {
       console.error('Error fetching partner data:', error);
+    } finally {
       setLoading(false);
     }
   };
