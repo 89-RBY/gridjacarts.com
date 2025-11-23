@@ -97,7 +97,17 @@ export default async function BlogPostPage({ params: { locale, slug } }: BlogPos
 
             {/* Content */}
             <div
-              className="prose prose-lg dark:prose-invert max-w-none prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-strong:text-gray-900 dark:prose-strong:text-white prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-ol:text-gray-700 dark:prose-ol:text-gray-300"
+              className="prose prose-lg dark:prose-invert max-w-none
+                prose-headings:text-gray-900 dark:prose-headings:text-white
+                prose-h2:text-3xl prose-h2:font-bold prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-3 prose-h2:border-b prose-h2:border-gray-200 dark:prose-h2:border-gray-700
+                prose-h3:text-2xl prose-h3:font-semibold prose-h3:mt-10 prose-h3:mb-4
+                prose-h4:text-xl prose-h4:font-semibold prose-h4:mt-8 prose-h4:mb-3
+                prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
+                prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline
+                prose-strong:text-gray-900 dark:prose-strong:text-white prose-strong:font-semibold
+                prose-ul:text-gray-700 dark:prose-ul:text-gray-300 prose-ul:my-6 prose-ul:space-y-2
+                prose-ol:text-gray-700 dark:prose-ol:text-gray-300 prose-ol:my-6 prose-ol:space-y-2
+                prose-li:text-gray-700 dark:prose-li:text-gray-300"
               dangerouslySetInnerHTML={{
                 __html: post.content[locale as keyof typeof post.content] || post.content.en,
               }}
