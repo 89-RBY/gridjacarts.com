@@ -35,6 +35,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 function mapBlogPost(post: {
   id: string;
   slug: string;
+  slugRo?: string;
+  slugEn?: string;
+  slugIt?: string;
   titleRo: string;
   titleEn: string;
   titleIt: string;
@@ -53,6 +56,11 @@ function mapBlogPost(post: {
   return {
     id: post.id,
     slug: post.slug,
+    slugs: {
+      ro: post.slugRo || post.slug,
+      en: post.slugEn || post.slug,
+      it: post.slugIt || post.slug,
+    },
     title: {
       ro: post.titleRo,
       en: post.titleEn,
@@ -102,8 +110,46 @@ export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
   }
 }
 
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  const post = await prisma.blogPost.findUnique({ where: { slug } });
+export async function getBlogPostBySlug(slug: string, locale?: string): Promise<BlogPost | null> {
+  let post;
+
+  // If locale is provided, search by the appropriate language slug
+  if (locale) {
+    if (locale === 'ro') {
+      post = await prisma.blogPost.findFirst({
+        where: {
+          OR: [
+            { slugRo: slug },
+            { slug: slug } // Fallback to legacy slug
+          ]
+        }
+      });
+    } else if (locale === 'en') {
+      post = await prisma.blogPost.findFirst({
+        where: {
+          OR: [
+            { slugEn: slug },
+            { slug: slug } // Fallback to legacy slug
+          ]
+        }
+      });
+    } else if (locale === 'it') {
+      post = await prisma.blogPost.findFirst({
+        where: {
+          OR: [
+            { slugIt: slug },
+            { slug: slug } // Fallback to legacy slug
+          ]
+        }
+      });
+    }
+  }
+
+  // Fallback: search by legacy slug field
+  if (!post) {
+    post = await prisma.blogPost.findUnique({ where: { slug } });
+  }
+
   if (!post) return null;
   return mapBlogPost(post);
 }

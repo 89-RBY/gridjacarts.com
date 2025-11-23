@@ -55,7 +55,10 @@ model PartnerApplication {
 
 model BlogPost {
   id          String   @id @default(cuid())
-  slug        String   @unique
+  slug        String   @unique // Legacy - kept for backwards compatibility
+  slugRo      String   @unique
+  slugEn      String   @unique
+  slugIt      String   @unique
   titleRo     String
   titleEn     String
   titleIt     String

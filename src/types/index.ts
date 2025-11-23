@@ -40,7 +40,12 @@ export interface PartnerApplication {
 
 export interface BlogPost {
   id: string;
-  slug: string;
+  slug: string; // Legacy - for backwards compatibility
+  slugs: {
+    ro: string;
+    en: string;
+    it: string;
+  };
   title: {
     ro: string;
     en: string;

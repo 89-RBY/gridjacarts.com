@@ -13,15 +13,25 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params: { locale, slug } }: BlogPostPageProps) {
   try {
-    const post = await getBlogPostBySlug(slug);
+    const post = await getBlogPostBySlug(slug, locale);
 
     if (!post) {
       return { title: 'Post Not Found' };
     }
 
+    const baseUrl = 'https://gridjacarts.com';
+
     return {
       title: post.title[locale as keyof typeof post.title] || post.title.en,
       description: post.excerpt[locale as keyof typeof post.excerpt] || post.excerpt.en,
+      alternates: {
+        canonical: `${baseUrl}/${locale}/blog/${post.slugs[locale as keyof typeof post.slugs]}`,
+        languages: {
+          'ro': `${baseUrl}/ro/blog/${post.slugs.ro}`,
+          'en': `${baseUrl}/en/blog/${post.slugs.en}`,
+          'it': `${baseUrl}/it/blog/${post.slugs.it}`,
+        },
+      },
     };
   } catch {
     return { title: 'Blog Post' };
@@ -29,7 +39,7 @@ export async function generateMetadata({ params: { locale, slug } }: BlogPostPag
 }
 
 export default async function BlogPostPage({ params: { locale, slug } }: BlogPostPageProps) {
-  const post = await getBlogPostBySlug(slug);
+  const post = await getBlogPostBySlug(slug, locale);
   const t = await getTranslations({ locale, namespace: 'blog' });
 
   if (!post || post.status !== 'published') {

@@ -108,7 +108,7 @@ export default async function BlogPage({ params: { locale } }: BlogPageProps) {
 
                     {/* Read More */}
                     <Link
-                      href={`/${locale}/blog/${post.slug}`}
+                      href={`/${locale}/blog/${post.slugs[locale as keyof typeof post.slugs]}`}
                       className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:gap-3 transition-all"
                     >
                       {tCommon('readMore')}
