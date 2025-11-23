@@ -2,15 +2,19 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { LogOut, DollarSign } from 'lucide-react';
+import { LogOut, DollarSign, TrendingUp, Gift, Award, Package } from 'lucide-react';
 import Logo from '@/components/Logo';
-import { User, PartnerPricing } from '@/types';
+import { User, Partner, ServicePricing, BonusService, Order } from '@/types';
 
 export default function PartnerPortal({ params: { locale } }: { params: { locale: string } }) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [pricing, setPricing] = useState<PartnerPricing[]>([]);
+  const [partner, setPartner] = useState<Partner | null>(null);
+  const [services, setServices] = useState<ServicePricing[]>([]);
+  const [bonusServices, setBonusServices] = useState<BonusService[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [tierProgress, setTierProgress] = useState<any>(null);
 
   useEffect(() => {
     checkAuth();
@@ -18,7 +22,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
 
   useEffect(() => {
     if (user && user.role === 'partner') {
-      fetchPricing();
+      fetchPartnerData();
     }
   }, [user]);
 

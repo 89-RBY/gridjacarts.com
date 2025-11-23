@@ -19,22 +19,35 @@ model User {
 }
 
 model Partner {
-  id            String   @id @default(cuid())
-  userId        String   @unique
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  companyName   String
-  contactPerson String
-  email         String
-  phone         String
-  address       String
-  taxId         String
-  markup        Float    @default(20)
-  status        String   @default("pending") // pending, approved, rejected, suspended
-  notes         String   @default("")
-  approvedAt    DateTime?
-  approvedBy    String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id              String         @id @default(cuid())
+  userId          String         @unique
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName     String
+  contactPerson   String
+  email           String
+  phone           String
+  address         String
+  taxId           String
+
+  // Tier System
+  currentTier     TierLevel      @default(BRONZE)
+  annualRevenue   Float          @default(0)
+  fiscalYearStart DateTime       @default(now())
+  lastTierUpdate  DateTime       @updatedAt
+
+  // Legacy field - kept for backward compatibility during migration
+  markup          Float?         @default(20)
+
+  status          String         @default("pending") // pending, approved, rejected, suspended
+  notes           String         @default("")
+  approvedAt      DateTime?
+  approvedBy      String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Relations
+  bonusServices   BonusService[]
+  orders          Order[]
 }
 
 model PartnerApplication {
@@ -99,4 +112,91 @@ model NewsletterSubscriber {
   source    String   @default("website") // website, partner, etc
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// Tier System Models
+
+model BonusService {
+  id          String      @id @default(cuid())
+  partnerId   String
+  partner     Partner     @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  serviceName String
+  serviceType String      // "logo", "seo-audit", "landing-page", etc
+  value       Float       // Valore del servizio in euro
+  locale      String      @default("ro") // ro, it, en - determina il prezzo
+  status      BonusStatus @default(AVAILABLE)
+  assignedAt  DateTime    @default(now())
+  usedAt      DateTime?
+  expiresAt   DateTime    // Fine anno fiscale
+  notes       String      @default("")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([partnerId])
+  @@index([status])
+}
+
+model ServicePricing {
+  id            String   @id @default(cuid())
+  serviceType   String   @unique // "web-design-basic", "web-design-premium", etc
+  serviceName   String   // Nome visualizzato
+  category      String   // "web-design", "seo", "social-media", etc
+  priceRo       Float    // Prezzo in Romania
+  priceIt       Float    // Prezzo in Italia
+  priceEn       Float    // Prezzo altri paesi (English)
+  description   String   @default("")
+  isActive      Boolean  @default(true)
+  isRecurring   Boolean  @default(false) // true per servizi mensili
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([category])
+  @@index([isActive])
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  partnerId     String
+  partner       Partner     @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  serviceType   String      // Riferimento a ServicePricing.serviceType
+  serviceName   String
+  clientName    String
+  clientEmail   String
+  amount        Float       // Prezzo pieno al cliente
+  partnerCost   Float       // Costo per il partner (dopo sconto tier)
+  discount      Float       // Percentuale sconto applicata
+  locale        String      @default("ro") // ro, it, en
+  status        OrderStatus @default(PENDING)
+  orderDate     DateTime    @default(now())
+  completedAt   DateTime?
+  cancelledAt   DateTime?
+  notes         String      @default("")
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([partnerId])
+  @@index([status])
+  @@index([orderDate])
+}
+
+// Enums
+
+enum TierLevel {
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+enum BonusStatus {
+  AVAILABLE // Disponibile da usare
+  USED      // Già utilizzato
+  EXPIRED   // Scaduto (fine anno)
+}
+
+enum OrderStatus {
+  PENDING      // In attesa
+  IN_PROGRESS  // In lavorazione
+  COMPLETED    // Completato
+  CANCELLED    // Annullato
 }
