@@ -92,6 +92,9 @@ export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
       data: {
         id: post.id,
         slug: post.slug,
+        slugRo: post.slugs.ro,
+        slugEn: post.slugs.en,
+        slugIt: post.slugs.it,
         titleRo: post.title.ro,
         titleEn: post.title.en,
         titleIt: post.title.it,

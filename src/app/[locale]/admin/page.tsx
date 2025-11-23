@@ -262,6 +262,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   const newPost: BlogPost = {
     id: '',
     slug: '',
+    slugs: { ro: '', en: '', it: '' },
     title: { ro: '', en: '', it: '' },
     content: { ro: '', en: '', it: '' },
     excerpt: { ro: '', en: '', it: '' },
