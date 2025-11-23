@@ -89,3 +89,49 @@
 ::selection {
   @apply bg-primary-200 dark:bg-primary-800 text-primary-900 dark:text-primary-100;
 }
+
+/* Blog Article Styling */
+.prose h2 {
+  @apply text-3xl font-bold mt-12 mb-6 pb-3 border-b border-gray-200 dark:border-gray-700;
+  font-size: 1.875rem !important; /* 30px */
+  line-height: 2.25rem !important;
+}
+
+.prose h3 {
+  @apply text-2xl font-semibold mt-10 mb-4;
+  font-size: 1.5rem !important; /* 24px */
+  line-height: 2rem !important;
+}
+
+.prose h4 {
+  @apply text-xl font-semibold mt-8 mb-3;
+  font-size: 1.25rem !important; /* 20px */
+  line-height: 1.75rem !important;
+}
+
+.prose p {
+  @apply mb-6 leading-relaxed;
+  line-height: 1.75 !important;
+}
+
+.prose ul,
+.prose ol {
+  @apply my-6 space-y-2;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose strong {
+  @apply font-semibold;
+}
+
+.prose a {
+  @apply no-underline;
+}
+
+.prose a:hover {
+  @apply underline;
+}
+
