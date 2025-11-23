@@ -64,6 +64,9 @@ async function main() {
     update: {},
     create: {
       slug: 'welcome-to-gridjac-arts',
+      slugRo: 'bine-ai-venit-la-gridjac-arts',
+      slugEn: 'welcome-to-gridjac-arts',
+      slugIt: 'benvenuto-su-gridjac-arts',
       titleRo: 'Bine ai venit la Gridjac Arts',
       titleEn: 'Welcome to Gridjac Arts',
       titleIt: 'Benvenuto su Gridjac Arts',
