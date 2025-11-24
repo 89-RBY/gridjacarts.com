@@ -12,6 +12,7 @@ interface ContractModalProps {
 
 export default function ContractModal({ contract, partnerName, onClose }: ContractModalProps) {
   const [fullscreen, setFullscreen] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const openFullscreen = () => {
     window.open(contract.fileUrl, '_blank');
@@ -198,11 +199,24 @@ export default function ContractModal({ contract, partnerName, onClose }: Contra
                   </button>
                 </div>
                 <div className="relative" style={{ height: '600px' }}>
-                  {contract.mimeType.includes('pdf') ? (
+                  {imageError ? (
+                    <div className="flex items-center justify-center h-full text-gray-500">
+                      <div className="text-center">
+                        <FileText className="w-16 h-16 mx-auto mb-4 text-red-400" />
+                        <p className="mb-2 text-red-600 dark:text-red-400 font-semibold">File not found</p>
+                        <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                          The contract file is no longer available in storage.<br/>
+                          Please re-upload the contract or contact support.
+                        </p>
+                        <p className="text-xs text-gray-500">File path: {contract.fileUrl}</p>
+                      </div>
+                    </div>
+                  ) : contract.mimeType.includes('pdf') ? (
                     <iframe
                       src={contract.fileUrl}
                       className="w-full h-full"
                       title={contract.fileName}
+                      onError={() => setImageError(true)}
                     />
                   ) : (
                     <div className="flex items-center justify-center h-full text-gray-500">
@@ -214,6 +228,20 @@ export default function ContractModal({ contract, partnerName, onClose }: Contra
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-primary-600 hover:underline"
+                          onClick={(e) => {
+                            // Check if file exists
+                            fetch(contract.fileUrl, { method: 'HEAD' })
+                              .then(res => {
+                                if (!res.ok) {
+                                  e.preventDefault();
+                                  setImageError(true);
+                                }
+                              })
+                              .catch(() => {
+                                e.preventDefault();
+                                setImageError(true);
+                              });
+                          }}
                         >
                           Open in new tab →
                         </a>
