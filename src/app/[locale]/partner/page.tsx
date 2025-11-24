@@ -18,6 +18,7 @@ import {
   X,
 } from 'lucide-react';
 import Logo from '@/components/Logo';
+import ContractModal from '@/components/ContractModal';
 import { User as UserType, Partner, ServicePricing, BonusService, Order, Contract } from '@/types';
 
 type TabType = 'dashboard' | 'orders' | 'bonuses' | 'contracts' | 'pricing' | 'profile';
@@ -30,6 +31,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
   const [bonusServices, setBonusServices] = useState<BonusService[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [contracts, setContracts] = useState<Contract[]>([]);
+  const [selectedContract, setSelectedContract] = useState<Contract | null>(null);
   const [loading, setLoading] = useState(true);
   const [tierProgress, setTierProgress] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
@@ -419,7 +421,11 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                   </thead>
                   <tbody className="divide-y divide-gray-700">
                     {contracts.map((contract) => (
-                      <tr key={contract.id} className="hover:bg-gray-700">
+                      <tr
+                        key={contract.id}
+                        className="hover:bg-gray-700 cursor-pointer"
+                        onClick={() => setSelectedContract(contract)}
+                      >
                         <td className="px-4 py-4 font-medium text-white whitespace-nowrap">{contract.contractNumber}</td>
                         <td className="px-4 py-4 text-gray-300">{contract.fileName}</td>
                         <td className="px-4 py-4 text-gray-300">{contract.contractType}</td>
@@ -437,6 +443,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300"
+                            onClick={(e) => e.stopPropagation()}
                           >
                             <Download className="w-4 h-4" />
                           </a>
@@ -541,6 +548,14 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
           )}
         </div>
       </main>
+
+      {/* Contract Modal */}
+      {selectedContract && (
+        <ContractModal
+          contract={selectedContract}
+          onClose={() => setSelectedContract(null)}
+        />
+      )}
     </div>
   );
 }

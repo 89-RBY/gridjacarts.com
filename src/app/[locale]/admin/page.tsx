@@ -21,6 +21,7 @@ import {
   FileSignature,
 } from 'lucide-react';
 import Logo from '@/components/Logo';
+import ContractModal from '@/components/ContractModal';
 import { User, BlogPost, SiteSettings, Partner, PartnerApplication, ServicePricing, Contract, NewsletterSubscriber } from '@/types';
 
 export default function AdminDashboard({ params: { locale } }: { params: { locale: string } }) {
@@ -39,6 +40,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   const [editingService, setEditingService] = useState<ServicePricing | null>(null);
   const [editingPartner, setEditingPartner] = useState<Partner | null>(null);
   const [editingContract, setEditingContract] = useState<Contract | null>(null);
+  const [selectedContract, setSelectedContract] = useState<Contract | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [isCreatingService, setIsCreatingService] = useState(false);
   const [isCreatingPartner, setIsCreatingPartner] = useState(false);
@@ -730,7 +732,11 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
                     {contracts.map((contract) => {
                       const partner = partners.find(p => p.id === contract.partnerId);
                       return (
-                        <tr key={contract.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <tr
+                          key={contract.id}
+                          className="hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+                          onClick={() => setSelectedContract(contract)}
+                        >
                           <td className="px-6 py-4 font-mono text-sm">{contract.contractNumber}</td>
                           <td className="px-6 py-4">
                             <div className="font-medium">{partner?.companyName || 'Unknown'}</div>
@@ -760,10 +766,22 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
                             })}
                           </td>
                           <td className="px-6 py-4 text-right">
-                            <button onClick={() => setEditingContract(contract)} className="text-primary-600 mr-3">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setEditingContract(contract);
+                              }}
+                              className="text-primary-600 mr-3"
+                            >
                               <Edit className="w-5 h-5" />
                             </button>
-                            <button onClick={() => handleDeleteContract(contract.id)} className="text-red-600">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteContract(contract.id);
+                              }}
+                              className="text-red-600"
+                            >
                               <Trash2 className="w-5 h-5" />
                             </button>
                           </td>
@@ -872,6 +890,15 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
           </div>
         )}
       </main>
+
+      {/* Contract Modal */}
+      {selectedContract && (
+        <ContractModal
+          contract={selectedContract}
+          partnerName={partners.find(p => p.id === selectedContract.partnerId)?.companyName}
+          onClose={() => setSelectedContract(null)}
+        />
+      )}
     </div>
   );
 }
