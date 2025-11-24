@@ -84,10 +84,12 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Service ID required' }, { status: 400 });
     }
 
+    console.log('Updating service:', { id, serviceType, serviceName, category, priceRo, priceIt, priceEn, description, isActive, isRecurring });
+
     const updateData: any = {};
-    if (serviceType) updateData.serviceType = serviceType;
-    if (serviceName) updateData.serviceName = serviceName;
-    if (category) updateData.category = category;
+    if (serviceType !== undefined) updateData.serviceType = serviceType;
+    if (serviceName !== undefined) updateData.serviceName = serviceName;
+    if (category !== undefined) updateData.category = category;
     if (priceRo !== undefined) updateData.priceRo = Number(priceRo);
     if (priceIt !== undefined) updateData.priceIt = Number(priceIt);
     if (priceEn !== undefined) updateData.priceEn = Number(priceEn);
