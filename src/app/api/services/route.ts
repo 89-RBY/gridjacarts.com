@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
-import { getServices, saveServices, calculatePartnerPricing, getPartnerByUserId } from '@/lib/data';
-import { Service } from '@/types';
+import { prisma } from '@/lib/prisma';
 
 export async function GET() {
   try {
@@ -11,18 +10,18 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const services = await getServices();
+    // Get services from ServicePricing table (used by partner dashboard)
+    const services = await prisma.servicePricing.findMany({
+      orderBy: { category: 'asc' },
+    });
 
-    // If partner, return pricing with their custom markup
-    if (user.role === 'partner') {
-      const partner = await getPartnerByUserId(user.id);
-      const markup = partner?.markup || 20;
-      const pricing = calculatePartnerPricing(services, markup);
-      return NextResponse.json({ pricing, markup });
-    }
+    const formattedServices = services.map((s: any) => ({
+      ...s,
+      createdAt: s.createdAt.toISOString(),
+      updatedAt: s.updatedAt.toISOString(),
+    }));
 
-    // If admin, return base services
-    return NextResponse.json({ services });
+    return NextResponse.json({ services: formattedServices });
   } catch (error) {
     console.error('Error fetching services:', error);
     return NextResponse.json({ error: 'Failed to fetch services' }, { status: 500 });
@@ -37,25 +36,34 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 
-    const { name, basePrice, description } = await request.json();
+    const { serviceType, serviceName, category, priceRo, priceIt, priceEn, description, isRecurring } = await request.json();
 
-    if (!name || basePrice === undefined || !description) {
+    if (!serviceType || !serviceName || !category || priceRo === undefined || priceIt === undefined || priceEn === undefined) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
     }
 
-    const services = await getServices();
+    const newService = await prisma.servicePricing.create({
+      data: {
+        serviceType,
+        serviceName,
+        category,
+        priceRo: Number(priceRo),
+        priceIt: Number(priceIt),
+        priceEn: Number(priceEn),
+        description: description || '',
+        isActive: true,
+        isRecurring: isRecurring || false,
+      },
+    });
 
-    const newService: Service = {
-      id: Date.now().toString(),
-      name,
-      basePrice: Number(basePrice),
-      description,
-    };
-
-    services.push(newService);
-    await saveServices(services);
-
-    return NextResponse.json({ service: newService, message: 'Service created successfully' });
+    return NextResponse.json({
+      service: {
+        ...newService,
+        createdAt: newService.createdAt.toISOString(),
+        updatedAt: newService.updatedAt.toISOString(),
+      },
+      message: 'Service created successfully'
+    });
   } catch (error) {
     console.error('Error creating service:', error);
     return NextResponse.json({ error: 'Failed to create service' }, { status: 500 });
@@ -70,26 +78,36 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 
-    const { id, name, basePrice, description } = await request.json();
+    const { id, serviceType, serviceName, category, priceRo, priceIt, priceEn, description, isActive, isRecurring } = await request.json();
 
     if (!id) {
       return NextResponse.json({ error: 'Service ID required' }, { status: 400 });
     }
 
-    const services = await getServices();
-    const index = services.findIndex((s) => s.id === id);
+    const updateData: any = {};
+    if (serviceType) updateData.serviceType = serviceType;
+    if (serviceName) updateData.serviceName = serviceName;
+    if (category) updateData.category = category;
+    if (priceRo !== undefined) updateData.priceRo = Number(priceRo);
+    if (priceIt !== undefined) updateData.priceIt = Number(priceIt);
+    if (priceEn !== undefined) updateData.priceEn = Number(priceEn);
+    if (description !== undefined) updateData.description = description;
+    if (isActive !== undefined) updateData.isActive = isActive;
+    if (isRecurring !== undefined) updateData.isRecurring = isRecurring;
 
-    if (index === -1) {
-      return NextResponse.json({ error: 'Service not found' }, { status: 404 });
-    }
+    const updatedService = await prisma.servicePricing.update({
+      where: { id },
+      data: updateData,
+    });
 
-    if (name) services[index].name = name;
-    if (basePrice !== undefined) services[index].basePrice = Number(basePrice);
-    if (description) services[index].description = description;
-
-    await saveServices(services);
-
-    return NextResponse.json({ service: services[index], message: 'Service updated successfully' });
+    return NextResponse.json({
+      service: {
+        ...updatedService,
+        createdAt: updatedService.createdAt.toISOString(),
+        updatedAt: updatedService.updatedAt.toISOString(),
+      },
+      message: 'Service updated successfully'
+    });
   } catch (error) {
     console.error('Error updating service:', error);
     return NextResponse.json({ error: 'Failed to update service' }, { status: 500 });
@@ -111,14 +129,9 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Service ID required' }, { status: 400 });
     }
 
-    const services = await getServices();
-    const filteredServices = services.filter((s) => s.id !== id);
-
-    if (services.length === filteredServices.length) {
-      return NextResponse.json({ error: 'Service not found' }, { status: 404 });
-    }
-
-    await saveServices(filteredServices);
+    await prisma.servicePricing.delete({
+      where: { id },
+    });
 
     return NextResponse.json({ message: 'Service deleted successfully' });
   } catch (error) {
