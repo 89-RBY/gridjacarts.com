@@ -33,6 +33,7 @@ export default function Header({ locale, blogPostSlugs }: HeaderProps) {
     { name: t('services'), href: `/${locale}/services` },
     { name: t('portfolio'), href: `/${locale}/portfolio` },
     { name: t('blog'), href: `/${locale}/blog` },
+    { name: t('becomePartner'), href: `/${locale}/become-partner` },
     { name: t('contact'), href: `/${locale}/contact` },
   ];
 
