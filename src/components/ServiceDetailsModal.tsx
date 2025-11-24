@@ -217,28 +217,29 @@ export default function ServiceDetailsModal({ service, onClose, locale = 'ro' }:
                 </h3>
               </div>
               <div className="space-y-3">
-                <div className="bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 p-4 rounded-lg border-2 border-primary-200 dark:border-primary-700">
-                  <label className="text-xs text-gray-600 dark:text-gray-400 uppercase tracking-wide">
+                <div className="bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 p-6 rounded-lg border-2 border-primary-200 dark:border-primary-700">
+                  <label className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide flex items-center gap-2 mb-2">
+                    {locale === 'ro' && '🇷🇴'}
+                    {locale === 'it' && '🇮🇹'}
+                    {locale === 'en' && '🌍'}
                     {locale === 'ro' ? t.priceRomania : locale === 'it' ? t.priceItaly : t.priceInternational}
                   </label>
-                  <p className="text-3xl font-bold text-primary-600 dark:text-primary-400 mt-1">
+                  <p className="text-4xl font-bold text-primary-600 dark:text-primary-400">
                     €{price.toFixed(2)}
                   </p>
+                  {service.isRecurring && (
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                      {locale === 'ro' ? 'per lună' : locale === 'it' ? 'al mese' : 'per month'}
+                    </p>
+                  )}
                 </div>
 
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">🇷🇴 {t.priceRomania}</span>
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">€{service.priceRo.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">🇮🇹 {t.priceItaly}</span>
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">€{service.priceIt.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">🌍 {t.priceInternational}</span>
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">€{service.priceEn.toFixed(2)}</span>
-                  </div>
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-3">
+                  <p className="text-xs text-blue-800 dark:text-blue-300">
+                    {locale === 'ro' && 'ℹ️ Preț afișat pentru regiunea ta'}
+                    {locale === 'it' && 'ℹ️ Prezzo mostrato per la tua regione'}
+                    {locale === 'en' && 'ℹ️ Price shown for your region'}
+                  </p>
                 </div>
               </div>
             </div>
