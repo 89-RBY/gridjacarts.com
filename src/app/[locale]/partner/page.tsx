@@ -228,7 +228,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
       <main className="lg:ml-64 p-4 lg:p-8">
         <div className="max-w-7xl mx-auto pt-16 lg:pt-0">
           {/* Dashboard Tab */}
-          {activeTab === 'dashboard' && tierProgress && (
+          {activeTab === 'dashboard' && partner && tierProgress && (
             <div className="space-y-6">
               <h1 className="text-3xl font-bold text-white">{t.welcome}, {user?.name}!</h1>
 
@@ -248,7 +248,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">{t.annualRevenue}</p>
-                      <p className="text-2xl font-bold text-white mt-1">€{partner?.annualRevenue.toFixed(2)}</p>
+                      <p className="text-2xl font-bold text-white mt-1">€{(partner?.annualRevenue ?? 0).toFixed(2)}</p>
                     </div>
                     <TrendingUp className="w-10 h-10 text-green-500" />
                   </div>
@@ -282,15 +282,15 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm text-gray-400">
                       <span>{t.progressToNext} {tierProgress.nextTier}</span>
-                      <span>{tierProgress.progressPercent.toFixed(0)}%</span>
+                      <span>{(tierProgress.progressPercent ?? 0).toFixed(0)}%</span>
                     </div>
                     <div className="w-full bg-gray-700 rounded-full h-3">
                       <div
                         className="bg-gradient-to-r from-primary-500 to-accent-500 h-3 rounded-full transition-all"
-                        style={{ width: `${tierProgress.progressPercent}%` }}
+                        style={{ width: `${tierProgress.progressPercent ?? 0}%` }}
                       />
                     </div>
-                    <p className="text-sm text-gray-400">€{tierProgress.remainingRevenue.toFixed(2)} {t.toNextTier}</p>
+                    <p className="text-sm text-gray-400">€{(tierProgress.remainingRevenue ?? 0).toFixed(2)} {t.toNextTier}</p>
                   </div>
                 </div>
               )}
@@ -306,7 +306,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                         <p className="text-sm text-gray-400">{order.clientName}</p>
                       </div>
                       <div className="flex items-center gap-4">
-                        <span className="text-white font-semibold">€{order.amount.toFixed(2)}</span>
+                        <span className="text-white font-semibold">€{(order.amount ?? 0).toFixed(2)}</span>
                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(order.status)}`}>
                           {order.status}
                         </span>
@@ -340,8 +340,8 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                       <tr key={order.id} className="hover:bg-gray-700">
                         <td className="px-4 py-4 text-white">{order.serviceName}</td>
                         <td className="px-4 py-4 text-gray-300">{order.clientName}</td>
-                        <td className="px-4 py-4 text-right text-white">€{order.amount.toFixed(2)}</td>
-                        <td className="px-4 py-4 text-right text-green-400">€{order.partnerCost.toFixed(2)}</td>
+                        <td className="px-4 py-4 text-right text-white">€{(order.amount ?? 0).toFixed(2)}</td>
+                        <td className="px-4 py-4 text-right text-green-400">€{(order.partnerCost ?? 0).toFixed(2)}</td>
                         <td className="px-4 py-4 text-center">
                           <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(order.status)}`}>
                             {order.status}
@@ -373,7 +373,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                       </span>
                     </div>
                     <h3 className="text-lg font-semibold text-white mb-2">{bonus.serviceName}</h3>
-                    <p className="text-2xl font-bold text-primary-500 mb-4">€{bonus.value.toFixed(2)}</p>
+                    <p className="text-2xl font-bold text-primary-500 mb-4">€{(bonus.value ?? 0).toFixed(2)}</p>
                     <div className="text-sm text-gray-400 space-y-1">
                       <p>{t.assigned}: {new Date(bonus.assignedAt).toLocaleDateString(locale)}</p>
                       <p>{t.expires}: {new Date(bonus.expiresAt).toLocaleDateString(locale)}</p>
@@ -472,7 +472,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                   </thead>
                   <tbody className="divide-y divide-gray-700">
                     {services.map((service) => {
-                      const price = locale === 'ro' ? service.priceRo : locale === 'it' ? service.priceIt : service.priceEn;
+                      const price = locale === 'ro' ? (service.priceRo ?? 0) : locale === 'it' ? (service.priceIt ?? 0) : (service.priceEn ?? 0);
                       const discount = partner?.currentTier
                         ? partner.currentTier === 'BRONZE' ? 15
                         : partner.currentTier === 'SILVER' ? 20
