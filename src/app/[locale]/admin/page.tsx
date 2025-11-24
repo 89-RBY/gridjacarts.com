@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import Logo from '@/components/Logo';
 import ContractModal from '@/components/ContractModal';
+import ServiceDetailsModal from '@/components/ServiceDetailsModal';
 import { User, BlogPost, SiteSettings, Partner, PartnerApplication, ServicePricing, Contract, NewsletterSubscriber } from '@/types';
 
 export default function AdminDashboard({ params: { locale } }: { params: { locale: string } }) {
@@ -41,6 +42,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   const [editingPartner, setEditingPartner] = useState<Partner | null>(null);
   const [editingContract, setEditingContract] = useState<Contract | null>(null);
   const [selectedContract, setSelectedContract] = useState<Contract | null>(null);
+  const [selectedService, setSelectedService] = useState<ServicePricing | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [isCreatingService, setIsCreatingService] = useState(false);
   const [isCreatingPartner, setIsCreatingPartner] = useState(false);
@@ -555,10 +557,14 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
                 </thead>
                 <tbody className="divide-y">
                   {services.map((service) => (
-                    <tr key={service.id}>
+                    <tr
+                      key={service.id}
+                      className="hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
+                      onClick={() => setSelectedService(service)}
+                    >
                       <td className="px-6 py-4 font-mono text-xs">{service.serviceType}</td>
                       <td className="px-6 py-4 font-medium">{service.serviceName}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{service.category}</td>
+                      <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">{service.category}</td>
                       <td className="px-6 py-4 text-right font-semibold">€{service.priceRo.toFixed(2)}</td>
                       <td className="px-6 py-4 text-right font-semibold">€{service.priceIt.toFixed(2)}</td>
                       <td className="px-6 py-4 text-right font-semibold">€{service.priceEn.toFixed(2)}</td>
@@ -568,10 +574,22 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
                         </span>
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <button onClick={() => setEditingService(service)} className="text-primary-600 mr-3">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setEditingService(service);
+                          }}
+                          className="text-primary-600 mr-3 hover:text-primary-800"
+                        >
                           <Edit className="w-5 h-5" />
                         </button>
-                        <button onClick={() => handleDeleteService(service.id)} className="text-red-600">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteService(service.id);
+                          }}
+                          className="text-red-600 hover:text-red-800"
+                        >
                           <Trash2 className="w-5 h-5" />
                         </button>
                       </td>
@@ -897,6 +915,15 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
           contract={selectedContract}
           partnerName={partners.find(p => p.id === selectedContract.partnerId)?.companyName}
           onClose={() => setSelectedContract(null)}
+        />
+      )}
+
+      {/* Service Details Modal */}
+      {selectedService && (
+        <ServiceDetailsModal
+          service={selectedService}
+          onClose={() => setSelectedService(null)}
+          locale={locale}
         />
       )}
     </div>

@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import Logo from '@/components/Logo';
 import ContractModal from '@/components/ContractModal';
+import ServiceDetailsModal from '@/components/ServiceDetailsModal';
 import { User as UserType, Partner, ServicePricing, BonusService, Order, Contract } from '@/types';
 
 type TabType = 'dashboard' | 'orders' | 'bonuses' | 'contracts' | 'pricing' | 'profile';
@@ -32,6 +33,7 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
   const [orders, setOrders] = useState<Order[]>([]);
   const [contracts, setContracts] = useState<Contract[]>([]);
   const [selectedContract, setSelectedContract] = useState<Contract | null>(null);
+  const [selectedService, setSelectedService] = useState<ServicePricing | null>(null);
   const [loading, setLoading] = useState(true);
   const [tierProgress, setTierProgress] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
@@ -489,7 +491,11 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
                       const margin = price - partnerCost;
 
                       return (
-                        <tr key={service.id} className="hover:bg-gray-700">
+                        <tr
+                          key={service.id}
+                          className="hover:bg-gray-700 cursor-pointer transition-colors"
+                          onClick={() => setSelectedService(service)}
+                        >
                           <td className="px-4 py-4 font-medium text-white">{service.serviceName}</td>
                           <td className="px-4 py-4 text-gray-300">{service.category}</td>
                           <td className="px-4 py-4 text-right text-gray-300">€{price.toFixed(2)}</td>
@@ -554,6 +560,15 @@ export default function PartnerPortal({ params: { locale } }: { params: { locale
         <ContractModal
           contract={selectedContract}
           onClose={() => setSelectedContract(null)}
+        />
+      )}
+
+      {/* Service Details Modal */}
+      {selectedService && (
+        <ServiceDetailsModal
+          service={selectedService}
+          onClose={() => setSelectedService(null)}
+          locale={locale}
         />
       )}
     </div>
