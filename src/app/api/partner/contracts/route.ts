@@ -100,8 +100,8 @@ export async function POST(request: Request) {
     });
     const contractNumber = `CONTR-${year}-${user.partner.id.slice(-4).toUpperCase()}-${String(count + 1).padStart(3, '0')}`;
 
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = join(process.cwd(), 'public', 'uploads', 'contracts');
+    // Use external volume for contract storage
+    const uploadsDir = process.env.CONTRACTS_STORAGE_PATH || '/data_gridjacarts/contracts';
     if (!existsSync(uploadsDir)) {
       await mkdir(uploadsDir, { recursive: true });
     }
@@ -113,14 +113,16 @@ export async function POST(request: Request) {
     const filePath = join(uploadsDir, fileName);
     await writeFile(filePath, buffer);
 
-    // Create contract record
+    console.log(`Contract saved to: ${filePath}`);
+
+    // Create contract record - URL points to API endpoint that will serve from volume
     const contract = await prisma.contract.create({
       data: {
         partnerId: user.partner.id,
         contractNumber,
         contractType,
         fileName: file.name,
-        fileUrl: `/uploads/contracts/${fileName}`,
+        fileUrl: `/api/contracts/files/${fileName}`,
         fileSize: file.size,
         mimeType: file.type,
         status: 'PENDING',
