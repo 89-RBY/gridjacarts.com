@@ -56,6 +56,7 @@ ls -la /data_gridjacarts/contracts/
 Esegui lo script di migrazione per aggiornare gli URL nel database:
 
 ```bash
+# Sul server, dentro la directory dell'app
 npm run migrate:contract-urls
 ```
 

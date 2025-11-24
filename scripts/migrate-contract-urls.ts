@@ -5,7 +5,7 @@
  * the new API endpoint for serving files from the external volume.
  *
  * Usage:
- *   npx tsx scripts/migrate-contract-urls.ts
+ *   npm run migrate:contract-urls
  */
 
 import { PrismaClient } from '@prisma/client';
