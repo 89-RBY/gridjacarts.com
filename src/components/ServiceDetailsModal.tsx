@@ -1,6 +1,7 @@
 'use client';
 
-import { X, Package, DollarSign, Calendar, CheckCircle, XCircle, Info } from 'lucide-react';
+import { X, Package, DollarSign, Calendar, CheckCircle, XCircle, Info, MapPin } from 'lucide-react';
+import { useGeolocation } from '@/hooks/useGeolocation';
 
 interface ServiceDetailsModalProps {
   service: {
@@ -21,10 +22,17 @@ interface ServiceDetailsModalProps {
   locale?: string;
 }
 
-export default function ServiceDetailsModal({ service, onClose, locale = 'ro' }: ServiceDetailsModalProps) {
-  // Get price based on locale
+export default function ServiceDetailsModal({ service, onClose, locale: urlLocale = 'ro' }: ServiceDetailsModalProps) {
+  // Use geolocation to determine user's region
+  const { locale: geoLocale, loading: geoLoading, country } = useGeolocation();
+
+  // Priority: geolocation > URL locale
+  // This ensures users see prices for their actual location
+  const activeLocale = geoLoading ? urlLocale : geoLocale;
+
+  // Get price based on detected locale
   const getPrice = () => {
-    switch (locale) {
+    switch (activeLocale) {
       case 'it':
         return service.priceIt;
       case 'en':
@@ -35,6 +43,13 @@ export default function ServiceDetailsModal({ service, onClose, locale = 'ro' }:
   };
 
   const price = getPrice();
+
+  // Get country display name
+  const getCountryName = () => {
+    if (country === 'RO') return 'Romania';
+    if (country === 'IT') return 'Italia';
+    return country || 'International';
+  };
 
   const translations = {
     ro: {
@@ -57,6 +72,9 @@ export default function ServiceDetailsModal({ service, onClose, locale = 'ro' }:
       created: 'Creat',
       updated: 'Actualizat',
       close: 'Închide',
+      detectedLocation: 'Locație detectată',
+      priceForYourRegion: 'Preț afișat pentru regiunea ta',
+      detecting: 'Detectare locație...',
     },
     it: {
       title: 'Dettagli Servizio',
@@ -78,6 +96,9 @@ export default function ServiceDetailsModal({ service, onClose, locale = 'ro' }:
       created: 'Creato',
       updated: 'Aggiornato',
       close: 'Chiudi',
+      detectedLocation: 'Posizione rilevata',
+      priceForYourRegion: 'Prezzo mostrato per la tua regione',
+      detecting: 'Rilevamento posizione...',
     },
     en: {
       title: 'Service Details',
@@ -99,10 +120,14 @@ export default function ServiceDetailsModal({ service, onClose, locale = 'ro' }:
       created: 'Created',
       updated: 'Updated',
       close: 'Close',
+      detectedLocation: 'Detected location',
+      priceForYourRegion: 'Price shown for your region',
+      detecting: 'Detecting location...',
     },
   };
 
-  const t = translations[locale as keyof typeof translations] || translations.ro;
+  // Use activeLocale for translations (the geolocation-determined locale)
+  const t = translations[activeLocale as keyof typeof translations] || translations.ro;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
@@ -217,30 +242,46 @@ export default function ServiceDetailsModal({ service, onClose, locale = 'ro' }:
                 </h3>
               </div>
               <div className="space-y-3">
-                <div className="bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 p-6 rounded-lg border-2 border-primary-200 dark:border-primary-700">
-                  <label className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide flex items-center gap-2 mb-2">
-                    {locale === 'ro' && '🇷🇴'}
-                    {locale === 'it' && '🇮🇹'}
-                    {locale === 'en' && '🌍'}
-                    {locale === 'ro' ? t.priceRomania : locale === 'it' ? t.priceItaly : t.priceInternational}
-                  </label>
-                  <p className="text-4xl font-bold text-primary-600 dark:text-primary-400">
-                    €{price.toFixed(2)}
-                  </p>
-                  {service.isRecurring && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                      {locale === 'ro' ? 'per lună' : locale === 'it' ? 'al mese' : 'per month'}
+                {geoLoading ? (
+                  <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg border-2 border-gray-300 dark:border-gray-600 animate-pulse">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {t.detecting}
                     </p>
-                  )}
-                </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 p-6 rounded-lg border-2 border-primary-200 dark:border-primary-700">
+                      <label className="text-sm text-gray-600 dark:text-gray-400 uppercase tracking-wide flex items-center gap-2 mb-2">
+                        {activeLocale === 'ro' && '🇷🇴'}
+                        {activeLocale === 'it' && '🇮🇹'}
+                        {activeLocale === 'en' && '🌍'}
+                        {activeLocale === 'ro' ? t.priceRomania : activeLocale === 'it' ? t.priceItaly : t.priceInternational}
+                      </label>
+                      <p className="text-4xl font-bold text-primary-600 dark:text-primary-400">
+                        €{price.toFixed(2)}
+                      </p>
+                      {service.isRecurring && (
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                          {activeLocale === 'ro' ? 'per lună' : activeLocale === 'it' ? 'al mese' : 'per month'}
+                        </p>
+                      )}
+                    </div>
 
-                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-3">
-                  <p className="text-xs text-blue-800 dark:text-blue-300">
-                    {locale === 'ro' && 'ℹ️ Preț afișat pentru regiunea ta'}
-                    {locale === 'it' && 'ℹ️ Prezzo mostrato per la tua regione'}
-                    {locale === 'en' && 'ℹ️ Price shown for your region'}
-                  </p>
-                </div>
+                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-3">
+                      <div className="flex items-start gap-2">
+                        <MapPin className="w-4 h-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="text-xs font-semibold text-blue-800 dark:text-blue-300 mb-1">
+                            {t.detectedLocation}: {getCountryName()}
+                          </p>
+                          <p className="text-xs text-blue-700 dark:text-blue-400">
+                            {t.priceForYourRegion}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
