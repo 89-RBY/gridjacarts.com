@@ -148,7 +148,7 @@
       "stats": {
         "clients": "Happy Clients",
         "rating": "Average Rating",
-        "delivery": "Average Delivery"
+        "delivery": "Delivery from"
       },
       "cta": {
         "primary": "Discover Packages",
@@ -173,7 +173,7 @@
         },
         {
           "title": "Start 2026 Online",
-          "description": "Website ready in 48h. Start strong in the new year with a professional digital presence."
+          "description": "Website ready from 72h. Start strong in the new year with a professional digital presence."
         }
       ]
     },
@@ -246,19 +246,19 @@
       "title": "What Our Clients Say",
       "testimonials": [
         {
-          "text": "In 48 hours I had the site online and in one week I was already first on Google for my keywords. Investment recovered in one month!",
-          "author": "Marco Rossi",
-          "company": "Rossi Ristrutturazioni, Rome"
+          "text": "In just a few days I had the site online and in one week I was already first on Google for my keywords. Investment recovered in one month!",
+          "author": "Alessandro Moretti",
+          "company": "Moretti Costruzioni, Rome"
         },
         {
           "text": "The Pro package is perfect for my business. I manage the blog and social media autonomously, but I always have the team's support when needed.",
-          "author": "Laura Bianchi",
-          "company": "Studio Legale Bianchi, Rome"
+          "author": "Francesca Santini",
+          "company": "Studio Legale Santini, Rome"
         },
         {
-          "text": "I started selling online thanks to the Premium package. In 3 months I doubled my turnover. I highly recommend GridjaCards!",
-          "author": "Giuseppe Verde",
-          "company": "Verde Artigianato, Rome"
+          "text": "I started selling online thanks to the Premium package. In 3 months I doubled my turnover. I highly recommend Gridjac Art's!",
+          "author": "Roberto Ferretti",
+          "company": "Ferretti Design, Rome"
         }
       ]
     },

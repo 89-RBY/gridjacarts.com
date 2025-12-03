@@ -148,7 +148,7 @@
       "stats": {
         "clients": "Clienți Mulțumiți",
         "rating": "Rating Mediu",
-        "delivery": "Livrare Medie"
+        "delivery": "Livrare de la"
       },
       "cta": {
         "primary": "Descoperă Pachetele",
@@ -173,7 +173,7 @@
         },
         {
           "title": "Începe 2026 Online",
-          "description": "Site gata în 48h. Pornește puternic în noul an cu o prezență digitală profesională."
+          "description": "Site gata de la 72h. Pornește puternic în noul an cu o prezență digitală profesională."
         }
       ]
     },
@@ -246,19 +246,19 @@
       "title": "Ce Spun Clienții Noștri",
       "testimonials": [
         {
-          "text": "În 48 de ore aveam site-ul online și într-o săptămână eram deja primul pe Google pentru cuvintele mele cheie. Investiția recuperată într-o lună!",
-          "author": "Marco Rossi",
-          "company": "Rossi Ristrutturazioni, Roma"
+          "text": "În câteva zile aveam site-ul online și într-o săptămână eram deja primul pe Google pentru cuvintele mele cheie. Investiția recuperată într-o lună!",
+          "author": "Alessandro Moretti",
+          "company": "Moretti Costruzioni, Roma"
         },
         {
           "text": "Pachetul Pro este perfect pentru activitatea mea. Gestionez autonom blogul și social media, dar am mereu suportul echipei când am nevoie.",
-          "author": "Laura Bianchi",
-          "company": "Studio Legale Bianchi, Roma"
+          "author": "Francesca Santini",
+          "company": "Studio Legale Santini, Roma"
         },
         {
-          "text": "Am început să vând online datorită pachetului Premium. În 3 luni am dublat cifra de afaceri. Recomand cu încredere GridjaCards!",
-          "author": "Giuseppe Verde",
-          "company": "Verde Artigianato, Roma"
+          "text": "Am început să vând online datorită pachetului Premium. În 3 luni am dublat cifra de afaceri. Recomand cu încredere Gridjac Art's!",
+          "author": "Roberto Ferretti",
+          "company": "Ferretti Design, Roma"
         }
       ]
     },

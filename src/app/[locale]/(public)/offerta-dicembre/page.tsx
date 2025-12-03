@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import { Check, Zap, Rocket, Crown, ArrowRight, Phone, Mail, Clock, MapPin, TrendingUp, Award, Users, Star } from 'lucide-react';
+import { Check, Zap, Rocket, Crown, ArrowRight, Phone, Mail, Clock, MapPin, TrendingUp, Award, Users, Star, MessageCircle } from 'lucide-react';
 import type { Metadata } from 'next';
 
 // Force dynamic rendering due to next-intl usage
@@ -158,7 +158,7 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
                 <div className="text-sm text-gray-600 dark:text-gray-400">{t('hero.stats.rating')}</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-black text-pink-600">48h</div>
+                <div className="text-4xl font-black text-pink-600">72h</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">{t('hero.stats.delivery')}</div>
               </div>
             </div>
@@ -466,6 +466,56 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
           </div>
         </div>
       </section>
+
+      {/* Floating Action Buttons */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex gap-4">
+        {/* Phone Button */}
+        <a
+          href="tel:+393203779506"
+          className="bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+          aria-label="Chiamaci"
+        >
+          <Phone className="w-6 h-6 group-hover:animate-pulse" />
+        </a>
+
+        {/* WhatsApp Button */}
+        <a
+          href={`https://wa.me/393203779506?text=${encodeURIComponent(
+            params.locale === 'it'
+              ? 'Ciao! Sono interessato ai vostri pacchetti di Dicembre 2025. Vorrei ricevere maggiori informazioni.'
+              : params.locale === 'ro'
+              ? 'Bună! Sunt interesat de pachetele voastre din Decembrie 2025. Aș dori să primesc mai multe informații.'
+              : 'Hello! I am interested in your December 2025 packages. I would like to receive more information.'
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-[#25D366] hover:bg-[#20BA5A] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+          aria-label="WhatsApp"
+        >
+          <MessageCircle className="w-6 h-6 group-hover:animate-pulse" />
+        </a>
+
+        {/* Email Button */}
+        <a
+          href={`mailto:info@gridjacarts.com?subject=${encodeURIComponent(
+            params.locale === 'it'
+              ? 'Richiesta Informazioni - Offerta Dicembre 2025'
+              : params.locale === 'ro'
+              ? 'Cerere Informații - Oferta Decembrie 2025'
+              : 'Information Request - December 2025 Offer'
+          )}&body=${encodeURIComponent(
+            params.locale === 'it'
+              ? 'Buongiorno,\n\nSono interessato ai vostri pacchetti promozionali di Dicembre 2025.\n\nVorrei ricevere maggiori informazioni su:\n- Pacchetto: [specificare Startup/Pro/Premium]\n- Nome:\n- Telefono:\n- Tipo di attività:\n\nGrazie,\nCordiali saluti'
+              : params.locale === 'ro'
+              ? 'Bună ziua,\n\nSunt interesat de pachetele voastre promoționale din Decembrie 2025.\n\nAș dori să primesc mai multe informații despre:\n- Pachet: [specificați Startup/Pro/Premium]\n- Nume:\n- Telefon:\n- Tip activitate:\n\nMulțumesc,\nCu stimă'
+              : 'Good morning,\n\nI am interested in your December 2025 promotional packages.\n\nI would like to receive more information about:\n- Package: [specify Startup/Pro/Premium]\n- Name:\n- Phone:\n- Business type:\n\nThank you,\nBest regards'
+          )}`}
+          className="bg-blue-500 hover:bg-blue-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+          aria-label="Email"
+        >
+          <Mail className="w-6 h-6 group-hover:animate-pulse" />
+        </a>
+      </div>
     </div>
   );
 }

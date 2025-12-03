@@ -148,7 +148,7 @@
       "stats": {
         "clients": "Clienti Soddisfatti",
         "rating": "Valutazione Media",
-        "delivery": "Consegna Media"
+        "delivery": "Consegna da"
       },
       "cta": {
         "primary": "Scopri i Pacchetti",
@@ -173,7 +173,7 @@
         },
         {
           "title": "Inizia il 2026 Online",
-          "description": "Sito pronto entro 48h. Parti forte nel nuovo anno con una presenza digitale professionale."
+          "description": "Sito pronto a partire da 72h. Parti forte nel nuovo anno con una presenza digitale professionale."
         }
       ]
     },
@@ -246,19 +246,19 @@
       "title": "Cosa Dicono i Nostri Clienti",
       "testimonials": [
         {
-          "text": "In 48 ore avevo il sito online e in una settimana ero già primo su Google per le mie parole chiave. Investimento recuperato in un mese!",
-          "author": "Marco Rossi",
-          "company": "Rossi Ristrutturazioni, Roma"
+          "text": "In pochi giorni avevo il sito online e in una settimana ero già primo su Google per le mie parole chiave. Investimento recuperato in un mese!",
+          "author": "Alessandro Moretti",
+          "company": "Moretti Costruzioni, Roma"
         },
         {
           "text": "Il pacchetto Pro è perfetto per la mia attività. Gestisco autonomamente il blog e i social, ma ho sempre il supporto del team quando serve.",
-          "author": "Laura Bianchi",
-          "company": "Studio Legale Bianchi, Roma"
+          "author": "Francesca Santini",
+          "company": "Studio Legale Santini, Roma"
         },
         {
-          "text": "Ho iniziato a vendere online grazie al pacchetto Premium. In 3 mesi ho raddoppiato il fatturato. Consiglio vivamente GridjaCards!",
-          "author": "Giuseppe Verde",
-          "company": "Verde Artigianato, Roma"
+          "text": "Ho iniziato a vendere online grazie al pacchetto Premium. In 3 mesi ho raddoppiato il fatturato. Consiglio vivamente Gridjac Art's!",
+          "author": "Roberto Ferretti",
+          "company": "Ferretti Design, Roma"
         }
       ]
     },
