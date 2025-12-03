@@ -131,5 +131,154 @@
     "readTime": "min di lettura",
     "publishedOn": "Pubblicato il",
     "by": "di"
+  },
+  "offertaDicembre": {
+    "meta": {
+      "title": "Offerta Dicembre 2025 - Pacchetti Web Scontati fino a -33% | GridjaCards Roma",
+      "description": "Offerta esclusiva Dicembre 2025! Pacchetti siti web professionali a Roma con sconti fino a 1.500€. Hosting, SEO, Social Media inclusi. Solo 10 posti disponibili!"
+    },
+    "urgentBanner": "⚠️ SOLO 10 POSTI DISPONIBILI! Offerta valida fino al 31 Dicembre 2025",
+    "hero": {
+      "badge": "OFFERTA LAMPO DICEMBRE 2025",
+      "title": {
+        "line1": "Risparmia fino a 1.500€",
+        "line2": "sul Tuo Sito Web Professionale"
+      },
+      "subtitle": "Pacchetti completi per la tua presenza digitale a Roma. Hosting, dominio, SEO e social media inclusi. Offerta valida solo per dicembre 2025!",
+      "stats": {
+        "clients": "Clienti Soddisfatti",
+        "rating": "Valutazione Media",
+        "delivery": "Consegna Media"
+      },
+      "cta": {
+        "primary": "Scopri i Pacchetti",
+        "secondary": "Richiedi Consulenza Gratuita"
+      },
+      "trust": [
+        "Nessun costo nascosto",
+        "Garanzia soddisfatti o rimborsati",
+        "Supporto incluso per 12 mesi"
+      ]
+    },
+    "whyNow": {
+      "title": "Perché Approfittarne Subito?",
+      "reasons": [
+        {
+          "title": "Sconto Fino a -33%",
+          "description": "Risparmio fino a 1.500€ sul pacchetto Premium. Offerta valida solo per dicembre 2025."
+        },
+        {
+          "title": "Posti Limitati",
+          "description": "Solo 10 progetti disponibili per garantire qualità e attenzione personalizzata."
+        },
+        {
+          "title": "Inizia il 2026 Online",
+          "description": "Sito pronto entro 48h. Parti forte nel nuovo anno con una presenza digitale professionale."
+        }
+      ]
+    },
+    "packages": {
+      "title": "Scegli il Tuo Pacchetto",
+      "subtitle": "Tutto incluso, nessun costo nascosto. Pagamento annuale con fatturazione regolare.",
+      "popular": "PIÙ SCELTO",
+      "perYear": "/anno",
+      "save": "Risparmi",
+      "cta": "Richiedi Questo Pacchetto",
+      "startup": {
+        "name": "Startup",
+        "tagline": "La Vetrina Digitale",
+        "features": [
+          "Sito 4 pagine responsive (Mobile, Tablet, Desktop)",
+          "Hosting + Dominio + Certificato SSL",
+          "3 caselle email professionali",
+          "SEO base + Google Search Console",
+          "Contact form con protezione anti-spam",
+          "Cookie banner + Privacy Policy",
+          "Compressione immagini (WebP)",
+          "Backup giornaliero e ripristino",
+          "Aggiornamenti tecnici mensili",
+          "Monitoraggio uptime 24/7"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Brand & Social",
+        "features": [
+          "✨ Tutto di Startup +",
+          "Sezione Blog/News integrata",
+          "Accesso admin per gestione autonoma",
+          "Pagina \"Link in Bio\" ottimizzata",
+          "Google Business Profile (setup completo)",
+          "Setup Facebook + Instagram Business",
+          "Pixel Meta per tracciamento visitatori",
+          "Feed Instagram sul sito (automatico)",
+          "Pulsanti condivisione social",
+          "Integrazione mappa Google",
+          "Gestione Social: 4 post/mese",
+          "Contenuti grafici personalizzati",
+          "Calendario editoriale mensile",
+          "Report trimestrale visite + Google Business",
+          "Supporto prioritario (risposta entro 24h)"
+        ]
+      },
+      "premium": {
+        "name": "Premium",
+        "tagline": "Vendita & E-commerce",
+        "features": [
+          "💎 Tutto di Pro +",
+          "Shop completo WooCommerce",
+          "Caricamento fino a 20-30 prodotti",
+          "Pagamenti: Stripe, PayPal, Bonifico, Satispay",
+          "Regole di spedizione personalizzate",
+          "Email transazionali design personalizzato",
+          "Recupero carrelli abbandonati automatico",
+          "Pop-up newsletter con sconto benvenuto",
+          "Integrazione Mailchimp/MailerLite",
+          "Termini e Condizioni + Diritto di Recesso",
+          "CDN per caricamento veloce",
+          "Firewall e-commerce + scansioni malware",
+          "Test aggiornamenti in staging",
+          "Report vendite e traffico trimestrale"
+        ]
+      }
+    },
+    "socialProof": {
+      "title": "Cosa Dicono i Nostri Clienti",
+      "testimonials": [
+        {
+          "text": "In 48 ore avevo il sito online e in una settimana ero già primo su Google per le mie parole chiave. Investimento recuperato in un mese!",
+          "author": "Marco Rossi",
+          "company": "Rossi Ristrutturazioni, Roma"
+        },
+        {
+          "text": "Il pacchetto Pro è perfetto per la mia attività. Gestisco autonomamente il blog e i social, ma ho sempre il supporto del team quando serve.",
+          "author": "Laura Bianchi",
+          "company": "Studio Legale Bianchi, Roma"
+        },
+        {
+          "text": "Ho iniziato a vendere online grazie al pacchetto Premium. In 3 mesi ho raddoppiato il fatturato. Consiglio vivamente GridjaCards!",
+          "author": "Giuseppe Verde",
+          "company": "Verde Artigianato, Roma"
+        }
+      ]
+    },
+    "contact": {
+      "title": "Richiedi la Tua Offerta Personalizzata",
+      "subtitle": "Compila il form e ti ricontatteremo entro 2 ore (lun-ven 9-19)",
+      "form": {
+        "name": "Nome e Cognome *",
+        "phone": "Telefono *",
+        "email": "Email *",
+        "package": "Pacchetto di Interesse *",
+        "selectPackage": "Seleziona un pacchetto...",
+        "message": "Raccontaci del tuo progetto (opzionale)",
+        "submit": "Richiedi Offerta Ora 🚀"
+      }
+    },
+    "finalCta": {
+      "title": "Non Perdere Questa Opportunità!",
+      "subtitle": "Solo 10 posti disponibili. Inizia il 2026 con un sito web professionale.",
+      "button": "Prenota il Tuo Posto Ora"
+    }
   }
 }

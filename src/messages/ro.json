@@ -131,5 +131,154 @@
     "readTime": "min citire",
     "publishedOn": "Publicat pe",
     "by": "de"
+  },
+  "offertaDicembre": {
+    "meta": {
+      "title": "Oferta Decembrie 2025 - Pachete Web cu Reduceri până la -33% | GridjaCards Roma",
+      "description": "Ofertă exclusivă Decembrie 2025! Pachete site-uri profesionale în Roma cu reduceri până la 1.500€. Hosting, SEO, Social Media incluse. Doar 10 locuri disponibile!"
+    },
+    "urgentBanner": "⚠️ DOAR 10 LOCURI DISPONIBILE! Ofertă valabilă până la 31 Decembrie 2025",
+    "hero": {
+      "badge": "OFERTĂ FLASH DECEMBRIE 2025",
+      "title": {
+        "line1": "Economisește până la 1.500€",
+        "line2": "la Site-ul Tău Web Profesional"
+      },
+      "subtitle": "Pachete complete pentru prezența ta digitală în Roma. Hosting, domeniu, SEO și social media incluse. Ofertă valabilă doar pentru decembrie 2025!",
+      "stats": {
+        "clients": "Clienți Mulțumiți",
+        "rating": "Rating Mediu",
+        "delivery": "Livrare Medie"
+      },
+      "cta": {
+        "primary": "Descoperă Pachetele",
+        "secondary": "Solicită Consultanță Gratuită"
+      },
+      "trust": [
+        "Fără costuri ascunse",
+        "Garanție satisfacție sau banii înapoi",
+        "Suport inclus pentru 12 luni"
+      ]
+    },
+    "whyNow": {
+      "title": "De Ce Să Profiți Acum?",
+      "reasons": [
+        {
+          "title": "Reducere până la -33%",
+          "description": "Economisești până la 1.500€ la pachetul Premium. Ofertă valabilă doar pentru decembrie 2025."
+        },
+        {
+          "title": "Locuri Limitate",
+          "description": "Doar 10 proiecte disponibile pentru a garanta calitate și atenție personalizată."
+        },
+        {
+          "title": "Începe 2026 Online",
+          "description": "Site gata în 48h. Pornește puternic în noul an cu o prezență digitală profesională."
+        }
+      ]
+    },
+    "packages": {
+      "title": "Alege-ți Pachetul",
+      "subtitle": "Totul inclus, fără costuri ascunse. Plată anuală cu facturare regulată.",
+      "popular": "CEL MAI ALES",
+      "perYear": "/an",
+      "save": "Economisești",
+      "cta": "Solicită Acest Pachet",
+      "startup": {
+        "name": "Startup",
+        "tagline": "Vitrina Digitală",
+        "features": [
+          "Site 4 pagini responsive (Mobile, Tablet, Desktop)",
+          "Hosting + Domeniu + Certificat SSL",
+          "3 adrese email profesionale",
+          "SEO de bază + Google Search Console",
+          "Formular contact cu protecție anti-spam",
+          "Banner cookie + Politică de confidențialitate",
+          "Compresie imagini (WebP)",
+          "Backup zilnic și restaurare",
+          "Actualizări tehnice lunare",
+          "Monitorizare uptime 24/7"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Brand & Social",
+        "features": [
+          "✨ Tot de la Startup +",
+          "Secțiune Blog/Știri integrată",
+          "Acces admin pentru gestionare autonomă",
+          "Pagină \"Link in Bio\" optimizată",
+          "Google Business Profile (configurare completă)",
+          "Configurare Facebook + Instagram Business",
+          "Pixel Meta pentru urmărire vizitatori",
+          "Feed Instagram pe site (automat)",
+          "Butoane de partajare social",
+          "Integrare hartă Google",
+          "Gestionare Social: 4 postări/lună",
+          "Conținut grafic personalizat",
+          "Calendar editorial lunar",
+          "Raport trimestrial vizite + Google Business",
+          "Suport prioritar (răspuns în 24h)"
+        ]
+      },
+      "premium": {
+        "name": "Premium",
+        "tagline": "Vânzare & E-commerce",
+        "features": [
+          "💎 Tot de la Pro +",
+          "Magazin complet WooCommerce",
+          "Încărcare până la 20-30 produse",
+          "Plăți: Stripe, PayPal, Transfer Bancar, Satispay",
+          "Reguli de livrare personalizate",
+          "Email-uri tranzacționale cu design personalizat",
+          "Recuperare automată coșuri abandonate",
+          "Pop-up newsletter cu discount de bun venit",
+          "Integrare Mailchimp/MailerLite",
+          "Termeni și Condiții + Drept de Retragere",
+          "CDN pentru încărcare rapidă",
+          "Firewall e-commerce + scanări malware",
+          "Testare actualizări în staging",
+          "Raport vânzări și trafic trimestrial"
+        ]
+      }
+    },
+    "socialProof": {
+      "title": "Ce Spun Clienții Noștri",
+      "testimonials": [
+        {
+          "text": "În 48 de ore aveam site-ul online și într-o săptămână eram deja primul pe Google pentru cuvintele mele cheie. Investiția recuperată într-o lună!",
+          "author": "Marco Rossi",
+          "company": "Rossi Ristrutturazioni, Roma"
+        },
+        {
+          "text": "Pachetul Pro este perfect pentru activitatea mea. Gestionez autonom blogul și social media, dar am mereu suportul echipei când am nevoie.",
+          "author": "Laura Bianchi",
+          "company": "Studio Legale Bianchi, Roma"
+        },
+        {
+          "text": "Am început să vând online datorită pachetului Premium. În 3 luni am dublat cifra de afaceri. Recomand cu încredere GridjaCards!",
+          "author": "Giuseppe Verde",
+          "company": "Verde Artigianato, Roma"
+        }
+      ]
+    },
+    "contact": {
+      "title": "Solicită Oferta Ta Personalizată",
+      "subtitle": "Completează formularul și te vom contacta în 2 ore (lun-vin 9-19)",
+      "form": {
+        "name": "Nume și Prenume *",
+        "phone": "Telefon *",
+        "email": "Email *",
+        "package": "Pachet de Interes *",
+        "selectPackage": "Selectează un pachet...",
+        "message": "Povestește-ne despre proiectul tău (opțional)",
+        "submit": "Solicită Oferta Acum 🚀"
+      }
+    },
+    "finalCta": {
+      "title": "Nu Pierde Această Oportunitate!",
+      "subtitle": "Doar 10 locuri disponibile. Începe 2026 cu un site web profesional.",
+      "button": "Rezervă Locul Tău Acum"
+    }
   }
 }
