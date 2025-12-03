@@ -3,6 +3,9 @@ import { getTranslations } from 'next-intl/server';
 import { Check, Zap, Rocket, Crown, ArrowRight, Phone, Mail, Clock, MapPin, TrendingUp, Award, Users, Star } from 'lucide-react';
 import type { Metadata } from 'next';
 
+// Force dynamic rendering due to next-intl usage
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const t = await getTranslations({ locale: params.locale, namespace: 'offertaDicembre' });
 
