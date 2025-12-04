@@ -28,7 +28,15 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
-  const settings = await getSiteSettings();
+
+  // Fetch settings with error handling
+  let settings = { analyticsCode: '', chatbotCode: '', updatedAt: '' };
+  try {
+    settings = await getSiteSettings();
+  } catch (error) {
+    console.error('Error fetching site settings:', error);
+    // Continue with empty settings if database is unavailable
+  }
 
   return (
     <html lang={locale} suppressHydrationWarning>
