@@ -12,6 +12,9 @@ interface LocaleLayoutProps {
   params: { locale: string };
 }
 
+// Force dynamic rendering since we fetch settings from database
+export const dynamic = 'force-dynamic';
+
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
