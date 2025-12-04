@@ -2,7 +2,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales } from '@/i18n';
-import { getSiteSettings } from '@/lib/data';
 import CookieBanner from '@/components/CookieBanner';
 
 interface LocaleLayoutProps {
@@ -27,25 +26,25 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
 
-  // Fetch settings with error handling
-  let settings = { analyticsCode: '', chatbotCode: '', updatedAt: '' };
-  try {
-    settings = await getSiteSettings();
-  } catch (error) {
-    console.error('Error fetching site settings:', error);
-    // Continue with empty settings if database is unavailable
-  }
-
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        {/* Google Analytics Code from Admin Settings - Injected at top of head */}
-        {settings.analyticsCode && (
-          <script
-            id="google-analytics"
-            dangerouslySetInnerHTML={{ __html: settings.analyticsCode }}
-          />
-        )}
+        {/* Google Analytics Code - Static injection */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-3RP9LHBPP3"
+        />
+        <script
+          id="google-analytics"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-3RP9LHBPP3');
+            `,
+          }}
+        />
       </head>
       <body className="min-h-screen">
         <NextIntlClientProvider messages={messages}>
