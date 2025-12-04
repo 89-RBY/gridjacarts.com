@@ -11,7 +11,8 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate deploy",
     "db:seed": "prisma db seed",
-    "migrate:contract-urls": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} scripts/migrate-contract-urls.ts"
+    "migrate:contract-urls": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} scripts/migrate-contract-urls.ts",
+    "migrate:cookie-consent": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} scripts/create-cookie-consent-table.ts"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
