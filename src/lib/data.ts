@@ -11,6 +11,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   if (posts.length === 0) {
     const samplePostData = {
       slug: 'importanta-seo-2024',
+      slugRo: 'importanta-seo-2024',
+      slugEn: 'importance-seo-2024',
+      slugIt: 'importanza-seo-2024',
       titleRo: 'Importanța SEO în 2024',
       titleEn: 'The Importance of SEO in 2024',
       titleIt: "L'importanza della SEO nel 2024",
@@ -35,6 +38,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 function mapBlogPost(post: {
   id: string;
   slug: string;
+  slugRo?: string;
+  slugEn?: string;
+  slugIt?: string;
   titleRo: string;
   titleEn: string;
   titleIt: string;
@@ -53,6 +59,11 @@ function mapBlogPost(post: {
   return {
     id: post.id,
     slug: post.slug,
+    slugs: {
+      ro: post.slugRo || post.slug,
+      en: post.slugEn || post.slug,
+      it: post.slugIt || post.slug,
+    },
     title: {
       ro: post.titleRo,
       en: post.titleEn,
@@ -84,6 +95,9 @@ export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
       data: {
         id: post.id,
         slug: post.slug,
+        slugRo: post.slugs.ro,
+        slugEn: post.slugs.en,
+        slugIt: post.slugs.it,
         titleRo: post.title.ro,
         titleEn: post.title.en,
         titleIt: post.title.it,
@@ -102,8 +116,46 @@ export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
   }
 }
 
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  const post = await prisma.blogPost.findUnique({ where: { slug } });
+export async function getBlogPostBySlug(slug: string, locale?: string): Promise<BlogPost | null> {
+  let post;
+
+  // If locale is provided, search by the appropriate language slug
+  if (locale) {
+    if (locale === 'ro') {
+      post = await prisma.blogPost.findFirst({
+        where: {
+          OR: [
+            { slugRo: slug },
+            { slug: slug } // Fallback to legacy slug
+          ]
+        }
+      });
+    } else if (locale === 'en') {
+      post = await prisma.blogPost.findFirst({
+        where: {
+          OR: [
+            { slugEn: slug },
+            { slug: slug } // Fallback to legacy slug
+          ]
+        }
+      });
+    } else if (locale === 'it') {
+      post = await prisma.blogPost.findFirst({
+        where: {
+          OR: [
+            { slugIt: slug },
+            { slug: slug } // Fallback to legacy slug
+          ]
+        }
+      });
+    }
+  }
+
+  // Fallback: search by legacy slug field
+  if (!post) {
+    post = await prisma.blogPost.findUnique({ where: { slug } });
+  }
+
   if (!post) return null;
   return mapBlogPost(post);
 }
@@ -127,13 +179,13 @@ export async function getServices(): Promise<Service[]> {
       { name: 'Full Stack App - Basic', basePrice: 5000, description: 'Basic web application' },
     ];
 
-    const createdServices = [];
+    const createdServices: Awaited<ReturnType<typeof prisma.service.create>>[] = [];
     for (const serviceData of defaultServicesData) {
       const service = await prisma.service.create({ data: serviceData });
       createdServices.push(service);
     }
 
-    return createdServices.map((s) => ({
+    return createdServices.map((s: typeof createdServices[0]) => ({
       id: s.id,
       name: s.name,
       basePrice: s.basePrice,
@@ -141,7 +193,7 @@ export async function getServices(): Promise<Service[]> {
     }));
   }
 
-  return services.map((s) => ({
+  return services.map((s: typeof services[0]) => ({
     id: s.id,
     name: s.name,
     basePrice: s.basePrice,
@@ -213,7 +265,7 @@ export function calculatePartnerPricing(services: Service[], markup: number = 20
 // Partners Management
 export async function getPartners(): Promise<Partner[]> {
   const partners = await prisma.partner.findMany();
-  return partners.map((p) => ({
+  return partners.map((p: typeof partners[0]) => ({
     id: p.id,
     userId: p.userId,
     companyName: p.companyName,
@@ -222,7 +274,16 @@ export async function getPartners(): Promise<Partner[]> {
     phone: p.phone,
     address: p.address,
     taxId: p.taxId,
-    markup: p.markup,
+
+    // Tier System fields
+    currentTier: p.currentTier as 'BRONZE' | 'SILVER' | 'GOLD' | 'PLATINUM',
+    annualRevenue: p.annualRevenue,
+    fiscalYearStart: p.fiscalYearStart.toISOString(),
+    lastTierUpdate: p.lastTierUpdate.toISOString(),
+
+    // Legacy field (optional)
+    markup: p.markup ?? undefined,
+
     status: p.status as 'pending' | 'approved' | 'rejected' | 'suspended',
     notes: p.notes,
     createdAt: p.createdAt.toISOString(),
@@ -246,7 +307,16 @@ export async function savePartners(partners: Partner[]): Promise<void> {
         phone: partner.phone,
         address: partner.address,
         taxId: partner.taxId,
+
+        // Tier System fields
+        currentTier: partner.currentTier,
+        annualRevenue: partner.annualRevenue,
+        fiscalYearStart: new Date(partner.fiscalYearStart),
+        lastTierUpdate: new Date(partner.lastTierUpdate),
+
+        // Legacy field (optional)
         markup: partner.markup,
+
         status: partner.status,
         notes: partner.notes,
         approvedAt: partner.approvedAt ? new Date(partner.approvedAt) : null,
@@ -268,7 +338,16 @@ export async function getPartnerById(id: string): Promise<Partner | null> {
     phone: partner.phone,
     address: partner.address,
     taxId: partner.taxId,
-    markup: partner.markup,
+
+    // Tier System fields
+    currentTier: partner.currentTier as 'BRONZE' | 'SILVER' | 'GOLD' | 'PLATINUM',
+    annualRevenue: partner.annualRevenue,
+    fiscalYearStart: partner.fiscalYearStart.toISOString(),
+    lastTierUpdate: partner.lastTierUpdate.toISOString(),
+
+    // Legacy field (optional)
+    markup: partner.markup ?? undefined,
+
     status: partner.status as 'pending' | 'approved' | 'rejected' | 'suspended',
     notes: partner.notes,
     createdAt: partner.createdAt.toISOString(),
@@ -289,7 +368,16 @@ export async function getPartnerByUserId(userId: string): Promise<Partner | null
     phone: partner.phone,
     address: partner.address,
     taxId: partner.taxId,
-    markup: partner.markup,
+
+    // Tier System fields
+    currentTier: partner.currentTier as 'BRONZE' | 'SILVER' | 'GOLD' | 'PLATINUM',
+    annualRevenue: partner.annualRevenue,
+    fiscalYearStart: partner.fiscalYearStart.toISOString(),
+    lastTierUpdate: partner.lastTierUpdate.toISOString(),
+
+    // Legacy field (optional)
+    markup: partner.markup ?? undefined,
+
     status: partner.status as 'pending' | 'approved' | 'rejected' | 'suspended',
     notes: partner.notes,
     createdAt: partner.createdAt.toISOString(),
@@ -310,7 +398,16 @@ export async function createPartner(
       phone: partnerData.phone,
       address: partnerData.address,
       taxId: partnerData.taxId,
+
+      // Tier System fields
+      currentTier: partnerData.currentTier,
+      annualRevenue: partnerData.annualRevenue,
+      fiscalYearStart: new Date(partnerData.fiscalYearStart),
+      lastTierUpdate: new Date(partnerData.lastTierUpdate),
+
+      // Legacy field (optional)
       markup: partnerData.markup,
+
       status: partnerData.status,
       notes: partnerData.notes,
       approvedAt: partnerData.approvedAt ? new Date(partnerData.approvedAt) : null,
@@ -327,7 +424,16 @@ export async function createPartner(
     phone: newPartner.phone,
     address: newPartner.address,
     taxId: newPartner.taxId,
-    markup: newPartner.markup,
+
+    // Tier System fields
+    currentTier: newPartner.currentTier as 'BRONZE' | 'SILVER' | 'GOLD' | 'PLATINUM',
+    annualRevenue: newPartner.annualRevenue,
+    fiscalYearStart: newPartner.fiscalYearStart.toISOString(),
+    lastTierUpdate: newPartner.lastTierUpdate.toISOString(),
+
+    // Legacy field (optional)
+    markup: newPartner.markup ?? undefined,
+
     status: newPartner.status as 'pending' | 'approved' | 'rejected' | 'suspended',
     notes: newPartner.notes,
     createdAt: newPartner.createdAt.toISOString(),
@@ -346,7 +452,16 @@ export async function updatePartner(id: string, updates: Partial<Partner>): Prom
     if (updates.phone) updateData.phone = updates.phone;
     if (updates.address) updateData.address = updates.address;
     if (updates.taxId) updateData.taxId = updates.taxId;
+
+    // Tier System fields
+    if (updates.currentTier) updateData.currentTier = updates.currentTier;
+    if (updates.annualRevenue !== undefined) updateData.annualRevenue = updates.annualRevenue;
+    if (updates.fiscalYearStart) updateData.fiscalYearStart = new Date(updates.fiscalYearStart);
+    if (updates.lastTierUpdate) updateData.lastTierUpdate = new Date(updates.lastTierUpdate);
+
+    // Legacy field
     if (updates.markup !== undefined) updateData.markup = updates.markup;
+
     if (updates.status) updateData.status = updates.status;
     if (updates.notes !== undefined) updateData.notes = updates.notes;
     if (updates.approvedAt) updateData.approvedAt = new Date(updates.approvedAt);
@@ -366,7 +481,16 @@ export async function updatePartner(id: string, updates: Partial<Partner>): Prom
       phone: updatedPartner.phone,
       address: updatedPartner.address,
       taxId: updatedPartner.taxId,
-      markup: updatedPartner.markup,
+
+      // Tier System fields
+      currentTier: updatedPartner.currentTier as 'BRONZE' | 'SILVER' | 'GOLD' | 'PLATINUM',
+      annualRevenue: updatedPartner.annualRevenue,
+      fiscalYearStart: updatedPartner.fiscalYearStart.toISOString(),
+      lastTierUpdate: updatedPartner.lastTierUpdate.toISOString(),
+
+      // Legacy field (optional)
+      markup: updatedPartner.markup ?? undefined,
+
       status: updatedPartner.status as 'pending' | 'approved' | 'rejected' | 'suspended',
       notes: updatedPartner.notes,
       createdAt: updatedPartner.createdAt.toISOString(),
@@ -393,7 +517,7 @@ export async function getPartnerApplications(): Promise<PartnerApplication[]> {
     orderBy: { createdAt: 'desc' },
   });
 
-  return applications.map((a) => ({
+  return applications.map((a: typeof applications[0]) => ({
     id: a.id,
     companyName: a.companyName,
     contactPerson: a.contactPerson,

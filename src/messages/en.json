@@ -18,7 +18,8 @@
     "services": "Services",
     "portfolio": "Portfolio",
     "blog": "Blog",
-    "contact": "Contact"
+    "contact": "Contact",
+    "becomePartner": "Become Partner"
   },
   "home": {
     "hero": {
@@ -130,5 +131,154 @@
     "readTime": "min read",
     "publishedOn": "Published on",
     "by": "by"
+  },
+  "offertaDicembre": {
+    "meta": {
+      "title": "December 2025 Offer - Web Packages with up to -33% Discount | GridjaCards Rome",
+      "description": "Exclusive December 2025 offer! Professional website packages in Rome with discounts up to €1,500. Hosting, SEO, Social Media included. Only 10 spots available!"
+    },
+    "urgentBanner": "⚠️ ONLY 10 SPOTS AVAILABLE! Offer valid until December 31, 2025",
+    "hero": {
+      "badge": "FLASH OFFER DECEMBER 2025",
+      "title": {
+        "line1": "Save up to €1,500",
+        "line2": "on Your Professional Website"
+      },
+      "subtitle": "Complete packages for your digital presence in Rome. Hosting, domain, SEO and social media included. Offer valid only for December 2025!",
+      "stats": {
+        "clients": "Happy Clients",
+        "rating": "Average Rating",
+        "delivery": "Delivery from"
+      },
+      "cta": {
+        "primary": "Discover Packages",
+        "secondary": "Request Free Consultation"
+      },
+      "trust": [
+        "No hidden costs",
+        "Money-back guarantee",
+        "12 months support included"
+      ]
+    },
+    "whyNow": {
+      "title": "Why Take Advantage Now?",
+      "reasons": [
+        {
+          "title": "Up to -33% Discount",
+          "description": "Save up to €1,500 on the Premium package. Offer valid only for December 2025."
+        },
+        {
+          "title": "Limited Spots",
+          "description": "Only 10 projects available to ensure quality and personalized attention."
+        },
+        {
+          "title": "Start 2026 Online",
+          "description": "Website ready from 72h. Start strong in the new year with a professional digital presence."
+        }
+      ]
+    },
+    "packages": {
+      "title": "Choose Your Package",
+      "subtitle": "Everything included, no hidden costs. Annual payment with regular invoicing.",
+      "popular": "MOST POPULAR",
+      "perYear": "/year",
+      "save": "Save",
+      "cta": "Request This Package",
+      "startup": {
+        "name": "Startup",
+        "tagline": "The Digital Showcase",
+        "features": [
+          "4-page responsive website (Mobile, Tablet, Desktop)",
+          "Hosting + Domain + SSL Certificate",
+          "3 professional email addresses",
+          "Basic SEO + Google Search Console",
+          "Contact form with anti-spam protection",
+          "Cookie banner + Privacy Policy",
+          "Image compression (WebP)",
+          "Daily backup and restore",
+          "Monthly technical updates",
+          "24/7 uptime monitoring"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Brand & Social",
+        "features": [
+          "✨ Everything from Startup +",
+          "Integrated Blog/News section",
+          "Admin access for autonomous management",
+          "Optimized \"Link in Bio\" page",
+          "Google Business Profile (complete setup)",
+          "Facebook + Instagram Business setup",
+          "Meta Pixel for visitor tracking",
+          "Instagram feed on site (automatic)",
+          "Social sharing buttons",
+          "Google map integration",
+          "Social Management: 4 posts/month",
+          "Customized graphic content",
+          "Monthly editorial calendar",
+          "Quarterly visits + Google Business report",
+          "Priority support (24h response)"
+        ]
+      },
+      "premium": {
+        "name": "Premium",
+        "tagline": "Sales & E-commerce",
+        "features": [
+          "💎 Everything from Pro +",
+          "Complete WooCommerce shop",
+          "Upload up to 20-30 products",
+          "Payments: Stripe, PayPal, Bank Transfer, Satispay",
+          "Customized shipping rules",
+          "Transactional emails with custom design",
+          "Automatic abandoned cart recovery",
+          "Newsletter pop-up with welcome discount",
+          "Mailchimp/MailerLite integration",
+          "Terms & Conditions + Right of Withdrawal",
+          "CDN for fast loading",
+          "E-commerce firewall + malware scans",
+          "Staging updates testing",
+          "Quarterly sales and traffic report"
+        ]
+      }
+    },
+    "socialProof": {
+      "title": "What Our Clients Say",
+      "testimonials": [
+        {
+          "text": "In just a few days I had the site online and in one week I was already first on Google for my keywords. Investment recovered in one month!",
+          "author": "Alessandro Moretti",
+          "company": "Moretti Costruzioni, Rome"
+        },
+        {
+          "text": "The Pro package is perfect for my business. I manage the blog and social media autonomously, but I always have the team's support when needed.",
+          "author": "Francesca Santini",
+          "company": "Studio Legale Santini, Rome"
+        },
+        {
+          "text": "I started selling online thanks to the Premium package. In 3 months I doubled my turnover. I highly recommend Gridjac Art's!",
+          "author": "Roberto Ferretti",
+          "company": "Ferretti Design, Rome"
+        }
+      ]
+    },
+    "contact": {
+      "title": "Request Your Personalized Offer",
+      "subtitle": "Fill out the form and we'll contact you within 2 hours (Mon-Fri 9-19)",
+      "form": {
+        "name": "Full Name *",
+        "phone": "Phone *",
+        "email": "Email *",
+        "package": "Package of Interest *",
+        "selectPackage": "Select a package...",
+        "message": "Tell us about your project (optional)",
+        "submit": "Request Offer Now 🚀"
+      }
+    },
+    "finalCta": {
+      "title": "Don't Miss This Opportunity!",
+      "subtitle": "Only 10 spots available. Start 2026 with a professional website.",
+      "button": "Reserve Your Spot Now"
+    }
   }
 }

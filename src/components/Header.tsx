@@ -6,16 +6,26 @@ import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Globe, User } from 'lucide-react';
 import Logo from './Logo';
+import { useBlogSlugs } from '@/contexts/BlogSlugContext';
 
 interface HeaderProps {
   locale: string;
+  blogPostSlugs?: {
+    ro: string;
+    en: string;
+    it: string;
+  };
 }
 
-export default function Header({ locale }: HeaderProps) {
+export default function Header({ locale, blogPostSlugs }: HeaderProps) {
   const t = useTranslations('nav');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  // Use context slugs if available, otherwise fall back to props
+  const contextSlugs = useBlogSlugs();
+  const slugs = contextSlugs || blogPostSlugs;
 
   const navigation = [
     { name: t('home'), href: `/${locale}` },
@@ -23,6 +33,7 @@ export default function Header({ locale }: HeaderProps) {
     { name: t('services'), href: `/${locale}/services` },
     { name: t('portfolio'), href: `/${locale}/portfolio` },
     { name: t('blog'), href: `/${locale}/blog` },
+    { name: t('becomePartner'), href: `/${locale}/become-partner` },
     { name: t('contact'), href: `/${locale}/contact` },
   ];
 
@@ -33,8 +44,15 @@ export default function Header({ locale }: HeaderProps) {
   ];
 
   const switchLanguage = (newLocale: string) => {
-    const currentPath = pathname.replace(`/${locale}`, '');
-    window.location.href = `/${newLocale}${currentPath || ''}`;
+    // If we're on a blog post page and have slugs, use the correct slug for the new language
+    if (slugs && pathname.includes('/blog/')) {
+      const newSlug = slugs[newLocale as keyof typeof slugs];
+      window.location.href = `/${newLocale}/blog/${newSlug}`;
+    } else {
+      // For other pages, just replace the locale in the path
+      const currentPath = pathname.replace(`/${locale}`, '');
+      window.location.href = `/${newLocale}${currentPath || ''}`;
+    }
   };
 
   return (

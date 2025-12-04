@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getBlogPosts } from '@/lib/data';
 
-// Force dynamic generation
+// Force dynamic rendering due to database queries
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600; // Revalidate every hour
 
