@@ -131,12 +131,6 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
               {loading ? t.loading : t.submit}
             </button>
           </form>
-
-          <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-            <p>Demo credentials:</p>
-            <p>Admin: admin@gridjacarts.com / admin123</p>
-            <p>Partner: partner@example.com / admin123</p>
-          </div>
         </div>
       </div>
     </div>

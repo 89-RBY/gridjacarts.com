@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import Logo from './Logo';
+import ChatbotScript from './ChatbotScript';
 
 interface FooterProps {
   locale: string;
@@ -153,8 +154,8 @@ export default function Footer({ locale }: FooterProps) {
         </div>
       </div>
 
-      {/* Custom scripts placeholder - will be populated from admin settings */}
-      <div id="footer-scripts" />
+      {/* Chatbot Script Injection */}
+      <ChatbotScript />
     </footer>
   );
 }

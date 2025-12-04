@@ -5,6 +5,7 @@ import { locales } from '@/i18n';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Script from 'next/script';
+import { getSiteSettings } from '@/lib/data';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -24,17 +25,19 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
+  const settings = await getSiteSettings();
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        {/* Analytics placeholder - will be injected from admin settings */}
-        <Script id="analytics-placeholder" strategy="afterInteractive">
-          {`
-            // Analytics code will be loaded from admin settings
-            window.GA_ID = '';
-          `}
-        </Script>
+        {/* Google Analytics Code from Admin Settings */}
+        {settings.analyticsCode && (
+          <Script
+            id="google-analytics"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{ __html: settings.analyticsCode }}
+          />
+        )}
       </head>
       <body className="min-h-screen flex flex-col">
         <NextIntlClientProvider messages={messages}>

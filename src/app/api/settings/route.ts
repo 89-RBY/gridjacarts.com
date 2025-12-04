@@ -4,12 +4,7 @@ import { getSiteSettings, saveSiteSettings } from '@/lib/data';
 
 export async function GET() {
   try {
-    const user = await getCurrentUser();
-
-    if (!user || user.role !== 'admin') {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
-    }
-
+    // Public endpoint - analytics and chatbot codes are meant to be visible on the site
     const settings = await getSiteSettings();
     return NextResponse.json({ settings });
   } catch (error) {
