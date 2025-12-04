@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { Check, Zap, Rocket, Crown, ArrowRight, Phone, Mail, Clock, MapPin, TrendingUp, Award, Users, Star, MessageCircle } from 'lucide-react';
 import type { Metadata } from 'next';
+import OffertaDicembreForm from '@/components/OffertaDicembreForm';
 
 // Force dynamic rendering due to next-intl usage
 export const dynamic = 'force-dynamic';
@@ -361,69 +362,7 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
             </p>
           </div>
 
-          <form className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-2xl space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
-                  {t('contact.form.name')}
-                </label>
-                <input
-                  type="text"
-                  required
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
-                  {t('contact.form.phone')}
-                </label>
-                <input
-                  type="tel"
-                  required
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
-                {t('contact.form.email')}
-              </label>
-              <input
-                type="email"
-                required
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
-                {t('contact.form.package')}
-              </label>
-              <select
-                required
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-              >
-                <option value="">{t('contact.form.selectPackage')}</option>
-                <option value="startup">Startup - €999/anno</option>
-                <option value="pro">Pro - €1.749/anno</option>
-                <option value="premium">Premium - €2.999/anno</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
-                {t('contact.form.message')}
-              </label>
-              <textarea
-                rows={4}
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-primary-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-            >
-              {t('contact.form.submit')}
-            </button>
-          </form>
+          <OffertaDicembreForm />
 
           <div className="mt-12 grid md:grid-cols-3 gap-6 text-center">
             <div className="flex flex-col items-center gap-2">
