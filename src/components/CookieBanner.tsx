@@ -77,68 +77,42 @@ export default function CookieBanner({ locale }: CookieBannerProps) {
   const text = t[locale as keyof typeof t] || t.en;
 
   useEffect(() => {
-    console.log('[CookieBanner] Initializing...');
-
     // Generate or retrieve session ID
     let sid = localStorage.getItem('cookie_session_id');
     if (!sid) {
       sid = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       localStorage.setItem('cookie_session_id', sid);
-      console.log('[CookieBanner] Generated new session ID:', sid);
-    } else {
-      console.log('[CookieBanner] Retrieved existing session ID:', sid);
     }
     setSessionId(sid);
 
     // Check if user has already given consent
-    console.log('[CookieBanner] Checking existing consent...');
     fetch(`/api/cookie-consent?sessionId=${sid}`)
       .then(res => res.json())
       .then(data => {
-        console.log('[CookieBanner] Consent check response:', data);
         if (!data.consent || data.isExpired) {
-          console.log('[CookieBanner] No valid consent found, showing banner');
           setShowBanner(true);
         } else {
-          console.log('[CookieBanner] Valid consent found, hiding banner');
           setConsent(data.consent);
         }
       })
-      .catch((error) => {
-        console.error('[CookieBanner] Error checking consent:', error);
-        setShowBanner(true);
-      });
+      .catch(() => setShowBanner(true));
   }, []);
 
   const saveConsent = async (preferences: ConsentPreferences) => {
-    console.log('[CookieBanner] Saving consent...', { sessionId, preferences, locale });
-
-    if (!sessionId) {
-      console.error('[CookieBanner] No session ID available!');
-      return;
-    }
+    if (!sessionId) return;
 
     try {
-      const payload = {
-        sessionId,
-        ...preferences,
-        locale,
-      };
-
-      console.log('[CookieBanner] Sending payload:', payload);
-
       const response = await fetch('/api/cookie-consent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          sessionId,
+          ...preferences,
+          locale,
+        }),
       });
 
-      console.log('[CookieBanner] Response status:', response.status);
-
       if (response.ok) {
-        const data = await response.json();
-        console.log('[CookieBanner] Consent saved successfully:', data);
-
         setConsent(preferences);
         setShowBanner(false);
         setShowSettings(false);
@@ -146,12 +120,9 @@ export default function CookieBanner({ locale }: CookieBannerProps) {
         // Store in localStorage for quick check
         localStorage.setItem('cookie_consent', JSON.stringify(preferences));
         localStorage.setItem('cookie_consent_date', new Date().toISOString());
-      } else {
-        const error = await response.json();
-        console.error('[CookieBanner] Failed to save consent:', error);
       }
     } catch (error) {
-      console.error('[CookieBanner] Error saving consent:', error);
+      console.error('Error saving cookie consent:', error);
     }
   };
 
