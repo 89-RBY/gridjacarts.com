@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin, Check } from 'lucide-react';
 import Logo from './Logo';
 
@@ -64,46 +64,6 @@ export default function Footer({ locale }: FooterProps) {
       setLoading(false);
     }
   };
-
-  // Inject LeaChatix chatbot script
-  useEffect(() => {
-    // Remove any existing chatbot scripts
-    const existingConfig = document.getElementById('leachatix-config-script');
-    const existingScript = document.getElementById('leachatix-script');
-    if (existingConfig) existingConfig.remove();
-    if (existingScript) existingScript.remove();
-
-    // Inject LeaChatix configuration
-    const configScript = document.createElement('script');
-    configScript.id = 'leachatix-config-script';
-    configScript.innerHTML = `
-      window.LeaChatixConfig = {
-        botId: 'ffedc7fc-1453-410a-bb9b-a5b3523b285e',
-        apiKey: 'lc_b7091fffe550b0a9fd0ddb6c0ffed12200e2b4c19feca706cd93c263a628b9e0'
-      };
-    `;
-    document.body.appendChild(configScript);
-
-    // Inject LeaChatix script
-    const script = document.createElement('script');
-    script.id = 'leachatix-script';
-    script.src = 'https://app.leachatix.com/chatbot-widget-secure.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    // Cleanup function
-    return () => {
-      const configToRemove = document.getElementById('leachatix-config-script');
-      const scriptToRemove = document.getElementById('leachatix-script');
-      if (configToRemove) configToRemove.remove();
-      if (scriptToRemove) scriptToRemove.remove();
-
-      // Clean up LeaChatix global config
-      if (typeof window !== 'undefined' && (window as any).LeaChatixConfig) {
-        delete (window as any).LeaChatixConfig;
-      }
-    };
-  }, []);
 
   return (
     <footer className="bg-gray-900 text-gray-300">
