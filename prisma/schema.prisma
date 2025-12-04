@@ -233,3 +233,28 @@ enum ContractStatus {
   REJECTED     // Rifiutato
   ARCHIVED     // Archiviato
 }
+
+model CookieConsent {
+  id                String   @id @default(cuid())
+  userId            String?  // Optional - for logged in users
+  sessionId         String   // Cookie/session identifier for anonymous users
+  ipAddress         String?
+  userAgent         String?
+
+  // Consent preferences
+  necessary         Boolean  @default(true)  // Always true
+  analytics         Boolean  @default(false)
+  marketing         Boolean  @default(false)
+  preferences       Boolean  @default(false)
+
+  // Metadata
+  consentVersion    String   @default("1.0") // Track policy version
+  locale            String   @default("en")
+  consentDate       DateTime @default(now())
+  lastUpdated       DateTime @updatedAt
+  expiresAt         DateTime // When consent expires (usually 1 year)
+
+  @@index([sessionId])
+  @@index([userId])
+  @@index([consentDate])
+}

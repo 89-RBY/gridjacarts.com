@@ -19,10 +19,12 @@ import {
   Package,
   Mail,
   FileSignature,
+  Cookie,
 } from 'lucide-react';
 import Logo from '@/components/Logo';
 import ContractModal from '@/components/ContractModal';
 import ServiceDetailsModal from '@/components/ServiceDetailsModal';
+import CookieConsentsPanel from '@/components/admin/CookieConsentsPanel';
 import { User, BlogPost, SiteSettings, Partner, PartnerApplication, ServicePricing, Contract, NewsletterSubscriber } from '@/types';
 
 export default function AdminDashboard({ params: { locale } }: { params: { locale: string } }) {
@@ -336,6 +338,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
             { id: 'contracts', icon: FileSignature, label: 'Contracts' },
             { id: 'blog', icon: FileText, label: 'Blog' },
             { id: 'newsletter', icon: Mail, label: 'Newsletter' },
+            { id: 'cookies', icon: Cookie, label: 'Cookie Consents' },
             { id: 'settings', icon: Settings, label: 'Settings' },
           ].map((item) => (
             <button
@@ -819,6 +822,10 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
             onSave={handleUpdateContract}
             onCancel={() => setEditingContract(null)}
           />
+        )}
+
+        {activeTab === 'cookies' && (
+          <CookieConsentsPanel />
         )}
 
         {activeTab === 'settings' && settings && (

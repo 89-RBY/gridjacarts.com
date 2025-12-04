@@ -3,6 +3,7 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales } from '@/i18n';
 import { getSiteSettings } from '@/lib/data';
+import CookieBanner from '@/components/CookieBanner';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -49,6 +50,7 @@ export default async function LocaleLayout({
       <body className="min-h-screen">
         <NextIntlClientProvider messages={messages}>
           {children}
+          <CookieBanner locale={locale} />
         </NextIntlClientProvider>
       </body>
     </html>
