@@ -34,6 +34,8 @@ export default function OffertaDicembreForm() {
     setSubmitStatus('idle');
 
     try {
+      console.log('[OffertaDicembreForm] Submitting form data:', formData);
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -46,7 +48,11 @@ export default function OffertaDicembreForm() {
         }),
       });
 
+      console.log('[OffertaDicembreForm] Response status:', response.status);
+
       if (response.ok) {
+        const data = await response.json();
+        console.log('[OffertaDicembreForm] Success response:', data);
         setSubmitStatus('success');
         setFormData({
           name: '',
@@ -56,10 +62,12 @@ export default function OffertaDicembreForm() {
           message: '',
         });
       } else {
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('[OffertaDicembreForm] Error response:', errorData);
         setSubmitStatus('error');
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('[OffertaDicembreForm] Error submitting form:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);

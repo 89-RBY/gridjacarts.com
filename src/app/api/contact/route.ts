@@ -13,16 +13,22 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('[ContactAPI] Received POST request');
     const body = await request.json();
+    console.log('[ContactAPI] Request body:', body);
+
     const { name, email, phone, package: selectedPackage, message, subject, source } = body;
 
     // Validate required fields
     if (!name || !email || !phone) {
+      console.error('[ContactAPI] Validation failed - missing required fields');
       return NextResponse.json(
         { error: 'Nome, email e telefono sono obbligatori' },
         { status: 400 }
       );
     }
+
+    console.log('[ContactAPI] Validation passed, preparing to send email');
 
     // Email HTML template
     const emailHTML = `
@@ -121,6 +127,14 @@ Richiesta ricevuta il ${new Date().toLocaleString('it-IT')}
     `;
 
     // Send email to robert.gridjac@gridjacarts.com
+    console.log('[ContactAPI] Attempting to send email to robert.gridjac@gridjacarts.com');
+    console.log('[ContactAPI] SMTP Config:', {
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      user: process.env.SMTP_USER,
+      hasPass: !!process.env.SMTP_PASS,
+    });
+
     await transporter.sendMail({
       from: `"GridjaCards - Richieste Clienti" <${process.env.SMTP_USER}>`,
       to: 'robert.gridjac@gridjacarts.com',
@@ -130,12 +144,14 @@ Richiesta ricevuta il ${new Date().toLocaleString('it-IT')}
       html: emailHTML,
     });
 
+    console.log('[ContactAPI] Email sent successfully');
+
     return NextResponse.json({
       success: true,
       message: 'Email inviata con successo',
     });
   } catch (error) {
-    console.error('Error sending contact email:', error);
+    console.error('[ContactAPI] Error sending contact email:', error);
     return NextResponse.json(
       { error: 'Errore durante l\'invio dell\'email' },
       { status: 500 }
