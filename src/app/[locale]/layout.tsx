@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import { locales } from '@/i18n';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Script from 'next/script';
 import { getSiteSettings } from '@/lib/data';
 
 interface LocaleLayoutProps {
@@ -41,11 +40,10 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        {/* Google Analytics Code from Admin Settings */}
+        {/* Google Analytics Code from Admin Settings - Injected at top of head */}
         {settings.analyticsCode && (
-          <Script
+          <script
             id="google-analytics"
-            strategy="afterInteractive"
             dangerouslySetInnerHTML={{ __html: settings.analyticsCode }}
           />
         )}
