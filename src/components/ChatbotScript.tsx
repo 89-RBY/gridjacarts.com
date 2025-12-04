@@ -28,45 +28,60 @@ export default function ChatbotScript() {
 
     console.log('[ChatbotScript] Injecting chatbot script into page');
 
-    // Remove existing script if any
+    // Remove existing scripts if any
+    const existingConfig = document.getElementById('chatbot-config-script');
     const existingScript = document.getElementById('chatbot-injected-script');
-    if (existingScript) {
-      existingScript.remove();
-    }
+    if (existingConfig) existingConfig.remove();
+    if (existingScript) existingScript.remove();
 
-    // Create a div container for chatbot (some chatbots need this)
-    let container = document.getElementById('chatbot-container');
-    if (!container) {
-      container = document.createElement('div');
-      container.id = 'chatbot-container';
-      document.body.appendChild(container);
-    }
-
-    // Create and inject the script
-    const script = document.createElement('script');
-    script.id = 'chatbot-injected-script';
-    script.innerHTML = chatbotCode;
-
-    // If the code contains a src attribute pattern, extract and use it
+    // Parse the chatbot code to extract config and script URL
+    const configMatch = chatbotCode.match(/window\.LeaChatixConfig\s*=\s*({[^}]+})/);
     const srcMatch = chatbotCode.match(/src=['"]([^'"]+)['"]/);
-    if (srcMatch) {
+
+    if (configMatch && srcMatch) {
+      // LeaChatix specific implementation
+      // 1. First inject the configuration
+      const configScript = document.createElement('script');
+      configScript.id = 'chatbot-config-script';
+      configScript.innerHTML = `window.LeaChatixConfig = ${configMatch[1]};`;
+      document.body.appendChild(configScript);
+
+      // 2. Then inject the chatbot script
+      const script = document.createElement('script');
+      script.id = 'chatbot-injected-script';
       script.src = srcMatch[1];
       script.async = true;
+      document.body.appendChild(script);
+
+      console.log('[ChatbotScript] LeaChatix configured and loaded');
+    } else {
+      // Fallback for other chatbots
+      const script = document.createElement('script');
+      script.id = 'chatbot-injected-script';
+      script.innerHTML = chatbotCode;
+
+      const fallbackSrcMatch = chatbotCode.match(/src=['"]([^'"]+)['"]/);
+      if (fallbackSrcMatch) {
+        script.src = fallbackSrcMatch[1];
+        script.async = true;
+      }
+
+      document.body.appendChild(script);
+      console.log('[ChatbotScript] Generic chatbot script injected');
     }
 
-    document.body.appendChild(script);
     setIsLoaded(true);
-    console.log('[ChatbotScript] Chatbot script injected successfully');
 
     // Cleanup function
     return () => {
+      const configToRemove = document.getElementById('chatbot-config-script');
       const scriptToRemove = document.getElementById('chatbot-injected-script');
-      if (scriptToRemove) {
-        scriptToRemove.remove();
-      }
-      const containerToRemove = document.getElementById('chatbot-container');
-      if (containerToRemove) {
-        containerToRemove.remove();
+      if (configToRemove) configToRemove.remove();
+      if (scriptToRemove) scriptToRemove.remove();
+
+      // Clean up LeaChatix global config
+      if (typeof window !== 'undefined' && (window as any).LeaChatixConfig) {
+        delete (window as any).LeaChatixConfig;
       }
     };
   }, [chatbotCode, isLoaded]);
