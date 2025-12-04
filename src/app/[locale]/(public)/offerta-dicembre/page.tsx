@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { Check, Zap, Rocket, Crown, ArrowRight, Phone, Mail, Clock, MapPin, TrendingUp, Award, Users, Star, MessageCircle } from 'lucide-react';
 import type { Metadata } from 'next';
-import OffertaDicembreForm from '@/components/OffertaDicembreForm';
+import OffertaDicembreContactButtons from '@/components/OffertaDicembreContactButtons';
 
 // Force dynamic rendering due to next-intl usage
 export const dynamic = 'force-dynamic';
@@ -358,11 +358,11 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
               {t('contact.title')}
             </h2>
             <p className="text-xl opacity-90">
-              {t('contact.subtitle')}
+              Scegli il tuo metodo di contatto preferito
             </p>
           </div>
 
-          <OffertaDicembreForm />
+          <OffertaDicembreContactButtons />
 
           <div className="mt-12 grid md:grid-cols-3 gap-6 text-center">
             <div className="flex flex-col items-center gap-2">
