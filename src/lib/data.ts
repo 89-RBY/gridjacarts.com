@@ -621,7 +621,12 @@ export async function updatePartnerApplication(
   }
 }
 
-return false;
+export async function deletePartnerApplication(id: string): Promise<boolean> {
+  try {
+    await prisma.partnerApplication.delete({ where: { id } });
+    return true;
+  } catch {
+    return false;
   }
 }
 
