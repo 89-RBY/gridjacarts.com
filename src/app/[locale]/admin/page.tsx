@@ -20,12 +20,14 @@ import {
   Mail,
   FileSignature,
   Cookie,
+  Users,
 } from 'lucide-react';
 import Logo from '@/components/Logo';
 import ContractModal from '@/components/ContractModal';
 import ServiceDetailsModal from '@/components/ServiceDetailsModal';
 import CookieConsentsPanel from '@/components/admin/CookieConsentsPanel';
-import { User, BlogPost, SiteSettings, Partner, PartnerApplication, ServicePricing, Contract, NewsletterSubscriber } from '@/types';
+import TeamEditor from '@/components/admin/TeamEditor';
+import { User, BlogPost, SiteSettings, Partner, PartnerApplication, ServicePricing, Contract, NewsletterSubscriber, TeamMember } from '@/types';
 
 export default function AdminDashboard({ params: { locale } }: { params: { locale: string } }) {
   const router = useRouter();
@@ -37,7 +39,9 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   const [applications, setApplications] = useState<PartnerApplication[]>([]);
   const [services, setServices] = useState<ServicePricing[]>([]);
   const [contracts, setContracts] = useState<Contract[]>([]);
+
   const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>([]);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [editingService, setEditingService] = useState<ServicePricing | null>(null);
@@ -48,6 +52,8 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   const [isCreating, setIsCreating] = useState(false);
   const [isCreatingService, setIsCreatingService] = useState(false);
   const [isCreatingPartner, setIsCreatingPartner] = useState(false);
+  const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
+  const [isCreatingMember, setIsCreatingMember] = useState(false);
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: '',
     newPassword: '',
@@ -82,7 +88,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   };
 
   const fetchAllData = async () => {
-    await Promise.all([fetchPosts(), fetchSettings(), fetchPartners(), fetchApplications(), fetchServices(), fetchContracts(), fetchSubscribers()]);
+    await Promise.all([fetchPosts(), fetchSettings(), fetchPartners(), fetchApplications(), fetchServices(), fetchContracts(), fetchSubscribers(), fetchTeamMembers()]);
   };
 
   const fetchPosts = async () => {
@@ -125,6 +131,12 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
     const res = await fetch('/api/admin/contracts');
     const data = await res.json();
     if (res.ok) setContracts(data.contracts);
+  };
+
+  const fetchTeamMembers = async () => {
+    const res = await fetch('/api/team');
+    const data = await res.json();
+    if (res.ok) setTeamMembers(data.members);
   };
 
   const handleLogout = async () => {
@@ -285,6 +297,25 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
     if (res.ok) setContracts(contracts.filter((c) => c.id !== id));
   };
 
+  const handleSaveMember = async (member: TeamMember) => {
+    const res = await fetch('/api/team', {
+      method: member.id ? 'PUT' : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(member),
+    });
+    if (res.ok) {
+      fetchTeamMembers();
+      setEditingMember(null);
+      setIsCreatingMember(false);
+    }
+  };
+
+  const handleDeleteMember = async (id: string) => {
+    if (!confirm('Delete this member?')) return;
+    const res = await fetch(`/api/team?id=${id}`, { method: 'DELETE' });
+    if (res.ok) setTeamMembers(teamMembers.filter((m) => m.id !== id));
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -321,6 +352,19 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
+
+  const newMember: TeamMember = {
+    id: '',
+    name: '',
+    roleRo: '',
+    roleEn: '',
+    roleIt: '',
+    socialLinks: {},
+    order: 0,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+
   const pendingApplications = applications.filter((a) => a.status === 'pending').length;
 
   return (
@@ -338,17 +382,17 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
             { id: 'contracts', icon: FileSignature, label: 'Contracts' },
             { id: 'blog', icon: FileText, label: 'Blog' },
             { id: 'newsletter', icon: Mail, label: 'Newsletter' },
+            { id: 'team', icon: Users, label: 'Team' },
             { id: 'cookies', icon: Cookie, label: 'Cookie Consents' },
             { id: 'settings', icon: Settings, label: 'Settings' },
           ].map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center justify-between px-6 py-3 text-left ${
-                activeTab === item.id
-                  ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 border-r-4 border-primary-600'
-                  : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
-              }`}
+              className={`w-full flex items-center justify-between px-6 py-3 text-left ${activeTab === item.id
+                ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 border-r-4 border-primary-600'
+                : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                }`}
             >
               <div className="flex items-center gap-3">
                 <item.icon className="w-5 h-5" />
@@ -436,13 +480,12 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
                       </div>
                       <div className="flex flex-col items-end gap-2">
                         <span
-                          className={`px-3 py-1 rounded-full text-sm ${
-                            app.status === 'pending'
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : app.status === 'approved'
+                          className={`px-3 py-1 rounded-full text-sm ${app.status === 'pending'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : app.status === 'approved'
                               ? 'bg-green-100 text-green-800'
                               : 'bg-red-100 text-red-800'
-                          }`}
+                            }`}
                         >
                           {app.status}
                         </span>
@@ -501,9 +544,8 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
                       <td className="px-6 py-4 text-center font-semibold text-primary-600">{partner.markup}%</td>
                       <td className="px-6 py-4 text-center">
                         <span
-                          className={`px-2 py-1 rounded-full text-xs ${
-                            partner.status === 'approved' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                          }`}
+                          className={`px-2 py-1 rounded-full text-xs ${partner.status === 'approved' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                            }`}
                         >
                           {partner.status}
                         </span>
@@ -635,9 +677,8 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
                       <td className="px-6 py-4">{post.title.en}</td>
                       <td className="px-6 py-4">
                         <span
-                          className={`px-2 py-1 rounded-full text-xs ${
-                            post.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                          }`}
+                          className={`px-2 py-1 rounded-full text-xs ${post.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                            }`}
                         >
                           {post.status}
                         </span>
@@ -700,11 +741,10 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
                         </td>
                         <td className="px-6 py-4 text-center">
                           <span
-                            className={`px-2 py-1 rounded-full text-xs ${
-                              subscriber.status === 'active'
-                                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                                : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400'
-                            }`}
+                            className={`px-2 py-1 rounded-full text-xs ${subscriber.status === 'active'
+                              ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                              : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400'
+                              }`}
                           >
                             {subscriber.status}
                           </span>
@@ -723,6 +763,57 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
               </div>
             )}
           </div>
+        )}
+
+        {activeTab === 'team' && !editingMember && !isCreatingMember && (
+          <div>
+            <button
+              onClick={() => setIsCreatingMember(true)}
+              className="mb-6 btn-primary inline-flex items-center gap-2"
+            >
+              <Plus className="w-5 h-5" /> New Member
+            </button>
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+              <table className="w-full">
+                <thead className="bg-gray-50 dark:bg-gray-700">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-sm font-medium">Order</th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">Name</th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">Role (EN)</th>
+                    <th className="px-6 py-3 text-right text-sm font-medium">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  {teamMembers.map((member) => (
+                    <tr key={member.id}>
+                      <td className="px-6 py-4">{member.order}</td>
+                      <td className="px-6 py-4 font-medium">{member.name}</td>
+                      <td className="px-6 py-4">{member.roleEn}</td>
+                      <td className="px-6 py-4 text-right">
+                        <button onClick={() => setEditingMember(member)} className="text-primary-600 mr-3">
+                          <Edit className="w-5 h-5" />
+                        </button>
+                        <button onClick={() => handleDeleteMember(member.id)} className="text-red-600">
+                          <Trash2 className="w-5 h-5" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'team' && (editingMember || isCreatingMember) && (
+          <TeamEditor
+            member={editingMember || newMember}
+            onSave={handleSaveMember}
+            onCancel={() => {
+              setEditingMember(null);
+              setIsCreatingMember(false);
+            }}
+          />
         )}
 
         {activeTab === 'contracts' && !editingContract && (
@@ -766,15 +857,14 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
                           <td className="px-6 py-4 text-sm">{contract.contractType}</td>
                           <td className="px-6 py-4 text-center">
                             <span
-                              className={`px-2 py-1 rounded-full text-xs ${
-                                contract.status === 'SIGNED'
-                                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                                  : contract.status === 'PENDING'
+                              className={`px-2 py-1 rounded-full text-xs ${contract.status === 'SIGNED'
+                                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                                : contract.status === 'PENDING'
                                   ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
                                   : contract.status === 'EXPIRED'
-                                  ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
-                                  : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400'
-                              }`}
+                                    ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+                                    : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400'
+                                }`}
                             >
                               {contract.status}
                             </span>
@@ -897,11 +987,10 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
 
                 {passwordMessage && (
                   <div
-                    className={`p-4 rounded-lg ${
-                      passwordMessage.type === 'success'
-                        ? 'bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-400'
-                        : 'bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-400'
-                    }`}
+                    className={`p-4 rounded-lg ${passwordMessage.type === 'success'
+                      ? 'bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-400'
+                      : 'bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-400'
+                      }`}
                   >
                     {passwordMessage.text}
                   </div>

@@ -621,11 +621,42 @@ export async function updatePartnerApplication(
   }
 }
 
-export async function deletePartnerApplication(id: string): Promise<boolean> {
-  try {
-    await prisma.partnerApplication.delete({ where: { id } });
-    return true;
-  } catch {
-    return false;
+return false;
   }
+}
+
+// Team Members
+export async function getTeamMembers() {
+  const members = await prisma.teamMember.findMany({
+    orderBy: { order: 'asc' },
+  });
+  return members.map((m) => ({
+    ...m,
+    socialLinks: JSON.parse(m.socialLinks || '{}'),
+  }));
+}
+
+export async function saveTeamMember(member: any) {
+  if (member.id) {
+    return await prisma.teamMember.update({
+      where: { id: member.id },
+      data: {
+        ...member,
+        socialLinks: JSON.stringify(member.socialLinks),
+      },
+    });
+  } else {
+    return await prisma.teamMember.create({
+      data: {
+        ...member,
+        socialLinks: JSON.stringify(member.socialLinks),
+      },
+    });
+  }
+}
+
+export async function deleteTeamMember(id: string) {
+  return await prisma.teamMember.delete({
+    where: { id },
+  });
 }

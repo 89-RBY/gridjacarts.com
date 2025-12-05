@@ -251,3 +251,24 @@ export interface Contract {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  roleRo: string;
+  roleEn: string;
+  roleIt: string;
+  bioRo?: string;
+  bioEn?: string;
+  bioIt?: string;
+  imageUrl?: string;
+  socialLinks: {
+    linkedin?: string;
+    twitter?: string;
+    github?: string;
+    instagram?: string;
+  };
+  order: number;
+  createdAt: string;
+  updatedAt: string;
+}

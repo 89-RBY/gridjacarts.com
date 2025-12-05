@@ -258,3 +258,19 @@ model CookieConsent {
   @@index([userId])
   @@index([consentDate])
 }
+
+model TeamMember {
+  id          String   @id @default(cuid())
+  name        String
+  roleRo      String
+  roleEn      String
+  roleIt      String
+  bioRo       String?
+  bioEn       String?
+  bioIt       String?
+  imageUrl    String?
+  socialLinks String?  @default("{}") // JSON string
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

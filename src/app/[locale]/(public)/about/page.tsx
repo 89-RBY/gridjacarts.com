@@ -85,6 +85,21 @@ export default function AboutPage({ params: { locale } }: AboutPageProps) {
         </div>
       </section>
 
+      {/* Team Section */}
+      <section className="section-padding bg-gray-50 dark:bg-gray-800">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-display font-bold gradient-text">
+              {t('team.title')}
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
+              {t('team.subtitle')}
+            </p>
+          </div>
+          <TeamList locale={locale} />
+        </div>
+      </section>
+
       {/* Values Section */}
       <section className="section-padding bg-white dark:bg-gray-900">
         <div className="container-custom">
@@ -108,3 +123,5 @@ export default function AboutPage({ params: { locale } }: AboutPageProps) {
     </div>
   );
 }
+
+import TeamList from '@/components/TeamList';
