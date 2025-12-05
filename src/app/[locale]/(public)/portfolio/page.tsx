@@ -32,8 +32,8 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       description: locale === 'ro'
         ? 'Platformă avansată de vânzări auto online cu sistem de listări, căutare avansată, gestionare anunțuri și integrare plăți.'
         : locale === 'en'
-        ? 'Advanced car sales platform with listing system, advanced search, ad management and payment integration.'
-        : 'Piattaforma avanzata di vendita auto con sistema di inserzioni, ricerca avanzata, gestione annunci e integrazione pagamenti.',
+          ? 'Advanced car sales platform with listing system, advanced search, ad management and payment integration.'
+          : 'Piattaforma avanzata di vendita auto con sistema di inserzioni, ricerca avanzata, gestione annunci e integrazione pagamenti.',
       tags: ['Next.js', 'PostgreSQL', 'Payment Integration', 'Advanced Search'],
     },
     {
@@ -46,8 +46,8 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       description: locale === 'ro'
         ? 'Website profesional pentru companie specializată în serrande și sisteme de securitate din Roma, Italia.'
         : locale === 'en'
-        ? 'Professional website for a company specialized in shutters and security systems in Rome, Italy.'
-        : 'Sito web professionale per azienda specializzata in serrande e sistemi di sicurezza a Roma, Italia.',
+          ? 'Professional website for a company specialized in shutters and security systems in Rome, Italy.'
+          : 'Sito web professionale per azienda specializzata in serrande e sistemi di sicurezza a Roma, Italia.',
       tags: ['Web Design', 'SEO', 'Responsive', 'Italian Market'],
     },
     {
@@ -60,8 +60,8 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       description: locale === 'ro'
         ? 'Site modern pentru servicii de asistență practici auto în Italia, cu formular contact și prezentare servicii.'
         : locale === 'en'
-        ? 'Modern website for automotive documentation services in Italy, with contact form and service presentation.'
-        : 'Sito moderno per servizi di assistenza pratiche auto in Italia, con form contatto e presentazione servizi.',
+          ? 'Modern website for automotive documentation services in Italy, with contact form and service presentation.'
+          : 'Sito moderno per servizi di assistenza pratiche auto in Italia, con form contatto e presentazione servizi.',
       tags: ['Web Design', 'Contact Forms', 'Service Showcase', 'Italian'],
     },
     {
@@ -74,8 +74,8 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       description: locale === 'ro'
         ? 'Platformă completă de vânzare produse proaspete online cu sistem de comenzi, livrări și gestionare inventar în timp real.'
         : locale === 'en'
-        ? 'Complete fresh products online sales platform with order system, deliveries and real-time inventory management.'
-        : 'Piattaforma completa di vendita prodotti freschi online con sistema ordini, consegne e gestione inventario in tempo reale.',
+          ? 'Complete fresh products online sales platform with order system, deliveries and real-time inventory management.'
+          : 'Piattaforma completa di vendita prodotti freschi online con sistema ordini, consegne e gestione inventario in tempo reale.',
       tags: ['E-Commerce', 'Real-time Inventory', 'Delivery System', 'Payment Gateway'],
     },
     {
@@ -88,8 +88,8 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       description: locale === 'ro'
         ? 'Platformă SaaS avansată pentru crearea și gestionarea chatboților AI, cu integrări multiple și dashboard analitic.'
         : locale === 'en'
-        ? 'Advanced SaaS platform for creating and managing AI chatbots, with multiple integrations and analytics dashboard.'
-        : 'Piattaforma SaaS avanzata per la creazione e gestione di chatbot AI, con integrazioni multiple e dashboard analitico.',
+          ? 'Advanced SaaS platform for creating and managing AI chatbots, with multiple integrations and analytics dashboard.'
+          : 'Piattaforma SaaS avanzata per la creazione e gestione di chatbot AI, con integrazioni multiple e dashboard analitico.',
       tags: ['AI/ML', 'Chatbots', 'SaaS', 'API Integration', 'Analytics'],
     },
     {
@@ -102,8 +102,8 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       description: locale === 'ro'
         ? 'Platformă de marketing B2B pentru businessuri, cu lead generation, CRM integrat și campanii automate de outreach.'
         : locale === 'en'
-        ? 'B2B marketing platform for businesses, with lead generation, integrated CRM and automated outreach campaigns.'
-        : 'Piattaforma marketing B2B per aziende, con lead generation, CRM integrato e campagne outreach automatizzate.',
+          ? 'B2B marketing platform for businesses, with lead generation, integrated CRM and automated outreach campaigns.'
+          : 'Piattaforma marketing B2B per aziende, con lead generation, CRM integrato e campagne outreach automatizzate.',
       tags: ['B2B', 'Lead Generation', 'CRM', 'Marketing Automation', 'Email Campaigns'],
     },
     {
@@ -116,22 +116,22 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       description: locale === 'ro'
         ? 'Website personal și platformă de cursuri online cu sistem de membri, video streaming și progres de învățare.'
         : locale === 'en'
-        ? 'Personal website and online course platform with membership system, video streaming and learning progress.'
-        : 'Sito web personale e piattaforma corsi online con sistema membri, video streaming e progresso apprendimento.',
+          ? 'Personal website and online course platform with membership system, video streaming and learning progress.'
+          : 'Sito web personale e piattaforma corsi online con sistema membri, video streaming e progresso apprendimento.',
       tags: ['LMS', 'Video Streaming', 'Membership', 'Progress Tracking'],
     },
     {
       id: 8,
       title: 'DMDDentalClinic.ro',
-      url: 'https://dmddentalclinic.ro',
+      url: 'https://dmddental.ro/home/',
       category: locale === 'ro' ? 'Site Medical' : locale === 'en' ? 'Medical Website' : 'Sito Medico',
       client: 'DMD Dental Clinic',
       image: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop',
       description: locale === 'ro'
         ? 'Website modern pentru clinică stomatologică cu prezentare servicii, echipă medicală, sistem de programări și galerie before/after.'
         : locale === 'en'
-        ? 'Modern website for dental clinic with services showcase, medical team, appointment system and before/after gallery.'
-        : 'Sito moderno per clinica dentale con presentazione servizi, team medico, sistema prenotazioni e galleria prima/dopo.',
+          ? 'Modern website for dental clinic with services showcase, medical team, appointment system and before/after gallery.'
+          : 'Sito moderno per clinica dentale con presentazione servizi, team medico, sistema prenotazioni e galleria prima/dopo.',
       tags: ['Medical', 'Appointment System', 'SEO Local', 'Gallery'],
     },
   ];
