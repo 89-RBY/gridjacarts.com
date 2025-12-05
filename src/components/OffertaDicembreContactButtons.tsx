@@ -8,12 +8,12 @@ export default function OffertaDicembreContactButtons() {
   const email = 'robert.gridjac@gridjacarts.com';
 
   const whatsappMessage = encodeURIComponent(
-    '🎉 Ciao! Sono interessato all\'Offerta Dicembre 2025 di GridjaCards. Vorrei maggiori informazioni sui pacchetti disponibili.'
+    '🎉 Ciao! Sono interessato all\'Offerta Dicembre 2025 di Gridjac Art\'s. Vorrei maggiori informazioni sui pacchetti disponibili.'
   );
 
-  const emailSubject = encodeURIComponent('Richiesta Offerta Dicembre 2025 - GridjaCards');
+  const emailSubject = encodeURIComponent('Richiesta Offerta Dicembre 2025 - Gridjac Art\'s');
   const emailBody = encodeURIComponent(
-    'Buongiorno,\n\nSono interessato all\'Offerta Dicembre 2025 di GridjaCards.\n\nVorrei ricevere maggiori informazioni sui seguenti pacchetti:\n- Startup (€999/anno)\n- Pro (€1.749/anno)\n- Premium (€2.999/anno)\n\nGrazie,\n[Il tuo nome]'
+    'Buongiorno,\n\nSono interessato all\'Offerta Dicembre 2025 di Gridjac Art\'s.\n\nVorrei ricevere maggiori informazioni sui seguenti pacchetti:\n- Startup (€999/anno)\n- Pro (€1.749/anno)\n- Premium (€2.999/anno)\n\nGrazie,\n[Il tuo nome]'
   );
 
   return (
