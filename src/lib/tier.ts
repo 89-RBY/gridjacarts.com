@@ -195,7 +195,7 @@ export async function getPartnerBonusServices(
 /**
  * Mark a bonus service as used
  */
-export async function useBonusService(bonusServiceId: string): Promise<void> {
+export async function consumeBonusService(bonusServiceId: string): Promise<void> {
   await prisma.bonusService.update({
     where: { id: bonusServiceId },
     data: {

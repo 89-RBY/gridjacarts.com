@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { getPartnerBonusServices, useBonusService } from '@/lib/tier';
+import { getPartnerBonusServices, consumeBonusService } from '@/lib/tier';
 
 export async function GET() {
   try {
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
     }
 
     // Mark as used
-    await useBonusService(bonusServiceId);
+    await consumeBonusService(bonusServiceId);
 
     return NextResponse.json({ success: true });
   } catch (error) {
