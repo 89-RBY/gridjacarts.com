@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { Handshake, Lightbulb, Award, Eye } from 'lucide-react';
+import TeamList from '@/components/TeamList';
 
 interface AboutPageProps {
   params: { locale: string };
@@ -124,4 +125,4 @@ export default function AboutPage({ params: { locale } }: AboutPageProps) {
   );
 }
 
-import TeamList from '@/components/TeamList';
+
