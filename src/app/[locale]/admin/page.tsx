@@ -313,7 +313,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   const handleDeleteMember = async (id: string) => {
     if (!confirm('Delete this member?')) return;
     const res = await fetch(`/api/team?id=${id}`, { method: 'DELETE' });
-    if (res.ok) setTeamMembers(teamMembers.filter((m) => m.id !== id));
+    if (res.ok || res.status === 404) setTeamMembers(teamMembers.filter((m) => m.id !== id));
   };
 
   if (loading) {

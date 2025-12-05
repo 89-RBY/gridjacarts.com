@@ -66,8 +66,11 @@ export async function DELETE(request: NextRequest) {
         await deleteTeamMember(id);
 
         return NextResponse.json({ message: 'Team member deleted successfully' });
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error deleting team member:', error);
+        if (error.code === 'P2025') {
+            return NextResponse.json({ error: 'Team member not found' }, { status: 404 });
+        }
         return NextResponse.json({ error: 'Failed to delete team member' }, { status: 500 });
     }
 }
