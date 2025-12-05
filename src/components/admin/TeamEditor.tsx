@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { X, Save, Upload } from 'lucide-react';
 import { TeamMember } from '@/types';
+import ImageUploader from '@/components/ImageUploader';
 
 interface TeamEditorProps {
     member: TeamMember;
@@ -52,19 +53,11 @@ export default function TeamEditor({ member, onSave, onCancel }: TeamEditorProps
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium mb-1">Image URL</label>
-                                <div className="flex gap-2">
-                                    <input
-                                        type="text"
-                                        value={formData.imageUrl || ''}
-                                        onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                                        className="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
-                                        placeholder="https://..."
-                                    />
-                                </div>
-                                {formData.imageUrl && (
-                                    <img src={formData.imageUrl} alt="Preview" className="mt-2 w-20 h-20 object-cover rounded-lg" />
-                                )}
+                                <label className="block text-sm font-medium mb-1">Image</label>
+                                <ImageUploader
+                                    currentImage={formData.imageUrl}
+                                    onUpload={(url) => setFormData({ ...formData, imageUrl: url })}
+                                />
                             </div>
 
                             <div>
