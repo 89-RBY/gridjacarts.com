@@ -642,20 +642,27 @@ export async function getTeamMembers() {
 }
 
 export async function saveTeamMember(member: any) {
+  const data = {
+    name: member.name,
+    roleRo: member.roleRo,
+    roleEn: member.roleEn,
+    roleIt: member.roleIt,
+    bioRo: member.bioRo,
+    bioEn: member.bioEn,
+    bioIt: member.bioIt,
+    imageUrl: member.imageUrl,
+    socialLinks: JSON.stringify(member.socialLinks || {}),
+    order: member.order,
+  };
+
   if (member.id) {
     return await prisma.teamMember.update({
       where: { id: member.id },
-      data: {
-        ...member,
-        socialLinks: JSON.stringify(member.socialLinks),
-      },
+      data,
     });
   } else {
     return await prisma.teamMember.create({
-      data: {
-        ...member,
-        socialLinks: JSON.stringify(member.socialLinks),
-      },
+      data,
     });
   }
 }
