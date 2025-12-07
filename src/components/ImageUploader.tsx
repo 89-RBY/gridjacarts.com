@@ -92,6 +92,7 @@ export default function ImageUploader({ onUpload, currentImage }: ImageUploaderP
             className="w-full max-h-64 object-cover rounded-lg border"
           />
           <button
+            type="button"
             onClick={clearImage}
             className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600"
           >
@@ -100,6 +101,7 @@ export default function ImageUploader({ onUpload, currentImage }: ImageUploaderP
         </div>
       ) : (
         <button
+          type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
           className="w-full border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-primary-500 transition-colors disabled:opacity-50"
