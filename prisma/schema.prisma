@@ -83,6 +83,7 @@ model BlogPost {
   excerptEn   String
   excerptIt   String
   author      String
+  imageUrl    String?
   tags        String   @default("[]") // JSON string array
   status      String   @default("draft") // draft or published
   publishedAt DateTime @default(now())

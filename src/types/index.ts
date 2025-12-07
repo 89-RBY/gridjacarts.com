@@ -77,6 +77,7 @@ export interface BlogPost {
     it: string;
   };
   author: string;
+  imageUrl?: string | null;
   publishedAt: string;
   updatedAt: string;
   tags: string[];

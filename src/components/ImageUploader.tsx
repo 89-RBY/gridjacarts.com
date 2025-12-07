@@ -6,9 +6,10 @@ import { Upload, X, Image as ImageIcon, Loader } from 'lucide-react';
 interface ImageUploaderProps {
   onUpload: (url: string) => void;
   currentImage?: string;
+  uploadType?: 'team' | 'blog' | 'generic';
 }
 
-export default function ImageUploader({ onUpload, currentImage }: ImageUploaderProps) {
+export default function ImageUploader({ onUpload, currentImage, uploadType = 'generic' }: ImageUploaderProps) {
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(currentImage || null);
   const [error, setError] = useState<string | null>(null);
@@ -43,6 +44,7 @@ export default function ImageUploader({ onUpload, currentImage }: ImageUploaderP
     // Upload file
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('type', uploadType);
 
     try {
       const res = await fetch('/api/upload', {

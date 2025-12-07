@@ -51,6 +51,7 @@ function mapBlogPost(post: {
   excerptEn: string;
   excerptIt: string;
   author: string;
+  imageUrl?: string | null;
   tags: string;
   status: string;
   publishedAt: Date;
@@ -80,6 +81,7 @@ function mapBlogPost(post: {
       it: post.excerptIt,
     },
     author: post.author,
+    imageUrl: post.imageUrl,
     tags: JSON.parse(post.tags),
     status: post.status as 'draft' | 'published',
     publishedAt: post.publishedAt.toISOString(),
@@ -108,6 +110,7 @@ export async function saveBlogPosts(posts: BlogPost[]): Promise<void> {
         excerptEn: post.excerpt.en,
         excerptIt: post.excerpt.it,
         author: post.author,
+        imageUrl: post.imageUrl,
         tags: JSON.stringify(post.tags),
         status: post.status,
         publishedAt: new Date(post.publishedAt),

@@ -57,6 +57,7 @@ export default function TeamEditor({ member, onSave, onCancel }: TeamEditorProps
                                 <ImageUploader
                                     currentImage={formData.imageUrl}
                                     onUpload={(url) => setFormData({ ...formData, imageUrl: url })}
+                                    uploadType="team"
                                 />
                             </div>
 

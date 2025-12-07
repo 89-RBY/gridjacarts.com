@@ -58,6 +58,22 @@ Per le immagini del team, segui la stessa procedura:
 3.  **Docker Compose**:
     Aggiungi la variabile d'ambiente al servizio `app`.
 
+### Blog Images Setup
+
+Per le immagini del blog:
+
+1.  **Crea Directory**:
+    ```bash
+    mkdir -p /data_gridjacarts/blog
+    chmod 755 /data_gridjacarts/blog
+    chown -R www-data:www-data /data_gridjacarts/blog
+    ```
+
+2.  **Configura Variabile d'Ambiente**:
+    ```bash
+    BLOG_STORAGE_PATH=/data_gridjacarts/blog
+    ```
+
 ---
 
 ## 🔄 Migrazione Contratti Esistenti

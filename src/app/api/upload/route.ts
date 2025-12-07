@@ -30,8 +30,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'File too large. Maximum size is 5MB.' }, { status: 400 });
     }
 
-    // Create uploads directory if it doesn't exist
-    const uploadDir = process.env.TEAM_STORAGE_PATH || path.join(process.cwd(), 'public', 'uploads');
+    const uploadType = formData.get('type') as string;
+
+    // Determine upload directory based on type
+    let uploadDir = path.join(process.cwd(), 'public', 'uploads');
+    if (uploadType === 'team' && process.env.TEAM_STORAGE_PATH) {
+      uploadDir = process.env.TEAM_STORAGE_PATH;
+    } else if (uploadType === 'blog' && process.env.BLOG_STORAGE_PATH) {
+      uploadDir = process.env.BLOG_STORAGE_PATH;
+    }
+
     await mkdir(uploadDir, { recursive: true });
 
     // Generate unique filename

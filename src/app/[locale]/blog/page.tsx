@@ -8,9 +8,6 @@ interface BlogPageProps {
   params: { locale: string };
 }
 
-// Force dynamic rendering due to database queries and next-intl usage
-export const dynamic = 'force-dynamic';
-
 export async function generateMetadata({ params: { locale } }: BlogPageProps) {
   const t = await getTranslations({ locale, namespace: 'blog' });
   return {
@@ -56,21 +53,13 @@ export default async function BlogPage({ params: { locale } }: BlogPageProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {posts.map((post) => (
                 <article key={post.id} className="card overflow-hidden group">
-                  {/* Featured Image */}
+                  {/* Featured Image Placeholder */}
                   <div className="aspect-video bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/30 dark:to-accent-900/30 relative overflow-hidden">
-                    {post.imageUrl ? (
-                      <img
-                        src={post.imageUrl}
-                        alt={post.title[locale as keyof typeof post.title] || post.title.en}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-4xl font-display font-bold text-primary-600/20">
-                          Blog
-                        </span>
-                      </div>
-                    )}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-4xl font-display font-bold text-primary-600/20">
+                        Blog
+                      </span>
+                    </div>
                   </div>
 
                   {/* Post Content */}
@@ -116,7 +105,7 @@ export default async function BlogPage({ params: { locale } }: BlogPageProps) {
 
                     {/* Read More */}
                     <Link
-                      href={`/${locale}/blog/${post.slugs[locale as keyof typeof post.slugs]}`}
+                      href={`/${locale}/blog/${post.slug}`}
                       className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:gap-3 transition-all"
                     >
                       {tCommon('readMore')}

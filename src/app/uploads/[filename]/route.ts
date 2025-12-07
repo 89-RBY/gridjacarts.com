@@ -8,10 +8,23 @@ export async function GET(
     { params }: { params: { filename: string } }
 ) {
     const filename = params.filename;
-    const uploadDir = process.env.TEAM_STORAGE_PATH || path.join(process.cwd(), 'public', 'uploads');
-    const filePath = path.join(uploadDir, filename);
 
-    if (!existsSync(filePath)) {
+    // Check locations in order of preference
+    const pathsToCheck = [
+        process.env.TEAM_STORAGE_PATH ? path.join(process.env.TEAM_STORAGE_PATH, filename) : null,
+        process.env.BLOG_STORAGE_PATH ? path.join(process.env.BLOG_STORAGE_PATH, filename) : null,
+        path.join(process.cwd(), 'public', 'uploads', filename)
+    ].filter(Boolean) as string[];
+
+    let filePath = '';
+    for (const p of pathsToCheck) {
+        if (existsSync(p)) {
+            filePath = p;
+            break;
+        }
+    }
+
+    if (!filePath) {
         return new NextResponse('File not found', { status: 404 });
     }
 

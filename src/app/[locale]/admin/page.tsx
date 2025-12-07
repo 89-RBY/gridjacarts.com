@@ -28,6 +28,7 @@ import ServiceDetailsModal from '@/components/ServiceDetailsModal';
 import CookieConsentsPanel from '@/components/admin/CookieConsentsPanel';
 import TeamEditor from '@/components/admin/TeamEditor';
 import { User, BlogPost, SiteSettings, Partner, PartnerApplication, ServicePricing, Contract, NewsletterSubscriber, TeamMember } from '@/types';
+import ImageUploader from '@/components/ImageUploader';
 
 export default function AdminDashboard({ params: { locale } }: { params: { locale: string } }) {
   const router = useRouter();
@@ -1044,6 +1045,14 @@ function PostEditor({ post, onSave, onCancel }: { post: BlogPost; onSave: (p: Bl
               value={formData.slug}
               onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
               className="w-full p-2 border rounded dark:bg-gray-700"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Cover Image</label>
+            <ImageUploader
+              currentImage={formData.imageUrl || ''}
+              onUpload={(url) => setFormData({ ...formData, imageUrl: url })}
+              uploadType="blog"
             />
           </div>
           <div>
