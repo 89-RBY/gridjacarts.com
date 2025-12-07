@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create uploads directory if it doesn't exist
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+    const uploadDir = process.env.TEAM_STORAGE_PATH || path.join(process.cwd(), 'public', 'uploads');
     await mkdir(uploadDir, { recursive: true });
 
     // Generate unique filename
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes);
     const filePath = path.join(uploadDir, filename);
 
-    await writeFile(filePath, buffer);
+    await writeFile(filePath, new Uint8Array(buffer));
 
     // Return the public URL
     const url = `/uploads/${filename}`;
@@ -71,7 +71,7 @@ export async function GET() {
     }
 
     const { readdir, stat } = await import('fs/promises');
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+    const uploadDir = process.env.TEAM_STORAGE_PATH || path.join(process.cwd(), 'public', 'uploads');
 
     try {
       const files = await readdir(uploadDir);

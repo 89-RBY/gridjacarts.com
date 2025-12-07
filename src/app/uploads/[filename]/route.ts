@@ -8,7 +8,8 @@ export async function GET(
     { params }: { params: { filename: string } }
 ) {
     const filename = params.filename;
-    const filePath = path.join(process.cwd(), 'public', 'uploads', filename);
+    const uploadDir = process.env.TEAM_STORAGE_PATH || path.join(process.cwd(), 'public', 'uploads');
+    const filePath = path.join(uploadDir, filename);
 
     if (!existsSync(filePath)) {
         return new NextResponse('File not found', { status: 404 });
@@ -25,7 +26,7 @@ export async function GET(
         else if (ext === '.webp') contentType = 'image/webp';
         else if (ext === '.svg') contentType = 'image/svg+xml';
 
-        return new NextResponse(fileBuffer, {
+        return new NextResponse(new Uint8Array(fileBuffer), {
             headers: {
                 'Content-Type': contentType,
                 'Cache-Control': 'public, max-age=31536000, immutable',

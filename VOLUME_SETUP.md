@@ -39,6 +39,29 @@ chmod -R 755 /data_gridjacarts/contracts
 
 ## 🔄 Migrazione Contratti Esistenti
 
+### Team Images Setup
+
+Per le immagini del team, segui la stessa procedura:
+
+1.  **Crea Directory**:
+    ```bash
+    mkdir -p /data_gridjacarts/team
+    chmod 755 /data_gridjacarts/team
+    chown -R www-data:www-data /data_gridjacarts/team
+    ```
+
+2.  **Configura Variabile d'Ambiente**:
+    ```bash
+    TEAM_STORAGE_PATH=/data_gridjacarts/team
+    ```
+
+3.  **Docker Compose**:
+    Aggiungi la variabile d'ambiente al servizio `app`.
+
+---
+
+## 🔄 Migrazione Contratti Esistenti
+
 Se hai contratti già caricati in `public/uploads/contracts/`, devi:
 
 ### Passo 1: Copia i File
