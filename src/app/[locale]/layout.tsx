@@ -3,7 +3,7 @@ import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales } from '@/i18n';
 import CookieBanner from '@/components/CookieBanner';
-import '../../globals.css';
+import '../globals.css';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
