@@ -1,8 +1,9 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales } from '@/i18n';
 import CookieBanner from '@/components/CookieBanner';
+import '../../globals.css';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -14,6 +15,49 @@ export const dynamic = 'force-dynamic';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({ params: { locale } }: Omit<LocaleLayoutProps, 'children'>) {
+  const t = await getTranslations({ locale, namespace: 'metadata' });
+
+  return {
+    title: {
+      default: t('defaultTitle'),
+      template: `%s | Gridjac Art's`,
+    },
+    description: t('description'),
+    keywords: t('keywords').split(','),
+    authors: [{ name: "Gridjac Art's SRL" }],
+    creator: "Gridjac Art's",
+    publisher: "Gridjac Art's",
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    openGraph: {
+      type: 'website',
+      siteName: "Gridjac Art's",
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: "Gridjac Art's",
+      description: t('twitterDescription'),
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+  };
 }
 
 export default async function LocaleLayout({
