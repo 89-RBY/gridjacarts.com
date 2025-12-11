@@ -250,9 +250,8 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
               return (
                 <div
                   key={pkg.id}
-                  className={`relative bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden transition-all duration-300 hover:scale-105 ${
-                    pkg.popular ? 'ring-4 ring-purple-500 scale-105' : ''
-                  }`}
+                  className={`relative bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden transition-all duration-300 hover:scale-105 ${pkg.popular ? 'ring-4 ring-purple-500 scale-105' : ''
+                    }`}
                 >
                   {/* Popular Badge */}
                   {pkg.popular && (
@@ -272,7 +271,7 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
                     <div className="mt-6">
                       <div className="text-sm line-through opacity-75">€{pkg.originalPrice}</div>
                       <div className="text-5xl font-black">€{pkg.price}</div>
-                      <div className="text-sm mt-1">{t('packages.perYear')}</div>
+                      {pkg.id !== 'startup' && <div className="text-sm mt-1">{t('packages.perYear')}</div>}
                       <div className="mt-3 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full inline-block font-bold">
                         {t('packages.save')} €{pkg.savings}!
                       </div>
@@ -423,8 +422,8 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
             params.locale === 'it'
               ? 'Ciao! Sono interessato ai vostri pacchetti di Dicembre 2025. Vorrei ricevere maggiori informazioni.'
               : params.locale === 'ro'
-              ? 'Bună! Sunt interesat de pachetele voastre din Decembrie 2025. Aș dori să primesc mai multe informații.'
-              : 'Hello! I am interested in your December 2025 packages. I would like to receive more information.'
+                ? 'Bună! Sunt interesat de pachetele voastre din Decembrie 2025. Aș dori să primesc mai multe informații.'
+                : 'Hello! I am interested in your December 2025 packages. I would like to receive more information.'
           )}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -440,14 +439,14 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
             params.locale === 'it'
               ? 'Richiesta Informazioni - Offerta Dicembre 2025'
               : params.locale === 'ro'
-              ? 'Cerere Informații - Oferta Decembrie 2025'
-              : 'Information Request - December 2025 Offer'
+                ? 'Cerere Informații - Oferta Decembrie 2025'
+                : 'Information Request - December 2025 Offer'
           )}&body=${encodeURIComponent(
             params.locale === 'it'
               ? 'Buongiorno,\n\nSono interessato ai vostri pacchetti promozionali di Dicembre 2025.\n\nVorrei ricevere maggiori informazioni su:\n- Pacchetto: [specificare Startup/Pro/Premium]\n- Nome:\n- Telefono:\n- Tipo di attività:\n\nGrazie,\nCordiali saluti'
               : params.locale === 'ro'
-              ? 'Bună ziua,\n\nSunt interesat de pachetele voastre promoționale din Decembrie 2025.\n\nAș dori să primesc mai multe informații despre:\n- Pachet: [specificați Startup/Pro/Premium]\n- Nume:\n- Telefon:\n- Tip activitate:\n\nMulțumesc,\nCu stimă'
-              : 'Good morning,\n\nI am interested in your December 2025 promotional packages.\n\nI would like to receive more information about:\n- Package: [specify Startup/Pro/Premium]\n- Name:\n- Phone:\n- Business type:\n\nThank you,\nBest regards'
+                ? 'Bună ziua,\n\nSunt interesat de pachetele voastre promoționale din Decembrie 2025.\n\nAș dori să primesc mai multe informații despre:\n- Pachet: [specificați Startup/Pro/Premium]\n- Nume:\n- Telefon:\n- Tip activitate:\n\nMulțumesc,\nCu stimă'
+                : 'Good morning,\n\nI am interested in your December 2025 promotional packages.\n\nI would like to receive more information about:\n- Package: [specify Startup/Pro/Premium]\n- Name:\n- Phone:\n- Business type:\n\nThank you,\nBest regards'
           )}`}
           className="bg-blue-500 hover:bg-blue-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 group"
           aria-label="Email"
