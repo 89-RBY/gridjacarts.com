@@ -34,14 +34,24 @@ export async function generateMetadata({ params }: { params: { locale: string } 
 export default function OffertaDicembrePage({ params }: { params: { locale: string } }) {
   const t = useTranslations('offertaDicembre');
 
+  // Calculate dynamic dates
+  const now = new Date();
+  const currentMonth = now.toLocaleString(params.locale, { month: 'long' });
+  const currentYear = now.getFullYear();
+  // Get last day of current month
+  const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+
+  // Format month to have first letter capitalized
+  const formattedMonth = currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1);
+
   const packages = [
     {
       id: 'startup',
       name: t('packages.startup.name'),
       tagline: t('packages.startup.tagline'),
-      price: '999',
+      price: '399',
       originalPrice: '1.499',
-      savings: '500',
+      savings: '1.100',
       icon: Zap,
       color: 'from-blue-500 to-cyan-500',
       popular: false,
@@ -120,7 +130,7 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
       {/* Urgent Banner */}
       <div className="bg-gradient-to-r from-red-600 to-rose-600 text-white py-3 px-4 text-center font-semibold animate-pulse">
         <Clock className="inline-block w-5 h-5 mr-2 animate-spin" />
-        {t('urgentBanner')}
+        {t('urgentBanner', { lastDay, month: formattedMonth, year: currentYear })}
       </div>
 
       {/* Hero Section */}
@@ -132,7 +142,7 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
             {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-2 rounded-full font-bold shadow-lg animate-bounce">
               <Award className="w-5 h-5" />
-              {t('hero.badge')}
+              {t('hero.badge', { month: formattedMonth, year: currentYear })}
             </div>
 
             {/* Main Heading */}
@@ -145,7 +155,7 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
 
             {/* Subheading */}
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-semibold">
-              {t('hero.subtitle')}
+              {t('hero.subtitle', { month: formattedMonth, year: currentYear })}
             </p>
 
             {/* Stats */}
@@ -420,10 +430,10 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
         <a
           href={`https://wa.me/393203779506?text=${encodeURIComponent(
             params.locale === 'it'
-              ? 'Ciao! Sono interessato ai vostri pacchetti di Dicembre 2025. Vorrei ricevere maggiori informazioni.'
+              ? `Ciao! Sono interessato ai vostri pacchetti di ${formattedMonth} ${currentYear}. Vorrei ricevere maggiori informazioni.`
               : params.locale === 'ro'
-                ? 'Bună! Sunt interesat de pachetele voastre din Decembrie 2025. Aș dori să primesc mai multe informații.'
-                : 'Hello! I am interested in your December 2025 packages. I would like to receive more information.'
+                ? `Bună! Sunt interesat de pachetele voastre din ${formattedMonth} ${currentYear}. Aș dori să primesc mai multe informații.`
+                : `Hello! I am interested in your ${formattedMonth} ${currentYear} packages. I would like to receive more information.`
           )}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -437,16 +447,16 @@ export default function OffertaDicembrePage({ params }: { params: { locale: stri
         <a
           href={`mailto:info@gridjacarts.com?subject=${encodeURIComponent(
             params.locale === 'it'
-              ? 'Richiesta Informazioni - Offerta Dicembre 2025'
+              ? `Richiesta Informazioni - Offerta ${formattedMonth} ${currentYear}`
               : params.locale === 'ro'
-                ? 'Cerere Informații - Oferta Decembrie 2025'
-                : 'Information Request - December 2025 Offer'
+                ? `Cerere Informații - Oferta ${formattedMonth} ${currentYear}`
+                : `Information Request - ${formattedMonth} ${currentYear} Offer`
           )}&body=${encodeURIComponent(
             params.locale === 'it'
-              ? 'Buongiorno,\n\nSono interessato ai vostri pacchetti promozionali di Dicembre 2025.\n\nVorrei ricevere maggiori informazioni su:\n- Pacchetto: [specificare Startup/Pro/Premium]\n- Nome:\n- Telefono:\n- Tipo di attività:\n\nGrazie,\nCordiali saluti'
+              ? `Buongiorno,\n\nSono interessato ai vostri pacchetti promozionali di ${formattedMonth} ${currentYear}.\n\nVorrei ricevere maggiori informazioni su:\n- Pacchetto: [specificare Startup/Pro/Premium]\n- Nome:\n- Telefono:\n- Tipo di attività:\n\nGrazie,\nCordiali saluti`
               : params.locale === 'ro'
-                ? 'Bună ziua,\n\nSunt interesat de pachetele voastre promoționale din Decembrie 2025.\n\nAș dori să primesc mai multe informații despre:\n- Pachet: [specificați Startup/Pro/Premium]\n- Nume:\n- Telefon:\n- Tip activitate:\n\nMulțumesc,\nCu stimă'
-                : 'Good morning,\n\nI am interested in your December 2025 promotional packages.\n\nI would like to receive more information about:\n- Package: [specify Startup/Pro/Premium]\n- Name:\n- Phone:\n- Business type:\n\nThank you,\nBest regards'
+                ? `Bună ziua,\n\nSunt interesat de pachetele voastre promoționale din ${formattedMonth} ${currentYear}.\n\nAș dori să primesc mai multe informații despre:\n- Pachet: [specificați Startup/Pro/Premium]\n- Nume:\n- Telefon:\n- Tip activitate:\n\nMulțumesc,\nCu stimă`
+                : `Good morning,\n\nI am interested in your ${formattedMonth} ${currentYear} promotional packages.\n\nI would like to receive more information about:\n- Package: [specify Startup/Pro/Premium]\n- Name:\n- Phone:\n- Business type:\n\nThank you,\nBest regards`
           )}`}
           className="bg-blue-500 hover:bg-blue-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 group"
           aria-label="Email"

@@ -141,14 +141,14 @@
       "title": "Offerta Dicembre 2025 - Pacchetti Web Scontati fino a -33% | GridjaCards Roma",
       "description": "Offerta esclusiva Dicembre 2025! Pacchetti siti web professionali a Roma con sconti fino a 1.500€. Hosting, SEO, Social Media inclusi. Solo 10 posti disponibili!"
     },
-    "urgentBanner": "⚠️ SOLO 10 POSTI DISPONIBILI! Offerta valida fino al 31 Dicembre 2025",
+    "urgentBanner": "⚠️ SOLO 10 POSTI DISPONIBILI! Offerta valida fino al {lastDay} {month} {year}",
     "hero": {
-      "badge": "OFFERTA LAMPO DICEMBRE 2025",
+      "badge": "OFFERTA LAMPO {month} {year}",
       "title": {
         "line1": "Risparmia fino a 1.500€",
         "line2": "sul Tuo Sito Web Professionale"
       },
-      "subtitle": "Pacchetti completi per la tua presenza digitale a Roma. Hosting, dominio, SEO e social media inclusi. Offerta valida solo per dicembre 2025!",
+      "subtitle": "Pacchetti completi per la tua presenza digitale a Roma. Hosting, dominio, SEO e social media inclusi. Offerta valida solo per {month} {year}!",
       "stats": {
         "clients": "Clienti Soddisfatti",
         "rating": "Valutazione Media",
@@ -169,7 +169,7 @@
       "reasons": [
         {
           "title": "Sconto Fino a -33%",
-          "description": "Risparmio fino a 1.500€ sul pacchetto Premium. Offerta valida solo per dicembre 2025."
+          "description": "Risparmio fino a 1.500€ sul pacchetto Premium. Offerta valida solo per {month} {year}."
         },
         {
           "title": "Posti Limitati",
