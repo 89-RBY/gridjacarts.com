@@ -11,7 +11,10 @@ const transporter = nodemailer.createTransport({
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
-  connectionTimeout: 10000,
+  connectionTimeout: 30000, // 30 seconds
+  socketTimeout: 30000, // 30 seconds
+  logger: true,
+  debug: true,
 });
 
 export async function POST(request: NextRequest) {
@@ -180,8 +183,10 @@ Richiesta ricevuta il ${new Date().toLocaleString('it-IT')}
     });
   } catch (error) {
     console.error('[ContactAPI] Error sending contact email:', error);
+    const usedHost = process.env.SMTP_HOST || 'smtp.gmail.com (default)';
+    const usedPort = parseInt(process.env.SMTP_PORT || '465');
     return NextResponse.json(
-      { error: `Errore durante l'invio dell'email: ${(error as Error).message}` },
+      { error: `Errore [${usedHost}:${usedPort}]: ${(error as Error).message}` },
       { status: 500 }
     );
   }
