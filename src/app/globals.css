@@ -43,6 +43,57 @@
   .btn-secondary {
     @apply bg-transparent border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 px-6 py-3 rounded-full font-medium hover:border-primary-500 hover:text-primary-600 transition-all duration-200;
   }
+
+  /* Brutal Design System */
+  .brutal-border {
+    @apply border-4 border-black dark:border-white;
+  }
+
+  .brutal-shadow {
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  }
+
+  .dark .brutal-shadow {
+    box-shadow: 8px 8px 0px 0px rgba(255, 255, 255, 1);
+  }
+
+  .brutal-shadow-sm {
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  }
+
+  .dark .brutal-shadow-sm {
+    box-shadow: 4px 4px 0px 0px rgba(255, 255, 255, 1);
+  }
+
+  .brutal-shadow-yellow {
+    box-shadow: 8px 8px 0px 0px #FFFF00;
+  }
+
+  .brutal-shadow-cyan {
+    box-shadow: 8px 8px 0px 0px #00FFFF;
+  }
+
+  .brutal-shadow-magenta {
+    box-shadow: 8px 8px 0px 0px #FF00FF;
+  }
+
+  .brutal-text {
+    @apply font-black leading-tight tracking-tight;
+  }
+
+  .brutal-btn {
+    @apply border-4 border-black dark:border-white font-black uppercase tracking-wider transition-all duration-100;
+  }
+
+  .brutal-btn:hover {
+    @apply translate-x-1 translate-y-1;
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  }
+
+  .dark .brutal-btn:hover {
+    box-shadow: 4px 4px 0px 0px rgba(255, 255, 255, 1);
+  }
+
 }
 
 @layer utilities {

@@ -292,5 +292,50 @@
     "ogTitle": "Gridjac Art's - Il tuo partner nella crescita digitale",
     "ogDescription": "Siamo il tuo partner strategico nella trasformazione digitale.",
     "twitterDescription": "Il tuo partner nella crescita digitale"
+  },
+  "offer": {
+    "pageTitle": "Offerta {month} - Gridjac Art's",
+    "months": {
+      "0": "Gennaio",
+      "1": "Febbraio",
+      "2": "Marzo",
+      "3": "Aprile",
+      "4": "Maggio",
+      "5": "Giugno",
+      "6": "Luglio",
+      "7": "Agosto",
+      "8": "Settembre",
+      "9": "Ottobre",
+      "10": "Novembre",
+      "11": "Dicembre"
+    },
+    "hero": {
+      "title": "Offerta Esclusiva di {month}",
+      "headline": "Come dominare il tuo mercato e stracciare la concorrenza",
+      "subheadline": "Scopri il sistema segreto che stiamo usando per generare crescita esponenziale.",
+      "cta": "Sì, voglio saperne di più"
+    },
+    "video": {
+      "badge": "GUARDA QUESTO VIDEO IMPORTANTE"
+    },
+    "benefits": {
+      "title": "Ecco cosa scoprirai:",
+      "list": {
+        "1": "Come trasformare il tuo sito in una macchina da vendita 24/7",
+        "2": "Le strategie esatte per superare i tuoi competitor nel 2026",
+        "3": "Un piano d'azione pratico per aumentare il fatturato nei prossimi 90 giorni"
+      }
+    },
+    "form": {
+      "header": "Richiedi il tuo Piano di Crescita Gratuito",
+      "subHeader": "Inserisci i tuoi dati qui sotto per ricevere una consulenza strategica senza impegno.",
+      "name": "Il tuo Nome",
+      "email": "La tua Email Migliore",
+      "phone": "Il tuo Numero di Telefono",
+      "website": "Il tuo Sito Web (se ne hai uno)",
+      "revenue": "Fatturato Attuale",
+      "submit": "INVIAMI IL PIANO GRATUITO",
+      "privacy": "I tuoi dati sono al sicuro. Non facciamo spam."
+    }
   }
 }
