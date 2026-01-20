@@ -3,10 +3,15 @@ import nodemailer from 'nodemailer';
 import { prisma } from '@/lib/prisma';
 
 export async function sendWelcomeEmail(email: string) {
-  // Fetch SMTP settings from DB
-  const settings = await prisma.siteSettings.findFirst({
-    where: { id: "main" }
-  });
+  // Fetch SMTP settings from DB (handle schema mismatch)
+  let settings;
+  try {
+    settings = await prisma.siteSettings.findFirst({
+      where: { id: "main" }
+    });
+  } catch (dbError) {
+    console.warn('[EmailLib] Database schema mismatch or missing settings, falling back to env vars');
+  }
 
   const smtpHost = settings?.smtpHost || process.env.SMTP_HOST || 'smtp.gmail.com';
   const smtpPort = parseInt(settings?.smtpPort || process.env.SMTP_PORT || '465');
@@ -158,10 +163,15 @@ export async function sendNewsletter(
   subject: string,
   content: string
 ) {
-  // Fetch SMTP settings from DB
-  const settings = await prisma.siteSettings.findFirst({
-    where: { id: "main" }
-  });
+  // Fetch SMTP settings from DB (handle schema mismatch)
+  let settings;
+  try {
+    settings = await prisma.siteSettings.findFirst({
+      where: { id: "main" }
+    });
+  } catch (dbError) {
+    console.warn('[EmailLib] Database schema mismatch or missing settings, falling back to env vars');
+  }
 
   const smtpHost = settings?.smtpHost || process.env.SMTP_HOST || 'smtp.gmail.com';
   const smtpPort = parseInt(settings?.smtpPort || process.env.SMTP_PORT || '465');

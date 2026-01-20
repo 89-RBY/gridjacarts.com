@@ -9,10 +9,15 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     console.log('[ContactAPI] Request body:', body);
 
-    // Fetch SMTP settings from DB
-    settings = await prisma.siteSettings.findFirst({
-      where: { id: "main" }
-    });
+    // Fetch SMTP settings from DB (handle schema mismatch)
+    try {
+      settings = await prisma.siteSettings.findFirst({
+        where: { id: "main" }
+      });
+    } catch (dbError) {
+      console.warn('[ContactAPI] Database schema mismatch or missing settings, falling back to env vars:', (dbError as Error).message);
+      // settings remains undefined, logic below handles fallbacks
+    }
 
     const smtpHost = settings?.smtpHost || process.env.SMTP_HOST || 'smtp.gmail.com';
     const smtpPort = parseInt(settings?.smtpPort || process.env.SMTP_PORT || '465');
