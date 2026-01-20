@@ -1,17 +1,32 @@
 import nodemailer from 'nodemailer';
 
-// Create reusable transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: parseInt(process.env.SMTP_PORT || '587'),
-  secure: process.env.SMTP_PORT === '465', // true for 465, false for other ports
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+import { prisma } from '@/lib/prisma';
 
 export async function sendWelcomeEmail(email: string) {
+  // Fetch SMTP settings from DB
+  const settings = await prisma.siteSettings.findFirst({
+    where: { id: "main" }
+  });
+
+  const smtpHost = settings?.smtpHost || process.env.SMTP_HOST || 'smtp.gmail.com';
+  const smtpPort = parseInt(settings?.smtpPort || process.env.SMTP_PORT || '465');
+  const smtpUser = settings?.smtpUser || process.env.SMTP_USER;
+  const smtpPass = settings?.smtpPassword || process.env.SMTP_PASS;
+
+  // Create transporter dynamically
+  const transporter = nodemailer.createTransport({
+    host: smtpHost,
+    port: smtpPort,
+    secure: smtpPort === 465,
+    auth: {
+      user: smtpUser,
+      pass: smtpPass,
+    },
+    connectionTimeout: 30000,
+    socketTimeout: 30000,
+    logger: true,
+    debug: true,
+  });
   const welcomeEmailHTML = `
 <!DOCTYPE html>
 <html lang="it">
@@ -143,10 +158,32 @@ export async function sendNewsletter(
   subject: string,
   content: string
 ) {
+  // Fetch SMTP settings from DB
+  const settings = await prisma.siteSettings.findFirst({
+    where: { id: "main" }
+  });
+
+  const smtpHost = settings?.smtpHost || process.env.SMTP_HOST || 'smtp.gmail.com';
+  const smtpPort = parseInt(settings?.smtpPort || process.env.SMTP_PORT || '465');
+  const smtpUser = settings?.smtpUser || process.env.SMTP_USER;
+  const smtpPass = settings?.smtpPassword || process.env.SMTP_PASS;
+
+  const transporter = nodemailer.createTransport({
+    host: smtpHost,
+    port: smtpPort,
+    secure: smtpPort === 465, // true for 465, false for other ports
+    auth: {
+      user: smtpUser,
+      pass: smtpPass,
+    },
+    connectionTimeout: 30000,
+    socketTimeout: 30000,
+  });
+
   // Send newsletter to multiple recipients
   const promises = emails.map((email) =>
     transporter.sendMail({
-      from: `"GridjaCards Newsletter" <${process.env.SMTP_USER}>`,
+      from: `"GridjaCards Newsletter" <${smtpUser}>`,
       to: email,
       subject,
       html: content,

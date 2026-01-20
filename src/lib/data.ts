@@ -235,6 +235,10 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   return {
     analyticsCode: settings.analyticsCode,
     chatbotCode: settings.chatbotCode,
+    smtpHost: settings.smtpHost,
+    smtpPort: settings.smtpPort,
+    smtpUser: settings.smtpUser,
+    smtpPassword: settings.smtpPassword,
     updatedAt: settings.updatedAt.toISOString(),
   };
 }
@@ -245,11 +249,19 @@ export async function saveSiteSettings(settingsData: SiteSettings): Promise<void
     update: {
       analyticsCode: settingsData.analyticsCode,
       chatbotCode: settingsData.chatbotCode,
+      smtpHost: settingsData.smtpHost,
+      smtpPort: settingsData.smtpPort,
+      smtpUser: settingsData.smtpUser,
+      smtpPassword: settingsData.smtpPassword,
     },
     create: {
       id: 'main',
       analyticsCode: settingsData.analyticsCode,
       chatbotCode: settingsData.chatbotCode,
+      smtpHost: settingsData.smtpHost || '',
+      smtpPort: settingsData.smtpPort || '465',
+      smtpUser: settingsData.smtpUser || '',
+      smtpPassword: settingsData.smtpPassword || '',
     },
   });
 }

@@ -102,6 +102,10 @@ export interface PartnerPricing {
 export interface SiteSettings {
   analyticsCode: string;
   chatbotCode: string;
+  smtpHost?: string;
+  smtpPort?: string;
+  smtpUser?: string;
+  smtpPassword?: string;
   updatedAt: string;
 }
 

@@ -104,6 +104,13 @@ model SiteSettings {
   id            String   @id @default("main")
   analyticsCode String   @default("")
   chatbotCode   String   @default("")
+  
+  // SMTP Settings
+  smtpHost      String   @default("")
+  smtpPort      String   @default("465")
+  smtpUser      String   @default("")
+  smtpPassword  String   @default("")
+  
   updatedAt     DateTime @updatedAt
 }
 

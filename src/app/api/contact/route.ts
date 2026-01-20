@@ -1,27 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-
-const port = parseInt(process.env.SMTP_PORT || '465');
-
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: port,
-  secure: port === 465, // true for 465, false for other ports
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-  connectionTimeout: 30000, // 30 seconds
-  socketTimeout: 30000, // 30 seconds
-  logger: true,
-  debug: true,
-});
+import { prisma } from '@/lib/prisma'; // Ensure you have this import correctly set up for your project structure
 
 export async function POST(request: NextRequest) {
+  let settings;
   try {
     console.log('[ContactAPI] Received POST request');
     const body = await request.json();
     console.log('[ContactAPI] Request body:', body);
+
+    // Fetch SMTP settings from DB
+    settings = await prisma.siteSettings.findFirst({
+      where: { id: "main" }
+    });
+
+    const smtpHost = settings?.smtpHost || process.env.SMTP_HOST || 'smtp.gmail.com';
+    const smtpPort = parseInt(settings?.smtpPort || process.env.SMTP_PORT || '465');
+    const smtpUser = settings?.smtpUser || process.env.SMTP_USER;
+    const smtpPass = settings?.smtpPassword || process.env.SMTP_PASS;
+
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpPort === 465,
+      auth: {
+        user: smtpUser,
+        pass: smtpPass,
+      },
+      connectionTimeout: 30000,
+      socketTimeout: 30000,
+      logger: true,
+      debug: true,
+    });
 
     const { name, email, phone, package: selectedPackage, message, subject, source, website, revenue, confirm_email } = body;
 
@@ -183,8 +193,8 @@ Richiesta ricevuta il ${new Date().toLocaleString('it-IT')}
     });
   } catch (error) {
     console.error('[ContactAPI] Error sending contact email:', error);
-    const usedHost = process.env.SMTP_HOST || 'smtp.gmail.com (default)';
-    const usedPort = parseInt(process.env.SMTP_PORT || '465');
+    const usedHost = settings?.smtpHost || process.env.SMTP_HOST || 'smtp.gmail.com (default)';
+    const usedPort = parseInt(settings?.smtpPort || process.env.SMTP_PORT || '465');
     return NextResponse.json(
       { error: `Errore [${usedHost}:${usedPort}]: ${(error as Error).message}` },
       { status: 500 }
