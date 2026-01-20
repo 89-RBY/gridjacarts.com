@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     console.log('[ContactAPI] Request body:', body);
 
-    const { name, email, phone, package: selectedPackage, message, subject, source } = body;
+    const { name, email, phone, package: selectedPackage, message, subject, source, website, revenue } = body;
 
     // Validate required fields
     if (!name || !email || !phone) {
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
           <tr>
             <td style="background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%); padding: 40px 30px; text-align: center;">
               <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;">Nuova Richiesta di Contatto</h1>
-              <p style="margin: 10px 0 0; color: #ffffff; font-size: 16px; opacity: 0.9;">${source === 'offerta-dicembre' ? 'Offerta Dicembre 2025' : 'Modulo Contatti'}</p>
+              <p style="margin: 10px 0 0; color: #ffffff; font-size: 16px; opacity: 0.9;">${source === 'offerta-dicembre' ? 'Offerta Dicembre 2025' : (source === 'offer-page-funnel' ? 'Funnel Offerta' : 'Modulo Contatti')}</p>
             </td>
           </tr>
 
@@ -69,6 +69,18 @@ export async function POST(request: NextRequest) {
                   <td style="padding: 10px 0; color: #6b7280; font-size: 14px; font-weight: bold;">Telefono:</td>
                   <td style="padding: 10px 0;"><a href="tel:${phone}" style="color: #6366f1; text-decoration: none;">${phone}</a></td>
                 </tr>
+                ${website ? `
+                <tr>
+                  <td style="padding: 10px 0; color: #6b7280; font-size: 14px; font-weight: bold;">Sito Web:</td>
+                  <td style="padding: 10px 0;"><a href="${website}" target="_blank" style="color: #6366f1; text-decoration: none;">${website}</a></td>
+                </tr>
+                ` : ''}
+                ${revenue ? `
+                <tr>
+                  <td style="padding: 10px 0; color: #6b7280; font-size: 14px; font-weight: bold;">Fatturato:</td>
+                  <td style="padding: 10px 0; color: #1f2937; font-size: 14px;">${revenue}</td>
+                </tr>
+                ` : ''}
                 ${selectedPackage ? `
                 <tr>
                   <td style="padding: 10px 0; color: #6b7280; font-size: 14px; font-weight: bold;">Pacchetto:</td>
@@ -112,12 +124,14 @@ export async function POST(request: NextRequest) {
 
     // Plain text version
     const emailText = `
-Nuova Richiesta di Contatto - ${source === 'offerta-dicembre' ? 'Offerta Dicembre 2025' : 'Modulo Contatti'}
+Nuova Richiesta di Contatto - ${source === 'offerta-dicembre' ? 'Offerta Dicembre 2025' : (source === 'offer-page-funnel' ? 'Funnel Offerta' : 'Modulo Contatti')}
 
 DETTAGLI RICHIEDENTE:
 Nome: ${name}
 Email: ${email}
 Telefono: ${phone}
+${website ? `Sito Web: ${website}` : ''}
+${revenue ? `Fatturato: ${revenue}` : ''}
 ${selectedPackage ? `Pacchetto: ${selectedPackage}` : ''}
 
 ${message ? `MESSAGGIO:\n${message}` : ''}
@@ -128,6 +142,7 @@ Richiesta ricevuta il ${new Date().toLocaleString('it-IT')}
 
     // Send email to robert.gridjac@gridjacarts.com
     console.log('[ContactAPI] Attempting to send email to robert.gridjac@gridjacarts.com');
+    // ... rest of the code is unchanged ...
     console.log('[ContactAPI] SMTP Config:', {
       host: process.env.SMTP_HOST,
       port: process.env.SMTP_PORT,

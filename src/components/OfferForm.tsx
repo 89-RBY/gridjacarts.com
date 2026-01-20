@@ -38,10 +38,12 @@ export default function OfferForm() {
                 setStatus('success');
                 setFormData({ name: '', email: '', phone: '', website: '', revenue: '' });
             } else {
+                const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+                console.error('[OfferForm] Error response:', errorData);
                 setStatus('error');
             }
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error('[OfferForm] Error submitting form:', error);
             setStatus('error');
         }
     };
