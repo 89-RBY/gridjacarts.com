@@ -17,7 +17,17 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     console.log('[ContactAPI] Request body:', body);
 
-    const { name, email, phone, package: selectedPackage, message, subject, source, website, revenue } = body;
+    const { name, email, phone, package: selectedPackage, message, subject, source, website, revenue, confirm_email } = body;
+
+    // Honeypot check
+    if (confirm_email) {
+      console.warn('[ContactAPI] Bot detected (honeypot filled)');
+      // Return success to fool the bot, but don't send anything
+      return NextResponse.json({
+        success: true,
+        message: 'Email inviata con successo',
+      });
+    }
 
     // Validate required fields
     if (!name || !email || !phone) {

@@ -10,8 +10,9 @@ export default function OfferForm() {
         name: '',
         email: '',
         phone: '',
-        website: '',
+        website: 'https://',
         revenue: '',
+        confirm_email: '', // Honeypot field
     });
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
@@ -36,7 +37,7 @@ export default function OfferForm() {
 
             if (response.ok) {
                 setStatus('success');
-                setFormData({ name: '', email: '', phone: '', website: '', revenue: '' });
+                setFormData({ name: '', email: '', phone: '', website: 'https://', revenue: '', confirm_email: '' });
             } else {
                 const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
                 console.error('[OfferForm] Error response:', errorData);
@@ -147,6 +148,20 @@ export default function OfferForm() {
                         <p className="text-xs text-center text-gray-500 mt-4 dark:text-gray-400">
                             {t('privacy')}
                         </p>
+
+                        {/* Honeypot field - invisible to users but visible to bots */}
+                        <div className="absolute opacity-0 -z-50 w-0 h-0 overflow-hidden">
+                            <label htmlFor="confirm_email">Non compilare questo campo se sei umano</label>
+                            <input
+                                type="text"
+                                id="confirm_email"
+                                name="confirm_email"
+                                value={formData.confirm_email}
+                                onChange={handleChange}
+                                autoComplete="off"
+                                tabIndex={-1}
+                            />
+                        </div>
                     </form>
                 )}
             </div>
