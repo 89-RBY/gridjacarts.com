@@ -168,7 +168,7 @@ Richiesta ricevuta il ${new Date().toLocaleString('it-IT')}
   } catch (error) {
     console.error('[ContactAPI] Error sending contact email:', error);
     return NextResponse.json(
-      { error: 'Errore durante l\'invio dell\'email' },
+      { error: `Errore durante l'invio dell'email: ${(error as Error).message}` },
       { status: 500 }
     );
   }
