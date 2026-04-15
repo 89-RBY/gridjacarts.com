@@ -21,13 +21,15 @@ import {
   FileSignature,
   Cookie,
   Users,
+  Rocket,
 } from 'lucide-react';
 import Logo from '@/components/Logo';
 import ContractModal from '@/components/ContractModal';
 import ServiceDetailsModal from '@/components/ServiceDetailsModal';
 import CookieConsentsPanel from '@/components/admin/CookieConsentsPanel';
 import TeamEditor from '@/components/admin/TeamEditor';
-import { User, BlogPost, SiteSettings, Partner, PartnerApplication, ServicePricing, Contract, NewsletterSubscriber, TeamMember } from '@/types';
+import ProductEditor from '@/components/admin/ProductEditor';
+import { User, BlogPost, SiteSettings, Partner, PartnerApplication, ServicePricing, Contract, NewsletterSubscriber, TeamMember, Product } from '@/types';
 import ImageUploader from '@/components/ImageUploader';
 
 export const dynamic = 'force-dynamic';
@@ -45,6 +47,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
 
   const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>([]);
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [editingService, setEditingService] = useState<ServicePricing | null>(null);
@@ -57,6 +60,8 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   const [isCreatingPartner, setIsCreatingPartner] = useState(false);
   const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
   const [isCreatingMember, setIsCreatingMember] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [isCreatingProduct, setIsCreatingProduct] = useState(false);
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: '',
     newPassword: '',
@@ -91,7 +96,13 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   };
 
   const fetchAllData = async () => {
-    await Promise.all([fetchPosts(), fetchSettings(), fetchPartners(), fetchApplications(), fetchServices(), fetchContracts(), fetchSubscribers(), fetchTeamMembers()]);
+    await Promise.all([fetchPosts(), fetchSettings(), fetchPartners(), fetchApplications(), fetchServices(), fetchContracts(), fetchSubscribers(), fetchTeamMembers(), fetchProducts()]);
+  };
+
+  const fetchProducts = async () => {
+    const res = await fetch('/api/admin/products');
+    const data = await res.json();
+    if (res.ok) setProducts(data.products);
   };
 
   const fetchPosts = async () => {
@@ -319,6 +330,28 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
     if (res.ok || res.status === 404) setTeamMembers(teamMembers.filter((m) => m.id !== id));
   };
 
+  const handleSaveProduct = async (product: Product) => {
+    const res = await fetch('/api/admin/products', {
+      method: product.id ? 'PUT' : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(product),
+    });
+    if (res.ok) {
+      fetchProducts();
+      setEditingProduct(null);
+      setIsCreatingProduct(false);
+    } else {
+      const data = await res.json().catch(() => ({}));
+      alert(data.error || 'Failed to save project');
+    }
+  };
+
+  const handleDeleteProduct = async (id: string) => {
+    if (!confirm('Delete this project?')) return;
+    const res = await fetch(`/api/admin/products?id=${id}`, { method: 'DELETE' });
+    if (res.ok || res.status === 404) setProducts(products.filter((p) => p.id !== id));
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -368,6 +401,25 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
     updatedAt: new Date().toISOString(),
   };
 
+  const newProduct: Product = {
+    id: '',
+    slug: '',
+    name: '',
+    tagline: { ro: '', en: '', it: '' },
+    problem: { ro: '', en: '', it: '' },
+    description: { ro: '', en: '', it: '' },
+    features: { ro: [], en: [], it: [] },
+    techStack: [],
+    status: 'LIVE',
+    category: '',
+    metaTitle: { ro: '', en: '', it: '' },
+    metaDescription: { ro: '', en: '', it: '' },
+    featured: false,
+    order: products.length,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+
   const pendingApplications = applications.filter((a) => a.status === 'pending').length;
 
   return (
@@ -382,6 +434,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
             { id: 'applications', icon: ClipboardList, label: 'Applications', badge: pendingApplications },
             { id: 'partners', icon: Briefcase, label: 'Partners' },
             { id: 'services', icon: Package, label: 'Services' },
+            { id: 'projects', icon: Rocket, label: 'Projects' },
             { id: 'contracts', icon: FileSignature, label: 'Contracts' },
             { id: 'blog', icon: FileText, label: 'Blog' },
             { id: 'newsletter', icon: Mail, label: 'Newsletter' },
@@ -815,6 +868,107 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
             onCancel={() => {
               setEditingMember(null);
               setIsCreatingMember(false);
+            }}
+          />
+        )}
+
+        {activeTab === 'projects' && !editingProduct && !isCreatingProduct && (
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <button
+                onClick={() => setIsCreatingProduct(true)}
+                className="btn-primary inline-flex items-center gap-2"
+              >
+                <Plus className="w-5 h-5" /> New Project
+              </button>
+              <div className="text-sm text-gray-500">
+                {products.length} project{products.length !== 1 ? 's' : ''} total
+              </div>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+              {products.length === 0 ? (
+                <div className="p-12 text-center text-gray-500">
+                  No projects yet. Click &quot;New Project&quot; to add one.
+                </div>
+              ) : (
+                <table className="w-full">
+                  <thead className="bg-gray-50 dark:bg-gray-700">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-sm font-medium">Order</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium">Name</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium">Slug</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium">Category</th>
+                      <th className="px-6 py-3 text-center text-sm font-medium">Status</th>
+                      <th className="px-6 py-3 text-center text-sm font-medium">Featured</th>
+                      <th className="px-6 py-3 text-right text-sm font-medium">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y">
+                    {products.map((product) => (
+                      <tr key={product.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <td className="px-6 py-4 text-sm">{product.order}</td>
+                        <td className="px-6 py-4">
+                          <div className="font-medium">{product.name}</div>
+                          <div className="text-xs text-gray-500 truncate max-w-xs">
+                            {product.tagline.en}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 font-mono text-xs text-gray-500">{product.slug}</td>
+                        <td className="px-6 py-4 text-sm">{product.category}</td>
+                        <td className="px-6 py-4 text-center">
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              product.status === 'LIVE'
+                                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                                : product.status === 'BETA'
+                                ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
+                                : product.status === 'DEVELOPMENT'
+                                ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
+                                : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400'
+                            }`}
+                          >
+                            {product.status}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          {product.featured ? (
+                            <Check className="w-5 h-5 text-green-600 inline" />
+                          ) : (
+                            <X className="w-5 h-5 text-gray-300 inline" />
+                          )}
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <button
+                            onClick={() => setEditingProduct(product)}
+                            className="text-primary-600 mr-3"
+                            title="Edit"
+                          >
+                            <Edit className="w-5 h-5" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteProduct(product.id)}
+                            className="text-red-600"
+                            title="Delete"
+                          >
+                            <Trash2 className="w-5 h-5" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'projects' && (editingProduct || isCreatingProduct) && (
+          <ProductEditor
+            product={editingProduct || newProduct}
+            onSave={handleSaveProduct}
+            onCancel={() => {
+              setEditingProduct(null);
+              setIsCreatingProduct(false);
             }}
           />
         )}
