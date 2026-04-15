@@ -282,3 +282,72 @@ model TeamMember {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Product {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+
+  // Product info
+  name            String
+  taglineRo       String
+  taglineEn       String
+  taglineIt       String
+
+  // Problem & solution
+  problemRo       String   // What problem does it solve
+  problemEn       String
+  problemIt       String
+
+  // Descriptions
+  descriptionRo   String
+  descriptionEn   String
+  descriptionIt   String
+
+  // Features (JSON array of strings)
+  featuresRo      String   @default("[]")
+  featuresEn      String   @default("[]")
+  featuresIt      String   @default("[]")
+
+  // Tech details
+  techStack       String   @default("[]") // JSON array: ["Next.js", "PostgreSQL", "AI"]
+
+  // Media
+  imageUrl        String?
+  logoUrl         String?
+  demoUrl         String?  // Link to live product
+  caseStudyUrl    String?  // Link to detailed case study
+
+  // Metrics
+  usersCount      String?  // "1000+", "500+ businesses"
+  automationSaved String?  // "80% time saved", "10 hours/week"
+
+  // Status & category
+  status          ProductStatus @default(LIVE)
+  category        String        // "AI Automation", "E-commerce", "SaaS"
+
+  // SEO
+  metaTitleRo     String?
+  metaTitleEn     String?
+  metaTitleIt     String?
+  metaDescRo      String?
+  metaDescEn      String?
+  metaDescIt      String?
+
+  // Display
+  featured        Boolean  @default(false)
+  order           Int      @default(0)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([status])
+  @@index([featured])
+  @@index([category])
+}
+
+enum ProductStatus {
+  LIVE         // Produs live și funcțional
+  BETA         // În testare
+  DEVELOPMENT  // În dezvoltare
+  ARCHIVED     // Arhivat/întreținut
+}

@@ -1,7 +1,7 @@
 {
   "common": {
     "brand": "Gridjac Art's",
-    "tagline": "Partenerul tău în creștere digitală",
+    "tagline": "Software house care automatizează afacerea ta",
     "learnMore": "Află mai multe",
     "contactUs": "Contactează-ne",
     "getStarted": "Începe acum",
@@ -10,12 +10,21 @@
     "email": "Email",
     "phone": "Telefon",
     "address": "Adresă",
-    "followUs": "Urmărește-ne"
+    "followUs": "Urmărește-ne",
+    "bookCall": "Programează un call",
+    "viewDemo": "Vezi demo",
+    "caseStudy": "Case study",
+    "liveProduct": "Produs live",
+    "inBeta": "În beta",
+    "inDevelopment": "În dezvoltare"
   },
   "nav": {
     "home": "Acasă",
     "about": "Despre Noi",
     "services": "Servicii",
+    "products": "Produse",
+    "projects": "Proiecte",
+    "labs": "Labs",
     "portfolio": "Portofoliu",
     "blog": "Blog",
     "contact": "Contact",
@@ -23,94 +32,219 @@
   },
   "home": {
     "hero": {
-      "title": "Creștem împreună",
-      "subtitle": "Suntem partenerul tău strategic în transformarea digitală. Găsim tehnologiile potrivite pentru fiecare nevoie și te susținem în fiecare etapă a creșterii tale.",
-      "cta": "Hai să discutăm"
+      "badge": "// SOFTWARE HOUSE • AUTOMATION • AI",
+      "title": "Automatizăm procesele afacerii tale",
+      "titleAccent": "cu tehnologie",
+      "subtitle": "Construim software custom care elimină munca repetitivă și transformă operațiuni manuale în sisteme autonome. De la MVP la platforme scalate pentru producție.",
+      "cta": "Discută proiectul tău",
+      "ctaSecondary": "Vezi produsele noastre",
+      "stats": {
+        "products": "Produse live",
+        "clients": "Afaceri automatizate",
+        "savings": "Ore economisite/lună"
+      },
+      "terminal": {
+        "line1": "$ gridjac init your-business",
+        "line2": "> analiză procese... OK",
+        "line3": "> identificare oportunități automatizare... OK",
+        "line4": "> deploy sistem custom... LIVE",
+        "line5": "success: +80% eficiență operațională"
+      }
+    },
+    "valueProps": {
+      "title": "De la idee la producție",
+      "subtitle": "Nu vindem ore. Rezolvăm probleme reale cu soluții care scalează.",
+      "props": [
+        {
+          "title": "Software custom, nu template",
+          "description": "Construim exact ce ai nevoie. Fără compromisuri de la soluții generice."
+        },
+        {
+          "title": "Automatizare end-to-end",
+          "description": "Integrări API, workflow-uri, AI agents. Elimină munca repetitivă."
+        },
+        {
+          "title": "Rezultate măsurabile",
+          "description": "Ore economisite, revenue crescut, erori reduse. Fiecare proiect livrează ROI."
+        },
+        {
+          "title": "Partener pe termen lung",
+          "description": "Nu dispărem după lansare. Te susținem în scalare și iterație."
+        }
+      ]
     },
     "services": {
-      "title": "Serviciile Noastre",
-      "subtitle": "Soluții complete pentru prezența ta digitală"
+      "title": "Ce construim",
+      "subtitle": "Soluții software complete pentru afaceri care vor să crească cu tehnologie"
     },
     "whyUs": {
-      "title": "De ce să ne alegi?",
+      "title": "De ce Gridjac Art's",
       "partner": {
-        "title": "Partener de încredere",
-        "description": "Nu suntem doar furnizori, suntem aliați în succesul tău"
+        "title": "Parteneri, nu furnizori",
+        "description": "Îți înțelegem afacerea înainte să scriem o linie de cod"
       },
       "technology": {
-        "title": "Tehnologii potrivite",
-        "description": "Alegem soluțiile care se potrivesc nevoilor tale specifice"
+        "title": "Stack modern, testat în producție",
+        "description": "Next.js, TypeScript, PostgreSQL, AI — alegem ce funcționează, nu ce e la modă"
       },
       "growth": {
-        "title": "Focus pe creștere",
-        "description": "Fiecare decizie este luată cu scopul de a te ajuta să crești"
+        "title": "Iterații rapide, feedback continuu",
+        "description": "Livrări săptămânale, demo-uri transparente, direcție corectabilă"
+      }
+    },
+    "process": {
+      "title": "Cum lucrăm",
+      "subtitle": "Metodologie clară, zero surprize",
+      "steps": [
+        {
+          "number": "01",
+          "title": "Discovery & Audit",
+          "description": "Analizăm procesele tale actuale și identificăm oportunitățile de automatizare cu impact maxim."
+        },
+        {
+          "number": "02",
+          "title": "Prototip rapid",
+          "description": "Livrăm un MVP funcțional în 2-4 săptămâni pentru validare imediată cu echipa ta."
+        },
+        {
+          "number": "03",
+          "title": "Build & Integrare",
+          "description": "Construim sistemul complet, integrat cu tool-urile tale existente (CRM, ERP, API-uri)."
+        },
+        {
+          "number": "04",
+          "title": "Deploy & Scale",
+          "description": "Lansăm în producție, monitorizăm performanța, iterăm pe baza datelor reale."
+        }
+      ]
+    },
+    "products": {
+      "title": "Produsele noastre",
+      "subtitle": "Software pe care îl folosesc businessuri reale în fiecare zi",
+      "viewAll": "Vezi toate produsele"
+    },
+    "techStack": {
+      "title": "Stack-ul nostru tehnologic",
+      "subtitle": "Tehnologii testate în producție, alese pentru performanță și mentenanță"
+    },
+    "cta": {
+      "title": "Ai un proces care consumă prea mult timp?",
+      "subtitle": "Programează un call gratuit de 30 minute. Analizăm împreună unde poți economisi ore și bani.",
+      "primary": "Programează call",
+      "secondary": "Scrie-ne un email"
+    }
+  },
+  "products": {
+    "meta": {
+      "title": "Produse — Software live construit de Gridjac Art's",
+      "description": "Descoperă produsele SaaS și platformele pe care le-am construit: AI automation, e-commerce, marketplace-uri verticale. Software live cu clienți reali."
+    },
+    "title": "Produsele noastre",
+    "subtitle": "Nu doar teorie. Software live, cu utilizatori reali, care rezolvă probleme reale.",
+    "filter": {
+      "all": "Toate",
+      "live": "Live",
+      "beta": "Beta",
+      "development": "În dezvoltare"
+    },
+    "card": {
+      "techStack": "Tech stack",
+      "features": "Features",
+      "viewLive": "Vezi live",
+      "caseStudy": "Case study",
+      "learnMore": "Află mai multe"
+    }
+  },
+  "labs": {
+    "meta": {
+      "title": "Labs — Experimente și cercetare aplicată",
+      "description": "Gridjac Labs — unde experimentăm cu AI, automatizare și tehnologii emergente. Proiecte R&D care devin produse."
+    },
+    "badge": "// R&D • EXPERIMENTS • AI",
+    "title": "Labs",
+    "titleAccent": "Unde construim viitorul",
+    "subtitle": "Proiecte experimentale, prototipuri AI și cercetare aplicată. Ce funcționează aici devine mâine produs.",
+    "areas": {
+      "title": "Arii de cercetare",
+      "ai": {
+        "title": "AI Agents & Automation",
+        "description": "Construim agenți AI care preiau task-uri repetitive: clasificare, răspunsuri, decizii structurate."
+      },
+      "data": {
+        "title": "Data Pipelines",
+        "description": "ETL, scraping etic, agregare date — infrastructură care transformă date în insights."
+      },
+      "saas": {
+        "title": "Vertical SaaS",
+        "description": "Identificăm nișe subservite și construim platforme specializate pentru ele."
       }
     }
   },
   "about": {
-    "title": "Despre Noi",
+    "title": "Despre Gridjac Art's",
+    "subtitle": "Software house cu sediu în România și Italia",
     "mission": {
-      "title": "Misiunea Noastră",
-      "content": "Misiunea noastră este de a fi un aliat al clientului, care îi este alături pentru a-l susține în creșterea acestuia. Credem că succesul se construiește împreună, prin parteneriate bazate pe încredere și transparență."
+      "title": "Misiunea noastră",
+      "content": "Eliminăm munca repetitivă din afacerile care vor să crească. Construim software custom care înlocuiește procese manuale cu sisteme autonome — pentru ca echipele să se poată concentra pe ce contează cu adevărat."
     },
     "vision": {
-      "title": "Viziunea Noastră",
-      "content": "Ne dorim să fim recunoscuți ca partenerul de încredere care transformă viziunile digitale în realitate, folosind tehnologiile potrivite pentru fiecare nevoie specifică."
+      "title": "Viziunea noastră",
+      "content": "Credem că orice proces care poate fi descris în pași poate fi automatizat. Combinăm inginerie software solidă cu AI aplicat pentru a livra soluții care schimbă cu adevărat modul în care lucrează afacerile."
     },
     "values": {
-      "title": "Valorile Noastre",
+      "title": "Valorile noastre",
       "partnership": "Parteneriat",
-      "innovation": "Inovație",
-      "quality": "Calitate",
-      "transparency": "Transparență"
+      "innovation": "Inovație aplicată",
+      "quality": "Cod de calitate",
+      "transparency": "Transparență radicală"
     },
     "team": {
-      "title": "Echipa Noastră",
-      "subtitle": "Oameni pasionați care fac lucrurile să se întâmple"
+      "title": "Echipa",
+      "subtitle": "Developeri, designeri și specialiști AI care construiesc lucruri care funcționează"
     }
   },
   "services": {
-    "title": "Serviciile Noastre",
-    "subtitle": "Soluții complete pentru transformarea ta digitală",
+    "title": "Ce construim pentru tine",
+    "subtitle": "Software custom, automatizare și AI — soluții care scalează cu afacerea ta",
     "webDesign": {
-      "title": "Web Design",
-      "description": "Design-uri moderne, responsive și orientate spre conversie care reflectă identitatea brandului tău"
+      "title": "Product Design",
+      "description": "UX/UI centrat pe conversie pentru SaaS, aplicații web și platforme custom"
     },
     "webDev": {
-      "title": "Web Development",
-      "description": "Dezvoltare web personalizată cu tehnologii moderne și performanță optimă"
+      "title": "Custom Web Apps",
+      "description": "Aplicații web scalate pentru producție: Next.js, TypeScript, PostgreSQL, arhitectură modulară"
     },
     "seo": {
-      "title": "SEO",
-      "description": "Optimizare pentru motoarele de căutare care îți aduce trafic organic și vizibilitate"
+      "title": "Technical SEO",
+      "description": "Optimizare tehnică pentru SaaS și e-commerce: Core Web Vitals, structured data, performanță"
     },
     "smm": {
-      "title": "Social Media Marketing",
-      "description": "Strategii de marketing social media care conectează brandul tău cu audiența potrivită"
+      "title": "Automation & Integrations",
+      "description": "Automatizăm workflow-uri între tool-urile tale: API-uri, webhook-uri, sincronizări, AI agents"
     },
     "advertising": {
-      "title": "Publicitate Online",
-      "description": "Campanii publicitare eficiente care generează rezultate măsurabile"
+      "title": "AI Integration",
+      "description": "Integrăm AI în produsele tale: chatboți inteligenți, clasificare automată, generare conținut, decizii bazate pe date"
     },
     "virtualTours": {
-      "title": "Tururi Virtuale",
-      "description": "Experiențe imersive 360° care prezintă spațiile tale într-un mod captivant"
+      "title": "MVP Sprint",
+      "description": "De la idee la prototip funcțional în 4 săptămâni. Validare rapidă înainte de investiție majoră."
     },
     "fullStack": {
-      "title": "Full Stack Development",
-      "description": "Aplicații web complete, de la backend la frontend, scalabile și securizate"
+      "title": "Full-Stack Engineering",
+      "description": "Echipă completă: backend, frontend, infra, DevOps — un singur partener pentru întreg stack-ul tău"
     }
   },
   "portfolio": {
     "title": "Portofoliu",
-    "subtitle": "Proiecte care vorbesc de la sine",
+    "subtitle": "Proiecte construite pentru clienți reali",
     "viewProject": "Vezi proiectul",
     "category": "Categorie",
     "client": "Client"
   },
   "contact": {
-    "title": "Contact",
-    "subtitle": "Hai să discutăm despre proiectul tău",
+    "title": "Hai să construim ceva împreună",
+    "subtitle": "Programează un call gratuit sau scrie-ne despre proiectul tău",
     "locations": {
       "romania": "România",
       "italy": "Italia"
@@ -119,11 +253,11 @@
     "callUs": "Sună-ne"
   },
   "footer": {
-    "description": "Suntem partenerul tău în transformarea digitală. Folosim tehnologiile potrivite pentru a te ajuta să crești.",
-    "quickLinks": "Link-uri Rapide",
+    "description": "Software house care automatizează procesele afacerii tale. Construim produse custom, integrăm AI, scalăm sisteme.",
+    "quickLinks": "Link-uri rapide",
     "contact": "Contact",
     "newsletter": "Newsletter",
-    "newsletterText": "Abonează-te pentru noutăți și sfaturi din industrie",
+    "newsletterText": "Insight-uri despre automatizare, AI aplicat și dezvoltare produs. Fără spam.",
     "subscribe": "Abonează-te",
     "rights": "Toate drepturile rezervate",
     "privacy": "Politica de Confidențialitate",
@@ -131,166 +265,17 @@
   },
   "blog": {
     "title": "Blog",
-    "subtitle": "Articole și resurse despre transformarea digitală",
+    "subtitle": "Articole despre automatizare, AI aplicat și dezvoltare software",
     "readTime": "min citire",
     "publishedOn": "Publicat pe",
     "by": "de"
   },
-  "offertaDicembre": {
-    "meta": {
-      "title": "Oferta Decembrie 2025 - Pachete Web cu Reduceri până la -33% | GridjaCards Roma",
-      "description": "Ofertă exclusivă Decembrie 2025! Pachete site-uri profesionale în Roma cu reduceri până la 1.500€. Hosting, SEO, Social Media incluse. Doar 10 locuri disponibile!"
-    },
-    "urgentBanner": "⚠️ DOAR 10 LOCURI DISPONIBILE! Ofertă valabilă până la 31 Decembrie 2025",
-    "hero": {
-      "badge": "OFERTĂ FLASH DECEMBRIE 2025",
-      "title": {
-        "line1": "Economisește până la 1.500€",
-        "line2": "la Site-ul Tău Web Profesional"
-      },
-      "subtitle": "Pachete complete pentru prezența ta digitală în Roma. Hosting, domeniu, SEO și social media incluse. Ofertă valabilă doar pentru decembrie 2025!",
-      "stats": {
-        "clients": "Clienți Mulțumiți",
-        "rating": "Rating Mediu",
-        "delivery": "Livrare de la"
-      },
-      "cta": {
-        "primary": "Descoperă Pachetele",
-        "secondary": "Solicită Consultanță Gratuită"
-      },
-      "trust": [
-        "Fără costuri ascunse",
-        "Garanție satisfacție sau banii înapoi",
-        "Suport inclus pentru 12 luni"
-      ]
-    },
-    "whyNow": {
-      "title": "De Ce Să Profiți Acum?",
-      "reasons": [
-        {
-          "title": "Reducere până la -33%",
-          "description": "Economisești până la 1.500€ la pachetul Premium. Ofertă valabilă doar pentru decembrie 2025."
-        },
-        {
-          "title": "Locuri Limitate",
-          "description": "Doar 10 proiecte disponibile pentru a garanta calitate și atenție personalizată."
-        },
-        {
-          "title": "Începe 2026 Online",
-          "description": "Site gata de la 72h. Pornește puternic în noul an cu o prezență digitală profesională."
-        }
-      ]
-    },
-    "packages": {
-      "title": "Alege-ți Pachetul",
-      "subtitle": "Totul inclus, fără costuri ascunse. Plată anuală cu facturare regulată.",
-      "popular": "CEL MAI ALES",
-      "perYear": "/an",
-      "save": "Economisești",
-      "cta": "Solicită Acest Pachet",
-      "startup": {
-        "name": "Startup",
-        "tagline": "Vitrina Digitală",
-        "features": [
-          "Site 4 pagini responsive (Mobile, Tablet, Desktop)",
-          "Hosting + Domeniu + Certificat SSL",
-          "3 adrese email profesionale",
-          "SEO de bază + Google Search Console",
-          "Formular contact cu protecție anti-spam",
-          "Banner cookie + Politică de confidențialitate",
-          "Compresie imagini (WebP)",
-          "Backup zilnic și restaurare",
-          "Actualizări tehnice lunare",
-          "Monitorizare uptime 24/7"
-        ]
-      },
-      "pro": {
-        "name": "Pro",
-        "tagline": "Brand & Social",
-        "features": [
-          "✨ Tot de la Startup +",
-          "Secțiune Blog/Știri integrată",
-          "Acces admin pentru gestionare autonomă",
-          "Pagină \"Link in Bio\" optimizată",
-          "Google Business Profile (configurare completă)",
-          "Configurare Facebook + Instagram Business",
-          "Pixel Meta pentru urmărire vizitatori",
-          "Feed Instagram pe site (automat)",
-          "Butoane de partajare social",
-          "Integrare hartă Google",
-          "Gestionare Social: 4 postări/lună",
-          "Conținut grafic personalizat",
-          "Calendar editorial lunar",
-          "Raport trimestrial vizite + Google Business",
-          "Suport prioritar (răspuns în 24h)"
-        ]
-      },
-      "premium": {
-        "name": "Premium",
-        "tagline": "Vânzare & E-commerce",
-        "features": [
-          "💎 Tot de la Pro +",
-          "Magazin complet WooCommerce",
-          "Încărcare până la 20-30 produse",
-          "Plăți: Stripe, PayPal, Transfer Bancar, Satispay",
-          "Reguli de livrare personalizate",
-          "Email-uri tranzacționale cu design personalizat",
-          "Recuperare automată coșuri abandonate",
-          "Pop-up newsletter cu discount de bun venit",
-          "Integrare Mailchimp/MailerLite",
-          "Termeni și Condiții + Drept de Retragere",
-          "CDN pentru încărcare rapidă",
-          "Firewall e-commerce + scanări malware",
-          "Testare actualizări în staging",
-          "Raport vânzări și trafic trimestrial"
-        ]
-      }
-    },
-    "socialProof": {
-      "title": "Ce Spun Clienții Noștri",
-      "testimonials": [
-        {
-          "text": "În câteva zile aveam site-ul online și într-o săptămână eram deja primul pe Google pentru cuvintele mele cheie. Investiția recuperată într-o lună!",
-          "author": "Alessandro Moretti",
-          "company": "Moretti Costruzioni, Roma"
-        },
-        {
-          "text": "Pachetul Pro este perfect pentru activitatea mea. Gestionez autonom blogul și social media, dar am mereu suportul echipei când am nevoie.",
-          "author": "Francesca Santini",
-          "company": "Studio Legale Santini, Roma"
-        },
-        {
-          "text": "Am început să vând online datorită pachetului Premium. În 3 luni am dublat cifra de afaceri. Recomand cu încredere Gridjac Art's!",
-          "author": "Roberto Ferretti",
-          "company": "Ferretti Design, Roma"
-        }
-      ]
-    },
-    "contact": {
-      "title": "Solicită Oferta Ta Personalizată",
-      "subtitle": "Completează formularul și te vom contacta în 2 ore (lun-vin 9-19)",
-      "form": {
-        "name": "Nume și Prenume *",
-        "phone": "Telefon *",
-        "email": "Email *",
-        "package": "Pachet de Interes *",
-        "selectPackage": "Selectează un pachet...",
-        "message": "Povestește-ne despre proiectul tău (opțional)",
-        "submit": "Solicită Oferta Acum 🚀"
-      }
-    },
-    "finalCta": {
-      "title": "Nu Pierde Această Oportunitate!",
-      "subtitle": "Doar 10 locuri disponibile. Începe 2026 cu un site web profesional.",
-      "button": "Rezervă Locul Tău Acum"
-    }
-  },
   "metadata": {
-    "defaultTitle": "Gridjac Art's - Partenerul tău în creștere digitală",
-    "description": "Suntem partenerul tău strategic în transformarea digitală. Web Design, Development, SEO, Social Media Marketing și multe altele.",
-    "keywords": "web design,web development,SEO,social media marketing,publicitate online,tururi virtuale,full stack development",
-    "ogTitle": "Gridjac Art's - Partenerul tău în creștere digitală",
-    "ogDescription": "Suntem partenerul tău strategic în transformarea digitală.",
-    "twitterDescription": "Partenerul tău în creștere digitală"
+    "defaultTitle": "Gridjac Art's — Software house care automatizează afacerea ta",
+    "description": "Construim software custom, integrăm AI și automatizăm procese pentru businessuri care vor să crească. De la MVP la platforme scalate pentru producție.",
+    "keywords": "software house,automatizare procese,AI integration,custom web apps,MVP development,SaaS development,Next.js,TypeScript",
+    "ogTitle": "Gridjac Art's — Software house & automation",
+    "ogDescription": "Software custom, AI integration și automatizare procese pentru businessuri care vor să crească.",
+    "twitterDescription": "Software house care automatizează afacerea ta"
   }
 }

@@ -1,5 +1,5 @@
 import { prisma } from './prisma';
-import { BlogPost, Service, SiteSettings, PartnerPricing, Partner, PartnerApplication } from '@/types';
+import { BlogPost, Service, SiteSettings, PartnerPricing, Partner, PartnerApplication, Product } from '@/types';
 
 // Blog Posts
 export async function getBlogPosts(): Promise<BlogPost[]> {
@@ -686,4 +686,182 @@ export async function deleteTeamMember(id: string) {
   return await prisma.teamMember.delete({
     where: { id },
   });
+}
+
+// Products
+function mapProduct(product: {
+  id: string;
+  slug: string;
+  name: string;
+  taglineRo: string;
+  taglineEn: string;
+  taglineIt: string;
+  problemRo: string;
+  problemEn: string;
+  problemIt: string;
+  descriptionRo: string;
+  descriptionEn: string;
+  descriptionIt: string;
+  featuresRo: string;
+  featuresEn: string;
+  featuresIt: string;
+  techStack: string;
+  imageUrl?: string | null;
+  logoUrl?: string | null;
+  demoUrl?: string | null;
+  caseStudyUrl?: string | null;
+  usersCount?: string | null;
+  automationSaved?: string | null;
+  status: string;
+  category: string;
+  metaTitleRo?: string | null;
+  metaTitleEn?: string | null;
+  metaTitleIt?: string | null;
+  metaDescRo?: string | null;
+  metaDescEn?: string | null;
+  metaDescIt?: string | null;
+  featured: boolean;
+  order: number;
+  createdAt: Date;
+  updatedAt: Date;
+}): Product {
+  return {
+    id: product.id,
+    slug: product.slug,
+    name: product.name,
+    tagline: {
+      ro: product.taglineRo,
+      en: product.taglineEn,
+      it: product.taglineIt,
+    },
+    problem: {
+      ro: product.problemRo,
+      en: product.problemEn,
+      it: product.problemIt,
+    },
+    description: {
+      ro: product.descriptionRo,
+      en: product.descriptionEn,
+      it: product.descriptionIt,
+    },
+    features: {
+      ro: JSON.parse(product.featuresRo),
+      en: JSON.parse(product.featuresEn),
+      it: JSON.parse(product.featuresIt),
+    },
+    techStack: JSON.parse(product.techStack),
+    imageUrl: product.imageUrl || undefined,
+    logoUrl: product.logoUrl || undefined,
+    demoUrl: product.demoUrl || undefined,
+    caseStudyUrl: product.caseStudyUrl || undefined,
+    usersCount: product.usersCount || undefined,
+    automationSaved: product.automationSaved || undefined,
+    status: product.status as 'LIVE' | 'BETA' | 'DEVELOPMENT' | 'ARCHIVED',
+    category: product.category,
+    metaTitle: {
+      ro: product.metaTitleRo || undefined,
+      en: product.metaTitleEn || undefined,
+      it: product.metaTitleIt || undefined,
+    },
+    metaDescription: {
+      ro: product.metaDescRo || undefined,
+      en: product.metaDescEn || undefined,
+      it: product.metaDescIt || undefined,
+    },
+    featured: product.featured,
+    order: product.order,
+    createdAt: product.createdAt.toISOString(),
+    updatedAt: product.updatedAt.toISOString(),
+  };
+}
+
+export async function getProducts(): Promise<Product[]> {
+  const products = await prisma.product.findMany({
+    where: { status: { in: ['LIVE', 'BETA'] } },
+    orderBy: [{ featured: 'desc' }, { order: 'asc' }],
+  });
+  return products.map(mapProduct);
+}
+
+export async function getAllProducts(): Promise<Product[]> {
+  const products = await prisma.product.findMany({
+    orderBy: [{ featured: 'desc' }, { order: 'asc' }],
+  });
+  return products.map(mapProduct);
+}
+
+export async function getFeaturedProducts(): Promise<Product[]> {
+  const products = await prisma.product.findMany({
+    where: {
+      featured: true,
+      status: { in: ['LIVE', 'BETA'] }
+    },
+    orderBy: { order: 'asc' },
+    take: 3,
+  });
+  return products.map(mapProduct);
+}
+
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  const product = await prisma.product.findUnique({
+    where: { slug },
+  });
+  if (!product) return null;
+  return mapProduct(product);
+}
+
+export async function saveProduct(product: Product): Promise<Product> {
+  const data = {
+    slug: product.slug,
+    name: product.name,
+    taglineRo: product.tagline.ro,
+    taglineEn: product.tagline.en,
+    taglineIt: product.tagline.it,
+    problemRo: product.problem.ro,
+    problemEn: product.problem.en,
+    problemIt: product.problem.it,
+    descriptionRo: product.description.ro,
+    descriptionEn: product.description.en,
+    descriptionIt: product.description.it,
+    featuresRo: JSON.stringify(product.features.ro),
+    featuresEn: JSON.stringify(product.features.en),
+    featuresIt: JSON.stringify(product.features.it),
+    techStack: JSON.stringify(product.techStack),
+    imageUrl: product.imageUrl,
+    logoUrl: product.logoUrl,
+    demoUrl: product.demoUrl,
+    caseStudyUrl: product.caseStudyUrl,
+    usersCount: product.usersCount,
+    automationSaved: product.automationSaved,
+    status: product.status,
+    category: product.category,
+    metaTitleRo: product.metaTitle?.ro,
+    metaTitleEn: product.metaTitle?.en,
+    metaTitleIt: product.metaTitle?.it,
+    metaDescRo: product.metaDescription?.ro,
+    metaDescEn: product.metaDescription?.en,
+    metaDescIt: product.metaDescription?.it,
+    featured: product.featured,
+    order: product.order,
+  };
+
+  if (product.id) {
+    const updated = await prisma.product.update({
+      where: { id: product.id },
+      data,
+    });
+    return mapProduct(updated);
+  } else {
+    const created = await prisma.product.create({ data });
+    return mapProduct(created);
+  }
+}
+
+export async function deleteProduct(id: string): Promise<boolean> {
+  try {
+    await prisma.product.delete({ where: { id } });
+    return true;
+  } catch {
+    return false;
+  }
 }

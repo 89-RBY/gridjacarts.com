@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Globe, User } from 'lucide-react';
+import { Menu, X, Globe, User, ChevronDown } from 'lucide-react';
 import Logo from './Logo';
 import { useBlogSlugs } from '@/contexts/BlogSlugContext';
 
@@ -21,20 +21,26 @@ export default function Header({ locale, blogPostSlugs }: HeaderProps) {
   const t = useTranslations('nav');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Use context slugs if available, otherwise fall back to props
   const contextSlugs = useBlogSlugs();
   const slugs = contextSlugs || blogPostSlugs;
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const navigation = [
-    { name: t('home'), href: `/${locale}` },
-    { name: t('about'), href: `/${locale}/about` },
+    { name: t('products'), href: `/${locale}/products` },
     { name: t('services'), href: `/${locale}/services` },
-    { name: t('portfolio'), href: `/${locale}/portfolio` },
+    { name: t('labs'), href: `/${locale}/labs` },
+    { name: t('about'), href: `/${locale}/about` },
     { name: t('blog'), href: `/${locale}/blog` },
     { name: t('becomePartner'), href: `/${locale}/become-partner` },
-    { name: t('contact'), href: `/${locale}/contact` },
   ];
 
   const languages = [
@@ -44,56 +50,72 @@ export default function Header({ locale, blogPostSlugs }: HeaderProps) {
   ];
 
   const switchLanguage = (newLocale: string) => {
-    // If we're on a blog post page and have slugs, use the correct slug for the new language
     if (slugs && pathname.includes('/blog/')) {
       const newSlug = slugs[newLocale as keyof typeof slugs];
       window.location.href = `/${newLocale}/blog/${newSlug}`;
     } else {
-      // For other pages, just replace the locale in the path
       const currentPath = pathname.replace(`/${locale}`, '');
       window.location.href = `/${newLocale}${currentPath || ''}`;
     }
   };
 
+  const isActive = (href: string) => {
+    if (href === `/${locale}`) return pathname === href;
+    return pathname.startsWith(href);
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-tech-bg/80 backdrop-blur-xl border-b border-tech-border'
+          : 'bg-transparent border-b border-transparent'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href={`/${locale}`} className="flex-shrink-0">
+          <Link href={`/${locale}`} className="flex-shrink-0 flex items-center gap-2 group">
             <Logo size="md" />
+            <span className="hidden sm:inline text-[10px] font-mono text-tech-accent/70 border border-tech-accent/30 rounded px-1.5 py-0.5 ml-1">
+              v2.0
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center gap-1">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary-600 ${
-                  pathname === item.href
-                    ? 'text-primary-600'
-                    : 'text-gray-700 dark:text-gray-200'
+                className={`relative px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                  isActive(item.href)
+                    ? 'text-tech-accent'
+                    : 'text-tech-text-dim hover:text-tech-text'
                 }`}
               >
                 {item.name}
+                {isActive(item.href) && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-tech-accent" />
+                )}
               </Link>
             ))}
           </nav>
 
-          {/* Right side - Language switcher & CTA */}
-          <div className="hidden md:flex items-center space-x-4">
+          {/* Right side */}
+          <div className="hidden lg:flex items-center gap-2">
             {/* Language Switcher */}
             <div className="relative">
               <button
                 onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-primary-600 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-tech-text-dim hover:text-tech-accent transition-colors"
               >
                 <Globe className="w-4 h-4" />
-                {languages.find((l) => l.code === locale)?.flag}
+                <span className="uppercase font-mono text-xs">{locale}</span>
+                <ChevronDown className="w-3 h-3" />
               </button>
               {isLangMenuOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1">
+                <div className="absolute right-0 mt-2 w-40 bg-tech-elevated rounded-lg shadow-xl border border-tech-border-strong py-1">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
@@ -101,8 +123,10 @@ export default function Header({ locale, blogPostSlugs }: HeaderProps) {
                         switchLanguage(lang.code);
                         setIsLangMenuOpen(false);
                       }}
-                      className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-2 ${
-                        locale === lang.code ? 'text-primary-600 font-medium' : 'text-gray-700 dark:text-gray-200'
+                      className={`w-full text-left px-4 py-2 text-sm flex items-center gap-2 transition-colors ${
+                        locale === lang.code
+                          ? 'text-tech-accent bg-tech-accent/5'
+                          : 'text-tech-text-dim hover:text-tech-text hover:bg-tech-surface'
                       }`}
                     >
                       <span>{lang.flag}</span>
@@ -113,21 +137,18 @@ export default function Header({ locale, blogPostSlugs }: HeaderProps) {
               )}
             </div>
 
-            {/* Login Button */}
+            {/* Login */}
             <Link
               href={`/${locale}/login`}
-              className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-primary-600 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-tech-text-dim hover:text-tech-accent transition-colors"
             >
               <User className="w-4 h-4" />
-              <span className="hidden lg:inline">
-                {locale === 'ro' ? 'Login' : locale === 'it' ? 'Accedi' : 'Login'}
-              </span>
             </Link>
 
-            {/* CTA Button */}
+            {/* CTA */}
             <Link
               href={`/${locale}/contact`}
-              className="bg-gradient-to-r from-primary-600 to-accent-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:shadow-lg hover:scale-105 transition-all duration-200"
+              className="btn-primary !py-2 !px-5 text-sm"
             >
               {t('contact')}
             </Link>
@@ -136,7 +157,8 @@ export default function Header({ locale, blogPostSlugs }: HeaderProps) {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="lg:hidden p-2 rounded-lg text-tech-text-dim hover:text-tech-accent hover:bg-tech-surface transition-colors"
+            aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -145,44 +167,51 @@ export default function Header({ locale, blogPostSlugs }: HeaderProps) {
 
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-          <div className="px-4 py-4 space-y-2">
+        <div className="lg:hidden bg-tech-bg border-t border-tech-border">
+          <div className="px-4 py-4 space-y-1">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`block px-3 py-2 rounded-lg text-base font-medium ${
-                  pathname === item.href
-                    ? 'bg-primary-50 text-primary-600'
-                    : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800'
+                className={`block px-3 py-2.5 rounded-lg text-base font-medium transition-colors ${
+                  isActive(item.href)
+                    ? 'bg-tech-accent/10 text-tech-accent'
+                    : 'text-tech-text-dim hover:bg-tech-surface hover:text-tech-text'
                 }`}
               >
                 {item.name}
               </Link>
             ))}
 
-            {/* Mobile Login Button */}
+            <Link
+              href={`/${locale}/contact`}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block mt-4 btn-primary w-full text-center"
+            >
+              {t('contact')}
+            </Link>
+
             <Link
               href={`/${locale}/login`}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium text-tech-text-dim hover:bg-tech-surface"
             >
               <User className="w-5 h-5" />
               {locale === 'ro' ? 'Login / Cont' : locale === 'it' ? 'Accedi / Account' : 'Login / Account'}
             </Link>
 
-            <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-              <p className="px-3 py-2 text-sm font-medium text-gray-500">Limba / Language</p>
-              <div className="flex gap-2">
+            <div className="pt-4 mt-4 border-t border-tech-border">
+              <p className="px-3 py-2 text-xs font-mono uppercase text-tech-text-muted">Language</p>
+              <div className="flex gap-2 px-3">
                 {languages.map((lang) => (
                   <button
                     key={lang.code}
                     onClick={() => switchLanguage(lang.code)}
-                    className={`px-4 py-2 rounded-lg text-sm ${
+                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                       locale === lang.code
-                        ? 'bg-primary-100 text-primary-600 font-medium'
-                        : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200'
+                        ? 'bg-tech-accent/10 text-tech-accent border border-tech-accent/30'
+                        : 'bg-tech-surface text-tech-text-dim border border-tech-border'
                     }`}
                   >
                     {lang.flag} {lang.name}

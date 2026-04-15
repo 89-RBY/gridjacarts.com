@@ -277,3 +277,67 @@ export interface TeamMember {
   createdAt: string;
   updatedAt: string;
 }
+
+// Product Types
+export type ProductStatus = 'LIVE' | 'BETA' | 'DEVELOPMENT' | 'ARCHIVED';
+
+export interface Product {
+  id: string;
+  slug: string;
+  name: string;
+
+  tagline: {
+    ro: string;
+    en: string;
+    it: string;
+  };
+
+  problem: {
+    ro: string;
+    en: string;
+    it: string;
+  };
+
+  description: {
+    ro: string;
+    en: string;
+    it: string;
+  };
+
+  features: {
+    ro: string[];
+    en: string[];
+    it: string[];
+  };
+
+  techStack: string[];
+
+  imageUrl?: string;
+  logoUrl?: string;
+  demoUrl?: string;
+  caseStudyUrl?: string;
+
+  usersCount?: string;
+  automationSaved?: string;
+
+  status: ProductStatus;
+  category: string;
+
+  metaTitle?: {
+    ro?: string;
+    en?: string;
+    it?: string;
+  };
+
+  metaDescription?: {
+    ro?: string;
+    en?: string;
+    it?: string;
+  };
+
+  featured: boolean;
+  order: number;
+
+  createdAt: string;
+  updatedAt: string;
+}

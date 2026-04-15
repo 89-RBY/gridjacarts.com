@@ -1,7 +1,7 @@
 {
   "common": {
     "brand": "Gridjac Art's",
-    "tagline": "Your Partner in Digital Growth",
+    "tagline": "Software house automating your business",
     "learnMore": "Learn More",
     "contactUs": "Contact Us",
     "getStarted": "Get Started",
@@ -10,12 +10,21 @@
     "email": "Email",
     "phone": "Phone",
     "address": "Address",
-    "followUs": "Follow Us"
+    "followUs": "Follow Us",
+    "bookCall": "Book a call",
+    "viewDemo": "View demo",
+    "caseStudy": "Case study",
+    "liveProduct": "Live product",
+    "inBeta": "In beta",
+    "inDevelopment": "In development"
   },
   "nav": {
     "home": "Home",
-    "about": "About Us",
+    "about": "About",
     "services": "Services",
+    "products": "Products",
+    "projects": "Projects",
+    "labs": "Labs",
     "portfolio": "Portfolio",
     "blog": "Blog",
     "contact": "Contact",
@@ -23,94 +32,219 @@
   },
   "home": {
     "hero": {
-      "title": "Growing Together",
-      "subtitle": "We are your strategic partner in digital transformation. We find the right technologies for every need and support you at every stage of your growth.",
-      "cta": "Let's Talk"
+      "badge": "// SOFTWARE HOUSE • AUTOMATION • AI",
+      "title": "We automate your business processes",
+      "titleAccent": "with technology",
+      "subtitle": "We build custom software that eliminates repetitive work and turns manual operations into autonomous systems. From MVP to production-grade platforms.",
+      "cta": "Discuss your project",
+      "ctaSecondary": "View our products",
+      "stats": {
+        "products": "Live products",
+        "clients": "Businesses automated",
+        "savings": "Hours saved/month"
+      },
+      "terminal": {
+        "line1": "$ gridjac init your-business",
+        "line2": "> analyzing processes... OK",
+        "line3": "> identifying automation opportunities... OK",
+        "line4": "> deploying custom system... LIVE",
+        "line5": "success: +80% operational efficiency"
+      }
+    },
+    "valueProps": {
+      "title": "From idea to production",
+      "subtitle": "We don't sell hours. We solve real problems with solutions that scale.",
+      "props": [
+        {
+          "title": "Custom software, not templates",
+          "description": "We build exactly what you need. No compromises from generic solutions."
+        },
+        {
+          "title": "End-to-end automation",
+          "description": "API integrations, workflows, AI agents. Eliminate repetitive work."
+        },
+        {
+          "title": "Measurable results",
+          "description": "Hours saved, revenue grown, errors reduced. Every project delivers ROI."
+        },
+        {
+          "title": "Long-term partner",
+          "description": "We don't disappear after launch. We support you through scale and iteration."
+        }
+      ]
     },
     "services": {
-      "title": "Our Services",
-      "subtitle": "Complete solutions for your digital presence"
+      "title": "What we build",
+      "subtitle": "Complete software solutions for businesses that want to grow with technology"
     },
     "whyUs": {
-      "title": "Why Choose Us?",
+      "title": "Why Gridjac Art's",
       "partner": {
-        "title": "Trusted Partner",
-        "description": "We're not just providers, we're allies in your success"
+        "title": "Partners, not vendors",
+        "description": "We understand your business before we write a line of code"
       },
       "technology": {
-        "title": "Right Technologies",
-        "description": "We choose solutions that fit your specific needs"
+        "title": "Modern stack, battle-tested",
+        "description": "Next.js, TypeScript, PostgreSQL, AI — we pick what works, not what's trendy"
       },
       "growth": {
-        "title": "Focus on Growth",
-        "description": "Every decision is made with the goal of helping you grow"
+        "title": "Fast iterations, continuous feedback",
+        "description": "Weekly deliveries, transparent demos, course-correctable direction"
+      }
+    },
+    "process": {
+      "title": "How we work",
+      "subtitle": "Clear methodology, zero surprises",
+      "steps": [
+        {
+          "number": "01",
+          "title": "Discovery & Audit",
+          "description": "We analyze your current processes and identify automation opportunities with maximum impact."
+        },
+        {
+          "number": "02",
+          "title": "Rapid Prototype",
+          "description": "We deliver a functional MVP in 2-4 weeks for immediate validation with your team."
+        },
+        {
+          "number": "03",
+          "title": "Build & Integrate",
+          "description": "We build the complete system, integrated with your existing tools (CRM, ERP, APIs)."
+        },
+        {
+          "number": "04",
+          "title": "Deploy & Scale",
+          "description": "We ship to production, monitor performance, iterate based on real data."
+        }
+      ]
+    },
+    "products": {
+      "title": "Our products",
+      "subtitle": "Software real businesses use every day",
+      "viewAll": "View all products"
+    },
+    "techStack": {
+      "title": "Our tech stack",
+      "subtitle": "Production-tested technologies, chosen for performance and maintainability"
+    },
+    "cta": {
+      "title": "Got a process eating too much time?",
+      "subtitle": "Book a free 30-minute call. Let's find where you can save hours and money together.",
+      "primary": "Book a call",
+      "secondary": "Send us an email"
+    }
+  },
+  "products": {
+    "meta": {
+      "title": "Products — Live software built by Gridjac Art's",
+      "description": "Discover the SaaS products and platforms we've built: AI automation, e-commerce, vertical marketplaces. Live software with real customers."
+    },
+    "title": "Our products",
+    "subtitle": "Not just theory. Live software, with real users, solving real problems.",
+    "filter": {
+      "all": "All",
+      "live": "Live",
+      "beta": "Beta",
+      "development": "In development"
+    },
+    "card": {
+      "techStack": "Tech stack",
+      "features": "Features",
+      "viewLive": "View live",
+      "caseStudy": "Case study",
+      "learnMore": "Learn more"
+    }
+  },
+  "labs": {
+    "meta": {
+      "title": "Labs — Experiments and applied research",
+      "description": "Gridjac Labs — where we experiment with AI, automation and emerging tech. R&D projects that become products."
+    },
+    "badge": "// R&D • EXPERIMENTS • AI",
+    "title": "Labs",
+    "titleAccent": "Where we build the future",
+    "subtitle": "Experimental projects, AI prototypes and applied research. What works here becomes a product tomorrow.",
+    "areas": {
+      "title": "Research areas",
+      "ai": {
+        "title": "AI Agents & Automation",
+        "description": "We build AI agents that take over repetitive tasks: classification, responses, structured decisions."
+      },
+      "data": {
+        "title": "Data Pipelines",
+        "description": "ETL, ethical scraping, data aggregation — infrastructure that turns data into insights."
+      },
+      "saas": {
+        "title": "Vertical SaaS",
+        "description": "We identify underserved niches and build specialized platforms for them."
       }
     }
   },
   "about": {
-    "title": "About Us",
+    "title": "About Gridjac Art's",
+    "subtitle": "Software house based in Romania and Italy",
     "mission": {
-      "title": "Our Mission",
-      "content": "Our mission is to be a client's ally, standing by their side to support their growth. We believe that success is built together, through partnerships based on trust and transparency."
+      "title": "Our mission",
+      "content": "We eliminate repetitive work from businesses that want to grow. We build custom software that replaces manual processes with autonomous systems — so teams can focus on what truly matters."
     },
     "vision": {
-      "title": "Our Vision",
-      "content": "We want to be recognized as the trusted partner that transforms digital visions into reality, using the right technologies for each specific need."
+      "title": "Our vision",
+      "content": "We believe any process that can be described in steps can be automated. We combine solid software engineering with applied AI to deliver solutions that truly change how businesses work."
     },
     "values": {
-      "title": "Our Values",
+      "title": "Our values",
       "partnership": "Partnership",
-      "innovation": "Innovation",
-      "quality": "Quality",
-      "transparency": "Transparency"
+      "innovation": "Applied innovation",
+      "quality": "Quality code",
+      "transparency": "Radical transparency"
     },
     "team": {
-      "title": "Our Team",
-      "subtitle": "Passionate people who make things happen"
+      "title": "The team",
+      "subtitle": "Developers, designers and AI specialists building things that work"
     }
   },
   "services": {
-    "title": "Our Services",
-    "subtitle": "Complete solutions for your digital transformation",
+    "title": "What we build for you",
+    "subtitle": "Custom software, automation and AI — solutions that scale with your business",
     "webDesign": {
-      "title": "Web Design",
-      "description": "Modern, responsive, and conversion-oriented designs that reflect your brand identity"
+      "title": "Product Design",
+      "description": "Conversion-focused UX/UI for SaaS, web apps and custom platforms"
     },
     "webDev": {
-      "title": "Web Development",
-      "description": "Custom web development with modern technologies and optimal performance"
+      "title": "Custom Web Apps",
+      "description": "Production-grade web applications: Next.js, TypeScript, PostgreSQL, modular architecture"
     },
     "seo": {
-      "title": "SEO",
-      "description": "Search engine optimization that brings you organic traffic and visibility"
+      "title": "Technical SEO",
+      "description": "Technical optimization for SaaS and e-commerce: Core Web Vitals, structured data, performance"
     },
     "smm": {
-      "title": "Social Media Marketing",
-      "description": "Social media marketing strategies that connect your brand with the right audience"
+      "title": "Automation & Integrations",
+      "description": "We automate workflows between your tools: APIs, webhooks, syncs, AI agents"
     },
     "advertising": {
-      "title": "Online Advertising",
-      "description": "Effective advertising campaigns that generate measurable results"
+      "title": "AI Integration",
+      "description": "We integrate AI into your products: intelligent chatbots, automated classification, content generation, data-driven decisions"
     },
     "virtualTours": {
-      "title": "Virtual Tours",
-      "description": "Immersive 360° experiences that showcase your spaces in a captivating way"
+      "title": "MVP Sprint",
+      "description": "From idea to functional prototype in 4 weeks. Fast validation before major investment."
     },
     "fullStack": {
-      "title": "Full Stack Development",
-      "description": "Complete web applications, from backend to frontend, scalable and secure"
+      "title": "Full-Stack Engineering",
+      "description": "Complete team: backend, frontend, infra, DevOps — one partner for your entire stack"
     }
   },
   "portfolio": {
     "title": "Portfolio",
-    "subtitle": "Projects that speak for themselves",
+    "subtitle": "Projects built for real clients",
     "viewProject": "View Project",
     "category": "Category",
     "client": "Client"
   },
   "contact": {
-    "title": "Contact",
-    "subtitle": "Let's discuss your project",
+    "title": "Let's build something together",
+    "subtitle": "Book a free call or write us about your project",
     "locations": {
       "romania": "Romania",
       "italy": "Italy"
@@ -119,11 +253,11 @@
     "callUs": "Call Us"
   },
   "footer": {
-    "description": "We are your partner in digital transformation. We use the right technologies to help you grow.",
+    "description": "Software house automating your business processes. We build custom products, integrate AI, scale systems.",
     "quickLinks": "Quick Links",
     "contact": "Contact",
     "newsletter": "Newsletter",
-    "newsletterText": "Subscribe for industry news and tips",
+    "newsletterText": "Insights on automation, applied AI and product development. No spam.",
     "subscribe": "Subscribe",
     "rights": "All rights reserved",
     "privacy": "Privacy Policy",
@@ -131,166 +265,17 @@
   },
   "blog": {
     "title": "Blog",
-    "subtitle": "Articles and resources about digital transformation",
+    "subtitle": "Articles about automation, applied AI and software development",
     "readTime": "min read",
     "publishedOn": "Published on",
     "by": "by"
   },
-  "offertaDicembre": {
-    "meta": {
-      "title": "December 2025 Offer - Web Packages with up to -33% Discount | GridjaCards Rome",
-      "description": "Exclusive December 2025 offer! Professional website packages in Rome with discounts up to €1,500. Hosting, SEO, Social Media included. Only 10 spots available!"
-    },
-    "urgentBanner": "⚠️ ONLY 10 SPOTS AVAILABLE! Offer valid until December 31, 2025",
-    "hero": {
-      "badge": "FLASH OFFER DECEMBER 2025",
-      "title": {
-        "line1": "Save up to €1,500",
-        "line2": "on Your Professional Website"
-      },
-      "subtitle": "Complete packages for your digital presence in Rome. Hosting, domain, SEO and social media included. Offer valid only for December 2025!",
-      "stats": {
-        "clients": "Happy Clients",
-        "rating": "Average Rating",
-        "delivery": "Delivery from"
-      },
-      "cta": {
-        "primary": "Discover Packages",
-        "secondary": "Request Free Consultation"
-      },
-      "trust": [
-        "No hidden costs",
-        "Money-back guarantee",
-        "12 months support included"
-      ]
-    },
-    "whyNow": {
-      "title": "Why Take Advantage Now?",
-      "reasons": [
-        {
-          "title": "Up to -33% Discount",
-          "description": "Save up to €1,500 on the Premium package. Offer valid only for December 2025."
-        },
-        {
-          "title": "Limited Spots",
-          "description": "Only 10 projects available to ensure quality and personalized attention."
-        },
-        {
-          "title": "Start 2026 Online",
-          "description": "Website ready from 72h. Start strong in the new year with a professional digital presence."
-        }
-      ]
-    },
-    "packages": {
-      "title": "Choose Your Package",
-      "subtitle": "Everything included, no hidden costs. Annual payment with regular invoicing.",
-      "popular": "MOST POPULAR",
-      "perYear": "/year",
-      "save": "Save",
-      "cta": "Request This Package",
-      "startup": {
-        "name": "Startup",
-        "tagline": "The Digital Showcase",
-        "features": [
-          "4-page responsive website (Mobile, Tablet, Desktop)",
-          "Hosting + Domain + SSL Certificate",
-          "3 professional email addresses",
-          "Basic SEO + Google Search Console",
-          "Contact form with anti-spam protection",
-          "Cookie banner + Privacy Policy",
-          "Image compression (WebP)",
-          "Daily backup and restore",
-          "Monthly technical updates",
-          "24/7 uptime monitoring"
-        ]
-      },
-      "pro": {
-        "name": "Pro",
-        "tagline": "Brand & Social",
-        "features": [
-          "✨ Everything from Startup +",
-          "Integrated Blog/News section",
-          "Admin access for autonomous management",
-          "Optimized \"Link in Bio\" page",
-          "Google Business Profile (complete setup)",
-          "Facebook + Instagram Business setup",
-          "Meta Pixel for visitor tracking",
-          "Instagram feed on site (automatic)",
-          "Social sharing buttons",
-          "Google map integration",
-          "Social Management: 4 posts/month",
-          "Customized graphic content",
-          "Monthly editorial calendar",
-          "Quarterly visits + Google Business report",
-          "Priority support (24h response)"
-        ]
-      },
-      "premium": {
-        "name": "Premium",
-        "tagline": "Sales & E-commerce",
-        "features": [
-          "💎 Everything from Pro +",
-          "Complete WooCommerce shop",
-          "Upload up to 20-30 products",
-          "Payments: Stripe, PayPal, Bank Transfer, Satispay",
-          "Customized shipping rules",
-          "Transactional emails with custom design",
-          "Automatic abandoned cart recovery",
-          "Newsletter pop-up with welcome discount",
-          "Mailchimp/MailerLite integration",
-          "Terms & Conditions + Right of Withdrawal",
-          "CDN for fast loading",
-          "E-commerce firewall + malware scans",
-          "Staging updates testing",
-          "Quarterly sales and traffic report"
-        ]
-      }
-    },
-    "socialProof": {
-      "title": "What Our Clients Say",
-      "testimonials": [
-        {
-          "text": "In just a few days I had the site online and in one week I was already first on Google for my keywords. Investment recovered in one month!",
-          "author": "Alessandro Moretti",
-          "company": "Moretti Costruzioni, Rome"
-        },
-        {
-          "text": "The Pro package is perfect for my business. I manage the blog and social media autonomously, but I always have the team's support when needed.",
-          "author": "Francesca Santini",
-          "company": "Studio Legale Santini, Rome"
-        },
-        {
-          "text": "I started selling online thanks to the Premium package. In 3 months I doubled my turnover. I highly recommend Gridjac Art's!",
-          "author": "Roberto Ferretti",
-          "company": "Ferretti Design, Rome"
-        }
-      ]
-    },
-    "contact": {
-      "title": "Request Your Personalized Offer",
-      "subtitle": "Fill out the form and we'll contact you within 2 hours (Mon-Fri 9-19)",
-      "form": {
-        "name": "Full Name *",
-        "phone": "Phone *",
-        "email": "Email *",
-        "package": "Package of Interest *",
-        "selectPackage": "Select a package...",
-        "message": "Tell us about your project (optional)",
-        "submit": "Request Offer Now 🚀"
-      }
-    },
-    "finalCta": {
-      "title": "Don't Miss This Opportunity!",
-      "subtitle": "Only 10 spots available. Start 2026 with a professional website.",
-      "button": "Reserve Your Spot Now"
-    }
-  },
   "metadata": {
-    "defaultTitle": "Gridjac Art's - Your Partner in Digital Growth",
-    "description": "We are your strategic partner in digital transformation. Web Design, Development, SEO, Social Media Marketing and more.",
-    "keywords": "web design,web development,SEO,social media marketing,online advertising,virtual tours,full stack development",
-    "ogTitle": "Gridjac Art's - Your Partner in Digital Growth",
-    "ogDescription": "We are your strategic partner in digital transformation.",
-    "twitterDescription": "Your Partner in Digital Growth"
+    "defaultTitle": "Gridjac Art's — Software house automating your business",
+    "description": "We build custom software, integrate AI and automate processes for businesses that want to grow. From MVP to production-grade platforms.",
+    "keywords": "software house,process automation,AI integration,custom web apps,MVP development,SaaS development,Next.js,TypeScript",
+    "ogTitle": "Gridjac Art's — Software house & automation",
+    "ogDescription": "Custom software, AI integration and process automation for businesses that want to grow.",
+    "twitterDescription": "Software house automating your business"
   }
 }

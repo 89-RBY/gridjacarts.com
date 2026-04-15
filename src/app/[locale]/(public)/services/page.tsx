@@ -1,23 +1,22 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
-import Image from 'next/image';
 import {
-  Code,
+  Code2,
   Palette,
   Search,
-  Share2,
-  Megaphone,
-  Camera,
+  Workflow,
+  Sparkles,
+  Rocket,
   Layers,
   ArrowRight,
+  Check,
 } from 'lucide-react';
 
 interface ServicesPageProps {
   params: { locale: string };
 }
 
-// Force dynamic rendering due to next-intl usage
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params: { locale } }: ServicesPageProps) {
@@ -33,94 +32,91 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
 
   const services = [
     {
+      icon: Code2,
+      title: t('webDev.title'),
+      description: t('webDev.description'),
+      features: locale === 'ro'
+        ? ['Aplicații scalate pentru producție', 'Arhitectură modulară', 'CI/CD automat', 'Performanță optimă']
+        : locale === 'en'
+        ? ['Production-grade applications', 'Modular architecture', 'Automated CI/CD', 'Optimal performance']
+        : ['Applicazioni production-grade', 'Architettura modulare', 'CI/CD automatizzato', 'Performance ottimali'],
+    },
+    {
+      icon: Workflow,
+      title: t('smm.title'),
+      description: t('smm.description'),
+      features: locale === 'ro'
+        ? ['Integrări API', 'Workflow-uri automate', 'Sincronizări bidirecționale', 'AI agents']
+        : locale === 'en'
+        ? ['API integrations', 'Automated workflows', 'Bidirectional syncs', 'AI agents']
+        : ['Integrazioni API', 'Workflow automatizzati', 'Sync bidirezionali', 'AI agent'],
+    },
+    {
+      icon: Sparkles,
+      title: t('advertising.title'),
+      description: t('advertising.description'),
+      features: locale === 'ro'
+        ? ['Chatboți inteligenți', 'Clasificare automată', 'Generare conținut', 'Decizii data-driven']
+        : locale === 'en'
+        ? ['Intelligent chatbots', 'Automated classification', 'Content generation', 'Data-driven decisions']
+        : ['Chatbot intelligenti', 'Classificazione automatica', 'Generazione contenuti', 'Decisioni data-driven'],
+    },
+    {
+      icon: Rocket,
+      title: t('virtualTours.title'),
+      description: t('virtualTours.description'),
+      features: locale === 'ro'
+        ? ['Prototip funcțional în 4 săptămâni', 'Validare rapidă', 'Feedback loop strâns', 'Path clar spre v1']
+        : locale === 'en'
+        ? ['Functional prototype in 4 weeks', 'Fast validation', 'Tight feedback loop', 'Clear path to v1']
+        : ['Prototipo funzionale in 4 settimane', 'Validazione rapida', 'Feedback loop stretto', 'Path chiaro verso v1'],
+    },
+    {
       icon: Palette,
       title: t('webDesign.title'),
       description: t('webDesign.description'),
-      image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop',
       features: locale === 'ro'
-        ? ['Design responsive', 'UI/UX optimizat', 'Branding vizual', 'Prototipare']
+        ? ['Design systems', 'Conversion-focused UX', 'Prototipare Figma', 'Design tokens']
         : locale === 'en'
-        ? ['Responsive design', 'Optimized UI/UX', 'Visual branding', 'Prototyping']
-        : ['Design responsive', 'UI/UX ottimizzato', 'Branding visivo', 'Prototipazione'],
-    },
-    {
-      icon: Code,
-      title: t('webDev.title'),
-      description: t('webDev.description'),
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop',
-      features: locale === 'ro'
-        ? ['Tehnologii moderne', 'Performanță optimă', 'Securitate avansată', 'Scalabilitate']
-        : locale === 'en'
-        ? ['Modern technologies', 'Optimal performance', 'Advanced security', 'Scalability']
-        : ['Tecnologie moderne', 'Prestazioni ottimali', 'Sicurezza avanzata', 'Scalabilità'],
+        ? ['Design systems', 'Conversion-focused UX', 'Figma prototyping', 'Design tokens']
+        : ['Design systems', 'UX focalizzato su conversione', 'Prototipazione Figma', 'Design tokens'],
     },
     {
       icon: Search,
       title: t('seo.title'),
       description: t('seo.description'),
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
       features: locale === 'ro'
-        ? ['Audit SEO complet', 'Optimizare on-page', 'Link building', 'Rapoarte detaliate']
+        ? ['Core Web Vitals', 'Structured data', 'Sitemap dinamic', 'Performanță edge']
         : locale === 'en'
-        ? ['Complete SEO audit', 'On-page optimization', 'Link building', 'Detailed reports']
-        : ['Audit SEO completo', 'Ottimizzazione on-page', 'Link building', 'Report dettagliati'],
-    },
-    {
-      icon: Share2,
-      title: t('smm.title'),
-      description: t('smm.description'),
-      image: 'https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800&h=600&fit=crop',
-      features: locale === 'ro'
-        ? ['Strategie de conținut', 'Gestionare conturi', 'Creștere organică', 'Analiză engagement']
-        : locale === 'en'
-        ? ['Content strategy', 'Account management', 'Organic growth', 'Engagement analysis']
-        : ['Strategia di contenuto', 'Gestione account', 'Crescita organica', 'Analisi engagement'],
-    },
-    {
-      icon: Megaphone,
-      title: t('advertising.title'),
-      description: t('advertising.description'),
-      image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=800&h=600&fit=crop',
-      features: locale === 'ro'
-        ? ['Google Ads', 'Facebook Ads', 'Remarketing', 'Optimizare ROI']
-        : locale === 'en'
-        ? ['Google Ads', 'Facebook Ads', 'Remarketing', 'ROI optimization']
-        : ['Google Ads', 'Facebook Ads', 'Remarketing', 'Ottimizzazione ROI'],
-    },
-    {
-      icon: Camera,
-      title: t('virtualTours.title'),
-      description: t('virtualTours.description'),
-      image: 'https://images.unsplash.com/photo-1617802690658-1173a812650d?w=800&h=600&fit=crop',
-      features: locale === 'ro'
-        ? ['Fotografii 360°', 'Experiențe interactive', 'Integrare Google Maps', 'Realitate virtuală']
-        : locale === 'en'
-        ? ['360° photography', 'Interactive experiences', 'Google Maps integration', 'Virtual reality']
-        : ['Fotografie a 360°', 'Esperienze interattive', 'Integrazione Google Maps', 'Realtà virtuale'],
+        ? ['Core Web Vitals', 'Structured data', 'Dynamic sitemap', 'Edge performance']
+        : ['Core Web Vitals', 'Structured data', 'Sitemap dinamica', 'Performance edge'],
     },
     {
       icon: Layers,
       title: t('fullStack.title'),
       description: t('fullStack.description'),
-      image: 'https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?w=800&h=600&fit=crop',
       features: locale === 'ro'
-        ? ['Aplicații web complete', 'API development', 'Baze de date', 'Cloud deployment']
+        ? ['Backend + Frontend', 'Infrastructure as code', 'DevOps & monitoring', 'Un singur partener']
         : locale === 'en'
-        ? ['Complete web applications', 'API development', 'Databases', 'Cloud deployment']
-        : ['Applicazioni web complete', 'Sviluppo API', 'Database', 'Deploy cloud'],
+        ? ['Backend + Frontend', 'Infrastructure as code', 'DevOps & monitoring', 'One single partner']
+        : ['Backend + Frontend', 'Infrastructure as code', 'DevOps & monitoring', 'Un unico partner'],
     },
   ];
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-gray-50 to-primary-50 dark:from-gray-900 dark:to-gray-800">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">
-              <span className="gradient-text">{t('title')}</span>
+    <div className="min-h-screen">
+      {/* Hero */}
+      <section className="relative pt-32 pb-16 tech-grid-bg">
+        <div className="absolute inset-0 bg-tech-radial pointer-events-none" />
+        <div className="container-custom relative z-10">
+          <div className="max-w-3xl">
+            <div className="tech-badge-accent mb-6">
+              <span className="font-mono text-[11px]">// SERVICES</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-display font-bold mb-6 text-tech-text leading-tight">
+              {t('title')}
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
+            <p className="text-lg md:text-xl text-tech-text-dim leading-relaxed">
               {t('subtitle')}
             </p>
           </div>
@@ -128,45 +124,30 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
       </section>
 
       {/* Services List */}
-      <section className="section-padding bg-white dark:bg-gray-900">
+      <section className="pb-24">
         <div className="container-custom">
-          <div className="space-y-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {services.map((service, index) => (
-              <div
-                key={index}
-                className={`grid md:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? 'md:grid-flow-dense' : ''
-                }`}
-              >
-                <div className={index % 2 === 1 ? 'md:col-start-2' : ''}>
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/50 dark:to-accent-900/50 rounded-xl flex items-center justify-center mb-6">
-                    <service.icon className="w-8 h-8 text-primary-600 dark:text-primary-400" />
+              <div key={index} className="tech-card group">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center flex-shrink-0 group-hover:bg-tech-accent/20 transition-colors">
+                    <service.icon className="w-5 h-5 text-tech-accent" />
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-display font-bold mb-4">
-                    {service.title}
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                    {service.description}
-                  </p>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, fIndex) => (
-                      <li key={fIndex} className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-primary-500 rounded-full" />
-                        <span className="text-gray-700 dark:text-gray-300">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className={index % 2 === 1 ? 'md:col-start-1 md:row-start-1' : ''}>
-                  <div className="aspect-[4/3] relative rounded-3xl overflow-hidden shadow-lg group">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-primary-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-xl font-display font-bold mb-2 text-tech-text">
+                      {service.title}
+                    </h2>
+                    <p className="text-sm text-tech-text-dim leading-relaxed mb-4">
+                      {service.description}
+                    </p>
+                    <ul className="space-y-1.5">
+                      {service.features.map((feature, fIndex) => (
+                        <li key={fIndex} className="flex items-center gap-2 text-sm text-tech-text-dim">
+                          <Check className="w-3.5 h-3.5 text-tech-accent flex-shrink-0" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -175,26 +156,25 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-gray-50 dark:bg-gray-800">
-        <div className="container-custom text-center">
-          <h2 className="text-3xl font-display font-bold mb-6">
-            {locale === 'ro' && 'Ai nevoie de un serviciu personalizat?'}
-            {locale === 'en' && 'Need a custom service?'}
-            {locale === 'it' && 'Hai bisogno di un servizio personalizzato?'}
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            {locale === 'ro' && 'Contactează-ne pentru a discuta despre nevoile tale specifice și pentru a găsi soluția perfectă.'}
-            {locale === 'en' && 'Contact us to discuss your specific needs and find the perfect solution.'}
-            {locale === 'it' && 'Contattaci per discutere delle tue esigenze specifiche e trovare la soluzione perfetta.'}
-          </p>
-          <Link
-            href={`/${locale}/contact`}
-            className="btn-primary inline-flex items-center gap-2"
-          >
-            {tCommon('contactUs')}
-            <ArrowRight className="w-5 h-5" />
-          </Link>
+      {/* CTA */}
+      <section className="pb-24">
+        <div className="container-custom">
+          <div className="tech-card-elevated text-center py-12 px-6 max-w-3xl mx-auto tech-border-gradient">
+            <h2 className="text-2xl md:text-3xl font-display font-bold mb-4 text-tech-text">
+              {locale === 'ro' && 'Ai nevoie de un serviciu personalizat?'}
+              {locale === 'en' && 'Need a custom service?'}
+              {locale === 'it' && 'Hai bisogno di un servizio personalizzato?'}
+            </h2>
+            <p className="text-tech-text-dim mb-8 max-w-xl mx-auto">
+              {locale === 'ro' && 'Discută-ne viziunea ta. Construim soluții custom care se potrivesc exact nevoilor tale.'}
+              {locale === 'en' && 'Share your vision. We build custom solutions that fit your needs exactly.'}
+              {locale === 'it' && 'Condividi la tua visione. Costruiamo soluzioni custom che si adattano esattamente alle tue esigenze.'}
+            </p>
+            <Link href={`/${locale}/contact`} className="btn-primary">
+              {tCommon('bookCall')}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
     </div>

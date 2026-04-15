@@ -10,6 +10,38 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Tech palette — Software House redesign (dark-first)
+        tech: {
+          // Backgrounds
+          bg: '#0a0e1a',          // primary background (almost black, blue-tinted)
+          surface: '#121826',     // cards, sections
+          elevated: '#1a2132',    // elevated cards, modals
+          border: '#1f2937',      // subtle borders
+          'border-strong': '#2d3748',
+
+          // Text
+          text: '#f0f6fc',        // primary text
+          'text-dim': '#94a3b8',  // secondary text
+          'text-muted': '#64748b', // tertiary / placeholders
+
+          // Accent — Electric Green
+          accent: '#00ff88',      // primary accent
+          'accent-hover': '#00e077',
+          'accent-dim': '#00cc6a',
+          'accent-dark': '#008c4a',
+
+          // Secondary accent — Cyan for variety
+          cyan: '#00d4ff',
+          'cyan-dim': '#0099cc',
+
+          // Semantic
+          danger: '#ff4d6d',
+          warning: '#ffbe3b',
+          info: '#00d4ff',
+          success: '#00ff88',
+        },
+
+        // Legacy palettes — kept for backwards compatibility during migration
         primary: {
           50: '#f0f9ff',
           100: '#e0f2fe',
@@ -49,6 +81,21 @@ const config: Config = {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+      },
+      backgroundImage: {
+        'grid-pattern': "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%231f2937' stroke-width='1'%3E%3Cpath d='M0 0h60v60H0z'/%3E%3C/g%3E%3C/svg%3E\")",
+        'gradient-radial': 'radial-gradient(ellipse at center, var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'tech-gradient': 'linear-gradient(135deg, #00ff88 0%, #00d4ff 100%)',
+        'tech-radial': 'radial-gradient(circle at 50% 0%, rgba(0,255,136,0.15) 0%, rgba(0,0,0,0) 50%)',
+      },
+      boxShadow: {
+        'tech-glow': '0 0 40px rgba(0, 255, 136, 0.15)',
+        'tech-glow-sm': '0 0 20px rgba(0, 255, 136, 0.1)',
+        'tech-glow-lg': '0 0 80px rgba(0, 255, 136, 0.25)',
+        'tech-cyan': '0 0 40px rgba(0, 212, 255, 0.15)',
+        'tech-card': '0 4px 24px -6px rgba(0, 0, 0, 0.5)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
@@ -58,6 +105,10 @@ const config: Config = {
         'shake': 'shake 0.5s ease-in-out',
         'reveal': 'reveal 0.6s ease-out forwards',
         'brutal-pop': 'brutalPop 0.15s ease-out',
+        'cursor-blink': 'cursorBlink 1.1s step-end infinite',
+        'glow-pulse': 'glowPulse 3s ease-in-out infinite',
+        'gradient-shift': 'gradientShift 8s ease infinite',
+        'scan-line': 'scanLine 4s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -89,6 +140,22 @@ const config: Config = {
           '0%': { transform: 'scale(0.95)' },
           '50%': { transform: 'scale(1.02)' },
           '100%': { transform: 'scale(1)' },
+        },
+        cursorBlink: {
+          '0%, 50%': { opacity: '1' },
+          '51%, 100%': { opacity: '0' },
+        },
+        glowPulse: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(0, 255, 136, 0.15)' },
+          '50%': { boxShadow: '0 0 40px rgba(0, 255, 136, 0.35)' },
+        },
+        gradientShift: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        scanLine: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(100vh)' },
         },
       },
     },

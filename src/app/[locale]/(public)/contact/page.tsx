@@ -1,12 +1,12 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import { Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MapPin, Calendar, Facebook, Instagram, Linkedin } from 'lucide-react';
+import Link from 'next/link';
 
 interface ContactPageProps {
   params: { locale: string };
 }
 
-// Force dynamic rendering due to next-intl usage
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params: { locale } }: ContactPageProps) {
@@ -38,137 +38,153 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
   ];
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-gray-50 to-primary-50 dark:from-gray-900 dark:to-gray-800">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">
-              <span className="gradient-text">{t('title')}</span>
+    <div className="min-h-screen">
+      {/* Hero */}
+      <section className="relative pt-32 pb-16 tech-grid-bg">
+        <div className="absolute inset-0 bg-tech-radial pointer-events-none" />
+        <div className="container-custom relative z-10">
+          <div className="max-w-3xl">
+            <div className="tech-badge-accent mb-6">
+              <span className="font-mono text-[11px]">// CONTACT</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-display font-bold mb-6 text-tech-text leading-tight">
+              {t('title')}
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
+            <p className="text-lg md:text-xl text-tech-text-dim leading-relaxed">
               {t('subtitle')}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Contact Info */}
-      <section className="section-padding bg-white dark:bg-gray-900">
+      {/* Contact Channels */}
+      <section className="pb-16">
         <div className="container-custom">
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Email Contact */}
-            <div className="text-center p-8 card">
-              <div className="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <Mail className="w-10 h-10 text-white" />
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Email */}
+            <a
+              href="mailto:info@gridjacarts.com"
+              className="tech-card group hover:border-tech-accent/40"
+            >
+              <div className="w-12 h-12 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center mb-4 group-hover:bg-tech-accent/20 transition-colors">
+                <Mail className="w-5 h-5 text-tech-accent" />
               </div>
-              <h2 className="text-2xl font-semibold mb-4">{t('sendEmail')}</h2>
-              <a
-                href="mailto:info@gridjacarts.com"
-                className="text-xl text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center gap-2"
-              >
+              <div className="text-xs font-mono uppercase text-tech-text-muted mb-2">
+                // email
+              </div>
+              <div className="text-lg font-semibold text-tech-text group-hover:text-tech-accent transition-colors">
                 info@gridjacarts.com
-                <ExternalLink className="w-5 h-5" />
-              </a>
-            </div>
-
-            {/* Phone Contact */}
-            <div className="text-center p-8 card">
-              <div className="w-20 h-20 bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <Phone className="w-10 h-10 text-white" />
               </div>
-              <h2 className="text-2xl font-semibold mb-4">{t('callUs')}</h2>
-              <div className="space-y-2">
-                <a
-                  href="tel:+40770362294"
-                  className="block text-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-                >
+              <div className="text-sm text-tech-text-dim mt-1">
+                {t('sendEmail')}
+              </div>
+            </a>
+
+            {/* Book a call */}
+            <Link
+              href={`/${locale}/contact#form`}
+              className="tech-card group hover:border-tech-accent/40 tech-border-gradient"
+            >
+              <div className="w-12 h-12 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center mb-4 group-hover:bg-tech-accent/20 transition-colors">
+                <Calendar className="w-5 h-5 text-tech-accent" />
+              </div>
+              <div className="text-xs font-mono uppercase text-tech-text-muted mb-2">
+                // book call
+              </div>
+              <div className="text-lg font-semibold text-tech-text group-hover:text-tech-accent transition-colors">
+                {tCommon('bookCall')}
+              </div>
+              <div className="text-sm text-tech-text-dim mt-1">
+                {locale === 'ro' ? 'Call gratuit de 30 min' : locale === 'it' ? 'Call gratuita di 30 min' : 'Free 30-min call'}
+              </div>
+            </Link>
+
+            {/* Phone */}
+            <div className="tech-card">
+              <div className="w-12 h-12 rounded-lg bg-tech-cyan/10 border border-tech-cyan/30 flex items-center justify-center mb-4">
+                <Phone className="w-5 h-5 text-tech-cyan" />
+              </div>
+              <div className="text-xs font-mono uppercase text-tech-text-muted mb-2">
+                // phone
+              </div>
+              <div className="space-y-1">
+                <a href="tel:+40770362294" className="block text-tech-text hover:text-tech-accent transition-colors">
                   🇷🇴 +40 770 362 294
                 </a>
-                <a
-                  href="tel:+393203779506"
-                  className="block text-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-                >
+                <a href="tel:+393203779506" className="block text-tech-text hover:text-tech-accent transition-colors">
                   🇮🇹 +39 320 377 9506
                 </a>
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Locations */}
-          <div className="mt-16">
-            <h2 className="text-3xl font-display font-bold text-center mb-12 gradient-text">
+      {/* Locations */}
+      <section className="pb-16">
+        <div className="container-custom">
+          <div className="mb-8">
+            <div className="tech-badge mb-4">
+              <span className="font-mono">// LOCATIONS</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text">
               {tCommon('address')}
             </h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              {locations.map((location, index) => (
-                <div key={index} className="card p-8">
-                  <div className="flex items-center gap-4 mb-6">
-                    <span className="text-4xl">{location.flag}</span>
-                    <h3 className="text-2xl font-semibold">{location.country}</h3>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {locations.map((location, index) => (
+              <div key={index} className="tech-card">
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="text-3xl">{location.flag}</span>
+                  <h3 className="text-xl font-semibold text-tech-text">{location.country}</h3>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="w-4 h-4 text-tech-accent mt-1 flex-shrink-0" />
+                    <div className="text-tech-text-dim">
+                      <p>{location.address}</p>
+                      <p>{location.city}</p>
+                    </div>
                   </div>
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <MapPin className="w-5 h-5 text-primary-600 dark:text-primary-400 mt-1 flex-shrink-0" />
-                      <div>
-                        <p className="text-gray-700 dark:text-gray-300">{location.address}</p>
-                        <p className="text-gray-700 dark:text-gray-300">{location.city}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Phone className="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0" />
-                      <a
-                        href={`tel:${location.phone.replace(/\s/g, '')}`}
-                        className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
-                      >
-                        {location.phone}
-                      </a>
-                    </div>
+                  <div className="flex items-center gap-3">
+                    <Phone className="w-4 h-4 text-tech-accent flex-shrink-0" />
+                    <a
+                      href={`tel:${location.phone.replace(/\s/g, '')}`}
+                      className="text-tech-text-dim hover:text-tech-accent transition-colors"
+                    >
+                      {location.phone}
+                    </a>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
 
-          {/* Social Media */}
-          <div className="mt-16 text-center">
-            <h2 className="text-2xl font-semibold mb-6">{tCommon('followUs')}</h2>
-            <div className="flex justify-center gap-6">
+      {/* Social */}
+      <section className="pb-24">
+        <div className="container-custom text-center">
+          <h2 className="text-xs font-mono uppercase text-tech-text-muted tracking-wider mb-6">
+            // {tCommon('followUs')}
+          </h2>
+          <div className="flex justify-center gap-4">
+            {[
+              { icon: Facebook, href: 'https://facebook.com/gridjacarts', label: 'Facebook' },
+              { icon: Instagram, href: 'https://instagram.com/gridjacarts', label: 'Instagram' },
+              { icon: Linkedin, href: 'https://linkedin.com/company/gridjacarts', label: 'LinkedIn' },
+            ].map((social) => (
               <a
-                href="https://facebook.com/gridjacarts"
+                key={social.label}
+                href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform"
+                className="w-12 h-12 rounded-xl bg-tech-surface border border-tech-border flex items-center justify-center text-tech-text-dim hover:text-tech-accent hover:border-tech-accent/40 transition-all"
+                aria-label={social.label}
               >
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-                </svg>
+                <social.icon className="w-5 h-5" />
               </a>
-              <a
-                href="https://instagram.com/gridjacarts"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-14 h-14 bg-gradient-to-br from-purple-600 to-pink-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform"
-              >
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
-                  <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="none" stroke="currentColor" strokeWidth="2" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" strokeWidth="2" />
-                </svg>
-              </a>
-              <a
-                href="https://linkedin.com/company/gridjacarts"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-14 h-14 bg-blue-700 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform"
-              >
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" />
-                  <rect x="2" y="9" width="4" height="12" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
-              </a>
-            </div>
+            ))}
           </div>
         </div>
       </section>

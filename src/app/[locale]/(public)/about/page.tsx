@@ -1,13 +1,12 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import { Handshake, Lightbulb, Award, Eye } from 'lucide-react';
+import { Handshake, Lightbulb, Award, Eye, Target, Compass } from 'lucide-react';
 import TeamList from '@/components/TeamList';
 
 interface AboutPageProps {
   params: { locale: string };
 }
 
-// Force dynamic rendering due to next-intl usage
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params: { locale } }: AboutPageProps) {
@@ -28,34 +27,48 @@ export default function AboutPage({ params: { locale } }: AboutPageProps) {
   ];
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-gray-50 to-primary-50 dark:from-gray-900 dark:to-gray-800">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">
-              <span className="gradient-text">{t('title')}</span>
+    <div className="min-h-screen">
+      {/* Hero */}
+      <section className="relative pt-32 pb-16 tech-grid-bg">
+        <div className="absolute inset-0 bg-tech-radial pointer-events-none" />
+        <div className="container-custom relative z-10">
+          <div className="max-w-3xl">
+            <div className="tech-badge-accent mb-6">
+              <span className="font-mono text-[11px]">// ABOUT</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-display font-bold mb-6 text-tech-text leading-tight">
+              {t('title')}
             </h1>
+            <p className="text-lg md:text-xl text-tech-text-dim leading-relaxed">
+              {t('subtitle')}
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Mission Section */}
-      <section className="section-padding bg-white dark:bg-gray-900">
+      {/* Mission */}
+      <section className="section-padding">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-display font-bold mb-6 gradient-text">
+              <div className="flex items-center gap-2 mb-4">
+                <Target className="w-5 h-5 text-tech-accent" />
+                <span className="text-xs font-mono uppercase text-tech-text-muted tracking-wider">
+                  // {t('mission.title')}
+                </span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-tech-text">
                 {t('mission.title')}
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                {t('mission.content')}
-              </p>
+              <p className="text-lg text-tech-text-dim leading-relaxed">{t('mission.content')}</p>
             </div>
-            <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/30 dark:to-accent-900/30 rounded-3xl flex items-center justify-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl flex items-center justify-center shadow-2xl">
-                  <Handshake className="w-16 h-16 text-white" />
+            <div className="tech-card-glass tech-border-gradient min-h-[300px] flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-20 h-20 rounded-2xl bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center mx-auto mb-4">
+                  <Handshake className="w-10 h-10 text-tech-accent" />
+                </div>
+                <div className="font-mono text-xs text-tech-text-muted uppercase tracking-wider">
+                  // partnership.init()
                 </div>
               </div>
             </div>
@@ -63,66 +76,75 @@ export default function AboutPage({ params: { locale } }: AboutPageProps) {
         </div>
       </section>
 
-      {/* Vision Section */}
-      <section className="section-padding bg-gray-50 dark:bg-gray-800">
+      {/* Vision */}
+      <section className="section-padding bg-tech-surface/30">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="order-2 md:order-1 relative">
-              <div className="aspect-square bg-gradient-to-br from-accent-100 to-primary-100 dark:from-accent-900/30 dark:to-primary-900/30 rounded-3xl flex items-center justify-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-accent-500 to-primary-500 rounded-2xl flex items-center justify-center shadow-2xl">
-                  <Eye className="w-16 h-16 text-white" />
+            <div className="order-2 md:order-1 tech-card-glass tech-border-gradient min-h-[300px] flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-20 h-20 rounded-2xl bg-tech-cyan/10 border border-tech-cyan/30 flex items-center justify-center mx-auto mb-4">
+                  <Compass className="w-10 h-10 text-tech-cyan" />
+                </div>
+                <div className="font-mono text-xs text-tech-text-muted uppercase tracking-wider">
+                  // vision.forward()
                 </div>
               </div>
             </div>
             <div className="order-1 md:order-2">
-              <h2 className="text-3xl font-display font-bold mb-6 gradient-text">
+              <div className="flex items-center gap-2 mb-4">
+                <Compass className="w-5 h-5 text-tech-accent" />
+                <span className="text-xs font-mono uppercase text-tech-text-muted tracking-wider">
+                  // {t('vision.title')}
+                </span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-tech-text">
                 {t('vision.title')}
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                {t('vision.content')}
-              </p>
+              <p className="text-lg text-tech-text-dim leading-relaxed">{t('vision.content')}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="section-padding bg-gray-50 dark:bg-gray-800">
+      {/* Values */}
+      <section className="section-padding">
         <div className="container-custom">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-display font-bold gradient-text">
-              {t('team.title')}
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
-              {t('team.subtitle')}
-            </p>
-          </div>
-          <TeamList locale={locale} />
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="section-padding bg-white dark:bg-gray-900">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-display font-bold gradient-text">
+            <div className="tech-badge mb-4">
+              <span className="font-mono">// VALUES</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-tech-text">
               {t('values.title')}
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {values.map((value, index) => (
-              <div key={index} className="text-center group">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/50 dark:to-accent-900/50 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <value.icon className="w-10 h-10 text-primary-600 dark:text-primary-400" />
+              <div key={index} className="tech-card text-center group">
+                <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center group-hover:bg-tech-accent/20 transition-colors">
+                  <value.icon className="w-6 h-6 text-tech-accent" />
                 </div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">{value.name}</h3>
+                <h3 className="font-semibold text-tech-text">{value.name}</h3>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Team */}
+      <section className="section-padding bg-tech-surface/30">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <div className="tech-badge mb-4">
+              <span className="font-mono">// TEAM</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-tech-text">
+              {t('team.title')}
+            </h2>
+            <p className="text-lg text-tech-text-dim mt-4 max-w-2xl mx-auto">{t('team.subtitle')}</p>
+          </div>
+          <TeamList locale={locale} />
+        </div>
+      </section>
     </div>
   );
 }
-
-
