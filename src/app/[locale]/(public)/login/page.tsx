@@ -72,54 +72,58 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
   const t = labels[locale as keyof typeof labels] || labels.en;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-primary-50 dark:from-gray-900 dark:to-gray-800 p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+    <div className="min-h-screen flex items-center justify-center bg-tech-bg p-4 tech-grid-bg">
+      <div className="absolute inset-0 bg-tech-radial pointer-events-none" />
+      <div className="w-full max-w-md relative z-10">
+        <div className="tech-card-elevated tech-border-gradient !p-8">
           <div className="flex justify-center mb-8">
             <Logo size="lg" />
           </div>
 
-          <h1 className="text-2xl font-bold text-center mb-8 text-gray-900 dark:text-white">
+          <div className="tech-badge mb-4 mx-auto w-fit">
+            <span className="font-mono">// SIGN IN</span>
+          </div>
+          <h1 className="text-2xl font-display font-bold text-center mb-8 text-tech-text">
             {t.title}
           </h1>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center gap-3 text-red-700 dark:text-red-400">
+            <div className="mb-6 p-4 bg-tech-danger/10 border border-tech-danger/30 rounded-lg flex items-center gap-3 text-tech-danger">
               <AlertCircle className="w-5 h-5 flex-shrink-0" />
               <span className="text-sm">{error}</span>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {t.email}
+              <label className="block text-xs font-mono uppercase tracking-wider text-tech-text-muted mb-2">
+                // {t.email}
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-tech-text-muted" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 bg-tech-surface border border-tech-border rounded-lg text-tech-text placeholder-tech-text-muted focus:outline-none focus:border-tech-accent focus:ring-1 focus:ring-tech-accent font-mono"
                   placeholder="email@example.com"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {t.password}
+              <label className="block text-xs font-mono uppercase tracking-wider text-tech-text-muted mb-2">
+                // {t.password}
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-tech-text-muted" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 bg-tech-surface border border-tech-border rounded-lg text-tech-text placeholder-tech-text-muted focus:outline-none focus:border-tech-accent focus:ring-1 focus:ring-tech-accent font-mono"
                   placeholder="••••••••"
                 />
               </div>
@@ -128,7 +132,7 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn-primary py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? t.loading : t.submit}
             </button>

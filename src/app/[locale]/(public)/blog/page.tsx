@@ -1,4 +1,3 @@
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { getBlogPosts } from '@/lib/data';
@@ -8,7 +7,6 @@ interface BlogPageProps {
   params: { locale: string };
 }
 
-// Force dynamic rendering due to database queries and next-intl usage
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params: { locale } }: BlogPageProps) {
@@ -22,102 +20,105 @@ export default async function BlogPage({ params: { locale } }: BlogPageProps) {
   const t = await getTranslations({ locale, namespace: 'blog' });
   const tCommon = await getTranslations({ locale, namespace: 'common' });
 
-  const allPosts = await getBlogPosts();
-  const posts = allPosts.filter((post) => post.status === 'published');
+  let posts: Awaited<ReturnType<typeof getBlogPosts>> = [];
+  try {
+    const allPosts = await getBlogPosts();
+    posts = allPosts.filter((post) => post.status === 'published');
+  } catch {
+    posts = [];
+  }
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-gray-50 to-primary-50 dark:from-gray-900 dark:to-gray-800">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">
-              <span className="gradient-text">{t('title')}</span>
+    <div className="min-h-screen">
+      {/* Hero */}
+      <section className="relative pt-32 pb-16 tech-grid-bg">
+        <div className="absolute inset-0 bg-tech-radial pointer-events-none" />
+        <div className="container-custom relative z-10">
+          <div className="max-w-3xl">
+            <div className="tech-badge-accent mb-6">
+              <span className="font-mono text-[11px]">// BLOG</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-display font-bold mb-6 text-tech-text leading-tight">
+              {t('title')}
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
-              {t('subtitle')}
-            </p>
+            <p className="text-lg md:text-xl text-tech-text-dim leading-relaxed">{t('subtitle')}</p>
           </div>
         </div>
       </section>
 
-      {/* Blog Posts */}
-      <section className="section-padding bg-white dark:bg-gray-900">
+      {/* Posts */}
+      <section className="pb-24">
         <div className="container-custom">
           {posts.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-500 dark:text-gray-400">
+            <div className="text-center py-20">
+              <p className="text-tech-text-dim font-mono">
                 {locale === 'ro' && 'Nu există articole publicate încă.'}
                 {locale === 'en' && 'No published articles yet.'}
                 {locale === 'it' && 'Nessun articolo pubblicato ancora.'}
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map((post) => (
-                <article key={post.id} className="card overflow-hidden group">
+                <article key={post.id} className="tech-card group overflow-hidden flex flex-col !p-0">
                   {/* Featured Image */}
-                  <div className="aspect-video bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/30 dark:to-accent-900/30 relative overflow-hidden">
+                  <div className="aspect-video bg-tech-elevated relative overflow-hidden border-b border-tech-border">
                     {post.imageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={post.imageUrl}
                         alt={post.title[locale as keyof typeof post.title] || post.title.en}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-4xl font-display font-bold text-primary-600/20">
-                          Blog
+                      <div className="absolute inset-0 flex items-center justify-center bg-tech-surface">
+                        <span className="text-5xl font-display font-bold text-tech-accent/20 font-mono">
+                          &lt;/&gt;
                         </span>
                       </div>
                     )}
                   </div>
 
-                  {/* Post Content */}
-                  <div className="p-6">
-                    {/* Meta Info */}
-                    <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  <div className="p-6 flex flex-col flex-1">
+                    {/* Meta */}
+                    <div className="flex items-center gap-4 text-xs text-tech-text-muted mb-3 font-mono">
                       <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
+                        <Calendar className="w-3.5 h-3.5" />
                         <span>
                           {new Date(post.publishedAt).toLocaleDateString(
                             locale === 'ro' ? 'ro-RO' : locale === 'it' ? 'it-IT' : 'en-US',
-                            { year: 'numeric', month: 'long', day: 'numeric' }
+                            { year: 'numeric', month: 'short', day: 'numeric' }
                           )}
                         </span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <User className="w-4 h-4" />
+                        <User className="w-3.5 h-3.5" />
                         <span>{post.author}</span>
                       </div>
                     </div>
 
-                    {/* Title */}
-                    <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white group-hover:text-primary-600 transition-colors">
+                    <h2 className="text-xl font-semibold mb-3 text-tech-text group-hover:text-tech-accent transition-colors">
                       {post.title[locale as keyof typeof post.title] || post.title.en}
                     </h2>
 
-                    {/* Excerpt */}
-                    <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                    <p className="text-sm text-tech-text-dim mb-4 line-clamp-3 leading-relaxed flex-1">
                       {post.excerpt[locale as keyof typeof post.excerpt] || post.excerpt.en}
                     </p>
 
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-1.5 mb-4">
                       {post.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded-full text-gray-600 dark:text-gray-300"
+                          className="px-2 py-0.5 bg-tech-elevated border border-tech-border text-[10px] font-mono rounded text-tech-text-dim"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
 
-                    {/* Read More */}
                     <Link
                       href={`/${locale}/blog/${post.slugs[locale as keyof typeof post.slugs]}`}
-                      className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:gap-3 transition-all"
+                      className="inline-flex items-center gap-1.5 text-tech-accent hover:text-tech-accent-hover font-medium text-sm mt-auto"
                     >
                       {tCommon('readMore')}
                       <ArrowRight className="w-4 h-4" />

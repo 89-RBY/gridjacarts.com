@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentUser, createUser } from '@/lib/auth';
 import {
-
-export const dynamic = 'force-dynamic';
   getPartners,
   createPartner,
   updatePartner,
   deletePartner,
   getPartnerByUserId,
 } from '@/lib/data';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
