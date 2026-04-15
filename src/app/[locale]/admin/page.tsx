@@ -352,6 +352,18 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
     if (res.ok || res.status === 404) setProducts(products.filter((p) => p.id !== id));
   };
 
+  const handleReseedProducts = async () => {
+    if (!confirm('Load the 5 default projects (Leachatix, Watable AI, Cumparatura, VreauProaspat, Bestseller Copilot)? Existing projects with the same slug will be updated.')) return;
+    const res = await fetch('/api/admin/products/reseed', { method: 'POST' });
+    const data = await res.json();
+    if (res.ok) {
+      alert(data.message);
+      fetchProducts();
+    } else {
+      alert(data.error || 'Failed to reseed projects');
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -875,12 +887,21 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
         {activeTab === 'projects' && !editingProduct && !isCreatingProduct && (
           <div>
             <div className="flex items-center justify-between mb-6">
-              <button
-                onClick={() => setIsCreatingProduct(true)}
-                className="btn-primary inline-flex items-center gap-2"
-              >
-                <Plus className="w-5 h-5" /> New Project
-              </button>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setIsCreatingProduct(true)}
+                  className="btn-primary inline-flex items-center gap-2"
+                >
+                  <Plus className="w-5 h-5" /> New Project
+                </button>
+                <button
+                  onClick={handleReseedProducts}
+                  className="px-4 py-2 border border-primary-600 text-primary-600 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 inline-flex items-center gap-2"
+                  title="Load the 5 default Gridjac projects"
+                >
+                  <Rocket className="w-5 h-5" /> Load defaults
+                </button>
+              </div>
               <div className="text-sm text-gray-500">
                 {products.length} project{products.length !== 1 ? 's' : ''} total
               </div>

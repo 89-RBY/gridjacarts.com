@@ -1,5 +1,6 @@
 import { prisma } from './prisma';
 import { BlogPost, Service, SiteSettings, PartnerPricing, Partner, PartnerApplication, Product } from '@/types';
+import { PRODUCTS_SEED_DATA } from './products-seed-data';
 
 // Blog Posts
 export async function getBlogPosts(): Promise<BlogPost[]> {
@@ -784,10 +785,36 @@ export async function getProducts(): Promise<Product[]> {
 }
 
 export async function getAllProducts(): Promise<Product[]> {
-  const products = await prisma.product.findMany({
+  let products = await prisma.product.findMany({
     orderBy: [{ featured: 'desc' }, { order: 'asc' }],
   });
+
+  // Auto-seed default products if table is empty (same pattern as getBlogPosts)
+  if (products.length === 0) {
+    for (const product of PRODUCTS_SEED_DATA) {
+      await prisma.product.upsert({
+        where: { slug: product.slug },
+        update: product,
+        create: product,
+      });
+    }
+    products = await prisma.product.findMany({
+      orderBy: [{ featured: 'desc' }, { order: 'asc' }],
+    });
+  }
+
   return products.map(mapProduct);
+}
+
+export async function reseedProducts(): Promise<number> {
+  for (const product of PRODUCTS_SEED_DATA) {
+    await prisma.product.upsert({
+      where: { slug: product.slug },
+      update: product,
+      create: product,
+    });
+  }
+  return PRODUCTS_SEED_DATA.length;
 }
 
 export async function getFeaturedProducts(): Promise<Product[]> {
