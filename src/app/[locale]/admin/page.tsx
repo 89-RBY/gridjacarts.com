@@ -364,6 +364,19 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
     }
   };
 
+  const handleRunMigration = async () => {
+    if (!confirm('Run database migration? This will create the Product table and any missing SiteSettings columns. Safe to run multiple times.')) return;
+    const res = await fetch('/api/admin/migrate', { method: 'POST' });
+    const data = await res.json();
+    if (res.ok) {
+      alert(`Migration completed:\n\n${(data.log || []).join('\n')}`);
+      fetchProducts();
+      fetchSettings();
+    } else {
+      alert(`Migration failed: ${data.error}\n\nCompleted steps:\n${(data.log || []).join('\n')}`);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -887,7 +900,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
         {activeTab === 'projects' && !editingProduct && !isCreatingProduct && (
           <div>
             <div className="flex items-center justify-between mb-6">
-              <div className="flex gap-3">
+              <div className="flex gap-3 flex-wrap">
                 <button
                   onClick={() => setIsCreatingProduct(true)}
                   className="btn-primary inline-flex items-center gap-2"
@@ -900,6 +913,13 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
                   title="Load the 5 default Gridjac projects"
                 >
                   <Rocket className="w-5 h-5" /> Load defaults
+                </button>
+                <button
+                  onClick={handleRunMigration}
+                  className="px-4 py-2 border border-orange-500 text-orange-600 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 inline-flex items-center gap-2"
+                  title="Create Product table if missing (first-time setup)"
+                >
+                  <Settings className="w-5 h-5" /> Run DB migration
                 </button>
               </div>
               <div className="text-sm text-gray-500">
