@@ -3,6 +3,8 @@ import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { getPartnerOrders, createOrder } from '@/lib/tier';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   try {
     const currentUser = await getCurrentUser();

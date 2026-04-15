@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import {
+
+export const dynamic = 'force-dynamic';
   Send,
   CheckCircle,
   TrendingUp,

@@ -22,6 +22,8 @@ import ContractModal from '@/components/ContractModal';
 import ServiceDetailsModal from '@/components/ServiceDetailsModal';
 import { User as UserType, Partner, ServicePricing, BonusService, Order, Contract } from '@/types';
 
+export const dynamic = 'force-dynamic';
+
 type TabType = 'dashboard' | 'orders' | 'bonuses' | 'contracts' | 'pricing' | 'profile';
 
 export default function PartnerPortal({ params: { locale } }: { params: { locale: string } }) {

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { prisma } from '@/lib/prisma'; // Ensure you have this import correctly set up for your project structure
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   let settings;
   try {

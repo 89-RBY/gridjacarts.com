@@ -30,6 +30,8 @@ import TeamEditor from '@/components/admin/TeamEditor';
 import { User, BlogPost, SiteSettings, Partner, PartnerApplication, ServicePricing, Contract, NewsletterSubscriber, TeamMember } from '@/types';
 import ImageUploader from '@/components/ImageUploader';
 
+export const dynamic = 'force-dynamic';
+
 export default function AdminDashboard({ params: { locale } }: { params: { locale: string } }) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);

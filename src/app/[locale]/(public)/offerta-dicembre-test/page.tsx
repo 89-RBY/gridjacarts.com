@@ -9,6 +9,8 @@ import { useCountUp } from '@/hooks/useCountUp';
 import { useScrollDepth, usePageEngagement, usePackageViewTracking } from '@/hooks/useAnalytics';
 import { trackCTAClick, trackFloatingButtonClick } from '@/lib/analytics';
 
+export const dynamic = 'force-dynamic';
+
 export default function OffertaDicembreTestPage({ params }: { params: { locale: string } }) {
     const t = useTranslations('offertaDicembre');
 

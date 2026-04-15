@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentUser, createUser } from '@/lib/auth';
 import {
+
+export const dynamic = 'force-dynamic';
   getPartnerApplications,
   createPartnerApplication,
   updatePartnerApplication,

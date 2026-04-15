@@ -3,6 +3,8 @@ import { getCurrentUser } from '@/lib/auth';
 import { getBlogPosts, saveBlogPosts } from '@/lib/data';
 import { BlogPost } from '@/types';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const posts = await getBlogPosts();

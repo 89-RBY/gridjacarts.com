@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { getTeamMembers, saveTeamMember, deleteTeamMember } from '@/lib/data';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
     try {
         const members = await getTeamMembers();
