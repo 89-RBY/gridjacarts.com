@@ -13,10 +13,9 @@ export default function Logo({ className = '', size = 'md' }: LogoProps) {
   };
 
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
+    <div className={`flex items-center gap-2.5 ${className}`}>
       <div className={`${sizes[size]} aspect-square relative`}>
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          {/* Grid pattern background */}
+        <svg viewBox="0 0 100 100" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#0ea5e9" />
@@ -25,30 +24,54 @@ export default function Logo({ className = '', size = 'md' }: LogoProps) {
             </linearGradient>
           </defs>
 
-          {/* Main grid square */}
+          {/* Terminal window frame */}
           <rect
-            x="10"
-            y="10"
-            width="80"
-            height="80"
-            rx="8"
+            x="8"
+            y="12"
+            width="84"
+            height="76"
+            rx="10"
             fill="none"
             stroke="url(#logoGradient)"
-            strokeWidth="4"
+            strokeWidth="5"
           />
 
-          {/* Grid lines */}
-          <line x1="10" y1="36" x2="90" y2="36" stroke="url(#logoGradient)" strokeWidth="2" opacity="0.6" />
-          <line x1="10" y1="64" x2="90" y2="64" stroke="url(#logoGradient)" strokeWidth="2" opacity="0.6" />
-          <line x1="36" y1="10" x2="36" y2="90" stroke="url(#logoGradient)" strokeWidth="2" opacity="0.6" />
-          <line x1="64" y1="10" x2="64" y2="90" stroke="url(#logoGradient)" strokeWidth="2" opacity="0.6" />
+          {/* Terminal header bar */}
+          <line
+            x1="8"
+            y1="30"
+            x2="92"
+            y2="30"
+            stroke="url(#logoGradient)"
+            strokeWidth="2.5"
+            opacity="0.6"
+          />
 
-          {/* Accent dot */}
-          <circle cx="50" cy="50" r="12" fill="url(#logoGradient)" />
+          {/* Window dots (traffic lights) */}
+          <circle cx="18" cy="21" r="2.5" fill="#ff5f57" />
+          <circle cx="27" cy="21" r="2.5" fill="#febc2e" />
+          <circle cx="36" cy="21" r="2.5" fill="#28c840" />
 
-          {/* Corner accents */}
-          <circle cx="23" cy="23" r="4" fill="#0ea5e9" opacity="0.8" />
-          <circle cx="77" cy="77" r="4" fill="#d946ef" opacity="0.8" />
+          {/* Prompt chevron: > */}
+          <polyline
+            points="22,50 32,60 22,70"
+            fill="none"
+            stroke="url(#logoGradient)"
+            strokeWidth="5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+
+          {/* Blinking cursor underscore */}
+          <rect x="42" y="67" width="28" height="5" rx="1" fill="url(#logoGradient)">
+            <animate
+              attributeName="opacity"
+              values="1;1;0;0;1"
+              keyTimes="0;0.5;0.5;1;1"
+              dur="1.1s"
+              repeatCount="indefinite"
+            />
+          </rect>
         </svg>
       </div>
       <div className="flex items-baseline gap-1">
