@@ -51,12 +51,12 @@ export default function Logo({ className = '', size = 'md' }: LogoProps) {
           <circle cx="77" cy="77" r="4" fill="#d946ef" opacity="0.8" />
         </svg>
       </div>
-      <div className="flex flex-col">
+      <div className="flex items-baseline gap-1">
         <span className="font-display font-bold text-lg leading-tight bg-gradient-to-r from-primary-600 via-violet-600 to-accent-600 bg-clip-text text-transparent">
           Gridjac
         </span>
-        <span className="font-display font-light text-sm leading-tight text-gray-600 dark:text-gray-300">
-          Art&apos;s
+        <span className="font-mono font-semibold text-sm leading-tight text-tech-accent">
+          Arts
         </span>
       </div>
     </div>

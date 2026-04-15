@@ -1,6 +1,6 @@
 {
   "common": {
-    "brand": "Gridjac Art's",
+    "brand": "Gridjac Arts",
     "tagline": "Software house automating your business",
     "learnMore": "Learn More",
     "contactUs": "Contact Us",
@@ -78,7 +78,7 @@
       "subtitle": "Complete software solutions for businesses that want to grow with technology"
     },
     "whyUs": {
-      "title": "Why Gridjac Art's",
+      "title": "Why Gridjac Arts",
       "partner": {
         "title": "Partners, not vendors",
         "description": "We understand your business before we write a line of code"
@@ -136,7 +136,7 @@
   },
   "products": {
     "meta": {
-      "title": "Products — Live software built by Gridjac Art's",
+      "title": "Products — Live software built by Gridjac Arts",
       "description": "Discover the SaaS products and platforms we've built: AI automation, e-commerce, vertical marketplaces. Live software with real customers."
     },
     "title": "Our products",
@@ -181,7 +181,7 @@
     }
   },
   "about": {
-    "title": "About Gridjac Art's",
+    "title": "About Gridjac Arts",
     "subtitle": "Software house based in Romania and Italy",
     "mission": {
       "title": "Our mission",
@@ -271,10 +271,10 @@
     "by": "by"
   },
   "metadata": {
-    "defaultTitle": "Gridjac Art's — Software house automating your business",
+    "defaultTitle": "Gridjac Arts — Software house automating your business",
     "description": "We build custom software, integrate AI and automate processes for businesses that want to grow. From MVP to production-grade platforms.",
     "keywords": "software house,process automation,AI integration,custom web apps,MVP development,SaaS development,Next.js,TypeScript",
-    "ogTitle": "Gridjac Art's — Software house & automation",
+    "ogTitle": "Gridjac Arts — Software house & automation",
     "ogDescription": "Custom software, AI integration and process automation for businesses that want to grow.",
     "twitterDescription": "Software house automating your business"
   }

@@ -1,6 +1,6 @@
 {
   "common": {
-    "brand": "Gridjac Art's",
+    "brand": "Gridjac Arts",
     "tagline": "Software house care automatizează afacerea ta",
     "learnMore": "Află mai multe",
     "contactUs": "Contactează-ne",
@@ -78,7 +78,7 @@
       "subtitle": "Soluții software complete pentru afaceri care vor să crească cu tehnologie"
     },
     "whyUs": {
-      "title": "De ce Gridjac Art's",
+      "title": "De ce Gridjac Arts",
       "partner": {
         "title": "Parteneri, nu furnizori",
         "description": "Îți înțelegem afacerea înainte să scriem o linie de cod"
@@ -136,7 +136,7 @@
   },
   "products": {
     "meta": {
-      "title": "Produse — Software live construit de Gridjac Art's",
+      "title": "Produse — Software live construit de Gridjac Arts",
       "description": "Descoperă produsele SaaS și platformele pe care le-am construit: AI automation, e-commerce, marketplace-uri verticale. Software live cu clienți reali."
     },
     "title": "Produsele noastre",
@@ -181,7 +181,7 @@
     }
   },
   "about": {
-    "title": "Despre Gridjac Art's",
+    "title": "Despre Gridjac Arts",
     "subtitle": "Software house cu sediu în România și Italia",
     "mission": {
       "title": "Misiunea noastră",
@@ -271,10 +271,10 @@
     "by": "de"
   },
   "metadata": {
-    "defaultTitle": "Gridjac Art's — Software house care automatizează afacerea ta",
+    "defaultTitle": "Gridjac Arts — Software house care automatizează afacerea ta",
     "description": "Construim software custom, integrăm AI și automatizăm procese pentru businessuri care vor să crească. De la MVP la platforme scalate pentru producție.",
     "keywords": "software house,automatizare procese,AI integration,custom web apps,MVP development,SaaS development,Next.js,TypeScript",
-    "ogTitle": "Gridjac Art's — Software house & automation",
+    "ogTitle": "Gridjac Arts — Software house & automation",
     "ogDescription": "Software custom, AI integration și automatizare procese pentru businessuri care vor să crească.",
     "twitterDescription": "Software house care automatizează afacerea ta"
   }

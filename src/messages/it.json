@@ -1,6 +1,6 @@
 {
   "common": {
-    "brand": "Gridjac Art's",
+    "brand": "Gridjac Arts",
     "tagline": "Software house che automatizza il tuo business",
     "learnMore": "Scopri di più",
     "contactUs": "Contattaci",
@@ -78,7 +78,7 @@
       "subtitle": "Soluzioni software complete per business che vogliono crescere con la tecnologia"
     },
     "whyUs": {
-      "title": "Perché Gridjac Art's",
+      "title": "Perché Gridjac Arts",
       "partner": {
         "title": "Partner, non fornitori",
         "description": "Capiamo il tuo business prima di scrivere una riga di codice"
@@ -136,7 +136,7 @@
   },
   "products": {
     "meta": {
-      "title": "Prodotti — Software live costruito da Gridjac Art's",
+      "title": "Prodotti — Software live costruito da Gridjac Arts",
       "description": "Scopri i prodotti SaaS e le piattaforme che abbiamo costruito: AI automation, e-commerce, marketplace verticali. Software live con clienti reali."
     },
     "title": "I nostri prodotti",
@@ -181,7 +181,7 @@
     }
   },
   "about": {
-    "title": "Su Gridjac Art's",
+    "title": "Su Gridjac Arts",
     "subtitle": "Software house con sede in Romania e Italia",
     "mission": {
       "title": "La nostra missione",
@@ -271,10 +271,10 @@
     "by": "di"
   },
   "metadata": {
-    "defaultTitle": "Gridjac Art's — Software house che automatizza il tuo business",
+    "defaultTitle": "Gridjac Arts — Software house che automatizza il tuo business",
     "description": "Costruiamo software custom, integriamo AI e automatizziamo processi per business che vogliono crescere. Da MVP a piattaforme production-grade.",
     "keywords": "software house,automazione processi,AI integration,custom web apps,MVP development,SaaS development,Next.js,TypeScript",
-    "ogTitle": "Gridjac Art's — Software house & automation",
+    "ogTitle": "Gridjac Arts — Software house & automation",
     "ogDescription": "Software custom, AI integration e automazione processi per business che vogliono crescere.",
     "twitterDescription": "Software house che automatizza il tuo business"
   }
