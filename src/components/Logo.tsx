@@ -18,9 +18,8 @@ export default function Logo({ className = '', size = 'md' }: LogoProps) {
         <svg viewBox="0 0 100 100" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#0ea5e9" />
-              <stop offset="50%" stopColor="#8b5cf6" />
-              <stop offset="100%" stopColor="#d946ef" />
+              <stop offset="0%" stopColor="#00ff88" />
+              <stop offset="100%" stopColor="#00d4ff" />
             </linearGradient>
           </defs>
 
@@ -75,7 +74,7 @@ export default function Logo({ className = '', size = 'md' }: LogoProps) {
         </svg>
       </div>
       <div className="flex items-baseline gap-1">
-        <span className="font-display font-bold text-lg leading-tight bg-gradient-to-r from-primary-600 via-violet-600 to-accent-600 bg-clip-text text-transparent">
+        <span className="font-display font-bold text-lg leading-tight bg-gradient-to-r from-tech-accent to-tech-cyan bg-clip-text text-transparent">
           Gridjac
         </span>
         <span className="font-mono font-semibold text-sm leading-tight text-tech-accent">
