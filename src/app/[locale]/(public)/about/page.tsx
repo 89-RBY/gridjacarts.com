@@ -34,7 +34,7 @@ export default function AboutPage({ params: { locale } }: AboutPageProps) {
         <div className="container-custom relative z-10">
           <div className="max-w-3xl">
             <div className="tech-badge-accent mb-6">
-              <span className="font-mono text-[11px]">// ABOUT</span>
+              <span className="font-mono text-[11px]">{'//'} ABOUT</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-display font-bold mb-6 text-tech-text leading-tight">
               {t('title')}
@@ -54,7 +54,7 @@ export default function AboutPage({ params: { locale } }: AboutPageProps) {
               <div className="flex items-center gap-2 mb-4">
                 <Target className="w-5 h-5 text-tech-accent" />
                 <span className="text-xs font-mono uppercase text-tech-text-muted tracking-wider">
-                  // {t('mission.title')}
+                  {'//'} {t('mission.title')}
                 </span>
               </div>
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-tech-text">
@@ -68,7 +68,7 @@ export default function AboutPage({ params: { locale } }: AboutPageProps) {
                   <Handshake className="w-10 h-10 text-tech-accent" />
                 </div>
                 <div className="font-mono text-xs text-tech-text-muted uppercase tracking-wider">
-                  // partnership.init()
+                  {'//'} partnership.init()
                 </div>
               </div>
             </div>
@@ -86,7 +86,7 @@ export default function AboutPage({ params: { locale } }: AboutPageProps) {
                   <Compass className="w-10 h-10 text-tech-cyan" />
                 </div>
                 <div className="font-mono text-xs text-tech-text-muted uppercase tracking-wider">
-                  // vision.forward()
+                  {'//'} vision.forward()
                 </div>
               </div>
             </div>
@@ -94,7 +94,7 @@ export default function AboutPage({ params: { locale } }: AboutPageProps) {
               <div className="flex items-center gap-2 mb-4">
                 <Compass className="w-5 h-5 text-tech-accent" />
                 <span className="text-xs font-mono uppercase text-tech-text-muted tracking-wider">
-                  // {t('vision.title')}
+                  {'//'} {t('vision.title')}
                 </span>
               </div>
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-tech-text">
@@ -111,7 +111,7 @@ export default function AboutPage({ params: { locale } }: AboutPageProps) {
         <div className="container-custom">
           <div className="text-center mb-12">
             <div className="tech-badge mb-4">
-              <span className="font-mono">// VALUES</span>
+              <span className="font-mono">{'//'} VALUES</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-bold text-tech-text">
               {t('values.title')}
@@ -135,7 +135,7 @@ export default function AboutPage({ params: { locale } }: AboutPageProps) {
         <div className="container-custom">
           <div className="text-center mb-12">
             <div className="tech-badge mb-4">
-              <span className="font-mono">// TEAM</span>
+              <span className="font-mono">{'//'} TEAM</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-bold text-tech-text">
               {t('team.title')}

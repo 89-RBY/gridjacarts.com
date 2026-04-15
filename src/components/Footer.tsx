@@ -97,7 +97,7 @@ export default function Footer({ locale }: FooterProps) {
           {/* Quick Links */}
           <div>
             <h3 className="text-xs font-mono uppercase tracking-wider text-tech-text-muted mb-4">
-              // {t('quickLinks')}
+              {'//'} {t('quickLinks')}
             </h3>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
@@ -116,7 +116,7 @@ export default function Footer({ locale }: FooterProps) {
           {/* Contact Info */}
           <div>
             <h3 className="text-xs font-mono uppercase tracking-wider text-tech-text-muted mb-4">
-              // {t('contact')}
+              {'//'} {t('contact')}
             </h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
@@ -155,7 +155,7 @@ export default function Footer({ locale }: FooterProps) {
           {/* Newsletter */}
           <div>
             <h3 className="text-xs font-mono uppercase tracking-wider text-tech-text-muted mb-4">
-              // {t('newsletter')}
+              {'//'} {t('newsletter')}
             </h3>
             <p className="text-sm text-tech-text-dim mb-4 leading-relaxed">{t('newsletterText')}</p>
             <form onSubmit={handleNewsletterSubmit} className="space-y-2">

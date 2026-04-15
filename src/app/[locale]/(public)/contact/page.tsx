@@ -45,7 +45,7 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
         <div className="container-custom relative z-10">
           <div className="max-w-3xl">
             <div className="tech-badge-accent mb-6">
-              <span className="font-mono text-[11px]">// CONTACT</span>
+              <span className="font-mono text-[11px]">{'//'} CONTACT</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-display font-bold mb-6 text-tech-text leading-tight">
               {t('title')}
@@ -70,7 +70,7 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
                 <Mail className="w-5 h-5 text-tech-accent" />
               </div>
               <div className="text-xs font-mono uppercase text-tech-text-muted mb-2">
-                // email
+                {'//'} email
               </div>
               <div className="text-lg font-semibold text-tech-text group-hover:text-tech-accent transition-colors">
                 info@gridjacarts.com
@@ -89,7 +89,7 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
                 <Calendar className="w-5 h-5 text-tech-accent" />
               </div>
               <div className="text-xs font-mono uppercase text-tech-text-muted mb-2">
-                // book call
+                {'//'} book call
               </div>
               <div className="text-lg font-semibold text-tech-text group-hover:text-tech-accent transition-colors">
                 {tCommon('bookCall')}
@@ -105,7 +105,7 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
                 <Phone className="w-5 h-5 text-tech-cyan" />
               </div>
               <div className="text-xs font-mono uppercase text-tech-text-muted mb-2">
-                // phone
+                {'//'} phone
               </div>
               <div className="space-y-1">
                 <a href="tel:+40770362294" className="block text-tech-text hover:text-tech-accent transition-colors">
@@ -125,7 +125,7 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
         <div className="container-custom">
           <div className="mb-8">
             <div className="tech-badge mb-4">
-              <span className="font-mono">// LOCATIONS</span>
+              <span className="font-mono">{'//'} LOCATIONS</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text">
               {tCommon('address')}
@@ -166,7 +166,7 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
       <section className="pb-24">
         <div className="container-custom text-center">
           <h2 className="text-xs font-mono uppercase text-tech-text-muted tracking-wider mb-6">
-            // {tCommon('followUs')}
+            {'//'} {tCommon('followUs')}
           </h2>
           <div className="flex justify-center gap-4">
             {[

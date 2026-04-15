@@ -207,7 +207,7 @@ function HomePageContent({
         <div className="container-custom relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <div className="tech-badge mb-4">
-              <span className="font-mono">// VALUE</span>
+              <span className="font-mono">{'//'} VALUE</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 text-tech-text">
               {t('valueProps.title')}
@@ -239,7 +239,7 @@ function HomePageContent({
             <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4">
               <div>
                 <div className="tech-badge mb-4">
-                  <span className="font-mono">// PRODUCTS</span>
+                  <span className="font-mono">{'//'} PRODUCTS</span>
                 </div>
                 <h2 className="text-3xl md:text-5xl font-display font-bold text-tech-text">
                   {t('products.title')}
@@ -296,7 +296,7 @@ function HomePageContent({
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <div className="tech-badge mb-4">
-              <span className="font-mono">// PROCESS</span>
+              <span className="font-mono">{'//'} PROCESS</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 text-tech-text">
               {t('process.title')}
@@ -331,7 +331,7 @@ function HomePageContent({
         <div className="container-custom relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <div className="tech-badge mb-4">
-              <span className="font-mono">// SERVICES</span>
+              <span className="font-mono">{'//'} SERVICES</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 text-tech-text">
               {t('services.title')}
@@ -368,7 +368,7 @@ function HomePageContent({
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <div className="tech-badge mb-4">
-              <span className="font-mono">// STACK</span>
+              <span className="font-mono">{'//'} STACK</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-tech-text">
               {t('techStack.title')}
@@ -397,7 +397,7 @@ function HomePageContent({
         <div className="container-custom relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <div className="tech-badge mb-4">
-              <span className="font-mono">// WHY</span>
+              <span className="font-mono">{'//'} WHY</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 text-tech-text">
               {t('whyUs.title')}
@@ -428,7 +428,7 @@ function HomePageContent({
         <div className="container-custom relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <div className="tech-badge-accent mb-6">
-              <span className="font-mono">// LET&apos;S BUILD</span>
+              <span className="font-mono">{'//'} LET&apos;S BUILD</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 text-tech-text text-balance">
               {t('cta.title')}

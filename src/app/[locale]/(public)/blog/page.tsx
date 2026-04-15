@@ -36,7 +36,7 @@ export default async function BlogPage({ params: { locale } }: BlogPageProps) {
         <div className="container-custom relative z-10">
           <div className="max-w-3xl">
             <div className="tech-badge-accent mb-6">
-              <span className="font-mono text-[11px]">// BLOG</span>
+              <span className="font-mono text-[11px]">{'//'} BLOG</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-display font-bold mb-6 text-tech-text leading-tight">
               {t('title')}

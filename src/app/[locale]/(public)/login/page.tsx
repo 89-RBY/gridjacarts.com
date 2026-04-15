@@ -81,7 +81,7 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
           </div>
 
           <div className="tech-badge mb-4 mx-auto w-fit">
-            <span className="font-mono">// SIGN IN</span>
+            <span className="font-mono">{'//'} SIGN IN</span>
           </div>
           <h1 className="text-2xl font-display font-bold text-center mb-8 text-tech-text">
             {t.title}
@@ -97,7 +97,7 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-xs font-mono uppercase tracking-wider text-tech-text-muted mb-2">
-                // {t.email}
+                {'//'} {t.email}
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-tech-text-muted" />
@@ -114,7 +114,7 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
 
             <div>
               <label className="block text-xs font-mono uppercase tracking-wider text-tech-text-muted mb-2">
-                // {t.password}
+                {'//'} {t.password}
               </label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-tech-text-muted" />

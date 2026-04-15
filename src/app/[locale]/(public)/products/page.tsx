@@ -47,7 +47,7 @@ function ProductsPageContent({
         <div className="container-custom relative z-10">
           <div className="max-w-3xl">
             <div className="tech-badge-accent mb-6">
-              <span className="font-mono text-[11px]">// PRODUCTS</span>
+              <span className="font-mono text-[11px]">{'//'} PRODUCTS</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-display font-bold mb-6 text-tech-text leading-tight">
               {t('title')}

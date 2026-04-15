@@ -121,7 +121,7 @@ export default function LabsPage({ params: { locale } }: LabsPageProps) {
         <div className="container-custom">
           <div className="mb-16">
             <div className="tech-badge mb-4">
-              <span className="font-mono">// AREAS</span>
+              <span className="font-mono">{'//'} AREAS</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-bold text-tech-text">
               {t('areas.title')}
@@ -159,7 +159,7 @@ export default function LabsPage({ params: { locale } }: LabsPageProps) {
         <div className="container-custom">
           <div className="mb-12">
             <div className="tech-badge mb-4">
-              <span className="font-mono">// EXPERIMENTS</span>
+              <span className="font-mono">{'//'} EXPERIMENTS</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-bold text-tech-text mb-4">
               {locale === 'ro' && 'Experimente active'}
@@ -218,7 +218,7 @@ export default function LabsPage({ params: { locale } }: LabsPageProps) {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="tech-badge mb-4">
-                <span className="font-mono">// PHILOSOPHY</span>
+                <span className="font-mono">{'//'} PHILOSOPHY</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-tech-text">
                 {locale === 'ro' && 'De la experiment la produs'}
@@ -243,7 +243,7 @@ export default function LabsPage({ params: { locale } }: LabsPageProps) {
                   <Zap className="w-5 h-5 text-tech-accent" />
                 </div>
                 <div className="text-xs font-mono uppercase text-tech-text-muted tracking-wider">
-                  // principles
+                  {'//'} principles
                 </div>
               </div>
               <ul className="space-y-4 text-tech-text-dim">
