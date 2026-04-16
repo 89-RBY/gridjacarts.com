@@ -1082,7 +1082,6 @@ Non indovinare. Decidi con dati concreti.`,
     status: 'published' as const,
     publishedAt: new Date('2024-03-28').toISOString(),
   },
-];
   {
     slug: 'ai-writing-tools-scrivere-veloce',
     slugs: {
