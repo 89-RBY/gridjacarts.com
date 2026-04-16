@@ -379,6 +379,18 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
     }
   };
 
+  const handleReseedBlogPosts = async () => {
+    if (!confirm('Load the 6 default blog posts? Existing posts with the same slug will be updated.')) return;
+    const res = await fetch('/api/admin/blog/reseed', { method: 'POST' });
+    const data = await res.json();
+    if (res.ok) {
+      alert(data.message);
+      fetchPosts();
+    } else {
+      alert(data.error || 'Failed to reseed blog posts');
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -460,10 +472,10 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg z-40 transition-transform duration-300 ${
+      <aside className={`fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg z-40 transition-transform duration-300 flex flex-col ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       }`}>
-        <div className="p-6 flex items-center justify-between">
+        <div className="p-6 flex items-center justify-between flex-shrink-0">
           <Logo size="md" />
           <button
             onClick={() => setSidebarOpen(false)}
@@ -472,7 +484,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
             <X className="w-5 h-5" />
           </button>
         </div>
-        <nav className="mt-6">
+        <nav className="mt-6 flex-1 overflow-y-auto pb-20">
           {[
             { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
             { id: 'applications', icon: ClipboardList, label: 'Applications', badge: pendingApplications },
@@ -775,9 +787,18 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
 
         {activeTab === 'blog' && !editingPost && !isCreating && (
           <div>
-            <button onClick={() => setIsCreating(true)} className="mb-6 btn-primary inline-flex items-center gap-2">
-              <Plus className="w-5 h-5" /> New Post
-            </button>
+            <div className="mb-6 flex flex-wrap gap-3">
+              <button onClick={() => setIsCreating(true)} className="btn-primary inline-flex items-center gap-2">
+                <Plus className="w-5 h-5" /> New Post
+              </button>
+              <button
+                onClick={handleReseedBlogPosts}
+                className="btn-secondary inline-flex items-center gap-2"
+                title="Load 6 SEO-optimized blog posts"
+              >
+                <Rocket className="w-5 h-5" /> Load Default Posts
+              </button>
+            </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 dark:bg-gray-700">
