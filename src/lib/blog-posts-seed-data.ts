@@ -264,11 +264,24 @@ Clientii pot:
 
 ## Costuri vs beneficii
 
-**Investment inițial**: €3,000 - €8,000 (în funcție de dimensiune)
-**ROI**: 6-9 luni (prin economii personal + reducere waste)
-**Cost lunar**: €200-400 (întreținere + updates)
+**Setup**: GRATUIT - fără costuri inițiale
+**Pachete lunare**: €79 - €199 (3 opțiuni disponibile)
 
-**Economii anuale**: €25,000-40,000
+**Basic (€79/lună)**:
+- Toate funcțiile de bază
+- Fără sistem de plăți integrate
+
+**Pro (€149/lună)**:
+- Tot din Basic +
+- Plăți WhatsApp prin Stripe Connect
+- Comision tranzacții: 2.4-2.5%
+
+**Max (€199/lună)**:
+- Tot din Pro +
+- Funcții avansate analytics
+- Comision redus: 1.9%
+
+**ROI**: 3-6 luni prin economii de timp și creștere rezervări
 
 ## Cum implementezi automatizarea
 
@@ -343,11 +356,24 @@ Customers can:
 
 ## Costs vs Benefits
 
-**Initial investment**: €3,000 - €8,000 (depending on size)
-**ROI**: 6-9 months (through staff savings + waste reduction)
-**Monthly cost**: €200-400 (maintenance + updates)
+**Setup**: FREE - no initial costs
+**Monthly plans**: €79 - €199 (3 options available)
 
-**Annual savings**: €25,000-40,000
+**Basic (€79/month)**:
+- All core features
+- No integrated payment system
+
+**Pro (€149/month)**:
+- Everything in Basic +
+- WhatsApp payments via Stripe Connect
+- Transaction fee: 2.4-2.5%
+
+**Max (€199/month)**:
+- Everything in Pro +
+- Advanced analytics features
+- Reduced fee: 1.9%
+
+**ROI**: 3-6 months through time savings and increased bookings
 
 ## How to Implement Automation
 
@@ -422,11 +448,24 @@ I clienti possono:
 
 ## Costi vs Benefici
 
-**Investment iniziale**: €3,000 - €8,000 (in base alla dimensione)
-**ROI**: 6-9 mesi (tramite risparmi personale + riduzione waste)
-**Costo mensile**: €200-400 (manutenzione + aggiornamenti)
+**Setup**: GRATUITO - nessun costo iniziale
+**Piani mensili**: €79 - €199 (3 opzioni disponibili)
 
-**Risparmi annuali**: €25,000-40,000
+**Basic (€79/mese)**:
+- Tutte le funzioni base
+- Senza sistema di pagamenti integrato
+
+**Pro (€149/mese)**:
+- Tutto del Basic +
+- Pagamenti WhatsApp tramite Stripe Connect
+- Commissione transazioni: 2.4-2.5%
+
+**Max (€199/mese)**:
+- Tutto del Pro +
+- Funzioni analytics avanzate
+- Commissione ridotta: 1.9%
+
+**ROI**: 3-6 mesi tramite risparmi di tempo e aumento prenotazioni
 
 ## Come Implementare l'Automazione
 
