@@ -22,6 +22,7 @@ import {
   Cookie,
   Users,
   Rocket,
+  Menu,
 } from 'lucide-react';
 import Logo from '@/components/Logo';
 import ContractModal from '@/components/ContractModal';
@@ -38,6 +39,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [partners, setPartners] = useState<Partner[]>([]);
@@ -449,9 +451,26 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-      <aside className="fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg z-40">
-        <div className="p-6">
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg z-40 transition-transform duration-300 ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+      }`}>
+        <div className="p-6 flex items-center justify-between">
           <Logo size="md" />
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="lg:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
         <nav className="mt-6">
           {[
@@ -469,7 +488,10 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
           ].map((item) => (
             <button
               key={item.id}
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => {
+                setActiveTab(item.id);
+                setSidebarOpen(false); // Close sidebar on mobile when tab clicked
+              }}
               className={`w-full flex items-center justify-between px-6 py-3 text-left ${activeTab === item.id
                 ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 border-r-4 border-primary-600'
                 : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
@@ -496,10 +518,23 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
         </div>
       </aside>
 
-      <main className="ml-64 p-8">
-        <div className="mb-8">
+      {/* Main content */}
+      <main className="lg:ml-64 p-4 md:p-8">
+        {/* Mobile header with hamburger */}
+        <div className="lg:hidden mb-4 flex items-center gap-4">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+          <h1 className="text-xl font-bold">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
+        </div>
+
+        {/* Desktop header */}
+        <div className="hidden lg:block mb-8">
           <h1 className="text-3xl font-bold">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
-          <p className="text-gray-600 mt-2">Welcome, {user?.name}</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-2">Welcome, {user?.name}</p>
         </div>
 
         {activeTab === 'dashboard' && (
@@ -606,15 +641,15 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
             >
               <Plus className="w-5 h-5" /> New Partner
             </button>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th className="px-6 py-3 text-left text-sm font-medium">Company</th>
-                    <th className="px-6 py-3 text-left text-sm font-medium">Contact</th>
-                    <th className="px-6 py-3 text-center text-sm font-medium">Markup</th>
-                    <th className="px-6 py-3 text-center text-sm font-medium">Status</th>
-                    <th className="px-6 py-3 text-right text-sm font-medium">Actions</th>
+                    <th className="px-6 py-3 text-left text-sm font-medium whitespace-nowrap">Company</th>
+                    <th className="px-6 py-3 text-left text-sm font-medium whitespace-nowrap">Contact</th>
+                    <th className="px-6 py-3 text-center text-sm font-medium whitespace-nowrap">Markup</th>
+                    <th className="px-6 py-3 text-center text-sm font-medium whitespace-nowrap">Status</th>
+                    <th className="px-6 py-3 text-right text-sm font-medium whitespace-nowrap">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
@@ -667,7 +702,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
             >
               <Plus className="w-5 h-5" /> New Service
             </button>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
@@ -743,7 +778,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
             <button onClick={() => setIsCreating(true)} className="mb-6 btn-primary inline-flex items-center gap-2">
               <Plus className="w-5 h-5" /> New Post
             </button>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
@@ -854,7 +889,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
             >
               <Plus className="w-5 h-5" /> New Member
             </button>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
@@ -926,7 +961,7 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
                 {products.length} project{products.length !== 1 ? 's' : ''} total
               </div>
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-x-auto">
               {products.length === 0 ? (
                 <div className="p-12 text-center text-gray-500">
                   No projects yet. Click &quot;New Project&quot; to add one.
