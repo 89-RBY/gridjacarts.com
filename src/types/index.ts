@@ -278,6 +278,67 @@ export interface TeamMember {
   updatedAt: string;
 }
 
+// Service Page Types (marketing pages)
+export interface ServicePage {
+  id: string;
+  slug: string;
+  name: string;
+
+  tagline: {
+    ro: string;
+    en: string;
+    it: string;
+  };
+
+  problem: {
+    ro: string;
+    en: string;
+    it: string;
+  };
+
+  description: {
+    ro: string;
+    en: string;
+    it: string;
+  };
+
+  benefits: {
+    ro: string[];
+    en: string[];
+    it: string[];
+  };
+
+  process: {
+    ro: { step: string; description: string }[];
+    en: { step: string; description: string }[];
+    it: { step: string; description: string }[];
+  };
+
+  techStack: string[];
+
+  relatedProducts: string[]; // product slugs
+
+  icon: string; // lucide icon name
+
+  metaTitle?: {
+    ro?: string;
+    en?: string;
+    it?: string;
+  };
+
+  metaDescription?: {
+    ro?: string;
+    en?: string;
+    it?: string;
+  };
+
+  featured: boolean;
+  order: number;
+
+  createdAt: string;
+  updatedAt: string;
+}
+
 // Product Types
 export type ProductStatus = 'LIVE' | 'BETA' | 'DEVELOPMENT' | 'ARCHIVED';
 

@@ -1,6 +1,7 @@
 import { prisma } from './prisma';
-import { BlogPost, Service, SiteSettings, PartnerPricing, Partner, PartnerApplication, Product } from '@/types';
+import { BlogPost, Service, SiteSettings, PartnerPricing, Partner, PartnerApplication, Product, ServicePage } from '@/types';
 import { PRODUCTS_SEED_DATA } from './products-seed-data';
+import { SERVICES_SEED_DATA } from './services-seed-data';
 
 // Blog Posts
 export async function getBlogPosts(): Promise<BlogPost[]> {
@@ -891,4 +892,63 @@ export async function deleteProduct(id: string): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+// Service Pages (marketing pages - static data)
+function mapServicePage(data: typeof SERVICES_SEED_DATA[0]): ServicePage {
+  return {
+    id: data.id,
+    slug: data.slug,
+    name: data.name,
+    icon: data.icon,
+    tagline: {
+      ro: data.taglineRo,
+      en: data.taglineEn,
+      it: data.taglineIt,
+    },
+    problem: {
+      ro: data.problemRo,
+      en: data.problemEn,
+      it: data.problemIt,
+    },
+    description: {
+      ro: data.descriptionRo,
+      en: data.descriptionEn,
+      it: data.descriptionIt,
+    },
+    benefits: {
+      ro: data.benefitsRo,
+      en: data.benefitsEn,
+      it: data.benefitsIt,
+    },
+    process: {
+      ro: data.processRo,
+      en: data.processEn,
+      it: data.processIt,
+    },
+    techStack: data.techStack,
+    relatedProducts: data.relatedProducts,
+    featured: data.featured,
+    order: data.order,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+export function getAllServicePages(): ServicePage[] {
+  return SERVICES_SEED_DATA.map(mapServicePage).sort((a, b) => a.order - b.order);
+}
+
+export function getServicePageBySlug(slug: string): ServicePage | null {
+  const data = SERVICES_SEED_DATA.find((s) => s.slug === slug);
+  if (!data) return null;
+  return mapServicePage(data);
+}
+
+export function getFeaturedServicePages(limit = 3): ServicePage[] {
+  return SERVICES_SEED_DATA
+    .filter((s) => s.featured)
+    .map(mapServicePage)
+    .sort((a, b) => a.order - b.order)
+    .slice(0, limit);
 }

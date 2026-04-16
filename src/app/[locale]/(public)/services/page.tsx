@@ -11,7 +11,12 @@ import {
   Layers,
   ArrowRight,
   Check,
+  MessageSquare,
+  Utensils,
+  Store,
+  BookOpen,
 } from 'lucide-react';
+import { getAllServicePages } from '@/lib/data';
 
 interface ServicesPageProps {
   params: { locale: string };
@@ -29,79 +34,33 @@ export async function generateMetadata({ params: { locale } }: ServicesPageProps
 export default function ServicesPage({ params: { locale } }: ServicesPageProps) {
   const t = useTranslations('services');
   const tCommon = useTranslations('common');
+  const loc = locale as 'ro' | 'en' | 'it';
 
-  const services = [
-    {
-      icon: Code2,
-      title: t('webDev.title'),
-      description: t('webDev.description'),
-      features: locale === 'ro'
-        ? ['Aplicații scalate pentru producție', 'Arhitectură modulară', 'CI/CD automat', 'Performanță optimă']
-        : locale === 'en'
-        ? ['Production-grade applications', 'Modular architecture', 'Automated CI/CD', 'Optimal performance']
-        : ['Applicazioni production-grade', 'Architettura modulare', 'CI/CD automatizzato', 'Performance ottimali'],
-    },
-    {
-      icon: Workflow,
-      title: t('smm.title'),
-      description: t('smm.description'),
-      features: locale === 'ro'
-        ? ['Integrări API', 'Workflow-uri automate', 'Sincronizări bidirecționale', 'AI agents']
-        : locale === 'en'
-        ? ['API integrations', 'Automated workflows', 'Bidirectional syncs', 'AI agents']
-        : ['Integrazioni API', 'Workflow automatizzati', 'Sync bidirezionali', 'AI agent'],
-    },
-    {
-      icon: Sparkles,
-      title: t('advertising.title'),
-      description: t('advertising.description'),
-      features: locale === 'ro'
-        ? ['Chatboți inteligenți', 'Clasificare automată', 'Generare conținut', 'Decizii data-driven']
-        : locale === 'en'
-        ? ['Intelligent chatbots', 'Automated classification', 'Content generation', 'Data-driven decisions']
-        : ['Chatbot intelligenti', 'Classificazione automatica', 'Generazione contenuti', 'Decisioni data-driven'],
-    },
-    {
-      icon: Rocket,
-      title: t('virtualTours.title'),
-      description: t('virtualTours.description'),
-      features: locale === 'ro'
-        ? ['Prototip funcțional în 4 săptămâni', 'Validare rapidă', 'Feedback loop strâns', 'Path clar spre v1']
-        : locale === 'en'
-        ? ['Functional prototype in 4 weeks', 'Fast validation', 'Tight feedback loop', 'Clear path to v1']
-        : ['Prototipo funzionale in 4 settimane', 'Validazione rapida', 'Feedback loop stretto', 'Path chiaro verso v1'],
-    },
-    {
-      icon: Palette,
-      title: t('webDesign.title'),
-      description: t('webDesign.description'),
-      features: locale === 'ro'
-        ? ['Design systems', 'Conversion-focused UX', 'Prototipare Figma', 'Design tokens']
-        : locale === 'en'
-        ? ['Design systems', 'Conversion-focused UX', 'Figma prototyping', 'Design tokens']
-        : ['Design systems', 'UX focalizzato su conversione', 'Prototipazione Figma', 'Design tokens'],
-    },
-    {
-      icon: Search,
-      title: t('seo.title'),
-      description: t('seo.description'),
-      features: locale === 'ro'
-        ? ['Core Web Vitals', 'Structured data', 'Sitemap dinamic', 'Performanță edge']
-        : locale === 'en'
-        ? ['Core Web Vitals', 'Structured data', 'Dynamic sitemap', 'Edge performance']
-        : ['Core Web Vitals', 'Structured data', 'Sitemap dinamica', 'Performance edge'],
-    },
-    {
-      icon: Layers,
-      title: t('fullStack.title'),
-      description: t('fullStack.description'),
-      features: locale === 'ro'
-        ? ['Backend + Frontend', 'Infrastructure as code', 'DevOps & monitoring', 'Un singur partener']
-        : locale === 'en'
-        ? ['Backend + Frontend', 'Infrastructure as code', 'DevOps & monitoring', 'One single partner']
-        : ['Backend + Frontend', 'Infrastructure as code', 'DevOps & monitoring', 'Un unico partner'],
-    },
-  ];
+  // Get dynamic services from seed data
+  const servicePages = getAllServicePages();
+
+  // Icon mapping
+  const iconMap: Record<string, typeof MessageSquare> = {
+    MessageSquare,
+    Utensils,
+    Store,
+    BookOpen,
+    Layers,
+    Code2,
+    Workflow,
+    Sparkles,
+    Rocket,
+    Palette,
+    Search,
+  };
+
+  const services = servicePages.map((service) => ({
+    slug: service.slug,
+    icon: iconMap[service.icon] || Layers,
+    title: service.name,
+    description: service.tagline[loc],
+    features: service.benefits[loc].slice(0, 4), // Take first 4 benefits as features
+  }));
 
   return (
     <div className="min-h-screen">
@@ -128,15 +87,22 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {services.map((service, index) => (
-              <div key={index} className="tech-card group">
+              <Link
+                key={index}
+                href={`/${locale}/services/${service.slug}`}
+                className="tech-card group hover:border-tech-accent/50 transition-all"
+              >
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center flex-shrink-0 group-hover:bg-tech-accent/20 transition-colors">
                     <service.icon className="w-5 h-5 text-tech-accent" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h2 className="text-xl font-display font-bold mb-2 text-tech-text">
-                      {service.title}
-                    </h2>
+                    <div className="flex items-center justify-between mb-2">
+                      <h2 className="text-xl font-display font-bold text-tech-text group-hover:text-tech-accent transition-colors">
+                        {service.title}
+                      </h2>
+                      <ArrowRight className="w-4 h-4 text-tech-text-muted group-hover:text-tech-accent transition-colors flex-shrink-0" />
+                    </div>
                     <p className="text-sm text-tech-text-dim leading-relaxed mb-4">
                       {service.description}
                     </p>
@@ -150,7 +116,7 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
                     </ul>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
