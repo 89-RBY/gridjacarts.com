@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { BLOG_POSTS_SEED_DATA } from '@/lib/blog-posts-seed-data';
@@ -51,6 +52,9 @@ export async function POST() {
         created++;
       }
     }
+
+    // Revalidate blog pages to clear cache
+    revalidatePath('/[locale]/blog', 'page');
 
     return NextResponse.json({
       message: `Successfully seeded blog posts: ${created} created, ${updated} updated`,
