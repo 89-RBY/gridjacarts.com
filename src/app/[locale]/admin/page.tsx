@@ -391,6 +391,18 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
     }
   };
 
+  const handleReseedServices = async () => {
+    if (!confirm('Load the 14 default services? Existing services with the same type will be updated.')) return;
+    const res = await fetch('/api/admin/services/reseed', { method: 'POST' });
+    const data = await res.json();
+    if (res.ok) {
+      alert(data.message);
+      fetchServices();
+    } else {
+      alert(data.error || 'Failed to reseed services');
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -708,12 +720,21 @@ export default function AdminDashboard({ params: { locale } }: { params: { local
 
         {activeTab === 'services' && !editingService && !isCreatingService && (
           <div>
-            <button
-              onClick={() => setIsCreatingService(true)}
-              className="mb-6 btn-primary inline-flex items-center gap-2"
-            >
-              <Plus className="w-5 h-5" /> New Service
-            </button>
+            <div className="mb-6 flex flex-wrap gap-3">
+              <button
+                onClick={() => setIsCreatingService(true)}
+                className="btn-primary inline-flex items-center gap-2"
+              >
+                <Plus className="w-5 h-5" /> New Service
+              </button>
+              <button
+                onClick={handleReseedServices}
+                className="btn-secondary inline-flex items-center gap-2"
+                title="Load 14 default services (Development, Design, Marketing, Support)"
+              >
+                <Rocket className="w-5 h-5" /> Load Default Services
+              </button>
+            </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 dark:bg-gray-700">

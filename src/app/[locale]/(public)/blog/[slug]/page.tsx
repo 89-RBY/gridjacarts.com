@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { getBlogPostBySlug } from '@/lib/data';
 import { Calendar, User, ArrowLeft, Tag } from 'lucide-react';
 import BlogPostWrapper from '@/components/BlogPostWrapper';
+import { marked } from 'marked';
 
 interface BlogPostPageProps {
   params: { locale: string; slug: string };
@@ -46,6 +47,10 @@ export default async function BlogPostPage({ params: { locale, slug } }: BlogPos
   if (!post || post.status !== 'published') {
     notFound();
   }
+
+  // Parse markdown content to HTML
+  const content = post.content[locale as keyof typeof post.content] || post.content.en;
+  const htmlContent = await marked(content);
 
   return (
     <BlogPostWrapper slugs={post.slugs}>
@@ -121,7 +126,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: BlogPos
                 prose-ol:text-gray-700 dark:prose-ol:text-gray-300 prose-ol:my-6 prose-ol:space-y-2
                 prose-li:text-gray-700 dark:prose-li:text-gray-300"
               dangerouslySetInnerHTML={{
-                __html: post.content[locale as keyof typeof post.content] || post.content.en,
+                __html: htmlContent,
               }}
             />
 
