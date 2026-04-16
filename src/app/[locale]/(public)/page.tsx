@@ -17,6 +17,7 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import TerminalHero from '@/components/TerminalHero';
+import Tooltip from '@/components/Tooltip';
 import { getFeaturedProducts } from '@/lib/data';
 
 interface HomePageProps {
@@ -55,6 +56,51 @@ function HomePageContent({
   const t = useTranslations('home');
   const tCommon = useTranslations('common');
   const tServices = useTranslations('services');
+  const tTooltips = useTranslations('tooltips');
+
+  // Helper to wrap technical terms with tooltips
+  const wrapWithTooltips = (text: string): React.ReactNode => {
+    const terms: Record<string, string> = {
+      'MVP': 'mvp',
+      'production-grade': 'productionGrade',
+      'API': 'api',
+      'SaaS': 'saas',
+      'workflow': 'workflow',
+      'tech stack': 'techStack',
+      'webhook': 'webhook',
+      'AI agent': 'aiAgent',
+      'CRM': 'crm',
+      'ERP': 'erp',
+      'Core Web Vitals': 'coreWebVitals',
+      'ETL': 'etl',
+    };
+
+    let result: React.ReactNode[] = [text];
+
+    Object.entries(terms).forEach(([term, tooltipKey]) => {
+      const newResult: React.ReactNode[] = [];
+      result.forEach((segment) => {
+        if (typeof segment === 'string') {
+          const parts = segment.split(term);
+          parts.forEach((part, i) => {
+            newResult.push(part);
+            if (i < parts.length - 1) {
+              newResult.push(
+                <Tooltip key={`${term}-${i}`} content={tTooltips(tooltipKey)}>
+                  {term}
+                </Tooltip>
+              );
+            }
+          });
+        } else {
+          newResult.push(segment);
+        }
+      });
+      result = newResult;
+    });
+
+    return <>{result}</>;
+  };
 
   const services = [
     { icon: Code2, title: tServices('webDev.title'), description: tServices('webDev.description') },
@@ -155,7 +201,7 @@ function HomePageContent({
               </h1>
 
               <p className="text-lg md:text-xl text-tech-text-dim mb-10 leading-relaxed max-w-xl">
-                {t('hero.subtitle')}
+                {wrapWithTooltips(t('hero.subtitle'))}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
@@ -346,7 +392,7 @@ function HomePageContent({
                   <service.icon className="w-5 h-5 text-tech-accent" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2 text-tech-text">{service.title}</h3>
-                <p className="text-sm text-tech-text-dim leading-relaxed">{service.description}</p>
+                <p className="text-sm text-tech-text-dim leading-relaxed">{wrapWithTooltips(service.description)}</p>
               </div>
             ))}
           </div>

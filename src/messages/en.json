@@ -277,5 +277,19 @@
     "ogTitle": "Gridjac Arts — Software house & automation",
     "ogDescription": "Custom software, AI integration and process automation for businesses that want to grow.",
     "twitterDescription": "Software house automating your business"
+  },
+  "tooltips": {
+    "mvp": "Functional prototype — testable initial version of the product",
+    "api": "Connection that allows different systems to communicate",
+    "saas": "Cloud software accessible via browser, no installation needed",
+    "techStack": "Set of technologies used to build the software",
+    "productionGrade": "Robust, secure software ready for real users",
+    "workflow": "Automated sequence of operations and processes",
+    "etl": "Extract, Transform, Load — data processing pipeline",
+    "crm": "Customer Relationship Management software",
+    "erp": "Enterprise Resource Planning — integrated business system",
+    "coreWebVitals": "Google metrics measuring site speed and usability",
+    "webhook": "Automatic notification sent when something happens",
+    "aiAgent": "Autonomous AI assistant that performs specific tasks"
   }
 }
