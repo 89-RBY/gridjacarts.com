@@ -29,7 +29,12 @@ export async function GET(request: NextRequest) {
 // POST - Subscribe to newsletter
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
+    const { email, website } = await request.json();
+
+    // Honeypot: bots fill hidden fields, humans don't
+    if (website) {
+      return NextResponse.json({ message: 'Subscribed successfully' }, { status: 200 });
+    }
 
     if (!email || !email.includes('@')) {
       return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });

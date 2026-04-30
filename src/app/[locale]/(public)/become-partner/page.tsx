@@ -28,6 +28,7 @@ export default function BecomePartnerPage({ params: { locale } }: { params: { lo
     address: '',
     taxId: '',
     message: '',
+    website: '', // honeypot
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -317,6 +318,18 @@ export default function BecomePartnerPage({ params: { locale } }: { params: { lo
             </div>
 
             <form onSubmit={handleSubmit} className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 rounded-2xl p-8 md:p-12 shadow-xl border border-gray-100 dark:border-gray-700">
+              {/* Honeypot field - invisible to humans, filled by bots */}
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }}>
+                <input
+                  type="text"
+                  name="website"
+                  value={formData.website}
+                  onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               {error && (
                 <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 rounded-lg">
                   <p className="text-red-700 dark:text-red-400 text-sm font-medium">{error}</p>

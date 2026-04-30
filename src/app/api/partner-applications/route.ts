@@ -31,6 +31,11 @@ export async function POST(request: NextRequest) {
   try {
     const applicationData = await request.json();
 
+    // Honeypot: bots fill hidden fields, humans don't
+    if (applicationData.website) {
+      return NextResponse.json({ message: 'Application submitted successfully' }, { status: 200 });
+    }
+
     // Validate required fields
     const requiredFields = ['companyName', 'contactPerson', 'email', 'phone', 'address', 'taxId', 'message'];
     for (const field of requiredFields) {

@@ -15,6 +15,7 @@ export default function Footer({ locale }: FooterProps) {
   const tNav = useTranslations('nav');
   const tCommon = useTranslations('common');
   const [email, setEmail] = useState('');
+  const [honeypot, setHoneypot] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [success, setSuccess] = useState(false);
@@ -44,7 +45,7 @@ export default function Footer({ locale }: FooterProps) {
       const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, website: honeypot }),
       });
 
       const data = await res.json();
@@ -159,6 +160,18 @@ export default function Footer({ locale }: FooterProps) {
             </h3>
             <p className="text-sm text-tech-text-dim mb-4 leading-relaxed">{t('newsletterText')}</p>
             <form onSubmit={handleNewsletterSubmit} className="space-y-2">
+              {/* Honeypot field - invisible to humans, filled by bots */}
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }}>
+                <input
+                  type="text"
+                  name="website"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <input
                 type="email"
                 value={email}
