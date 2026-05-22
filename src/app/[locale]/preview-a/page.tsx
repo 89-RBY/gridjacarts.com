@@ -45,13 +45,13 @@ export default function PreviewAPage({ params: { locale } }: PageProps) {
             id="hero-heading"
             className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] mb-6"
           >
-            Le lettere
+            Da caos
             <br />
-            <span className="text-violet-300">scrivono il diff.</span>
+            <span className="text-violet-300">a pull request.</span>
           </h1>
           <p className="text-base sm:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed mb-8">
-            Caos → codice legacy → codice AI. Letteralmente:
-            lettere 3D vere si organizzano in due snippet, prima e dopo.
+            Stesso colore dei token che usi nel tuo IDE.
+            Legacy → AI, in due snippet leggibili.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
             <a
