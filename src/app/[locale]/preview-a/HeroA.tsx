@@ -8,35 +8,47 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
-type NodeDef = {
-  id: string;
-  label: string;
-  pos: [number, number, number];
-  particles: number;
-};
+// Two code snippets — the letters cycle between them like a real diff.
+const SNIPPET_A = `if (body.match('inv')) {
+  return 'billing';
+}`;
 
-const CHARS = '{}[]()=+-/<>:;.*';
-const NODES: NodeDef[] = [
-  { id: 'api', label: 'API Gateway', pos: [-5.0, 1.8, 0], particles: 22 },
-  { id: 'inbox', label: 'Inbox', pos: [-1.8, 1.8, 0], particles: 22 },
-  { id: 'triage', label: 'Claude · Triage', pos: [1.3, 2.8, 0.3], particles: 26 },
-  { id: 'worker', label: 'Worker', pos: [-0.6, -1.8, 0], particles: 22 },
-  { id: 'router', label: 'Router', pos: [3.2, 1.6, 0], particles: 22 },
-  { id: 'db', label: 'Postgres', pos: [2.8, -1.7, 0], particles: 22 },
-  { id: 'logs', label: 'Observability', pos: [5.2, -0.2, 0.2], particles: 18 },
-];
-const EDGES: [string, string][] = [
-  ['api', 'inbox'],
-  ['inbox', 'triage'],
-  ['inbox', 'worker'],
-  ['triage', 'router'],
-  ['worker', 'db'],
-  ['router', 'db'],
-  ['db', 'logs'],
-];
+const SNIPPET_B = `const r = await triage(e);
 
-function easeInOutCubic(t: number): number {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+if (r.score < 0.7) {
+  return review(r);
+}
+
+return route(r.cat);`;
+
+const FONT_SIZE_DESKTOP = 0.44;
+const FONT_SIZE_MOBILE = 0.28;
+const CHAR_WIDTH_DESKTOP = 0.32;
+const CHAR_WIDTH_MOBILE = 0.20;
+const LINE_HEIGHT_DESKTOP = 0.72;
+const LINE_HEIGHT_MOBILE = 0.46;
+
+type Target = { char: string; x: number; y: number };
+
+function layoutCode(text: string, charWidth: number, lineHeight: number): Target[] {
+  const lines = text.split('\n');
+  const totalLines = lines.length;
+  const yTop = ((totalLines - 1) * lineHeight) / 2;
+  const targets: Target[] = [];
+
+  lines.forEach((line, lineIdx) => {
+    const trimmedLen = line.length;
+    const lineWidth = (trimmedLen - 1) * charWidth;
+    const xStart = -lineWidth / 2;
+    const y = yTop - lineIdx * lineHeight;
+
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (c === ' ' || c === '\t') continue;
+      targets.push({ char: c, x: xStart + i * charWidth, y });
+    }
+  });
+  return targets;
 }
 
 function buildEnv(): THREE.Scene {
@@ -60,24 +72,31 @@ function buildEnv(): THREE.Scene {
   return s;
 }
 
+function easeInOutCubic(t: number): number {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
 type ParticleData = {
-  archPos: [number, number, number];
+  posA: [number, number, number]; // target for snippet A
+  posB: [number, number, number]; // target for snippet B
+  hasA: boolean;
+  hasB: boolean;
   chaosPos: [number, number, number];
   spin: [number, number, number];
-  archRot: [number, number, number];
 };
 
 export default function HeroA() {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const labelsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
-    const labelsContainer = labelsRef.current;
-    if (!container || !labelsContainer) return;
+    if (!container) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.innerWidth < 768;
+    const fontSize = isMobile ? FONT_SIZE_MOBILE : FONT_SIZE_DESKTOP;
+    const charWidth = isMobile ? CHAR_WIDTH_MOBILE : CHAR_WIDTH_DESKTOP;
+    const lineHeight = isMobile ? LINE_HEIGHT_MOBILE : LINE_HEIGHT_DESKTOP;
 
     let width = container.clientWidth;
     let height = container.clientHeight;
@@ -102,10 +121,41 @@ export default function HeroA() {
     const envRT = pmrem.fromScene(buildEnv(), 0.04);
     scene.environment = envRT.texture;
     pmrem.dispose();
-
     scene.add(new THREE.AmbientLight(0xffffff, 0.2));
 
-    // Bloom post-processing
+    // Decorative orbiting glow lights (like variant D)
+    type Orbit = {
+      light: THREE.PointLight;
+      glow: THREE.Mesh;
+      radius: number;
+      speed: number;
+      phase: number;
+      tilt: number;
+    };
+    const orbitConfigs = [
+      { c: 0x06b6d4, r: 4.5, s: 0.45, p: 0.0, t: 0.3 },
+      { c: 0xec4899, r: 4.0, s: 0.35, p: 2.5, t: -0.3 },
+      { c: 0xfbbf24, r: 5.0, s: 0.55, p: 5.0, t: 0.5 },
+    ];
+    const orbits: Orbit[] = orbitConfigs.map((o) => ({
+      light: new THREE.PointLight(o.c, 12, 18, 1.5),
+      glow: null!,
+      radius: o.r,
+      speed: o.s,
+      phase: o.p,
+      tilt: o.t,
+    }));
+    const orbitGlowGeo = new THREE.SphereGeometry(0.07, 12, 12);
+    orbits.forEach((o) => {
+      o.glow = new THREE.Mesh(
+        orbitGlowGeo,
+        new THREE.MeshBasicMaterial({ color: o.light.color, transparent: true, opacity: 1 })
+      );
+      scene.add(o.light);
+      scene.add(o.glow);
+    });
+
+    // Bloom
     const composer = new EffectComposer(renderer);
     composer.setPixelRatio(renderer.getPixelRatio());
     composer.setSize(width, height);
@@ -118,77 +168,7 @@ export default function HeroA() {
     );
     composer.addPass(bloom);
 
-    // Edges
-    const nodeMap = new Map(NODES.map((n) => [n.id, n.pos]));
-    const edgePositions = new Float32Array(EDGES.length * 2 * 3);
-    for (let i = 0; i < EDGES.length; i++) {
-      const a = nodeMap.get(EDGES[i][0])!;
-      const b = nodeMap.get(EDGES[i][1])!;
-      edgePositions[i * 6] = a[0];
-      edgePositions[i * 6 + 1] = a[1];
-      edgePositions[i * 6 + 2] = a[2];
-      edgePositions[i * 6 + 3] = b[0];
-      edgePositions[i * 6 + 4] = b[1];
-      edgePositions[i * 6 + 5] = b[2];
-    }
-    const edgeGeo = new THREE.BufferGeometry();
-    edgeGeo.setAttribute('position', new THREE.BufferAttribute(edgePositions, 3));
-    const edgeMat = new THREE.LineBasicMaterial({
-      color: 0xa78bfa,
-      transparent: true,
-      opacity: 0,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const edges = new THREE.LineSegments(edgeGeo, edgeMat);
-    scene.add(edges);
-
-    // Pulses
-    const pulsePositions = new Float32Array(EDGES.length * 3);
-    const pulseGeo = new THREE.BufferGeometry();
-    pulseGeo.setAttribute('position', new THREE.BufferAttribute(pulsePositions, 3));
-    const pulseMat = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 0.22,
-      sizeAttenuation: true,
-      transparent: true,
-      opacity: 0,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const pulses = new THREE.Points(pulseGeo, pulseMat);
-    scene.add(pulses);
-
-    // Build node labels (HTML overlay)
-    const labelEls: HTMLDivElement[] = [];
-    NODES.forEach((node) => {
-      const el = document.createElement('div');
-      el.textContent = node.label;
-      el.style.cssText = [
-        'position: absolute',
-        'top: 0',
-        'left: 0',
-        'transform: translate(-50%, -200%)',
-        'font-family: ui-monospace, SFMono-Regular, Menlo, monospace',
-        'font-size: 10px',
-        'letter-spacing: 0.12em',
-        'text-transform: uppercase',
-        'padding: 5px 10px',
-        'border: 1px solid rgba(167, 139, 250, 0.5)',
-        'background: rgba(15, 23, 42, 0.85)',
-        'color: rgb(216, 180, 254)',
-        'border-radius: 4px',
-        'opacity: 0',
-        'pointer-events: none',
-        'white-space: nowrap',
-        'backdrop-filter: blur(8px)',
-        'box-shadow: 0 4px 24px rgba(139, 92, 246, 0.25)',
-      ].join(';');
-      labelsContainer.appendChild(el);
-      labelEls.push(el);
-    });
-
-    // Mouse parallax (set up before async font load so refs exist)
+    // Mouse parallax
     const mouseTarget = { x: 0, y: 0 };
     const mouseCurrent = { x: 0, y: 0 };
     const onPointer = (e: PointerEvent) => {
@@ -199,60 +179,97 @@ export default function HeroA() {
         e.clientX >= rect.left &&
         e.clientX <= rect.right;
       if (!inside) return;
-      mouseTarget.x = ((e.clientX - rect.left) / rect.width - 0.5) * 0.5;
-      mouseTarget.y = ((e.clientY - rect.top) / rect.height - 0.5) * 0.3;
+      mouseTarget.x = ((e.clientX - rect.left) / rect.width - 0.5) * 0.35;
+      mouseTarget.y = ((e.clientY - rect.top) / rect.height - 0.5) * 0.22;
     };
     if (!isMobile) {
       window.addEventListener('pointermove', onPointer, { passive: true });
     }
 
-    // Animation state
     const clock = new THREE.Clock();
     let rafId = 0;
     let running = true;
     let cleanupFn: (() => void) | null = null;
-    let charGeos: Record<string, THREE.BufferGeometry> = {};
+    const charGeos: Record<string, THREE.BufferGeometry> = {};
     let material: THREE.MeshPhysicalMaterial | null = null;
-    let bucketsArr: Array<{
-      mesh: THREE.InstancedMesh;
-      data: ParticleData[];
-    }> = [];
+    type Bucket = { mesh: THREE.InstancedMesh; data: ParticleData[] };
+    const bucketsArr: Bucket[] = [];
 
-    const CYCLE = 16;
-    const computePhase = (t: number): number => {
-      const c = t % CYCLE;
-      if (c < 1.5) return 0;
-      if (c < 6) return easeInOutCubic((c - 1.5) / 4.5);
-      if (c < 10) return 1;
-      if (c < 14) return 1 - easeInOutCubic((c - 10) / 4);
-      return 0;
-    };
+    // Phase state machine
+    // 0..1 chaos→A, 1..2 hold A, 2..3 A→chaos+chaos→B, 3..4 hold B, 4..5 B→chaos
+    // total 5 seconds-units, scaled
+    const PHASE_DURATIONS = [1.5, 4.5, 1.5, 2.5, 4.5, 2.5, 1.5]; // chaos, formA, holdA, A→chaos, formB, holdB, B→chaos
+    const CYCLE = PHASE_DURATIONS.reduce((a, b) => a + b, 0);
+
+    type StateSample = { aWeight: number; bWeight: number };
+    function sampleState(t: number): StateSample {
+      // returns aWeight (how much snippet A is showing) and bWeight (how much B)
+      let cycleT = t % CYCLE;
+      let acc = 0;
+      const stages = [
+        { dur: PHASE_DURATIONS[0], a: () => 0, b: () => 0 }, // chaos
+        { dur: PHASE_DURATIONS[1], a: (k: number) => easeInOutCubic(k), b: () => 0 }, // form A
+        { dur: PHASE_DURATIONS[2], a: () => 1, b: () => 0 }, // hold A
+        { dur: PHASE_DURATIONS[3], a: (k: number) => 1 - easeInOutCubic(k), b: () => 0 }, // A → chaos
+        { dur: PHASE_DURATIONS[4], a: () => 0, b: (k: number) => easeInOutCubic(k) }, // form B
+        { dur: PHASE_DURATIONS[5], a: () => 0, b: () => 1 }, // hold B
+        { dur: PHASE_DURATIONS[6], a: () => 0, b: (k: number) => 1 - easeInOutCubic(k) }, // B → chaos
+      ];
+      for (const stage of stages) {
+        if (cycleT < acc + stage.dur) {
+          const k = (cycleT - acc) / stage.dur;
+          return { aWeight: stage.a(k), bWeight: stage.b(k) };
+        }
+        acc += stage.dur;
+      }
+      return { aWeight: 0, bWeight: 0 };
+    }
 
     const dummy = new THREE.Object3D();
-    const projectVec = new THREE.Vector3();
-    const tmpQuatA = new THREE.Quaternion();
-    const tmpQuatB = new THREE.Quaternion();
+    const tmpQuatChaos = new THREE.Quaternion();
+    const tmpQuatRest = new THREE.Quaternion();
+    const restEuler = new THREE.Euler(0, 0, 0);
 
     const render = () => {
       const t = clock.getElapsedTime();
-      const phase = computePhase(t);
+      const { aWeight, bWeight } = sampleState(t);
+      // chaos weight: 1 when neither A nor B is forming
+      const chaosWeight = Math.max(0, 1 - aWeight - bWeight);
 
       bucketsArr.forEach(({ mesh, data }) => {
         for (let i = 0; i < data.length; i++) {
           const d = data[i];
-          const x = d.chaosPos[0] + (d.archPos[0] - d.chaosPos[0]) * phase;
-          const y = d.chaosPos[1] + (d.archPos[1] - d.chaosPos[1]) * phase;
-          const z = d.chaosPos[2] + (d.archPos[2] - d.chaosPos[2]) * phase;
+          // Blend position: chaos / A / B
+          let x = d.chaosPos[0] * chaosWeight;
+          let y = d.chaosPos[1] * chaosWeight;
+          let z = d.chaosPos[2] * chaosWeight;
+          if (d.hasA && aWeight > 0) {
+            x += d.posA[0] * aWeight;
+            y += d.posA[1] * aWeight;
+            z += d.posA[2] * aWeight;
+          } else if (aWeight > 0) {
+            // No A position — let chaos compensate
+            x += d.chaosPos[0] * aWeight;
+            y += d.chaosPos[1] * aWeight;
+            z += d.chaosPos[2] * aWeight;
+          }
+          if (d.hasB && bWeight > 0) {
+            x += d.posB[0] * bWeight;
+            y += d.posB[1] * bWeight;
+            z += d.posB[2] * bWeight;
+          } else if (bWeight > 0) {
+            x += d.chaosPos[0] * bWeight;
+            y += d.chaosPos[1] * bWeight;
+            z += d.chaosPos[2] * bWeight;
+          }
 
-          // Chaos rotation: free spin. Arch rotation: settled angle.
-          // Interpolate between them via phase.
-          tmpQuatA.setFromEuler(
+          // Rotation: spinning in chaos, settled when formed
+          tmpQuatChaos.setFromEuler(
             new THREE.Euler(t * d.spin[0], t * d.spin[1], t * d.spin[2])
           );
-          tmpQuatB.setFromEuler(
-            new THREE.Euler(d.archRot[0], d.archRot[1], d.archRot[2])
-          );
-          dummy.quaternion.copy(tmpQuatA).slerp(tmpQuatB, phase);
+          tmpQuatRest.setFromEuler(restEuler);
+          const formed = aWeight + bWeight;
+          dummy.quaternion.copy(tmpQuatChaos).slerp(tmpQuatRest, formed);
           dummy.position.set(x, y, z);
           dummy.updateMatrix();
           mesh.setMatrixAt(i, dummy.matrix);
@@ -260,65 +277,57 @@ export default function HeroA() {
         mesh.instanceMatrix.needsUpdate = true;
       });
 
-      edgeMat.opacity = phase * 0.55;
-      pulseMat.opacity = phase * 0.95;
-      if (phase > 0.4) {
-        const pulseArr = pulses.geometry.attributes.position.array as Float32Array;
-        for (let i = 0; i < EDGES.length; i++) {
-          const a = nodeMap.get(EDGES[i][0])!;
-          const b = nodeMap.get(EDGES[i][1])!;
-          const param = (t * 0.4 + i * 0.13) % 1;
-          pulseArr[i * 3] = a[0] + (b[0] - a[0]) * param;
-          pulseArr[i * 3 + 1] = a[1] + (b[1] - a[1]) * param;
-          pulseArr[i * 3 + 2] = a[2] + (b[2] - a[2]) * param;
-        }
-        pulses.geometry.attributes.position.needsUpdate = true;
-      }
+      // Orbit decorations
+      orbits.forEach((o) => {
+        const a = t * o.speed + o.phase;
+        const ox = Math.cos(a) * o.radius;
+        const oz = Math.sin(a) * o.radius;
+        const oy = Math.sin(a * 0.8) * o.radius * o.tilt;
+        o.light.position.set(ox, oy, oz);
+        o.glow.position.set(ox, oy, oz);
+      });
 
-      // Mouse parallax — rotate scene
+      // Mouse parallax — rotate the scene container
       mouseCurrent.x += (mouseTarget.x - mouseCurrent.x) * 0.05;
       mouseCurrent.y += (mouseTarget.y - mouseCurrent.y) * 0.05;
       scene.rotation.y = mouseCurrent.x;
       scene.rotation.x = -mouseCurrent.y;
 
       composer.render();
-
-      // Labels
-      const labelOpacity = Math.max(0, (phase - 0.65) / 0.35);
-      for (let i = 0; i < NODES.length; i++) {
-        projectVec.set(NODES[i].pos[0], NODES[i].pos[1], NODES[i].pos[2]);
-        projectVec.applyEuler(scene.rotation);
-        projectVec.project(camera);
-        const x = (projectVec.x + 1) * 0.5 * width;
-        const y = (-projectVec.y + 1) * 0.5 * height;
-        const el = labelEls[i];
-        el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -200%)`;
-        el.style.opacity = String(labelOpacity);
-      }
-
       if (running) rafId = requestAnimationFrame(render);
     };
 
-    // Load font then build letter geometries
+    // Async: load font, build geometries, start animation
     const fontLoader = new FontLoader();
     fontLoader.load(
       '/fonts/helvetiker_regular.typeface.json',
       (font: Font) => {
-        // Build geometry per character
-        const charsArr = CHARS.split('');
-        charsArr.forEach((c) => {
-          const g = new TextGeometry(c, {
-            font,
-            size: isMobile ? 0.32 : 0.42,
-            depth: isMobile ? 0.08 : 0.12,
-            curveSegments: 4,
-            bevelEnabled: true,
-            bevelThickness: 0.012,
-            bevelSize: 0.006,
-            bevelSegments: 2,
-          });
-          g.center();
-          charGeos[c] = g;
+        const targetsA = layoutCode(SNIPPET_A, charWidth, lineHeight);
+        const targetsB = layoutCode(SNIPPET_B, charWidth, lineHeight);
+
+        // Union of unique chars
+        const uniqueChars = new Set<string>();
+        targetsA.forEach((t) => uniqueChars.add(t.char));
+        targetsB.forEach((t) => uniqueChars.add(t.char));
+
+        // Build TextGeometry per unique char
+        uniqueChars.forEach((c) => {
+          try {
+            const g = new TextGeometry(c, {
+              font,
+              size: fontSize,
+              depth: fontSize * 0.28,
+              curveSegments: 4,
+              bevelEnabled: true,
+              bevelThickness: 0.012,
+              bevelSize: 0.006,
+              bevelSegments: 2,
+            });
+            g.center();
+            charGeos[c] = g;
+          } catch (e) {
+            console.warn(`TextGeometry failed for char "${c}":`, e);
+          }
         });
 
         material = new THREE.MeshPhysicalMaterial({
@@ -333,45 +342,55 @@ export default function HeroA() {
           clearcoatRoughness: 0.08,
         });
 
-        // Bucket particles per character
-        const buckets: Record<string, ParticleData[]> = {};
-        charsArr.forEach((c) => (buckets[c] = []));
+        // For each unique character, allocate instances.
+        // Total instances per char = max(countInA, countInB).
+        // Each instance gets a posA from A (if available) and posB from B (if available).
+        type CharInstanceSpec = {
+          posA?: [number, number, number];
+          posB?: [number, number, number];
+        };
+        const specsPerChar = new Map<string, CharInstanceSpec[]>();
 
-        NODES.forEach((node) => {
-          for (let i = 0; i < node.particles; i++) {
-            const c = charsArr[Math.floor(Math.random() * charsArr.length)];
-            const r = Math.random() * 0.75;
-            const theta = Math.random() * Math.PI * 2;
-            const phi = Math.acos(2 * Math.random() - 1);
-            const archX = node.pos[0] + r * Math.sin(phi) * Math.cos(theta);
-            const archY = node.pos[1] + r * Math.sin(phi) * Math.sin(theta);
-            const archZ = node.pos[2] + r * Math.cos(phi) * 0.5;
-            const chaosX = (Math.random() - 0.5) * 14;
-            const chaosY = (Math.random() - 0.5) * 7;
-            const chaosZ = (Math.random() - 0.5) * 4;
-            buckets[c].push({
-              archPos: [archX, archY, archZ],
-              chaosPos: [chaosX, chaosY, chaosZ],
-              spin: [
-                (Math.random() - 0.5) * 1.6,
-                (Math.random() - 0.5) * 1.6,
-                (Math.random() - 0.5) * 1.6,
-              ],
-              archRot: [
-                (Math.random() - 0.5) * 0.4,
-                (Math.random() - 0.5) * 0.4,
-                (Math.random() - 0.5) * 0.4,
-              ],
+        uniqueChars.forEach((c) => {
+          const aPositions = targetsA
+            .filter((t) => t.char === c)
+            .map((t) => [t.x, t.y, 0] as [number, number, number]);
+          const bPositions = targetsB
+            .filter((t) => t.char === c)
+            .map((t) => [t.x, t.y, 0] as [number, number, number]);
+          const count = Math.max(aPositions.length, bPositions.length);
+          const specs: CharInstanceSpec[] = [];
+          for (let i = 0; i < count; i++) {
+            specs.push({
+              posA: aPositions[i],
+              posB: bPositions[i],
             });
           }
+          specsPerChar.set(c, specs);
         });
 
-        // Build InstancedMesh per character
-        charsArr.forEach((c) => {
-          const data = buckets[c];
-          if (data.length === 0) return;
-          const mesh = new THREE.InstancedMesh(charGeos[c], material!, data.length);
-          // Initial state: chaos
+        // Build InstancedMesh per char with all its instances
+        specsPerChar.forEach((specs, c) => {
+          const geo = charGeos[c];
+          if (!geo || specs.length === 0) return;
+          const mesh = new THREE.InstancedMesh(geo, material!, specs.length);
+          const data: ParticleData[] = specs.map((spec) => ({
+            posA: spec.posA ?? [0, 0, 0],
+            posB: spec.posB ?? [0, 0, 0],
+            hasA: !!spec.posA,
+            hasB: !!spec.posB,
+            chaosPos: [
+              (Math.random() - 0.5) * 14,
+              (Math.random() - 0.5) * 7,
+              (Math.random() - 0.5) * 4,
+            ],
+            spin: [
+              (Math.random() - 0.5) * 1.6,
+              (Math.random() - 0.5) * 1.6,
+              (Math.random() - 0.5) * 1.6,
+            ],
+          }));
+          // Initial: chaos
           for (let i = 0; i < data.length; i++) {
             dummy.position.set(...data[i].chaosPos);
             dummy.rotation.set(0, 0, 0);
@@ -384,26 +403,18 @@ export default function HeroA() {
         });
 
         if (reduceMotion) {
-          // Render single architecture frame
+          // Static frame at B
           bucketsArr.forEach(({ mesh, data }) => {
             for (let i = 0; i < data.length; i++) {
               const d = data[i];
-              dummy.position.set(...d.archPos);
-              dummy.rotation.set(...d.archRot);
+              const pos = d.hasB ? d.posB : d.hasA ? d.posA : d.chaosPos;
+              dummy.position.set(...pos);
+              dummy.rotation.set(0, 0, 0);
               dummy.updateMatrix();
               mesh.setMatrixAt(i, dummy.matrix);
             }
             mesh.instanceMatrix.needsUpdate = true;
           });
-          edgeMat.opacity = 0.55;
-          for (let i = 0; i < NODES.length; i++) {
-            projectVec.set(NODES[i].pos[0], NODES[i].pos[1], NODES[i].pos[2]);
-            projectVec.project(camera);
-            const x = (projectVec.x + 1) * 0.5 * width;
-            const y = (-projectVec.y + 1) * 0.5 * height;
-            labelEls[i].style.transform = `translate(${x}px, ${y}px) translate(-50%, -200%)`;
-            labelEls[i].style.opacity = '1';
-          }
           composer.render();
         } else {
           clock.start();
@@ -411,9 +422,7 @@ export default function HeroA() {
         }
       },
       undefined,
-      (err) => {
-        console.error('FontLoader error:', err);
-      }
+      (err) => console.error('FontLoader error:', err)
     );
 
     const onVisibility = () => {
@@ -444,15 +453,10 @@ export default function HeroA() {
       window.removeEventListener('resize', onResize);
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('pointermove', onPointer);
-      labelEls.forEach((el) => {
-        if (el.parentNode === labelsContainer) labelsContainer.removeChild(el);
-      });
       Object.values(charGeos).forEach((g) => g.dispose());
-      edgeGeo.dispose();
-      pulseGeo.dispose();
+      orbitGlowGeo.dispose();
+      orbits.forEach((o) => (o.glow.material as THREE.Material).dispose());
       material?.dispose();
-      edgeMat.dispose();
-      pulseMat.dispose();
       envRT.dispose();
       composer.dispose();
       renderer.dispose();
@@ -467,17 +471,10 @@ export default function HeroA() {
   }, []);
 
   return (
-    <>
-      <div
-        ref={containerRef}
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full pointer-events-none"
-      />
-      <div
-        ref={labelsRef}
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-10"
-      />
-    </>
+    <div
+      ref={containerRef}
+      aria-hidden="true"
+      className="absolute inset-0 w-full h-full pointer-events-none"
+    />
   );
 }
