@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { ArrowDown, ExternalLink } from 'lucide-react';
-import HeroCanvasLazy from './components/HeroCanvasLazy';
-import PreviewNav from './components/PreviewNav';
-import PreviewBody from './components/PreviewBody';
+import HeroALazy from './HeroALazy';
+import PreviewNav from '../preview/components/PreviewNav';
+import PreviewBody from '../preview/components/PreviewBody';
 
 export const metadata = {
-  title: 'gridjac arts — preview · particles',
-  description: 'Concept baseline: hero con rete di particelle 3D.',
+  title: 'gridjac arts — preview · architecture morph',
+  description: 'Concept A: caos di particelle che si auto-organizzano in architettura software.',
   robots: { index: false, follow: false },
 };
 
@@ -14,56 +14,47 @@ interface PageProps {
   params: { locale: string };
 }
 
-export default function PreviewPage({ params: { locale } }: PageProps) {
+export default function PreviewAPage({ params: { locale } }: PageProps) {
   return (
     <main className="relative bg-slate-950 text-slate-100 min-h-screen overflow-x-hidden">
-      <PreviewNav active="baseline" locale={locale} />
+      <PreviewNav active="a" locale={locale} />
 
       {/* HERO */}
       <section
-        className="relative min-h-[88vh] flex items-center justify-center px-4 sm:px-6 border-b border-slate-900"
+        className="relative min-h-[100vh] flex items-center justify-center px-4 sm:px-6 border-b border-slate-900 overflow-hidden"
         aria-labelledby="hero-heading"
       >
         <div className="absolute inset-0 -z-10">
-          <HeroCanvasLazy />
+          <HeroALazy />
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                'radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(2,6,23,0.7) 90%)',
-            }}
-          />
-          <div
-            className="absolute inset-0 opacity-[0.04] pointer-events-none"
-            style={{
-              backgroundImage:
-                'linear-gradient(rgba(148,163,184,1) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,1) 1px, transparent 1px)',
-              backgroundSize: '64px 64px',
+                'radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(2,6,23,0.55) 60%, rgba(2,6,23,0.92) 100%)',
             }}
           />
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center py-24">
-          <p className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.3em] text-cyan-400/90 mb-8">
-            {'// '}variant · baseline particles
+          <p className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.3em] text-violet-300/90 mb-8">
+            {'// '}variant a · code → architecture
           </p>
           <h1
             id="hero-heading"
             className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] mb-8"
           >
-            Non vendiamo slide.
+            Trasformiamo il caos
             <br />
-            <span className="text-cyan-300">Spediamo codice.</span>
+            <span className="text-violet-300">in architettura.</span>
           </h1>
           <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed mb-10">
-            Le agency mostrano case study. Noi apriamo il{' '}
-            <strong className="text-slate-100">Pull Request</strong>. Qui sotto il diff
-            di un&apos;integrazione AI che abbiamo spedito in produzione il mese scorso.
+            Le particelle là sopra sono un&apos;animazione. Il diff qui sotto è codice
+            spedito in produzione il mese scorso.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
             <a
               href="#the-diff"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-cyan-400 text-slate-950 font-semibold text-sm hover:bg-cyan-300 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 focus:ring-offset-slate-950"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-violet-400 text-slate-950 font-semibold text-sm hover:bg-violet-300 transition-colors focus:outline-none focus:ring-2 focus:ring-violet-300 focus:ring-offset-2 focus:ring-offset-slate-950"
             >
               Apri il diff
               <ArrowDown className="w-4 h-4" aria-hidden="true" />
