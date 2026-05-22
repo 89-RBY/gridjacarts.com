@@ -3,6 +3,7 @@
 import Link from 'next/link';
 
 const VARIANTS = [
+  { id: 'd', label: 'D · Mass ★', slug: 'preview-d' },
   { id: 'baseline', label: 'Particles', slug: 'preview' },
   { id: 'a', label: 'A · Architecture', slug: 'preview-a' },
   { id: 'b', label: 'B · Glass', slug: 'preview-b' },
@@ -13,7 +14,7 @@ export default function PreviewNav({
   active,
   locale,
 }: {
-  active: 'baseline' | 'a' | 'b' | 'c';
+  active: 'baseline' | 'a' | 'b' | 'c' | 'd';
   locale: string;
 }) {
   return (
