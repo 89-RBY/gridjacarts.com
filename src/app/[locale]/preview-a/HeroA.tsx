@@ -6,26 +6,52 @@ import { FontLoader, type Font } from 'three/examples/jsm/loaders/FontLoader.js'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
 // Two code snippets — letters cycle between them like a real diff.
-const SNIPPET_A = `if (body.match('inv')) {
-  return 'billing';
+const SNIPPET_A = `function triage(email) {
+  const body = email.body.toLowerCase();
+  let category = 'unknown';
+
+  if (body.includes('invoice')) {
+    category = 'billing';
+  } else if (body.includes('bug')) {
+    category = 'support';
+  } else if (body.includes('demo')) {
+    category = 'sales';
+  }
+
+  if (category === 'unknown') {
+    sendSlack('#ops', email.subject);
+    return null;
+  }
+
+  return { category };
 }`;
 
-const SNIPPET_B = `const r = await triage(e);
+const SNIPPET_B = `async function triage(email: Email) {
+  const result = await classify({
+    subject: email.subject,
+    body: email.body,
+    from: email.sender,
+  });
 
-if (r.score < 0.7) {
-  return review(r);
-}
+  if (result.confidence < 0.7) {
+    return human.escalate(email);
+  }
 
-return route(r.cat);`;
+  await db.classify.create({
+    data: result,
+  });
 
-const FONT_SIZE_DESKTOP = 0.44;
-const FONT_SIZE_MOBILE = 0.28;
-const CHAR_WIDTH_DESKTOP = 0.32;
-const CHAR_WIDTH_MOBILE = 0.20;
-const LINE_HEIGHT_DESKTOP = 0.72;
-const LINE_HEIGHT_MOBILE = 0.46;
+  return route(email, result);
+}`;
 
-type TokenType = 'kw' | 'str' | 'num' | 'punct' | 'id';
+const FONT_SIZE_DESKTOP = 0.22;
+const FONT_SIZE_MOBILE = 0.14;
+const CHAR_WIDTH_DESKTOP = 0.16;
+const CHAR_WIDTH_MOBILE = 0.10;
+const LINE_HEIGHT_DESKTOP = 0.34;
+const LINE_HEIGHT_MOBILE = 0.22;
+
+type TokenType = 'kw' | 'str' | 'num' | 'punct' | 'id' | 'type';
 
 // Editor-style color palette (One Dark / VS Code blend, slightly desaturated)
 const TOKEN_COLORS: Record<TokenType, THREE.Color> = {
@@ -34,10 +60,15 @@ const TOKEN_COLORS: Record<TokenType, THREE.Color> = {
   num: new THREE.Color('#fbbf24'),  // numbers: amber
   punct: new THREE.Color('#94a3b8'),// punctuation: slate
   id: new THREE.Color('#e2e8f0'),   // identifiers: near-white
+  type: new THREE.Color('#22d3ee'), // types: cyan
 };
 const CHAOS_COLOR = new THREE.Color('#475569'); // slate-600 — muted neutral
 
-const KEYWORDS = ['if', 'else', 'const', 'await', 'return', 'let', 'var', 'function', 'true', 'false', 'null'];
+const KEYWORDS = [
+  'if', 'else', 'const', 'await', 'async', 'return', 'let', 'var',
+  'function', 'true', 'false', 'null', 'new', 'this',
+];
+const TYPES = ['Email', 'string', 'number', 'boolean', 'void', 'Promise', 'any'];
 
 function tokenizeLine(line: string): TokenType[] {
   const types: TokenType[] = new Array(line.length).fill('id');
@@ -61,7 +92,19 @@ function tokenizeLine(line: string): TokenType[] {
     }
   }
 
-  // 3. Numbers (only outside strings)
+  // 3. Types (TypeScript)
+  for (const ty of TYPES) {
+    const tre = new RegExp(`\\b${ty}\\b`, 'g');
+    while ((m = tre.exec(line)) !== null) {
+      const s = m.index;
+      const e = s + m[0].length;
+      if (types[s] === 'id') {
+        for (let i = s; i < e; i++) if (types[i] === 'id') types[i] = 'type';
+      }
+    }
+  }
+
+  // 4. Numbers (only outside strings)
   const numRe = /\b\d+(\.\d+)?\b/g;
   while ((m = numRe.exec(line)) !== null) {
     const s = m.index;
@@ -71,9 +114,9 @@ function tokenizeLine(line: string): TokenType[] {
     }
   }
 
-  // 4. Punctuation (only what's still 'id')
+  // 5. Punctuation (only what's still 'id')
   for (let i = 0; i < line.length; i++) {
-    if (types[i] === 'id' && /[{}()<>=;,.+\-*\/]/.test(line[i])) {
+    if (types[i] === 'id' && /[{}()<>=;,.+\-*\/:]/.test(line[i])) {
       types[i] = 'punct';
     }
   }
@@ -216,6 +259,7 @@ export default function HeroA() {
     const tmpQuatChaos = new THREE.Quaternion();
     const tmpQuatRest = new THREE.Quaternion();
     const restEuler = new THREE.Euler(0, 0, 0);
+    const tmpEuler = new THREE.Euler();
     const finalColor = new THREE.Color();
 
     const render = () => {
@@ -255,9 +299,8 @@ export default function HeroA() {
           }
 
           // Rotation: chaotic spin in chaos, settled when formed
-          tmpQuatChaos.setFromEuler(
-            new THREE.Euler(t * d.spin[0], t * d.spin[1], t * d.spin[2])
-          );
+          tmpEuler.set(t * d.spin[0], t * d.spin[1], t * d.spin[2]);
+          tmpQuatChaos.setFromEuler(tmpEuler);
           tmpQuatRest.setFromEuler(restEuler);
           const formed = aWeight + bWeight;
           dummy.quaternion.copy(tmpQuatChaos).slerp(tmpQuatRest, formed);
@@ -371,14 +414,14 @@ export default function HeroA() {
             typeA: spec.typeA,
             typeB: spec.typeB,
             chaosPos: [
-              (Math.random() - 0.5) * 14,
-              (Math.random() - 0.5) * 7,
-              (Math.random() - 0.5) * 4,
+              (Math.random() - 0.5) * 16,
+              (Math.random() - 0.5) * 9,
+              (Math.random() - 0.5) * 5,
             ],
             spin: [
-              (Math.random() - 0.5) * 1.6,
-              (Math.random() - 0.5) * 1.6,
-              (Math.random() - 0.5) * 1.6,
+              (Math.random() - 0.5) * 1.2,
+              (Math.random() - 0.5) * 1.2,
+              (Math.random() - 0.5) * 1.2,
             ],
           }));
           for (let i = 0; i < data.length; i++) {
