@@ -304,6 +304,14 @@ export default function HeroA() {
           tmpQuatRest.setFromEuler(restEuler);
           const formed = aWeight + bWeight;
           dummy.quaternion.copy(tmpQuatChaos).slerp(tmpQuatRest, formed);
+
+          // Visibility: hide instances that have no place in the current snippet.
+          // chaos → always visible. A formed but no posA → hide. B formed but no posB → hide.
+          const visibility =
+            chaosWeight +
+            (d.hasA ? aWeight : 0) +
+            (d.hasB ? bWeight : 0);
+          dummy.scale.setScalar(visibility);
           dummy.position.set(x, y, z);
           dummy.updateMatrix();
           mesh.setMatrixAt(i, dummy.matrix);
