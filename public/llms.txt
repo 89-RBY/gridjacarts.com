@@ -1,0 +1,34 @@
+# Gridjac Arts
+
+> Gridjac Arts SRL è un'agenzia di sviluppo software e integrazione AI con base in Romania. Costruiamo web app moderne, integriamo modelli LLM in flussi business esistenti e trasformiamo codice legacy in architetture pulite e mantenibili.
+
+Il sito è multilingua (italiano, inglese, rumeno) e include un blog tecnico, portfolio progetti, servizi, laboratorio (labs) di esperimenti AI/3D e un programma partner in franchising.
+
+## Core
+
+- [Homepage](https://gridjacarts.com/it): Panoramica dell'agenzia, servizi principali e call-to-action.
+- [Chi siamo](https://gridjacarts.com/it/about): Storia, team, valori e approccio ingegneristico.
+- [Servizi](https://gridjacarts.com/it/services): Sviluppo web, integrazione AI, migrazione legacy, consulenza architetturale.
+- [Portfolio](https://gridjacarts.com/it/portfolio): Progetti realizzati con case study tecnici.
+- [Contatti](https://gridjacarts.com/it/contact): Modulo di contatto e informazioni operative.
+
+## Contenuti
+
+- [Blog](https://gridjacarts.com/it/blog): Articoli su AI, sviluppo software, architettura e casi reali di migrazione.
+- [Labs](https://gridjacarts.com/it/labs): Esperimenti pubblici, demo interattive Three.js/WebGL e prototipi AI.
+- [Prodotti](https://gridjacarts.com/it/products): Prodotti digitali e soluzioni pronte all'uso.
+
+## Partner
+
+- [Diventa partner](https://gridjacarts.com/it/become-partner): Programma di franchising con markup personalizzato, portale dedicato e onboarding tecnico.
+
+## Legale
+
+- [Privacy Policy](https://gridjacarts.com/it/privacy): Trattamento dati personali secondo GDPR.
+- [Termini di servizio](https://gridjacarts.com/it/terms): Condizioni contrattuali e limiti di responsabilità.
+
+## Optional
+
+- [Sitemap](https://gridjacarts.com/sitemap.xml): Mappa completa delle URL indicizzabili.
+- [Versione inglese](https://gridjacarts.com/en): Sito in inglese.
+- [Versione rumena](https://gridjacarts.com/ro): Sito in rumeno.
