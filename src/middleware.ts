@@ -14,6 +14,6 @@ export const config = {
   // - Images and other static assets
   // - Favicon and other public files
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|fonts/|uploads/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|xml|xsl|txt|json)).*)'
+    '/((?!api|_next/static|_next/image|favicon.ico|fonts/|uploads/|docs/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|xml|xsl|txt|json|pdf|doc|docx|zip)).*)'
   ]
 };
