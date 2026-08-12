@@ -134,6 +134,20 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
           : 'Sito moderno per clinica dentale con presentazione servizi, team medico, sistema prenotazioni e galleria prima/dopo.',
       tags: ['Medical', 'Appointment System', 'SEO Local', 'Gallery'],
     },
+    {
+      id: 9,
+      title: 'LifeBody.ch',
+      url: 'https://lifebody.ch',
+      category: locale === 'ro' ? 'Migrare E-Commerce' : locale === 'en' ? 'E-Commerce Migration' : 'Migrazione E-Commerce',
+      client: 'LifeBody',
+      image: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=600&fit=crop',
+      description: locale === 'ro'
+        ? 'Clientul avea un magazin online pe WordPress care se strica frecvent și genera costuri și pierderi de timp. L-am reconstruit complet în cod cu PHP Laravel: încărcări dramatic mai rapide pentru site, dashboard și statistici, ore economisite săptămânal, experiență client îmbunătățită și costuri de mentenanță reduse drastic.'
+        : locale === 'en'
+          ? 'The client had a WordPress ecommerce that broke often, wasting time and money. We rebuilt it entirely in code with PHP Laravel: dramatically faster load times for site, dashboard and stats, several hours saved every week, better customer experience and drastically lower maintenance costs.'
+          : "Il cliente aveva un ecommerce in WordPress che si rompeva spesso, facendogli perdere tempo e denaro. Lo abbiamo ricostruito completamente in codice con PHP Laravel: caricamenti drasticamente più veloci per sito, dashboard e statistiche, diverse ore risparmiate ogni settimana, esperienza cliente migliorata e costi di manutenzione ridotti drasticamente.",
+      tags: ['PHP', 'Laravel', 'E-Commerce', 'WordPress Migration', 'Performance'],
+    },
   ];
 
   return (
