@@ -140,7 +140,7 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       url: 'https://lifebody.ch',
       category: locale === 'ro' ? 'Migrare E-Commerce' : locale === 'en' ? 'E-Commerce Migration' : 'Migrazione E-Commerce',
       client: 'LifeBody',
-      image: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=600&fit=crop',
+      image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=800&h=600&fit=crop',
       description: locale === 'ro'
         ? 'Clientul avea un magazin online pe WordPress care se strica frecvent și genera costuri și pierderi de timp. L-am reconstruit complet în cod cu PHP Laravel: încărcări dramatic mai rapide pentru site, dashboard și statistici, ore economisite săptămânal, experiență client îmbunătățită și costuri de mentenanță reduse drastic.'
         : locale === 'en'
