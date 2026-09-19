@@ -38,6 +38,7 @@ export default function Header({ locale, blogPostSlugs }: HeaderProps) {
     { name: t('products'), href: `/${locale}/products` },
     { name: t('services'), href: `/${locale}/services` },
     { name: t('labs'), href: `/${locale}/labs` },
+    { name: t('aiCourses'), href: `/${locale}/corsi-ai` },
     { name: t('about'), href: `/${locale}/about` },
     { name: t('blog'), href: `/${locale}/blog` },
     { name: t('becomePartner'), href: `/${locale}/become-partner` },

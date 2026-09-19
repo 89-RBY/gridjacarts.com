@@ -22,6 +22,7 @@ export const copy = {
       'Hai visto decine di video sull’AI e non hai ancora automatizzato niente davvero.',
       'Vorresti lavorare a progetti AI concreti ma non sai da dove iniziare né con chi.',
     ],
+    toolsLabel: 'Gli strumenti che userai in aula',
     programTitle: 'Il percorso',
     programSubtitle: 'Tre livelli. Puoi fermarti dove vuoi.',
     levels: [
@@ -124,6 +125,7 @@ export const copy = {
       'You have watched dozens of AI videos and automated nothing yet.',
       'You want to work on real AI projects but do not know where or with whom to start.',
     ],
+    toolsLabel: 'The tools you will use in class',
     programTitle: 'The track',
     programSubtitle: 'Three levels. Stop wherever you want.',
     levels: [
@@ -226,6 +228,7 @@ export const copy = {
       'Ai văzut zeci de videoclipuri despre AI şi încă nu ai automatizat nimic.',
       'Vrei să lucrezi la proiecte AI concrete, dar nu ştii de unde şi cu cine să începi.',
     ],
+    toolsLabel: 'Uneltele pe care le vei folosi la curs',
     programTitle: 'Parcursul',
     programSubtitle: 'Trei niveluri. Te opreşti unde vrei.',
     levels: [

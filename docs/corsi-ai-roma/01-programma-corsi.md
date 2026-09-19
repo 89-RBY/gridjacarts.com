@@ -62,14 +62,54 @@ scheda "3 attività da automatizzare".
 ---
 
 ### Livello 2 — Builder Lab (6 settimane, per i selezionati)
-Percorso gratuito riservato ai volontari selezionati durante L0/L1.
 
 - Lavoro su progetti reali (associazioni romane, PMI locali, progetti interni)
 - Mentoring settimanale 1h + canale asincrono
 - Strumenti: API, automazioni, deploy, gestione dei costi
 - **Impegno richiesto:** 4-6 ore a settimana, per 6 settimane
-- **Ritorno per il volontario:** portfolio reale, attestato, referenze, priorità
-  su collaborazioni retribuite future
+- **Ritorno per il partecipante:** portfolio reale, attestato, referenze
+
+#### 2.1 Perché il Livello 2 era gratuito, e perché va cambiato
+
+L'idea iniziale era: il L2 non è un corso che si vende, è il meccanismo di
+selezione dei volontari. Gratuito perché il "pagamento" è il lavoro che il
+partecipante svolge sui progetti.
+
+**Quel ragionamento ha un problema serio.** Se il partecipante lavora gratis e
+il beneficio del suo lavoro ricade su una società commerciale, non è
+volontariato: è lavoro non retribuito. In Italia il volontariato è disciplinato
+dal Codice del Terzo Settore (D.Lgs. 117/2017) e presuppone un **ente del terzo
+settore** come beneficiario. Una S.r.l. non può avere volontari. Il rischio,
+concreto, è la riqualificazione del rapporto come lavoro subordinato, con
+conseguenze contributive e sanzionatorie a carico dell'azienda.
+
+Non è un dettaglio formale: è esattamente lo schema che gli ispettorati del
+lavoro cercano, e la dicitura "accordo di volontariato" su un foglio non lo
+sana. **Va verificato con un consulente del lavoro prima di avviare il L2.**
+
+#### 2.2 Le tre strutture pulite
+
+| Struttura | Chi beneficia del lavoro | Prezzo | Quando usarla |
+|---|---|---|---|
+| **A. Laboratorio progetti** (consigliata) | Il partecipante stesso: il progetto è suo, l'azienda non lo sfrutta commercialmente | **490 €** | Come prodotto di catalogo, seguito naturale del L1 |
+| **B. Volontariato presso un ETS partner** | L'associazione, non GridjaCards | Gratuito | Quando c'è una vera associazione ospitante che firma l'accordo |
+| **C. Collaborazione retribuita** | GridjaCards | L'azienda paga | Quando l'output serve all'azienda: allora si paga, punto |
+
+**La A è didattica** — insegna, e il risultato resta allo studente. **La B è
+volontariato vero** — il rapporto è fra il partecipante e l'ente, GridjaCards
+mette solo il mentoring come formazione gratuita. **La C è lavoro** — e il
+lavoro si retribuisce.
+
+Il modello di ricavo (doc. 04) resta valido: il L2 come prodotto A a 490 €
+aggiunge una riga che prima non c'era, invece di essere un costo puro.
+
+#### 2.3 Come cambia l'obiettivo "trovare volontari"
+
+L'obiettivo iniziale del progetto era trovare volontari per implementare
+progetti AI. Resta raggiungibile, ma per la strada B: si costruisce un accordo
+con 2-3 associazioni romane, i partecipanti fanno volontariato **per loro**, e
+GridjaCards ci guadagna reputazione, casi studio e una rete sul territorio.
+È più lento della strada diretta, ed è l'unica che regge a un controllo.
 
 ---
 
@@ -81,7 +121,8 @@ Percorso gratuito riservato ai volontari selezionati durante L0/L1.
 | AI Practitioner — serale | 8 × 2h | 290-390 € | Ricavo principale |
 | AI Practitioner — weekend intensivo | 2 giorni | 240-320 € | Chi non può infrasettimanale |
 | Percorso aziendale on-site | 1-3 giorni | 1.200-3.500 € | Margine alto, poche vendite |
-| Builder Lab (volontari) | 6 settimane | Gratuito | Obiettivo strategico |
+| Builder Lab — laboratorio progetti | 6 settimane | 490 € | Prosecuzione naturale del L1 (vedi §2.2) |
+| Volontariato presso ETS partner | 6 settimane | Gratuito | Solo con ente ospitante (vedi §2.2) |
 | Tariffa agevolata studenti/no-profit | — | -40% | Volume e reputazione |
 
 **Numeri per edizione:** 12-16 partecipanti in presenza, fino a 30 online.

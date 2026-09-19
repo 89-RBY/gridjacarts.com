@@ -8,6 +8,7 @@ selezionare volontari per il Builder Lab su progetti reali del territorio.
 | [01-programma-corsi.md](./01-programma-corsi.md) | Struttura dei tre livelli, moduli, prezzi, calendario, logistica, selezione volontari, KPI |
 | [02-campagna-meta.md](./02-campagna-meta.md) | Struttura account Meta, targeting, creatività, testi pronti, tracciamento, follow-up, conformità |
 | [03-budget-e-previsioni-lead.md](./03-budget-e-previsioni-lead.md) | Benchmark, tre scenari di budget, previsione a 6 mesi, costi per coorte, soglie di allarme |
+| [05-programma-dettagliato.md](./05-programma-dettagliato.md) | Programma operativo per il docente: scaletta minuto per minuto degli 8 incontri, output, errori tipici, valutazione, varianti |
 | [04-modello-di-ricavo.md](./04-modello-di-ricavo.md) | Prezzo di vendita, catalogo formativo, ricavo per scenario, proiezione a 12 mesi (solo formazione), punto di pareggio |
 
 **Landing page:** `src/app/[locale]/(public)/corsi-ai/` → pubblicata su

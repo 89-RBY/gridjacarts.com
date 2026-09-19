@@ -30,6 +30,25 @@ const initialForm = {
   confirm_email: '', // honeypot
 };
 
+// Strumenti trattati nel corso. Sono wordmark testuali, non loghi dei rispettivi
+// titolari: nessun asset di terze parti viene incorporato nella pagina.
+const TOOLS = [
+  'ChatGPT',
+  'Claude',
+  'Gemini',
+  'Copilot',
+  'Perplexity',
+  'Midjourney',
+  'ElevenLabs',
+  'Whisper',
+  'n8n',
+  'Make',
+  'Zapier',
+  'Notion AI',
+  'Canva',
+  'Google Sheets',
+];
+
 export default function CorsiAiPage({ params: { locale } }: CorsiAiPageProps) {
   const t = copy[locale as keyof typeof copy] || copy.it;
 
@@ -143,6 +162,40 @@ export default function CorsiAiPage({ params: { locale } }: CorsiAiPageProps) {
                   </li>
                 ))}
               </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Fascia strumenti scorrevole */}
+        <div className="relative z-10 mt-16">
+          <p className="container-custom text-xs font-mono uppercase tracking-widest text-tech-text-muted mb-5">
+            {t.toolsLabel}
+          </p>
+          <div
+            className="group relative overflow-hidden border-y border-tech-border/70 bg-tech-surface/40 py-5"
+            aria-label={t.toolsLabel}
+          >
+            {/* sfumature laterali */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 z-10 bg-gradient-to-r from-tech-bg to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 z-10 bg-gradient-to-l from-tech-bg to-transparent" />
+
+            <div className="flex w-max animate-marquee gap-10 sm:gap-14 will-change-transform group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+              {[0, 1].map((copyIndex) => (
+                <div
+                  key={copyIndex}
+                  className="flex shrink-0 items-center gap-10 sm:gap-14"
+                  aria-hidden={copyIndex === 1}
+                >
+                  {TOOLS.map((tool) => (
+                    <span
+                      key={tool}
+                      className="whitespace-nowrap font-display text-lg sm:text-xl font-semibold text-tech-text-dim/70 transition-colors hover:text-tech-accent"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
         </div>
