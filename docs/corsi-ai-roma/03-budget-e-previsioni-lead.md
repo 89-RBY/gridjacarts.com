@@ -29,7 +29,70 @@ CPL medio ponderato risultante: **≈ 5,30 €**.
 
 ---
 
-## 2. Tre scenari di budget
+## 2. Gli scenari di budget
+
+### Scenario 0 — Minimo (100 €/mese, ~3,30 €/giorno)
+
+**Il budget minimo con cui ha senso partire.** Funziona, ma va capito bene cosa
+compra e cosa non compra.
+
+| Voce | Valore |
+|---|---|
+| Spesa pubblicitaria | 100 € |
+| CPL effettivo atteso | **4,50 - 6,50 €** (non 3,50 €: vedi sotto) |
+| Lead stimati | **15 - 25** |
+| Iscritti al workshop | 9 - 15 |
+| Presenti al workshop | 5 - 8 |
+| Iscritti a pagamento L1 | 1 - 2 (alcuni mesi 0) |
+| Volontari individuati | ~1 ogni 2-3 mesi |
+
+#### Perché il CPL sale sotto i 200 €/mese
+
+Meta ottimizza imparando dalle conversioni. Un adset esce dalla *fase di
+apprendimento* intorno alle **50 conversioni a settimana**; a 100 €/mese ne
+raccoglie circa **5**. L'adset resta permanentemente in apprendimento, la
+consegna è irregolare e il costo per lead sale del **30-60%** rispetto al
+benchmark. Non è un errore di impostazione: è una caratteristica della
+piattaforma a budget bassi.
+
+#### Cosa NON può fare con 100 €/mese
+
+- **Non può testare più creatività.** 20 lead al mese non bastano a dire quale
+  annuncio funziona meglio: la differenza che vedrebbe è rumore statistico.
+- **Non può riempire una coorte al mese.** Servono ~3 mesi di accumulo per
+  arrivare a una classe da 4-6 paganti.
+- **Non può giudicare i risultati in 2 settimane.** La soglia di 250 € spesi del
+  §6 arriva dopo **2 mesi e mezzo**.
+
+#### Come impostarla per farla funzionare
+
+1. **Una sola campagna, un solo adset, massimo 2 creatività.** Concentrare tutto.
+2. **Solo lead form nativo Meta**, niente adset verso la landing: a questo budget
+   serve il CPL più basso possibile. La landing resta attiva per l'organico.
+3. **Erogazione continua**, non a raffica: 3,30 € al giorno tutti i giorni.
+4. **Non toccare nulla per 3 settimane.** Ogni modifica azzera l'apprendimento,
+   e a questo budget l'apprendimento non si recupera più.
+5. **Workshop online o in spazio gratuito.** Con 5-8 presenti non ha senso
+   pagare una sala: annulla il margine.
+6. **L'organico e le partnership devono fare la metà del lavoro** (§5).
+   A questo budget la pubblicità da sola non basta a riempire l'aula.
+
+#### La struttura migliore se ha 1.200 € per l'anno
+
+Questo è il punto più utile di tutta la sezione. **100 € × 12 mesi e 300 € × 4
+mesi costano uguale, ma non rendono uguale.**
+
+| Struttura | Cosa ottiene |
+|---|---|
+| 100 €/mese per 12 mesi | Flusso costante ma lento, non impara mai quale annuncio funziona |
+| **300 € nel mese 1, poi 100 €/mese** | **Trova la creatività vincente subito, poi la usa per 9 mesi** |
+
+Il budget concentrato all'inizio serve a **comprare l'informazione**: quale
+messaggio funziona a Roma. Una volta trovato, i 100 €/mese lo mandano in onda
+a costo ridotto. Al contrario, 100 € al mese dal primo giorno significa non
+saperlo mai con certezza.
+
+---
 
 ### Scenario A — Test (300 €/mese, ~10 €/giorno)
 
@@ -154,7 +217,15 @@ Fermarsi e rivedere se, dopo almeno 250 € spesi:
 
 ## 7. Raccomandazione
 
-Partire con lo **Scenario A per 3 settimane** (300 €) per validare almeno
-2 creatività, poi passare allo **Scenario B** e mantenerlo per 3 mesi prima
-di valutare lo scale-up. Investire prima sul follow-up e sulla landing page,
-poi sul budget: sono i due punti dove oggi si perde più valore.
+**Se il budget è di 100 €/mese:** concentri 300 € nel primo mese per trovare la
+creatività che funziona, poi scenda a 100 €/mese mantenendo solo quella. Punti
+su workshop online, organico e partnership locali per riempire l'aula, e valuti
+i risultati dopo 2-3 mesi, non prima. È un avvio lento ma sostenibile: circa
+**3 coorti piccole nel primo anno**.
+
+**Se può arrivare a 600 €/mese:** parta con lo Scenario A per 3 settimane per
+validare almeno 2 creatività, poi passi allo Scenario B e lo mantenga per 3 mesi
+prima di valutare lo scale-up.
+
+In entrambi i casi investa prima sul follow-up e sulla landing page, poi sul
+budget: sono i due punti dove oggi si perde più valore.

@@ -89,6 +89,7 @@ Un ciclo mensile, con i tassi del documento 03 e prezzo medio 340 €.
 
 | Scenario | Spesa ADV | Presenti | Paganti | Ricavo L1 | ROAS lordo |
 |---|---|---|---|---|---|
+| 0 — Minimo (100 €) | 100 € | 5-8 | 1-2 | 340 - 680 € | 3,4 - 6,8× |
 | A — Test (300 €) | 300 € | 16-22 | 3-4 | 1.020 - 1.360 € | 3,4 - 4,5× |
 | **B — Operativo (600 €)** | 600 € | 33-45 | 6-8 | **2.040 - 2.720 €** | **3,4 - 4,5×** |
 | C — Scala (1.200 €) | 1.200 € | 60-84 | 11-15 | 3.740 - 5.100 € | 3,1 - 4,3× |
@@ -108,6 +109,38 @@ Un ciclo mensile, con i tassi del documento 03 e prezzo medio 340 €.
 consulenza media, ma non costruisce un'attività. È il prodotto n. 3 — la
 formazione aziendale — che cambia l'economia, e i prodotti 5-8 che la rendono
 scalabile perché si vendono agli alumni senza ricomprare il lead.
+
+### Se parte da 100 €/mese: proiezione a 12 mesi
+
+Base: 12 × 100 € = **1.200 € di spesa pubblicitaria** (o 1.400 € con il primo
+mese concentrato a 300 €, struttura consigliata nel documento 03 §7).
+
+| | Prudente | **Base** |
+|---|---|---|
+| Lead nell'anno | 180 | 250 |
+| Presenti ai workshop | 60 | 90 |
+| Studenti L1 paganti | 8 | 15 |
+| Prezzo medio | 300 € | 320 € |
+| **Ricavo L1** | **2.400 €** | **4.800 €** |
+| Giornate aziendali | 1 × 1.800 € | 2 × 1.900 € = 3.800 € |
+| Moduli verticali e coaching | 400 € | 1.200 € |
+| **RICAVO TOTALE ANNO** | **4.600 €** | **9.800 €** |
+| Spesa pubblicitaria | −1.200 € | −1.400 € |
+| Costi operativi (workshop online, tool) | −500 € | −700 € |
+| **Margine lordo (prima del suo tempo)** | **2.900 €** | **7.700 €** |
+| **ROAS** | **3,8×** | **7,0×** |
+| Coorti nell'anno | 2 piccole | 3 |
+| Volontari Builder Lab | 2-3 | 4-5 |
+| Ore di lavoro nell'anno | ~120 h | ~190 h |
+
+**Il ROAS resta buono, cambiano i valori assoluti.** Con 100 €/mese non guadagna
+meno per euro speso: semplicemente ne spende dodici volte meno, quindi porta a
+casa ~9.800 € invece di ~50.000 €. Ma impegna anche 190 ore invece di 480, e non
+rischia praticamente nulla.
+
+**La differenza sostanziale non è nel ricavo, è nei volontari:** 4-5 all'anno
+invece di 11-15. Se l'obiettivo primario è costruire il gruppo di volontari,
+questo è il costo reale di partire piano.
 
 ---
 
