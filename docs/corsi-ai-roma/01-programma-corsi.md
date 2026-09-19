@@ -112,6 +112,88 @@ Ritmo sostenibile: **una coorte ogni 6-8 settimane**, campagna sempre attiva a b
 - **Materiali:** slide, schede esercizi, libreria prompt, gruppo WhatsApp/Telegram della coorte.
 - **Attestato:** di partecipazione, con elenco competenze acquisite.
 
+### 5.1 Sedi gratuite a Roma
+
+Con budget ridotto (§Scenario 0 del doc. 03) la sala non si paga. Opzioni in
+ordine di praticabilità reale.
+
+#### Il filtro tecnico, prima del prezzo
+
+È un corso in cui 10-16 persone hanno il portatile aperto e usano strumenti
+online. Una sala gratuita che non passa questi quattro controlli è inutilizzabile:
+
+| Requisito | Soglia minima | Come verificarlo |
+|---|---|---|
+| Wifi | Regge 16 dispositivi insieme | Sopralluogo con speed test, non la parola del gestore |
+| Prese di corrente | Almeno 1 ogni 2 persone | Contarle di persona; portare 2-3 ciabatte comunque |
+| Proiettore o schermo grande | HDMI funzionante | Provare col proprio portatile, non con il loro |
+| Orari serali | Accesso fino alle 21:30 | Molti spazi pubblici chiudono alle 19:00 — blocca il formato serale |
+
+**Il wifi è il punto che fa fallire più workshop.** Piano B obbligatorio:
+hotspot dal telefono e una SIM dati di scorta.
+
+#### Opzioni, dalla più alla meno praticabile
+
+**1. Online (costo zero, zero attriti)**
+Con 5-8 presenti è la scelta giusta: nessuna sala, nessun vincolo di orario,
+nessun rischio tecnico sulla rete altrui. Jitsi Meet è gratuito e senza limiti
+di durata; Google Meet ha limiti sul piano gratuito (verificare il piano in uso
+sul dominio aziendale); Zoom gratuito si ferma a 40 minuti ed è da escludere.
+**Da fare per primo:** le prime 2-3 edizioni online servono a rodare i contenuti
+senza spendere nulla.
+
+**2. Coworking in permuta (il migliore per la presenza)**
+Molti coworking romani concedono la sala gratis per eventi che portano
+potenziali iscritti nel loro spazio. Lo scambio è: loro danno la sala e
+mettono l'evento sui propri canali, lei porta 15 persone qualificate e li
+cita come partner. Funziona perché è un interesse reciproco vero, non un favore.
+**Come proporlo:** una mail secca con numero di partecipanti attesi, orario,
+cosa portano di visibilità, e la disponibilità a fare un modulo gratuito per
+i loro coworker.
+
+**3. Spazi Attivi di Lazio Innova**
+La Regione Lazio gestisce spazi dedicati a innovazione e impresa (a Roma:
+Casilina e il Tecnopolo Tiburtino) che ospitano eventi formativi gratuiti.
+Profilo perfetto per questo corso. **Da verificare:** modalità e tempi di
+richiesta, che cambiano nel tempo.
+
+**4. Associazioni e terzo settore**
+ACLI, circoli ARCI, parrocchie e oratori, centri sociali di quartiere,
+associazioni di volontariato. Hanno sale, e il Builder Lab offre loro
+esattamente ciò di cui hanno bisogno: qualcuno che automatizzi il loro lavoro.
+**È la permuta più naturale di tutte:** sala in cambio di un progetto AI per loro.
+
+**5. Biblioteche di Roma e spazi municipali**
+Il sistema bibliotecario comunale e i 15 Municipi concedono sale, spesso
+gratuitamente, per iniziative culturali e formative. **Due vincoli seri:**
+i tempi di richiesta sono lunghi (spesso 30-60 giorni, incompatibili con una
+campagna che parte tra due settimane), e l'uso gratuito è in genere riservato
+ad attività **non commerciali**. Il workshop L0 è gratuito e quindi in regola,
+ma promuovere da quel palco il corso a pagamento può violare il regolamento.
+Da leggere prima, e da non forzare.
+
+**6. Università (Sapienza, Roma Tre, Tor Vergata, LUISS)**
+Le aule si ottengono tramite un docente, un dipartimento o un'associazione
+studentesca che faccia da referente. Richiede una relazione, non un modulo:
+tempi lunghi, ma porta anche il pubblico del segmento B.
+
+**7. Ordini professionali e associazioni di categoria**
+Commercialisti, avvocati, ingegneri; Confcommercio, CNA, Confartigianato,
+Unindustria. Hanno sale proprie e cercano formazione per i soci — in diversi
+casi con crediti formativi. **È l'opzione che alimenta direttamente la riga
+più redditizia del modello** (giornate aziendali, doc. 04 §2) e i moduli
+verticali. Non è solo una sala gratis: è un canale commerciale.
+
+#### Regola pratica
+
+Le prime 2-3 edizioni **online**, per rodare i contenuti a costo zero. In
+parallelo apra la trattativa con 2-3 coworking e 2 associazioni: quando passa
+alla presenza avrà già una sede senza aver speso nulla.
+
+> Condizioni, disponibilità e regolamenti di questi spazi cambiano nel tempo e
+> non sono stati verificati: la lista indica dove cercare, non cosa è garantito.
+> Ogni sede va contattata e vista di persona prima di annunciare una data.
+
 ---
 
 ## 6. Come si selezionano i volontari
