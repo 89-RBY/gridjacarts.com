@@ -17,6 +17,7 @@ import {
   BookOpen,
 } from 'lucide-react';
 import { getAllServicePages } from '@/lib/data';
+import { localeAlternates } from '@/lib/seo';
 
 interface ServicesPageProps {
   params: { locale: string };
@@ -28,6 +29,8 @@ export async function generateMetadata({ params: { locale } }: ServicesPageProps
   const t = await getTranslations({ locale, namespace: 'services' });
   return {
     title: t('title'),
+    description: t('subtitle'),
+    alternates: localeAlternates(locale, '/services'),
   };
 }
 

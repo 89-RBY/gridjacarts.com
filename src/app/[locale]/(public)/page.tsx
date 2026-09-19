@@ -19,6 +19,7 @@ import {
 import TerminalHero from '@/components/TerminalHero';
 import Tooltip from '@/components/Tooltip';
 import { getFeaturedProducts } from '@/lib/data';
+import { localeAlternates } from '@/lib/seo';
 
 interface HomePageProps {
   params: { locale: string };
@@ -32,6 +33,7 @@ export async function generateMetadata({ params: { locale } }: HomePageProps) {
   return {
     title: t('hero.title'),
     description: tMeta('description'),
+    alternates: localeAlternates(locale, ''),
   };
 }
 

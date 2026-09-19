@@ -5,6 +5,7 @@ import { getBlogPostBySlug } from '@/lib/data';
 import { Calendar, User, ArrowLeft, Tag } from 'lucide-react';
 import BlogPostWrapper from '@/components/BlogPostWrapper';
 import { marked } from 'marked';
+import { SITE_URL } from '@/lib/seo';
 
 interface BlogPostPageProps {
   params: { locale: string; slug: string };
@@ -21,17 +22,15 @@ export async function generateMetadata({ params: { locale, slug } }: BlogPostPag
       return { title: 'Post Not Found' };
     }
 
-    const baseUrl = 'https://gridjacarts.com';
-
     return {
       title: post.title[locale as keyof typeof post.title] || post.title.en,
       description: post.excerpt[locale as keyof typeof post.excerpt] || post.excerpt.en,
       alternates: {
-        canonical: `${baseUrl}/${locale}/blog/${post.slugs[locale as keyof typeof post.slugs]}`,
+        canonical: `${SITE_URL}/${locale}/blog/${post.slugs[locale as keyof typeof post.slugs]}`,
         languages: {
-          'ro': `${baseUrl}/ro/blog/${post.slugs.ro}`,
-          'en': `${baseUrl}/en/blog/${post.slugs.en}`,
-          'it': `${baseUrl}/it/blog/${post.slugs.it}`,
+          'ro': `${SITE_URL}/ro/blog/${post.slugs.ro}`,
+          'en': `${SITE_URL}/en/blog/${post.slugs.en}`,
+          'it': `${SITE_URL}/it/blog/${post.slugs.it}`,
         },
       },
     };
@@ -52,8 +51,31 @@ export default async function BlogPostPage({ params: { locale, slug } }: BlogPos
   const content = post.content[locale as keyof typeof post.content] || post.content.en;
   const htmlContent = await marked(content);
 
+  const postTitle = post.title[locale as keyof typeof post.title] || post.title.en;
+  const postExcerpt = post.excerpt[locale as keyof typeof post.excerpt] || post.excerpt.en;
+  const canonicalUrl = `${SITE_URL}/${locale}/blog/${post.slugs[locale as keyof typeof post.slugs]}`;
+
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: postTitle,
+    description: postExcerpt,
+    image: post.imageUrl || undefined,
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt || post.publishedAt,
+    author: { '@type': 'Organization', name: post.author },
+    publisher: { '@id': `${SITE_URL}/#organization` },
+    mainEntityOfPage: canonicalUrl,
+    keywords: post.tags.join(', '),
+    inLanguage: locale,
+  };
+
   return (
     <BlogPostWrapper slugs={post.slugs}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <div>
       {/* Hero Section */}
       <section className="section-padding bg-gradient-to-br from-gray-50 to-primary-50 dark:from-gray-900 dark:to-gray-800">

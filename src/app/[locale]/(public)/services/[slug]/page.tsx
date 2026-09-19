@@ -11,6 +11,7 @@ import {
   Package
 } from 'lucide-react';
 import { getServicePageBySlug, getAllProducts } from '@/lib/data';
+import { localeAlternates } from '@/lib/seo';
 
 interface ServiceDetailPageProps {
   params: { locale: string; slug: string };
@@ -26,6 +27,7 @@ export async function generateMetadata({ params: { locale, slug } }: ServiceDeta
   return {
     title: service.metaTitle?.[loc] || `${service.name} — ${service.tagline[loc]}`,
     description: service.metaDescription?.[loc] || service.description[loc].slice(0, 160),
+    alternates: localeAlternates(locale, `/services/${slug}`),
   };
 }
 

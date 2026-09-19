@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
+import { localeAlternates } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,8 +10,16 @@ interface PageProps {
 
 export async function generateMetadata({ params: { locale } }: PageProps) {
     const t = await getTranslations({ locale, namespace: 'footer' });
+    const description =
+        locale === 'ro'
+            ? 'Termenii și condițiile de utilizare a serviciilor Gridjac Arts.'
+            : locale === 'it'
+              ? 'Termini e condizioni di utilizzo dei servizi Gridjac Arts.'
+              : 'Terms and conditions for using Gridjac Arts services.';
     return {
         title: t('terms'),
+        description,
+        alternates: localeAlternates(locale, '/terms'),
     };
 }
 

@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { ArrowRight, Bot, Database, Rocket, FlaskConical, Github, Zap } from 'lucide-react';
+import { localeAlternates } from '@/lib/seo';
 
 interface LabsPageProps {
   params: { locale: string };
@@ -14,6 +15,7 @@ export async function generateMetadata({ params: { locale } }: LabsPageProps) {
   return {
     title: t('meta.title'),
     description: t('meta.description'),
+    alternates: localeAlternates(locale, '/labs'),
   };
 }
 

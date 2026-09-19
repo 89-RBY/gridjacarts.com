@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, CheckCircle2, ExternalLink, Target } from 'lucide-react';
 import { getProductBySlug } from '@/lib/data';
+import { localeAlternates, SITE_URL } from '@/lib/seo';
 
 interface ProductDetailPageProps {
   params: { locale: string; slug: string };
@@ -18,6 +19,7 @@ export async function generateMetadata({ params: { locale, slug } }: ProductDeta
   return {
     title: product.metaTitle?.[loc] || `${product.name} — ${product.tagline[loc]}`,
     description: product.metaDescription?.[loc] || product.description[loc].slice(0, 160),
+    alternates: localeAlternates(locale, `/products/${slug}`),
   };
 }
 
@@ -29,8 +31,22 @@ export default async function ProductDetailPage({ params: { locale, slug } }: Pr
   const tCommon = await getTranslations({ locale, namespace: 'common' });
   const tProducts = await getTranslations({ locale, namespace: 'products' });
 
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: product.name,
+    description: product.description[loc],
+    applicationCategory: product.category,
+    url: product.demoUrl || `${SITE_URL}/${locale}/products/${slug}`,
+    creator: { '@id': `${SITE_URL}/#organization` },
+  };
+
   return (
     <div className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       {/* Back link */}
       <div className="container-custom pt-28 pb-4">
         <Link

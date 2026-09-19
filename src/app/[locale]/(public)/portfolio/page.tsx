@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
+import { localeAlternates } from '@/lib/seo';
 
 interface PortfolioPageProps {
   params: { locale: string };
@@ -14,6 +15,8 @@ export async function generateMetadata({ params: { locale } }: PortfolioPageProp
   const t = await getTranslations({ locale, namespace: 'portfolio' });
   return {
     title: t('title'),
+    description: t('subtitle'),
+    alternates: localeAlternates(locale, '/portfolio'),
   };
 }
 

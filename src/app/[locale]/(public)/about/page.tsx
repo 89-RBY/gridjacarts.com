@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { Handshake, Lightbulb, Award, Eye, Target, Compass } from 'lucide-react';
 import TeamList from '@/components/TeamList';
+import { localeAlternates } from '@/lib/seo';
 
 interface AboutPageProps {
   params: { locale: string };
@@ -13,6 +14,8 @@ export async function generateMetadata({ params: { locale } }: AboutPageProps) {
   const t = await getTranslations({ locale, namespace: 'about' });
   return {
     title: t('title'),
+    description: t('subtitle'),
+    alternates: localeAlternates(locale, '/about'),
   };
 }
 

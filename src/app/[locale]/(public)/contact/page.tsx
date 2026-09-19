@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { Mail, Phone, MapPin, Calendar, Facebook, Instagram, Linkedin } from 'lucide-react';
 import Link from 'next/link';
+import { localeAlternates } from '@/lib/seo';
 
 interface ContactPageProps {
   params: { locale: string };
@@ -13,6 +14,8 @@ export async function generateMetadata({ params: { locale } }: ContactPageProps)
   const t = await getTranslations({ locale, namespace: 'contact' });
   return {
     title: t('title'),
+    description: t('subtitle'),
+    alternates: localeAlternates(locale, '/contact'),
   };
 }
 

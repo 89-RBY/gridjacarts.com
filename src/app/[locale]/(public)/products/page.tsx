@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { ArrowRight, ExternalLink, Package } from 'lucide-react';
 import { getProducts } from '@/lib/data';
+import { localeAlternates } from '@/lib/seo';
 
 interface ProductsPageProps {
   params: { locale: string };
@@ -15,6 +16,7 @@ export async function generateMetadata({ params: { locale } }: ProductsPageProps
   return {
     title: t('meta.title'),
     description: t('meta.description'),
+    alternates: localeAlternates(locale, '/products'),
   };
 }
 

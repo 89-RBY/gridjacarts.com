@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
+import { localeAlternates } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,8 +10,16 @@ interface PageProps {
 
 export async function generateMetadata({ params: { locale } }: PageProps) {
     const t = await getTranslations({ locale, namespace: 'footer' });
+    const description =
+        locale === 'ro'
+            ? 'Cum colectăm, folosim și protejăm datele tale personale pe gridjacarts.com.'
+            : locale === 'it'
+              ? 'Come raccogliamo, utilizziamo e proteggiamo i tuoi dati personali su gridjacarts.com.'
+              : 'How we collect, use and protect your personal data on gridjacarts.com.';
     return {
         title: t('privacy'),
+        description,
+        alternates: localeAlternates(locale, '/privacy'),
     };
 }
 

@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { getBlogPosts } from '@/lib/data';
 import { Calendar, User, ArrowRight } from 'lucide-react';
+import { localeAlternates } from '@/lib/seo';
 
 interface BlogPageProps {
   params: { locale: string };
@@ -13,6 +14,8 @@ export async function generateMetadata({ params: { locale } }: BlogPageProps) {
   const t = await getTranslations({ locale, namespace: 'blog' });
   return {
     title: t('title'),
+    description: t('subtitle'),
+    alternates: localeAlternates(locale, '/blog'),
   };
 }
 
