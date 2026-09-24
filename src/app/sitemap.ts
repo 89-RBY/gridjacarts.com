@@ -84,5 +84,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error fetching products for sitemap:', error);
   }
 
-  return [...staticRoutes, ...serviceRoutes, ...blogRoutes, ...productRoutes];
+  // Italian-only landing pages (no hreflang alternates, single locale by design)
+  const italianOnlyRoutes: MetadataRoute.Sitemap = [
+    {
+      url: `${SITE_URL}/it/ai-studi-professionali`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+  ];
+
+  return [...staticRoutes, ...serviceRoutes, ...blogRoutes, ...productRoutes, ...italianOnlyRoutes];
 }
