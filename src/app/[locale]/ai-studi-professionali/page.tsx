@@ -6,59 +6,81 @@ import {
   ShieldCheck,
   ArrowRight,
   Server,
-  FileSearch,
-  FileText,
-  GitCompare,
-  MessagesSquare,
-  Search,
-  CheckCircle2,
   Building2,
   Languages,
   Headset,
+  CheckCircle2,
+  FileWarning,
+  FolderSearch,
+  Clock,
+  Quote,
 } from 'lucide-react';
+
+const risks = [
+  {
+    n: '01',
+    icon: FileWarning,
+    title: 'Fuga di dati e violazione del segreto professionale',
+    desc: 'I documenti caricati su ChatGPT e strumenti simili lasciano lo studio e finiscono su server esteri di terzi — un rischio concreto rispetto al segreto professionale e alla LPD, spesso senza che la direzione dello studio lo sappia.',
+  },
+  {
+    n: '02',
+    icon: FolderSearch,
+    title: 'Archivi dispersi e frammentati',
+    desc: 'Vecchie pratiche, pareri passati e precedenti sono sparsi tra cartelle di rete, email e archivi cartacei: ritrovarli richiede un dispendio enorme di tempo prezioso.',
+  },
+  {
+    n: '03',
+    icon: Clock,
+    title: 'Analisi manuale che consuma ore',
+    desc: 'Contratti complessi e pareri lunghi decine di pagine vanno letti e riassunti manualmente da soci o collaboratori prima di poter rispondere al cliente.',
+  },
+];
 
 const useCases = [
   {
-    icon: Search,
-    title: 'Ritrovare vecchie pratiche',
-    desc: '"Abbiamo già gestito un caso di locazione commerciale con clausola di recesso anticipato?"',
+    scenario:
+      'Un cliente storico contatta lo studio per una contestazione commerciale legata a una vertenza iniziata tre anni prima. Il fascicolo contiene centinaia di email, lettere e bozze sparse in diverse cartelle.',
+    question:
+      'Quali sono stati i punti di disaccordo principali con la controparte tra il 2023 e il 2024, e quali impegni abbiamo assunto per iscritto?',
+    result:
+      "L'AI analizza l'intero fascicolo autorizzato in pochi secondi e compila una sintesi cronologica con, per ogni punto, il file sorgente e il numero di pagina esatto. Il professionista ha il quadro completo prima ancora di aprire i singoli file.",
+    time: 'Secondi invece di ore',
   },
   {
-    icon: FileText,
-    title: 'Riassumere documenti lunghi',
-    desc: 'Un contratto di 60 pagine ridotto ai punti chiave in un minuto.',
+    scenario:
+      'Lo studio deve esaminare un contratto di locazione commerciale di 60 pagine per verificare clausole di recesso anticipato, penali o limitazioni di responsabilità.',
+    question:
+      'Analizza questo contratto ed elenca tutte le clausole che prevedono penali a carico del nostro cliente, con articolo e condizione di attivazione.',
+    result:
+      "Il server estrae ogni riscontro rilevante in una lista puntuale. Un'analisi che richiederebbe un'ora di lettura intensiva viene completata in un minuto, azzerando il rischio di sviste.",
+    time: 'Un minuto invece di un’ora',
   },
   {
-    icon: FileSearch,
-    title: 'Preparare bozze',
-    desc: 'Lettere, pareri, comunicazioni ai clienti partendo dai vostri modelli.',
-  },
-  {
-    icon: GitCompare,
-    title: 'Confrontare versioni',
-    desc: 'Evidenziare cosa è cambiato tra due bozze di un contratto.',
-  },
-  {
-    icon: MessagesSquare,
-    title: 'Rispondere a domande interne',
-    desc: 'Procedure dello studio, scadenze, prassi consolidate.',
+    scenario:
+      'Un collaboratore deve redigere un parere che ricalchi lo stile e l’impostazione già usati con successo dallo studio in casi analoghi.',
+    question:
+      'Prendi a modello il parere depositato nel caso [X] e adatta l’impostazione per la nuova posizione del cliente [Y], evidenziando le parti variabili.',
+    result:
+      'L’AI genera una bozza coerente con lo stile dello studio, attingendo solo ai precedenti interni archiviati in locale — nessun dato esce mai per generarla.',
+    time: 'Bozza pronta in pochi minuti',
   },
 ];
 
 const whyUs = [
-  { icon: Building2, text: 'Software house attiva dal 2020 in Svizzera, Italia e Romania' },
-  { icon: ShieldCheck, text: 'Collaborazione continuativa con aziende svizzere' },
-  { icon: Server, text: 'Team tecnico interno: sviluppo, integrazione e assistenza' },
-  { icon: Languages, text: 'Installazione e supporto in lingua italiana' },
+  { icon: Building2, text: 'Core business nativo: sviluppiamo AI ogni giorno, non rivendiamo un plugin di terzi' },
+  { icon: Server, text: 'Prodotto gestito chiavi in mano: hardware, installazione, aggiornamenti e assistenza in un canone unico' },
+  { icon: Languages, text: 'Software house attiva dal 2020 in Svizzera, Italia e Romania — installazione e supporto in italiano' },
+  { icon: ShieldCheck, text: 'Sicurezza assoluta: nessun cloud, zero elaborazione esterna, conformità al segreto professionale' },
 ];
 
 const faq: [string, string][] = [
-  ['I dati escono mai dallo studio?', 'No. Il server lavora nella vostra rete locale, non su cloud esterni.'],
-  ['Serve un tecnico interno?', 'No. Ci occupiamo noi di installazione, aggiornamenti e assistenza.'],
-  ['Quanto è accurato?', 'Ogni risposta cita il documento di origine, così potete verificarla sempre.'],
-  ['Cosa succede se il server si guasta?', 'Backup e sostituzione sono previsti nel contratto di assistenza.'],
+  ['I dati escono mai dallo studio?', 'No, in modo assoluto. Il server lavora sulla vostra rete locale — mai su internet per l’elaborazione dei documenti.'],
+  ['Serve un tecnico interno?', 'No. Ci occupiamo noi di installazione, aggiornamenti e assistenza; il team usa solo una chat in linguaggio naturale.'],
+  ['Quanto sono affidabili le risposte?', 'Ogni risposta include la citazione esatta della fonte (documento e pagina): zero scatole nere, e potete sempre verificare.'],
+  ['Cosa copre l’assistenza in caso di guasto?', 'Hardware sostitutivo e backup rapido sono previsti nel contratto, per non fermare mai lo studio.'],
   ['Si integra con i nostri programmi?', 'Lavora con i documenti nelle cartelle condivise; integrazioni specifiche su richiesta.'],
-  ['È conforme alla LPD svizzera?', 'I dati restano fisicamente nello studio, sul vostro server. Verifichiamo insieme al vostro legale i dettagli specifici del vostro caso.'],
+  ['È conforme alla LPD svizzera?', 'La gestione locale e i permessi ereditati dall’archivio supportano pienamente il rispetto della LPD e del segreto professionale.'],
 ];
 
 const teamSizes = ['1–5 persone', '6–15 persone', '16–30 persone', 'Oltre 30 persone'];
@@ -209,16 +231,26 @@ export default function AiStudiPage({ params: { locale } }: { params: { locale: 
 
       {/* Problem */}
       <section className="section-padding bg-tech-surface/30">
-        <div className="container-custom max-w-3xl">
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-tech-text mb-5">
-            Usare ChatGPT sui documenti dei clienti significa mandarli su server esteri.
+        <div className="container-custom">
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-tech-text mb-4 max-w-3xl">
+            Dove rischia il vostro studio
           </h2>
-          <p className="text-tech-text-dim leading-relaxed text-lg">
-            Molti professionisti oggi usano strumenti di AI per riassumere contratti o preparare
-            bozze. Ogni documento caricato però lascia lo studio e finisce su infrastrutture di
-            terzi, spesso fuori dalla Svizzera. Con il segreto professionale e la nuova LPD, è un
-            rischio che non vale la pena correre.
+          <p className="text-tech-text-dim leading-relaxed text-lg mb-10 max-w-3xl">
+            La pressione a lavorare più velocemente spinge a usare strumenti AI cloud sui
+            documenti dei clienti — spesso senza che la direzione dello studio lo sappia.
           </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {risks.map((r) => (
+              <div key={r.n} className="tech-card p-6 border-l-2 border-l-tech-danger">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="font-mono text-xs text-tech-text-muted">{r.n}</span>
+                  <r.icon className="w-5 h-5 text-tech-accent" />
+                </div>
+                <h3 className="font-display font-semibold text-tech-text mb-2">{r.title}</h3>
+                <p className="text-sm text-tech-text-dim leading-relaxed">{r.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -254,27 +286,48 @@ export default function AiStudiPage({ params: { locale } }: { params: { locale: 
               </div>
             ))}
           </div>
-          <p className="text-center text-tech-text font-medium">
-            Nessun abbonamento a servizi esteri, nessun dato in cloud. Se staccate internet,
-            continua a funzionare.
-          </p>
+          <div className="tech-card-elevated tech-border-gradient p-6 flex items-start gap-4 max-w-3xl mx-auto">
+            <div className="w-10 h-10 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center flex-shrink-0">
+              <ShieldCheck className="w-5 h-5 text-tech-accent" />
+            </div>
+            <div>
+              <div className="font-display font-semibold text-tech-text mb-1">
+                Fonte citata, zero scatole nere
+              </div>
+              <p className="text-sm text-tech-text-dim leading-relaxed">
+                Ogni risposta non è una deduzione astratta: è corredata dal riferimento esatto al
+                documento e alla pagina d&apos;origine, per un controllo immediato. Nessun
+                abbonamento a servizi esteri, nessun dato in cloud — se staccate internet,
+                continua a funzionare.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Use cases */}
       <section className="section-padding bg-tech-surface/30">
         <div className="container-custom">
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text mb-12">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text mb-4">
             Cosa può fare per il vostro studio
           </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {useCases.map((u) => (
-              <div key={u.title} className="tech-card p-6">
-                <div className="w-10 h-10 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center mb-4">
-                  <u.icon className="w-5 h-5 text-tech-accent" />
+          <p className="text-tech-text-dim leading-relaxed text-lg mb-12 max-w-2xl">
+            Tre esempi concreti di come l&apos;AI locale accelera le attività ad alto valore
+            aggiunto.
+          </p>
+          <div className="grid lg:grid-cols-3 gap-6">
+            {useCases.map((u, i) => (
+              <div key={i} className="tech-card p-6 flex flex-col gap-4">
+                <p className="text-sm text-tech-text-dim leading-relaxed">{u.scenario}</p>
+                <div className="flex items-start gap-2 bg-tech-bg border border-tech-border rounded-lg p-4">
+                  <Quote className="w-4 h-4 text-tech-accent flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-tech-text italic leading-relaxed">{u.question}</p>
                 </div>
-                <h3 className="font-display font-semibold text-tech-text mb-2">{u.title}</h3>
-                <p className="text-sm text-tech-text-dim leading-relaxed">{u.desc}</p>
+                <p className="text-sm text-tech-text-dim leading-relaxed flex-1">{u.result}</p>
+                <div className="flex items-center gap-2 text-xs font-mono text-tech-accent pt-2 border-t border-tech-border">
+                  <Clock className="w-3.5 h-3.5 flex-shrink-0" />
+                  {u.time}
+                </div>
               </div>
             ))}
           </div>
@@ -285,7 +338,7 @@ export default function AiStudiPage({ params: { locale } }: { params: { locale: 
       <section className="section-padding">
         <div className="container-custom">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text mb-12">
-            Chi siamo
+            Perché Gridjac Arts è il partner ideale
           </h2>
           <div className="grid sm:grid-cols-2 gap-6">
             {whyUs.map((item) => (
@@ -362,8 +415,9 @@ export default function AiStudiPage({ params: { locale } }: { params: { locale: 
                 Vedetelo funzionare nel vostro studio
               </h2>
               <p className="text-tech-text-dim leading-relaxed">
-                Portiamo il server da voi, stacchiamo il cavo di rete e facciamo domande sui
-                vostri documenti. 30 minuti, senza impegno.
+                Portiamo il server da voi, stacchiamo il cavo di rete e facciamo domande su
+                alcuni vostri documenti di esempio (anche anonimizzati, se preferite). 30 minuti,
+                senza impegno.
               </p>
             </div>
 
