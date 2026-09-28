@@ -1,87 +1,80 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Fraunces, IBM_Plex_Sans } from 'next/font/google';
 import Link from 'next/link';
 import {
+  ShieldCheck,
+  ArrowRight,
   Lock,
-  Phone,
-  Mail,
-  CheckCircle2,
+  Search,
+  FilePenLine,
+  FileSearch2,
+  Archive,
+  Building2,
+  Languages,
+  Server,
   ChevronDown,
+  CheckCircle2,
   ClipboardList,
 } from 'lucide-react';
 
-const fraunces = Fraunces({ subsets: ['latin'], weight: ['400', '600'], variable: '--font-serif' });
-const plexSans = IBM_Plex_Sans({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-sans' });
-
-// Design tokens — matched to the approved design canvas
-const BRASS = '#8A6420';
-const BRASS_LIGHT = '#D9B56E';
-const NAVY = '#17202E';
-const NAVY_LIGHT = '#223047'; // AI reply bubble on dark hero panel
-const NAVY_BORDER = '#334055'; // dividers on dark sections
-const IVORY = '#F6F3EC';
-const IVORY_DARK = '#EDE7DB'; // "problem" section background
-const BODY_TEXT = '#3A4452';
-const MUTED_TEXT = '#5B6472';
-const META_TEXT = '#A9B1BD'; // small-caps labels on dark hero panel
-const LIGHT_ON_DARK = '#DCE2EA';
-const BORDER = '#DDD6C8';
-const INPUT_BORDER = '#B9B1A2';
-
 const problems = [
   {
+    icon: Server,
     title: 'Dati su server altrui',
-    desc: "Con i servizi in cloud atti e documenti vengono elaborati fuori dallo studio, spesso fuori dall'UE.",
+    desc: "Atti e documenti elaborati fuori dallo studio, spesso fuori dall'UE.",
   },
   {
+    icon: Lock,
     title: 'Segreto professionale',
-    desc: "La riservatezza verso il cliente non si delega a condizioni d'uso che cambiano nel tempo.",
+    desc: "La riservatezza non si delega a condizioni d'uso che cambiano.",
   },
   {
+    icon: Search,
     title: 'Risposte generiche',
-    desc: 'Gli strumenti generalisti non conoscono a fondo il diritto e la prassi italiana.',
+    desc: 'Gli strumenti generalisti non conoscono a fondo il diritto italiano.',
   },
 ];
 
 const steps = [
   {
-    n: '01',
     title: 'Installazione in studio',
-    desc: 'Configuriamo un server dedicato nei vostri locali, di vostra proprietà.',
+    desc: 'Server dedicato nei vostri locali, di vostra proprietà.',
   },
   {
-    n: '02',
     title: 'Specializzazione sul diritto italiano',
-    desc: "L'assistente lavora su normativa, giurisprudenza e prassi italiana, e sui vostri modelli di atti.",
+    desc: 'Normativa, giurisprudenza, prassi e i vostri modelli di atti.',
   },
   {
-    n: '03',
     title: 'Uso quotidiano',
-    desc: 'Avvocati e collaboratori lo usano dal browser, all’interno della rete dello studio.',
+    desc: 'Dal browser, solo all’interno della rete dello studio.',
   },
 ];
 
 const features = [
-  { title: 'Ricerca giurisprudenziale', desc: 'Individua precedenti e orientamenti pertinenti al caso.' },
-  { title: 'Prime bozze di atti', desc: 'Diffide, ricorsi, contratti partendo dai modelli dello studio.' },
-  { title: 'Analisi di fascicoli', desc: 'Sintesi, cronologie e punti critici da documenti lunghi.' },
-  { title: 'Archivio interrogabile', desc: 'Domande in linguaggio naturale sui vostri pareri e atti passati.' },
+  { icon: Search, title: 'Ricerca giurisprudenziale', desc: 'Individua precedenti e orientamenti pertinenti al caso.' },
+  { icon: FilePenLine, title: 'Prime bozze di atti', desc: 'A partire dai modelli dello studio.' },
+  { icon: FileSearch2, title: 'Analisi di fascicoli', desc: 'Sintesi, cronologie, punti critici.' },
+  { icon: Archive, title: 'Archivio interrogabile', desc: 'Domande in linguaggio naturale su pareri e atti passati.' },
+];
+
+const whyUs = [
+  { icon: Building2, text: 'Gridjac Arts — software house attiva in Italia, Svizzera e Romania dal 2020' },
+  { icon: Languages, text: 'Specializzazione sul diritto e sulla prassi italiana' },
 ];
 
 const privacyPoints = [
-  'Elaborazione esclusivamente sul server interno, senza invio a fornitori AI esterni.',
+  'Elaborazione solo sul server interno, nessun invio a fornitori AI esterni.',
   'Accessi per utente e registro delle attività gestiti dallo studio.',
   'Supporto alla documentazione privacy (registro dei trattamenti, informative).',
-  "L'avvocato resta sempre il responsabile di verifica e decisione finale.",
+  "L'avvocato resta sempre responsabile di verifica e decisione finale.",
 ];
 
 const faq: [string, string][] = [
-  ['Serve un reparto IT interno?', 'No. Installazione, aggiornamenti e assistenza sono a cura nostra.'],
+  ['Serve un reparto IT interno?', 'No, installazione, aggiornamenti e assistenza sono a cura nostra.'],
   ['Quanto costa?', 'Dipende dal numero di utenti e dal volume di documenti; lo indichiamo nella scheda informativa.'],
   ['Funziona senza internet?', "L'elaborazione avviene in locale; la connessione serve solo per gli aggiornamenti concordati."],
-  ["Sostituisce l'avvocato?", 'No: è uno strumento di supporto. Ogni output va verificato dal professionista.'],
+  ["Sostituisce l'avvocato?", 'No, è uno strumento di supporto: ogni risultato va verificato dal professionista.'],
   ['Chi siete?', 'Gridjac Arts, software house attiva in Italia, Svizzera e Romania dal 2020.'],
 ];
 
@@ -176,69 +169,68 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
   };
 
   const inputClass =
-    'h-12 rounded-md border px-3.5 text-[16px] font-sans text-[#17202E] placeholder:text-[#8A6420]/0 focus:outline-none focus:border-[#8A6420]';
-  const inputStyle = { borderColor: INPUT_BORDER, fontFamily: 'inherit' };
-  const labelClass = 'flex flex-col gap-1.5 text-sm font-medium text-[#17202E]';
-  const serif = fraunces.className;
-  const sans = plexSans.className;
-  const eyebrowClass = 'text-[14px] tracking-[0.12em] uppercase font-semibold';
+    'w-full rounded-lg bg-tech-bg border border-tech-border px-4 py-3 text-tech-text placeholder:text-tech-text-muted focus:outline-none focus:border-tech-accent transition-colors';
+  const labelClass = 'block text-sm font-medium text-tech-text-dim mb-2';
 
   return (
-    <div className={sans} style={{ color: NAVY }}>
+    <div>
       {/* Hero */}
-      <section className="pt-16 pb-16 md:pt-20 md:pb-24">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="flex flex-col gap-7">
-              <div className={eyebrowClass} style={{ color: BRASS }}>
-                Assistente AI personale &middot; installato in studio
+      <section className="relative pt-20 pb-20 tech-grid-bg overflow-hidden">
+        <div className="absolute inset-0 bg-tech-radial pointer-events-none" />
+        <div className="container-custom relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="tech-badge-accent mb-6">
+                <ShieldCheck className="w-3 h-3" />
+                <span className="font-mono text-[11px]">ASSISTENTE AI PERSONALE &middot; INSTALLATO IN STUDIO</span>
               </div>
-              <h1 className={`${serif} font-normal text-4xl md:text-5xl lg:text-[56px] leading-[1.1]`}>
-                L&apos;intelligenza artificiale che lavora nel vostro studio. I fascicoli restano
-                lì.
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-tech-text leading-[1.08] mb-6">
+                L&apos;intelligenza artificiale che lavora nel vostro studio.{' '}
+                <span className="tech-gradient-text">I fascicoli restano lì.</span>
               </h1>
-              <p className="text-lg md:text-xl leading-relaxed max-w-xl" style={{ color: BODY_TEXT }}>
+              <p className="text-lg text-tech-text-dim leading-relaxed mb-8 max-w-xl">
                 Un assistente AI su un server di vostra proprietà, specializzato sul diritto
                 italiano. Nessun dato dei clienti passa da cloud esterni: in linea con il GDPR e
                 con il segreto professionale.
               </p>
-              <div className="flex flex-wrap gap-5 items-center pt-1">
-                <a
-                  href="#contatto"
-                  className="inline-flex items-center rounded-md px-7 py-4 text-white font-medium text-[17px] hover:opacity-90 transition-opacity"
-                  style={{ background: NAVY }}
-                >
+              <div className="flex flex-wrap gap-4">
+                <a href="#contatto" className="btn-primary inline-flex items-center gap-2">
                   Sono interessato
+                  <ArrowRight className="w-4 h-4" />
                 </a>
-                <a href="#come" className="text-[17px] font-medium hover:opacity-70 transition-opacity">
+                <a href="#come" className="btn-secondary inline-flex items-center gap-2">
                   Scopri come funziona
                 </a>
               </div>
             </div>
 
-            {/* Chat mockup visual — dark panel, matches design canvas */}
-            <div className="rounded-2xl p-9 flex flex-col gap-5 text-[#F6F3EC]" style={{ background: NAVY }}>
-              <div
-                className="flex items-center justify-between text-xs uppercase tracking-wider"
-                style={{ color: META_TEXT }}
-              >
-                <span>Server dello studio</span>
-                <span>Offline dalla rete esterna</span>
-              </div>
-              <div className="rounded-lg border p-5 text-[16px] leading-relaxed" style={{ borderColor: NAVY_BORDER }}>
-                &laquo;Riassumi il fascicolo e individua la giurisprudenza di legittimità più
-                recente sul punto.&raquo;
-              </div>
-              <div
-                className="rounded-lg p-5 text-[16px] leading-relaxed"
-                style={{ background: NAVY_LIGHT, color: LIGHT_ON_DARK }}
-              >
-                Sintesi del fascicolo, questioni rilevanti e precedenti pertinenti, con i
-                riferimenti da verificare. Elaborato interamente sul server interno.
-              </div>
-              <div className="flex items-center gap-2.5 text-sm" style={{ color: BRASS_LIGHT }}>
-                <Lock className="w-[18px] h-[18px] flex-shrink-0" strokeWidth={1.8} />
-                Nessun dato inviato a servizi esterni
+            {/* Chat mockup visual */}
+            <div className="tech-card-elevated tech-border-gradient p-8">
+              <div className="terminal">
+                <div className="terminal-header">
+                  <div className="flex gap-2">
+                    <div className="terminal-dot bg-[#ff5f57]" />
+                    <div className="terminal-dot bg-[#febc2e]" />
+                    <div className="terminal-dot bg-[#28c840]" />
+                  </div>
+                  <div className="flex-1 text-center text-xs text-tech-text-muted font-mono">
+                    assistente di studio
+                  </div>
+                </div>
+                <div className="terminal-body space-y-3 text-sm">
+                  <div className="pt-1 text-tech-text">
+                    <span className="text-tech-accent font-mono">&gt;</span> Riassumi il fascicolo
+                    e individua la giurisprudenza di legittimità più recente sul punto.
+                  </div>
+                  <div className="text-tech-text-dim pl-3 border-l-2 border-tech-accent/40 leading-relaxed">
+                    Sintesi del fascicolo, questioni rilevanti e precedenti pertinenti, con i
+                    riferimenti da verificare. Elaborato interamente sul server interno.
+                  </div>
+                  <div className="flex items-center gap-2 pt-3 border-t border-tech-border text-tech-accent text-xs font-mono">
+                    <Lock className="w-3.5 h-3.5 flex-shrink-0" />
+                    Nessun dato inviato a servizi esterni
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -246,17 +238,20 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
       </section>
 
       {/* Problem */}
-      <section className="py-20" style={{ background: IVORY_DARK }}>
-        <div className="container-custom flex flex-col gap-12">
-          <h2 className={`${serif} font-normal text-3xl md:text-[42px] leading-tight max-w-3xl`}>
-            Usare ChatGPT &amp; simili con i documenti dei clienti è un rischio che uno studio
-            non può correre.
+      <section className="section-padding bg-tech-surface/30">
+        <div className="container-custom">
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-tech-text max-w-3xl mb-12">
+            Usare ChatGPT e simili con i documenti dei clienti è un rischio che uno studio non
+            può correre.
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {problems.map((p) => (
-              <div key={p.title} className="flex flex-col gap-3">
-                <div className={`${serif} text-[22px] font-semibold`}>{p.title}</div>
-                <p className="text-[17px] leading-relaxed" style={{ color: BODY_TEXT }}>{p.desc}</p>
+              <div key={p.title} className="tech-card p-6">
+                <div className="w-10 h-10 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center mb-4">
+                  <p.icon className="w-5 h-5 text-tech-accent" />
+                </div>
+                <h3 className="font-semibold text-tech-text mb-2">{p.title}</h3>
+                <p className="text-sm text-tech-text-dim leading-relaxed">{p.desc}</p>
               </div>
             ))}
           </div>
@@ -264,88 +259,115 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
       </section>
 
       {/* How it works */}
-      <section id="come" className="py-24">
-        <div className="container-custom flex flex-col gap-14">
-          <div className="flex flex-col gap-3.5">
-            <div className={eyebrowClass} style={{ color: BRASS }}>Come funziona</div>
-            <h2 className={`${serif} font-normal text-3xl md:text-[48px]`}>
-              Tre passaggi, zero dati all&apos;esterno
-            </h2>
+      <section id="come" className="section-padding">
+        <div className="container-custom">
+          <div className="tech-badge mb-4">
+            <span className="font-mono">{'//'} COME FUNZIONA</span>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {steps.map((s) => (
-              <div key={s.n} className="flex flex-col gap-3 pt-6" style={{ borderTop: `2px solid ${NAVY}` }}>
-                <div className={`${serif} text-4xl`} style={{ color: BRASS }}>{s.n}</div>
-                <div className="text-[21px] font-semibold">{s.title}</div>
-                <p className="text-[17px] leading-relaxed" style={{ color: BODY_TEXT }}>{s.desc}</p>
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text mb-12">
+            Tre passaggi, zero dati all&apos;esterno
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {steps.map((s, i) => (
+              <div key={s.title} className="tech-card p-8">
+                <div className="w-10 h-10 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center font-mono font-bold text-tech-accent mb-5">
+                  {i + 1}
+                </div>
+                <h3 className="text-lg font-display font-semibold text-tech-text mb-2">
+                  {s.title}
+                </h3>
+                <p className="text-tech-text-dim leading-relaxed text-sm">{s.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features — flows directly after "come funziona", no heading (matches canvas) */}
-      <section className="pb-24">
-        <div className="container-custom grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((f) => (
-            <div
-              key={f.title}
-              className="rounded-xl bg-white p-7 flex flex-col gap-2.5"
-              style={{ border: `1px solid ${BORDER}` }}
-            >
-              <div className="text-[19px] font-semibold">{f.title}</div>
-              <p className="text-[16px] leading-relaxed" style={{ color: BODY_TEXT }}>{f.desc}</p>
-            </div>
-          ))}
+      {/* Features */}
+      <section className="section-padding bg-tech-surface/30">
+        <div className="container-custom">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text mb-12">
+            Cosa fa
+          </h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((f) => (
+              <div key={f.title} className="tech-card p-6">
+                <div className="w-10 h-10 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center mb-4">
+                  <f.icon className="w-5 h-5 text-tech-accent" />
+                </div>
+                <h3 className="font-semibold text-tech-text mb-2 text-sm">{f.title}</h3>
+                <p className="text-xs text-tech-text-dim leading-relaxed">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why us */}
+      <section className="section-padding">
+        <div className="container-custom">
+          <div className="grid sm:grid-cols-2 gap-6 max-w-3xl">
+            {whyUs.map((item) => (
+              <div key={item.text} className="tech-card p-6 flex items-start gap-4">
+                <div className="w-10 h-10 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center flex-shrink-0">
+                  <item.icon className="w-5 h-5 text-tech-accent" />
+                </div>
+                <p className="text-tech-text-dim leading-relaxed pt-1.5 text-sm">{item.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Privacy / dark section */}
-      <section id="privacy" className="py-24" style={{ background: NAVY, color: IVORY }}>
-        <div className="container-custom grid lg:grid-cols-2 gap-20">
-          <div className="flex flex-col gap-5">
-            <div className={eyebrowClass} style={{ color: BRASS_LIGHT }}>Riservatezza by design</div>
-            <h2 className={`${serif} font-normal text-3xl md:text-[46px] leading-tight`}>
-              In linea con il GDPR perché i dati non escono dallo studio.
-            </h2>
+      <section id="privacy" className="section-padding bg-tech-surface/30">
+        <div className="container-custom">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <div className="tech-badge-accent mb-6">
+                <ShieldCheck className="w-3 h-3" />
+                <span className="font-mono text-[11px]">RISERVATEZZA BY DESIGN</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text leading-tight">
+                In linea con il GDPR perché i dati non escono dallo studio.
+              </h2>
+            </div>
+            <ul className="space-y-4">
+              {privacyPoints.map((point) => (
+                <li key={point} className="flex items-start gap-3 text-tech-text-dim">
+                  <CheckCircle2 className="w-5 h-5 text-tech-accent flex-shrink-0 mt-0.5" />
+                  <span className="leading-relaxed">{point}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="flex flex-col gap-5 text-lg leading-relaxed list-none p-0 m-0" style={{ color: LIGHT_ON_DARK }}>
-            {privacyPoints.map((point, i) => (
-              <li
-                key={point}
-                className="pb-5"
-                style={i < privacyPoints.length - 1 ? { borderBottom: `1px solid ${NAVY_BORDER}` } : undefined}
-              >
-                {point}
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
       {/* FAQ accordion */}
-      <section id="faq" className="py-24">
-        <div className="container-custom max-w-3xl flex flex-col gap-8">
-          <h2 className={`${serif} font-normal text-3xl md:text-[46px]`}>Domande frequenti</h2>
-          <div style={{ borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}` }}>
+      <section id="faq" className="section-padding">
+        <div className="container-custom max-w-3xl">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text mb-8">
+            Domande frequenti
+          </h2>
+          <div className="tech-card !p-0 divide-y divide-tech-border overflow-hidden">
             {faq.map(([q, a], i) => {
               const isOpen = openFaq === i;
               return (
-                <div key={q} style={i > 0 ? { borderTop: `1px solid ${BORDER}` } : undefined}>
+                <div key={q}>
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : i)}
                     aria-expanded={isOpen}
-                    className="w-full flex items-center justify-between gap-4 py-5 text-left"
+                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
                   >
-                    <span className="text-[19px] font-semibold">{q}</span>
+                    <span className="font-medium text-tech-text">{q}</span>
                     <ChevronDown
-                      className={`w-4 h-4 flex-shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-                      style={{ color: BRASS }}
+                      className={`w-4 h-4 text-tech-accent flex-shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`}
                     />
                   </button>
                   {isOpen && (
-                    <p className="pb-5 text-[17px] leading-relaxed max-w-2xl" style={{ color: BODY_TEXT }}>{a}</p>
+                    <p className="px-6 pb-5 text-sm text-tech-text-dim leading-relaxed">{a}</p>
                   )}
                 </div>
               );
@@ -355,46 +377,42 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
       </section>
 
       {/* Contact */}
-      <section id="contatto" className="pb-24">
+      <section id="contatto" className="section-padding bg-tech-surface/30">
         <div className="container-custom">
-          <div
-            className="rounded-2xl bg-white p-8 md:p-16 grid lg:grid-cols-2 gap-16"
-            style={{ border: `1px solid ${BORDER}` }}
-          >
-            <div className="flex flex-col gap-4.5">
-              <h2 className={`${serif} font-normal text-3xl md:text-[42px] leading-tight`}>
+          <div className="grid lg:grid-cols-5 gap-12">
+            <div className="lg:col-span-2">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text mb-4">
                 Siete interessati a saperne di più?
               </h2>
-              <p className="text-lg leading-relaxed" style={{ color: BODY_TEXT }}>
+              <p className="text-tech-text-dim leading-relaxed mb-8">
                 Lasciateci un contatto: vi inviamo una breve scheda o fissiamo una demo nel
                 vostro studio. Nessun impegno.
               </p>
-              <div className="text-[17px] leading-loose pt-2">
-                Robert Gridjac &middot; Gridjac Arts
-                <br />
-                <a href="mailto:info@gridjacarts.com" className="inline-flex items-center gap-2 hover:opacity-70">
-                  <Mail className="w-4 h-4" />
+              <div className="space-y-2 text-sm">
+                <div className="text-tech-text font-semibold">Robert Gridjac</div>
+                <div className="text-tech-text-dim">Gridjac Arts</div>
+                <a href="mailto:info@gridjacarts.com" className="block text-tech-text-dim hover:text-tech-accent transition-colors">
                   info@gridjacarts.com
                 </a>
-                <br />
-                <a href="tel:+393203779506" className="inline-flex items-center gap-2 hover:opacity-70">
-                  <Phone className="w-4 h-4" />
+                <a href="tel:+393203779506" className="block text-tech-text-dim hover:text-tech-accent transition-colors">
                   +39 320 377 9506
                 </a>
               </div>
             </div>
 
-            <div>
+            <div className="lg:col-span-3">
               {submitted ? (
-                <div className="text-center py-10">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-5" style={{ background: `${BRASS}1A` }}>
-                    <CheckCircle2 className="w-7 h-7" style={{ color: BRASS }} />
+                <div className="tech-card-elevated p-10 text-center">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-tech-accent/10 mb-5">
+                    <CheckCircle2 className="w-7 h-7 text-tech-accent" />
                   </div>
-                  <h3 className={`${serif} text-xl font-semibold mb-2`}>Grazie</h3>
-                  <p style={{ color: BODY_TEXT }}>Vi ricontatteremo entro 2 giorni lavorativi.</p>
+                  <h3 className="text-xl font-display font-bold text-tech-text mb-2">Grazie</h3>
+                  <p className="text-tech-text-dim leading-relaxed">
+                    Vi ricontatteremo entro 2 giorni lavorativi.
+                  </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <form onSubmit={handleSubmit} className="tech-card-elevated p-6 md:p-8 space-y-5">
                   {/* honeypot */}
                   <input
                     type="text"
@@ -410,142 +428,141 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
                   <input type="hidden" name="utm_source" value={utmSource} />
                   <input type="hidden" name="utm_campaign" value={utmCampaign} />
 
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <label className={labelClass}>
-                      Nome e cognome
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label htmlFor="name" className={labelClass}>Nome e cognome *</label>
                       <input
+                        id="name"
                         type="text"
                         required
                         value={form.name}
                         onChange={(e) => update('name', e.target.value)}
                         className={inputClass}
-                        style={inputStyle}
                       />
-                    </label>
-                    <label className={labelClass}>
-                      Studio legale
+                    </div>
+                    <div>
+                      <label htmlFor="studio" className={labelClass}>Studio legale *</label>
                       <input
+                        id="studio"
                         type="text"
                         required
                         value={form.studio}
                         onChange={(e) => update('studio', e.target.value)}
                         className={inputClass}
-                        style={inputStyle}
                       />
-                    </label>
+                    </div>
                   </div>
 
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <label className={labelClass}>
-                      Città
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label htmlFor="city" className={labelClass}>Città *</label>
                       <input
+                        id="city"
                         type="text"
                         required
                         value={form.city}
                         onChange={(e) => update('city', e.target.value)}
                         className={inputClass}
-                        style={inputStyle}
                       />
-                    </label>
-                    <label className={labelClass}>
-                      Email
+                    </div>
+                    <div>
+                      <label htmlFor="email" className={labelClass}>Email *</label>
                       <input
+                        id="email"
                         type="email"
                         required
                         value={form.email}
                         onChange={(e) => update('email', e.target.value)}
                         className={inputClass}
-                        style={inputStyle}
                       />
-                    </label>
+                    </div>
                   </div>
 
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <label className={labelClass}>
-                      Telefono (facoltativo)
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label htmlFor="phone" className={labelClass}>Telefono (facoltativo)</label>
                       <input
+                        id="phone"
                         type="tel"
                         value={form.phone}
                         onChange={(e) => update('phone', e.target.value)}
                         className={inputClass}
-                        style={inputStyle}
                       />
-                    </label>
-                    <label className={labelClass}>
-                      Numero di avvocati
+                    </div>
+                    <div>
+                      <label htmlFor="lawyers" className={labelClass}>Numero di avvocati</label>
                       <select
+                        id="lawyers"
                         value={form.lawyers}
                         onChange={(e) => update('lawyers', e.target.value)}
                         className={inputClass}
-                        style={inputStyle}
                       >
                         <option value="">Seleziona...</option>
                         {lawyerCounts.map((c) => (
                           <option key={c} value={c}>{c}</option>
                         ))}
                       </select>
-                    </label>
+                    </div>
                   </div>
 
-                  <fieldset className="flex flex-col gap-2">
-                    <legend className="text-sm font-medium mb-1">Cosa preferite</legend>
+                  <fieldset>
+                    <legend className={labelClass}>Cosa preferite</legend>
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <label className="flex items-center gap-2 text-[15px]">
+                      <label className="flex items-center gap-2 text-sm text-tech-text">
                         <input
                           type="radio"
                           name="preference"
                           value="Ricevere la scheda informativa"
                           checked={form.preference === 'Ricevere la scheda informativa'}
                           onChange={(e) => update('preference', e.target.value)}
-                          style={{ accentColor: BRASS }}
+                          className="accent-tech-accent"
                         />
                         Ricevere la scheda informativa
                       </label>
-                      <label className="flex items-center gap-2 text-[15px]">
+                      <label className="flex items-center gap-2 text-sm text-tech-text">
                         <input
                           type="radio"
                           name="preference"
                           value="Una demo in studio"
                           checked={form.preference === 'Una demo in studio'}
                           onChange={(e) => update('preference', e.target.value)}
-                          style={{ accentColor: BRASS }}
+                          className="accent-tech-accent"
                         />
                         Una demo in studio
                       </label>
                     </div>
                   </fieldset>
 
-                  <label className={labelClass}>
-                    Messaggio (facoltativo)
+                  <div>
+                    <label htmlFor="message" className={labelClass}>Messaggio (facoltativo)</label>
                     <textarea
+                      id="message"
                       rows={3}
                       value={form.message}
                       onChange={(e) => update('message', e.target.value)}
-                      className="rounded-md border px-3.5 py-3 text-[16px] font-sans focus:outline-none focus:border-[#8A6420]"
-                      style={inputStyle}
+                      className={inputClass}
                     />
-                  </label>
+                  </div>
 
-                  <label className="flex items-start gap-2.5 text-sm leading-relaxed" style={{ color: BODY_TEXT }}>
+                  <label className="flex items-start gap-3 text-xs text-tech-text-muted leading-relaxed">
                     <input
                       type="checkbox"
                       required
                       checked={form.privacyAccepted}
                       onChange={(e) => update('privacyAccepted', e.target.checked)}
-                      className="mt-0.5 w-[18px] h-[18px] flex-shrink-0"
-                      style={{ accentColor: BRASS }}
+                      className="mt-0.5 accent-tech-accent"
                     />
                     <span>
-                      Acconsento al trattamento dei dati per essere ricontattato, secondo l&apos;
-                      <Link href={`/${locale}/privacy`} className="underline hover:opacity-70">
-                        informativa privacy
-                      </Link>
-                      . (obbligatorio)
+                      Ho letto e accetto l&apos;
+                      <Link href={`/${locale}/privacy`} className="underline hover:text-tech-accent">
+                        informativa sulla privacy
+                      </Link>{' '}
+                      (obbligatorio). *
                     </span>
                   </label>
 
                   {error && (
-                    <div className="rounded-md border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    <div className="rounded-lg border border-tech-danger/40 bg-tech-danger/10 px-4 py-3 text-sm text-tech-danger">
                       {error}
                     </div>
                   )}
@@ -553,13 +570,13 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
                   <button
                     type="submit"
                     disabled={loading}
-                    className="h-[54px] rounded-md text-white font-medium text-[17px] hover:opacity-90 transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
-                    style={{ background: NAVY }}
+                    className="btn-primary w-full inline-flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Invio in corso...' : 'Richiedi informazioni'}
+                    {!loading && <ArrowRight className="w-4 h-4" />}
                   </button>
 
-                  <p className="flex items-center gap-2 text-xs" style={{ color: MUTED_TEXT }}>
+                  <p className="flex items-center gap-2 text-xs text-tech-text-muted">
                     <ClipboardList className="w-3.5 h-3.5 flex-shrink-0" />
                     Nessun impegno: vi ricontatteremo entro 2 giorni lavorativi.
                   </p>
