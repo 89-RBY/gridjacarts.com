@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { Mail, Phone, MapPin, Calendar, Facebook, Instagram, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import { localeAlternates } from '@/lib/seo';
+import ContactForm from '@/components/ContactForm';
 
 interface ContactPageProps {
   params: { locale: string };
@@ -56,6 +57,19 @@ export default function ContactPage({ params: { locale } }: ContactPageProps) {
             <p className="text-lg md:text-xl text-tech-text-dim leading-relaxed">
               {t('subtitle')}
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact form */}
+      <section id="form" className="pb-16 scroll-mt-24">
+        <div className="container-custom">
+          <div className="max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-tech-text mb-2">
+              {t('form.title')}
+            </h2>
+            <p className="text-tech-text-dim mb-8">{t('form.subtitle')}</p>
+            <ContactForm locale={locale} />
           </div>
         </div>
       </section>

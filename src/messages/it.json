@@ -250,7 +250,27 @@
       "italy": "Italia"
     },
     "sendEmail": "Invia Email",
-    "callUs": "Chiamaci"
+    "callUs": "Chiamaci",
+    "form": {
+      "title": "Raccontaci il tuo progetto",
+      "subtitle": "Compila il modulo: ti rispondiamo entro 1 giorno lavorativo.",
+      "name": "Nome e cognome",
+      "email": "Email",
+      "phone": "Telefono (facoltativo)",
+      "company": "Azienda (facoltativo)",
+      "message": "Di cosa hai bisogno?",
+      "messagePlaceholder": "Descrivi in breve il progetto, gli obiettivi e le tempistiche.",
+      "privacyPrefix": "Ho letto e accetto l'",
+      "privacyLink": "informativa sulla privacy",
+      "privacyRequired": "Devi accettare l'informativa privacy per inviare la richiesta.",
+      "submit": "Invia richiesta",
+      "sending": "Invio in corso...",
+      "successTitle": "Richiesta ricevuta",
+      "successBody": "Grazie! Ti rispondiamo entro 1 giorno lavorativo. Controlla anche la cartella spam: ti abbiamo inviato una conferma via email.",
+      "error": "Non siamo riusciti a inviare la richiesta. Riprova tra poco o scrivici a info@gridjacarts.com.",
+      "autoReplySubject": "Gridjac Arts — Richiesta ricevuta",
+      "autoReplyBody": "Ciao {name},\n\nabbiamo ricevuto la tua richiesta e ti risponderemo entro 1 giorno lavorativo.\n\nA presto,\nIl team di Gridjac Arts\ninfo@gridjacarts.com"
+    }
   },
   "footer": {
     "description": "Software house che automatizza i processi del tuo business. Costruiamo prodotti custom, integriamo AI, scaliamo sistemi.",

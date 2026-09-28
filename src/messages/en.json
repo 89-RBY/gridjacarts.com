@@ -250,7 +250,27 @@
       "italy": "Italy"
     },
     "sendEmail": "Send Email",
-    "callUs": "Call Us"
+    "callUs": "Call Us",
+    "form": {
+      "title": "Tell us about your project",
+      "subtitle": "Fill in the form: we reply within 1 business day.",
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "company": "Company (optional)",
+      "message": "What do you need?",
+      "messagePlaceholder": "Briefly describe the project, goals and timeline.",
+      "privacyPrefix": "I have read and accept the ",
+      "privacyLink": "privacy policy",
+      "privacyRequired": "Please accept the privacy policy to send your request.",
+      "submit": "Send request",
+      "sending": "Sending...",
+      "successTitle": "Request received",
+      "successBody": "Thank you! We will reply within 1 business day. Please also check your spam folder: we sent you a confirmation email.",
+      "error": "We could not send your request. Please try again shortly or email us at info@gridjacarts.com.",
+      "autoReplySubject": "Gridjac Arts — Request received",
+      "autoReplyBody": "Hi {name},\n\nwe have received your request and will reply within 1 business day.\n\nBest regards,\nThe Gridjac Arts team\ninfo@gridjacarts.com"
+    }
   },
   "footer": {
     "description": "Software house automating your business processes. We build custom products, integrate AI, scale systems.",

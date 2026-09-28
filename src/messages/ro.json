@@ -250,7 +250,27 @@
       "italy": "Italia"
     },
     "sendEmail": "Trimite email",
-    "callUs": "Sună-ne"
+    "callUs": "Sună-ne",
+    "form": {
+      "title": "Spune-ne despre proiectul tău",
+      "subtitle": "Completează formularul: îți răspundem în cel mult o zi lucrătoare.",
+      "name": "Nume și prenume",
+      "email": "Email",
+      "phone": "Telefon (opțional)",
+      "company": "Companie (opțional)",
+      "message": "De ce ai nevoie?",
+      "messagePlaceholder": "Descrie pe scurt proiectul, obiectivele și termenele.",
+      "privacyPrefix": "Am citit și accept ",
+      "privacyLink": "politica de confidențialitate",
+      "privacyRequired": "Trebuie să accepți politica de confidențialitate pentru a trimite cererea.",
+      "submit": "Trimite cererea",
+      "sending": "Se trimite...",
+      "successTitle": "Cerere primită",
+      "successBody": "Mulțumim! Îți răspundem în cel mult o zi lucrătoare. Verifică și folderul spam: ți-am trimis o confirmare pe email.",
+      "error": "Nu am putut trimite cererea. Încearcă din nou în scurt timp sau scrie-ne la info@gridjacarts.com.",
+      "autoReplySubject": "Gridjac Arts — Cerere primită",
+      "autoReplyBody": "Bună {name},\n\nam primit cererea ta și îți vom răspunde în cel mult o zi lucrătoare.\n\nToate cele bune,\nEchipa Gridjac Arts\ninfo@gridjacarts.com"
+    }
   },
   "footer": {
     "description": "Software house care automatizează procesele afacerii tale. Construim produse custom, integrăm AI, scalăm sisteme.",

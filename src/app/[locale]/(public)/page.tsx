@@ -489,7 +489,7 @@ function HomePageContent({
                 {t('cta.primary')}
                 <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link href={`mailto:contact@gridjacarts.com`} className="btn-secondary">
+              <Link href="mailto:info@gridjacarts.com" className="btn-secondary">
                 {t('cta.secondary')}
               </Link>
             </div>
