@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
       debug: true,
     });
 
-    const { name, email, phone, package: selectedPackage, message, subject, source, website, revenue, confirm_email } = body;
+    const { name, email, phone, package: selectedPackage, message, subject, source, website, revenue, confirm_email, autoReply } = body;
 
     // Honeypot check
     if (confirm_email) {
@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
           <tr>
             <td style="background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%); padding: 40px 30px; text-align: center;">
               <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;">Nuova Richiesta di Contatto</h1>
-              <p style="margin: 10px 0 0; color: #ffffff; font-size: 16px; opacity: 0.9;">${source === 'offerta-dicembre' ? 'Offerta Dicembre 2025' : (source === 'offer-page-funnel' ? 'Funnel Offerta' : (source === 'corsi-ai-roma' ? 'Corsi AI Roma - Landing' : (source === 'ai-studi-ticino' ? 'AI Studi Professionali Ticino - Landing' : 'Modulo Contatti')))}</p>
+              <p style="margin: 10px 0 0; color: #ffffff; font-size: 16px; opacity: 0.9;">${source === 'offerta-dicembre' ? 'Offerta Dicembre 2025' : (source === 'offer-page-funnel' ? 'Funnel Offerta' : (source === 'corsi-ai-roma' ? 'Corsi AI Roma - Landing' : (source === 'ai-studi-ticino' ? 'AI Studi Professionali Ticino - Landing' : (source === 'ai-studi-legali-italia' ? 'AI Studi Legali Italia - Landing' : 'Modulo Contatti'))))}</p>
             </td>
           </tr>
 
@@ -157,7 +157,7 @@ export async function POST(request: NextRequest) {
 
     // Plain text version
     const emailText = `
-Nuova Richiesta di Contatto - ${source === 'offerta-dicembre' ? 'Offerta Dicembre 2025' : (source === 'offer-page-funnel' ? 'Funnel Offerta' : (source === 'corsi-ai-roma' ? 'Corsi AI Roma - Landing' : (source === 'ai-studi-ticino' ? 'AI Studi Professionali Ticino - Landing' : 'Modulo Contatti')))}
+Nuova Richiesta di Contatto - ${source === 'offerta-dicembre' ? 'Offerta Dicembre 2025' : (source === 'offer-page-funnel' ? 'Funnel Offerta' : (source === 'corsi-ai-roma' ? 'Corsi AI Roma - Landing' : (source === 'ai-studi-ticino' ? 'AI Studi Professionali Ticino - Landing' : (source === 'ai-studi-legali-italia' ? 'AI Studi Legali Italia - Landing' : 'Modulo Contatti'))))}
 
 DETTAGLI RICHIEDENTE:
 Nome: ${name}
@@ -193,6 +193,22 @@ Richiesta ricevuta il ${new Date().toLocaleString('it-IT')}
     });
 
     console.log('[ContactAPI] Email sent successfully');
+
+    // Optional autoresponder confirmation to the submitter (best-effort, never blocks the response)
+    if (autoReply?.subject && autoReply?.text) {
+      try {
+        await transporter.sendMail({
+          from: `"Gridjac Arts" <${process.env.SMTP_USER}>`,
+          to: email,
+          subject: autoReply.subject,
+          text: autoReply.text,
+          html: autoReply.html,
+        });
+        console.log('[ContactAPI] Autoreply sent to submitter');
+      } catch (autoReplyError) {
+        console.error('[ContactAPI] Failed to send autoreply:', autoReplyError);
+      }
+    }
 
     return NextResponse.json({
       success: true,
