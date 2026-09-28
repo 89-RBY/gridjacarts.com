@@ -100,11 +100,13 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
   const [submitted, setSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [utmSource, setUtmSource] = useState('');
+  const [utmMedium, setUtmMedium] = useState('');
   const [utmCampaign, setUtmCampaign] = useState('');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setUtmSource(params.get('utm_source') || '');
+    setUtmMedium(params.get('utm_medium') || '');
     setUtmCampaign(params.get('utm_campaign') || '');
   }, []);
 
@@ -125,7 +127,6 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
       `Città: ${form.city || '-'}`,
       `Numero di avvocati: ${form.lawyers || '-'}`,
       `Preferenza: ${form.preference || '-'}`,
-      utmSource || utmCampaign ? `Tracking: utm_source=${utmSource || '-'}, utm_campaign=${utmCampaign || '-'}` : '',
       '',
       form.message,
     ]
@@ -144,6 +145,9 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
           source: 'ai-studi-legali-italia',
           subject: `Richiesta informazioni AI studi legali - ${form.studio || form.name}`,
           confirm_email: form.confirm_email,
+          utm_source: utmSource,
+          utm_medium: utmMedium,
+          utm_campaign: utmCampaign,
           autoReply: {
             subject: 'Gridjac Arts — Richiesta ricevuta',
             text: `Gentile ${form.name || 'avvocato/a'},\n\nabbiamo ricevuto la vostra richiesta di informazioni sull'assistente AI per studi legali. Vi ricontatteremo entro 2 giorni lavorativi all'indirizzo o al numero che ci avete lasciato.\n\nCordiali saluti,\nRobert Gridjac\nGridjac Arts\ninfo@gridjacarts.com · +39 320 377 9506`,
@@ -426,6 +430,7 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
                   />
                   {/* hidden UTM fields */}
                   <input type="hidden" name="utm_source" value={utmSource} />
+                  <input type="hidden" name="utm_medium" value={utmMedium} />
                   <input type="hidden" name="utm_campaign" value={utmCampaign} />
 
                   <div className="grid sm:grid-cols-2 gap-5">

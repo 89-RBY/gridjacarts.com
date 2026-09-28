@@ -40,7 +40,8 @@ export async function POST(request: NextRequest) {
       debug: true,
     });
 
-    const { name, email, phone, package: selectedPackage, message, subject, source, website, revenue, confirm_email, autoReply } = body;
+    const { name, email, phone, package: selectedPackage, message, subject, source, website, revenue, confirm_email, autoReply, utm_source, utm_medium, utm_campaign } = body;
+    const hasUtm = Boolean(utm_source || utm_medium || utm_campaign);
 
     // Honeypot check
     if (confirm_email) {
@@ -52,11 +53,11 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Validate required fields
-    if (!name || !email || !phone) {
+    // Validate required fields (phone is optional: several landing pages collect it as such)
+    if (!name || !email) {
       console.error('[ContactAPI] Validation failed - missing required fields');
       return NextResponse.json(
-        { error: 'Nome, email e telefono sono obbligatori' },
+        { error: 'Nome ed email sono obbligatori' },
         { status: 400 }
       );
     }
@@ -98,10 +99,12 @@ export async function POST(request: NextRequest) {
                   <td style="padding: 10px 0; color: #6b7280; font-size: 14px; font-weight: bold;">Email:</td>
                   <td style="padding: 10px 0;"><a href="mailto:${email}" style="color: #6366f1; text-decoration: none;">${email}</a></td>
                 </tr>
+                ${phone ? `
                 <tr>
                   <td style="padding: 10px 0; color: #6b7280; font-size: 14px; font-weight: bold;">Telefono:</td>
                   <td style="padding: 10px 0;"><a href="tel:${phone}" style="color: #6366f1; text-decoration: none;">${phone}</a></td>
                 </tr>
+                ` : ''}
                 ${website ? `
                 <tr>
                   <td style="padding: 10px 0; color: #6b7280; font-size: 14px; font-weight: bold;">Sito Web:</td>
@@ -118,6 +121,12 @@ export async function POST(request: NextRequest) {
                 <tr>
                   <td style="padding: 10px 0; color: #6b7280; font-size: 14px; font-weight: bold;">Pacchetto:</td>
                   <td style="padding: 10px 0; color: #1f2937; font-size: 14px;"><strong>${selectedPackage}</strong></td>
+                </tr>
+                ` : ''}
+                ${hasUtm ? `
+                <tr>
+                  <td style="padding: 10px 0; color: #6b7280; font-size: 14px; font-weight: bold;">Tracking UTM:</td>
+                  <td style="padding: 10px 0; color: #1f2937; font-size: 14px;">source=${utm_source || '-'} &middot; medium=${utm_medium || '-'} &middot; campaign=${utm_campaign || '-'}</td>
                 </tr>
                 ` : ''}
               </table>
@@ -162,10 +171,11 @@ Nuova Richiesta di Contatto - ${source === 'offerta-dicembre' ? 'Offerta Dicembr
 DETTAGLI RICHIEDENTE:
 Nome: ${name}
 Email: ${email}
-Telefono: ${phone}
+${phone ? `Telefono: ${phone}` : ''}
 ${website ? `Sito Web: ${website}` : ''}
 ${revenue ? `Fatturato: ${revenue}` : ''}
 ${selectedPackage ? `Pacchetto: ${selectedPackage}` : ''}
+${hasUtm ? `Tracking UTM: source=${utm_source || '-'} · medium=${utm_medium || '-'} · campaign=${utm_campaign || '-'}` : ''}
 
 ${message ? `MESSAGGIO:\n${message}` : ''}
 
