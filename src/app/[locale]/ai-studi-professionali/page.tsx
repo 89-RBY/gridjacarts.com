@@ -302,6 +302,12 @@ export default function AiStudiPage({ params: { locale } }: { params: { locale: 
               </p>
             </div>
           </div>
+          <p className="text-center text-tech-text-dim leading-relaxed max-w-2xl mx-auto mt-10">
+            <span className="text-tech-text font-semibold">A chi è rivolto:</span> studi legali,
+            fiduciarie e studi di commercialisti in Ticino che gestiscono informazioni riservate e
+            vogliono i vantaggi dell&apos;intelligenza artificiale senza mettere a rischio la
+            confidenzialità dei dati dei propri clienti.
+          </p>
         </div>
       </section>
 
