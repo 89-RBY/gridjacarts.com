@@ -38,27 +38,27 @@ export default function AiStudiLegaliLayout({ children, params: { locale } }: Ai
     notFound();
   }
 
-  const navLinkClass = 'text-sm text-[#17202E]/70 hover:text-[#17202E] transition-colors';
+  const navLinkClass = 'text-[15px] text-[#17202E] hover:text-[#8A6420] transition-colors';
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F6F3EC]">
-      <header className="sticky top-0 z-50 border-b border-[#17202E]/10 bg-[#F6F3EC]/95 backdrop-blur">
-        <div className="container-custom flex items-center justify-between py-4">
+      <header className="sticky top-0 z-50 border-b border-[#DDD6C8] bg-[#F6F3EC]/95 backdrop-blur">
+        <div className="container-custom flex items-center justify-between py-5">
           <Link
             href={`/${locale}/ai-studi-legali-italia`}
             aria-label="Gridjac Arts"
-            className={`${fraunces.className} text-lg font-semibold text-[#17202E]`}
+            className={`${fraunces.className} text-[22px] font-semibold text-[#17202E]`}
           >
-            Gridjac Arts
+            Gridjac Arts <span className="font-normal text-[#5B6472]">&middot; AI per studi legali</span>
           </Link>
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-9">
             <a href="#come" className={navLinkClass}>Come funziona</a>
             <a href="#privacy" className={navLinkClass}>Riservatezza</a>
             <a href="#faq" className={navLinkClass}>Domande</a>
           </nav>
           <a
             href="#contatto"
-            className="inline-flex items-center rounded-md bg-[#17202E] px-5 py-2.5 text-sm font-medium text-[#F6F3EC] hover:bg-[#8A6420] transition-colors whitespace-nowrap"
+            className="inline-flex items-center rounded-md bg-[#17202E] px-[22px] py-3 text-[15px] font-medium text-[#F6F3EC] hover:bg-[#8A6420] transition-colors whitespace-nowrap"
           >
             Richiedi informazioni
           </a>
@@ -67,8 +67,8 @@ export default function AiStudiLegaliLayout({ children, params: { locale } }: Ai
 
       <main className="flex-grow">{children}</main>
 
-      <footer className="border-t border-[#17202E]/10 py-8">
-        <div className="container-custom flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#17202E]/60">
+      <footer className="mt-auto border-t border-[#DDD6C8] py-8">
+        <div className="container-custom flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-[#5B6472]">
           <span>© {new Date().getFullYear()} Gridjac Arts SRL</span>
           <div className="flex items-center gap-5">
             <Link href={`/${locale}/privacy`} className="hover:text-[#8A6420] transition-colors">
