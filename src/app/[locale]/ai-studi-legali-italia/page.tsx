@@ -7,32 +7,35 @@ import {
   ArrowRight,
   Lock,
   Search,
-  FilePenLine,
-  FileSearch2,
-  Archive,
   Building2,
   Languages,
   Server,
   ChevronDown,
   CheckCircle2,
   ClipboardList,
+  FileWarning,
+  Clock,
+  Quote,
 } from 'lucide-react';
 
-const problems = [
+const risks = [
   {
-    icon: Server,
+    n: '01',
+    icon: FileWarning,
     title: 'Dati su server altrui',
-    desc: "Atti e documenti elaborati fuori dallo studio, spesso fuori dall'UE.",
+    desc: "Atti e documenti caricati su strumenti cloud lasciano lo studio e finiscono fuori dall'UE — un rischio concreto per il segreto professionale.",
   },
   {
+    n: '02',
     icon: Lock,
     title: 'Segreto professionale',
-    desc: "La riservatezza non si delega a condizioni d'uso che cambiano.",
+    desc: "La riservatezza verso il cliente non si delega a condizioni d'uso di terzi che cambiano nel tempo.",
   },
   {
+    n: '03',
     icon: Search,
     title: 'Risposte generiche',
-    desc: 'Gli strumenti generalisti non conoscono a fondo il diritto italiano.',
+    desc: 'Gli strumenti AI generalisti non conoscono a fondo il diritto e la prassi italiana.',
   },
 ];
 
@@ -51,16 +54,40 @@ const steps = [
   },
 ];
 
-const features = [
-  { icon: Search, title: 'Ricerca giurisprudenziale', desc: 'Individua precedenti e orientamenti pertinenti al caso.' },
-  { icon: FilePenLine, title: 'Prime bozze di atti', desc: 'A partire dai modelli dello studio.' },
-  { icon: FileSearch2, title: 'Analisi di fascicoli', desc: 'Sintesi, cronologie, punti critici.' },
-  { icon: Archive, title: 'Archivio interrogabile', desc: 'Domande in linguaggio naturale su pareri e atti passati.' },
+const useCases = [
+  {
+    scenario:
+      'Un cliente storico contatta lo studio per una contestazione legata a una trattativa commerciale di due anni prima, con centinaia di email e bozze sparse in diverse cartelle.',
+    question:
+      'Quali sono stati i punti di disaccordo principali con la controparte e quali impegni abbiamo assunto per iscritto?',
+    result:
+      "L'AI analizza l'intero fascicolo autorizzato in pochi secondi e compila una sintesi cronologica con, per ogni punto, il file sorgente e il numero di pagina esatto.",
+    time: 'Secondi invece di ore',
+  },
+  {
+    scenario:
+      'Lo studio deve esaminare un contratto di 60 pagine per verificare clausole di recesso, penali o limitazioni di responsabilità prima di rispondere al cliente.',
+    question:
+      'Analizza questo contratto ed elenca tutte le clausole con penali a carico del nostro cliente, con articolo e condizione di attivazione.',
+    result:
+      "Il server estrae ogni riscontro in una lista puntuale. Un'analisi da un'ora di lettura intensiva viene completata in un minuto, azzerando il rischio di sviste.",
+    time: 'Un minuto invece di un’ora',
+  },
+  {
+    scenario:
+      'Un collaboratore deve redigere un ricorso ricalcando lo stile e l’impostazione già usati con successo dallo studio in un caso analogo.',
+    question:
+      'Prendi a modello il ricorso depositato nel caso precedente e adatta l’impostazione giuridica per la nuova posizione del cliente.',
+    result:
+      'L’AI genera una bozza coerente con il timbro dello studio, attingendo solo ai precedenti interni archiviati in locale.',
+    time: 'Bozza pronta in pochi minuti',
+  },
 ];
 
 const whyUs = [
-  { icon: Building2, text: 'Gridjac Arts — software house attiva in Italia, Svizzera e Romania dal 2020' },
-  { icon: Languages, text: 'Specializzazione sul diritto e sulla prassi italiana' },
+  { icon: Building2, text: 'Core business nativo: sviluppiamo AI ogni giorno, non rivendiamo un plugin di terzi' },
+  { icon: Server, text: 'Prodotto gestito chiavi in mano: hardware, installazione e assistenza in un canone unico' },
+  { icon: Languages, text: 'Gridjac Arts — software house attiva in Italia, Svizzera e Romania dal 2020, specializzata sul diritto italiano' },
 ];
 
 const privacyPoints = [
@@ -74,6 +101,7 @@ const faq: [string, string][] = [
   ['Serve un reparto IT interno?', 'No, installazione, aggiornamenti e assistenza sono a cura nostra.'],
   ['Quanto costa?', 'Dipende dal numero di utenti e dal volume di documenti; lo indichiamo nella scheda informativa.'],
   ['Funziona senza internet?', "L'elaborazione avviene in locale; la connessione serve solo per gli aggiornamenti concordati."],
+  ['Quanto sono affidabili le risposte?', 'Ogni risposta include la citazione esatta della fonte (documento e pagina): zero scatole nere, e potete sempre verificare.'],
   ["Sostituisce l'avvocato?", 'No, è uno strumento di supporto: ogni risultato va verificato dal professionista.'],
   ['Chi siete?', 'Gridjac Arts, software house attiva in Italia, Svizzera e Romania dal 2020.'],
 ];
@@ -244,18 +272,22 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
       {/* Problem */}
       <section className="section-padding bg-tech-surface/30">
         <div className="container-custom">
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-tech-text max-w-3xl mb-12">
-            Usare ChatGPT e simili con i documenti dei clienti è un rischio che uno studio non
-            può correre.
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-tech-text max-w-3xl mb-4">
+            Dove rischia il vostro studio
           </h2>
+          <p className="text-tech-text-dim leading-relaxed text-lg mb-10 max-w-3xl">
+            Usare ChatGPT e strumenti simili con i documenti dei clienti è un rischio che uno
+            studio non può correre — spesso senza che la direzione lo sappia.
+          </p>
           <div className="grid md:grid-cols-3 gap-6">
-            {problems.map((p) => (
-              <div key={p.title} className="tech-card p-6">
-                <div className="w-10 h-10 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center mb-4">
-                  <p.icon className="w-5 h-5 text-tech-accent" />
+            {risks.map((r) => (
+              <div key={r.n} className="tech-card p-6 border-l-2 border-l-tech-danger">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="font-mono text-xs text-tech-text-muted">{r.n}</span>
+                  <r.icon className="w-5 h-5 text-tech-accent" />
                 </div>
-                <h3 className="font-semibold text-tech-text mb-2">{p.title}</h3>
-                <p className="text-sm text-tech-text-dim leading-relaxed">{p.desc}</p>
+                <h3 className="font-semibold text-tech-text mb-2">{r.title}</h3>
+                <p className="text-sm text-tech-text-dim leading-relaxed">{r.desc}</p>
               </div>
             ))}
           </div>
@@ -271,7 +303,7 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
           <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text mb-12">
             Tre passaggi, zero dati all&apos;esterno
           </h2>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 mb-10">
             {steps.map((s, i) => (
               <div key={s.title} className="tech-card p-8">
                 <div className="w-10 h-10 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center font-mono font-bold text-tech-accent mb-5">
@@ -284,23 +316,51 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
               </div>
             ))}
           </div>
+          <div className="tech-card-elevated tech-border-gradient p-6 flex items-start gap-4 max-w-3xl mx-auto">
+            <div className="w-10 h-10 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center flex-shrink-0">
+              <ShieldCheck className="w-5 h-5 text-tech-accent" />
+            </div>
+            <div>
+              <div className="font-display font-semibold text-tech-text mb-1">
+                Fonte citata, zero scatole nere
+              </div>
+              <p className="text-sm text-tech-text-dim leading-relaxed">
+                Ogni risposta non è una deduzione astratta: è corredata dal riferimento esatto al
+                documento e alla pagina d&apos;origine, per un controllo immediato.
+              </p>
+            </div>
+          </div>
+          <p className="text-center text-tech-text-dim leading-relaxed max-w-2xl mx-auto mt-10">
+            <span className="text-tech-text font-semibold">A chi è rivolto:</span> studi legali in
+            Italia che gestiscono informazioni riservate e vogliono i vantaggi dell&apos;AI senza
+            mettere a rischio la confidenzialità dei dati dei propri clienti.
+          </p>
         </div>
       </section>
 
-      {/* Features */}
+      {/* Use cases */}
       <section className="section-padding bg-tech-surface/30">
         <div className="container-custom">
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text mb-12">
-            Cosa fa
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text mb-4">
+            Cosa può fare per il vostro studio
           </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((f) => (
-              <div key={f.title} className="tech-card p-6">
-                <div className="w-10 h-10 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center mb-4">
-                  <f.icon className="w-5 h-5 text-tech-accent" />
+          <p className="text-tech-text-dim leading-relaxed text-lg mb-12 max-w-2xl">
+            Tre esempi concreti di come l&apos;AI locale accelera le attività ad alto valore
+            aggiunto.
+          </p>
+          <div className="grid lg:grid-cols-3 gap-6">
+            {useCases.map((u, i) => (
+              <div key={i} className="tech-card p-6 flex flex-col gap-4">
+                <p className="text-sm text-tech-text-dim leading-relaxed">{u.scenario}</p>
+                <div className="flex items-start gap-2 bg-tech-bg border border-tech-border rounded-lg p-4">
+                  <Quote className="w-4 h-4 text-tech-accent flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-tech-text italic leading-relaxed">{u.question}</p>
                 </div>
-                <h3 className="font-semibold text-tech-text mb-2 text-sm">{f.title}</h3>
-                <p className="text-xs text-tech-text-dim leading-relaxed">{f.desc}</p>
+                <p className="text-sm text-tech-text-dim leading-relaxed flex-1">{u.result}</p>
+                <div className="flex items-center gap-2 text-xs font-mono text-tech-accent pt-2 border-t border-tech-border">
+                  <Clock className="w-3.5 h-3.5 flex-shrink-0" />
+                  {u.time}
+                </div>
               </div>
             ))}
           </div>
@@ -310,7 +370,10 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
       {/* Why us */}
       <section className="section-padding">
         <div className="container-custom">
-          <div className="grid sm:grid-cols-2 gap-6 max-w-3xl">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-tech-text mb-12">
+            Perché Gridjac Arts è il partner ideale
+          </h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {whyUs.map((item) => (
               <div key={item.text} className="tech-card p-6 flex items-start gap-4">
                 <div className="w-10 h-10 rounded-lg bg-tech-accent/10 border border-tech-accent/30 flex items-center justify-center flex-shrink-0">
@@ -390,7 +453,8 @@ export default function AiStudiLegaliItaliaPage({ params: { locale } }: { params
               </h2>
               <p className="text-tech-text-dim leading-relaxed mb-8">
                 Lasciateci un contatto: vi inviamo una breve scheda o fissiamo una demo nel
-                vostro studio. Nessun impegno.
+                vostro studio, anche su alcuni vostri documenti di esempio anonimizzati. Nessun
+                impegno.
               </p>
               <div className="space-y-2 text-sm">
                 <div className="text-tech-text font-semibold">Robert Gridjac</div>
