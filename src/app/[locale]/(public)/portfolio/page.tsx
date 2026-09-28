@@ -2,7 +2,16 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
+import { existsSync } from 'fs';
+import path from 'path';
 import { localeAlternates } from '@/lib/seo';
+
+// Real screenshots live in public/images/portfolio/<domain>.webp; until one exists, a browser frame with the domain is shown.
+function screenshotFor(url: string) {
+  const domain = new URL(url).hostname.replace(/^www\./, '');
+  const src = `/images/portfolio/${domain}.webp`;
+  return { domain, src: existsSync(path.join(process.cwd(), 'public', src)) ? src : null };
+}
 
 interface PortfolioPageProps {
   params: { locale: string };
@@ -31,7 +40,6 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       url: 'https://cumparatura.ro',
       category: locale === 'ro' ? 'Platformă Full-Stack' : locale === 'en' ? 'Full-Stack Platform' : 'Piattaforma Full-Stack',
       client: 'Cumparatura',
-      image: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&h=600&fit=crop',
       description: locale === 'ro'
         ? 'Platformă avansată de vânzări auto online cu sistem de listări, căutare avansată, gestionare anunțuri și integrare plăți.'
         : locale === 'en'
@@ -45,7 +53,6 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       url: 'https://bfmnserranderoma.it',
       category: locale === 'ro' ? 'Site de Prezentare' : locale === 'en' ? 'Presentation Website' : 'Sito Vetrina',
       client: 'BFMN Serrande Roma',
-      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop',
       description: locale === 'ro'
         ? 'Website profesional pentru companie specializată în serrande și sisteme de securitate din Roma, Italia.'
         : locale === 'en'
@@ -59,7 +66,6 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       url: 'https://soluzionepraticheauto.it',
       category: locale === 'ro' ? 'Site de Prezentare' : locale === 'en' ? 'Presentation Website' : 'Sito Vetrina',
       client: 'Soluzione Pratiche Auto',
-      image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop',
       description: locale === 'ro'
         ? 'Site modern pentru servicii de asistență practici auto în Italia, cu formular contact și prezentare servicii.'
         : locale === 'en'
@@ -73,7 +79,6 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       url: 'https://vreauproaspat.ro',
       category: locale === 'ro' ? 'E-Commerce Full-Stack' : locale === 'en' ? 'Full-Stack E-Commerce' : 'E-Commerce Full-Stack',
       client: 'Vreau Proaspat',
-      image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&h=600&fit=crop',
       description: locale === 'ro'
         ? 'Platformă completă de vânzare produse proaspete online cu sistem de comenzi, livrări și gestionare inventar în timp real.'
         : locale === 'en'
@@ -87,7 +92,6 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       url: 'https://leachatix.com',
       category: locale === 'ro' ? 'SaaS AI Platform' : locale === 'en' ? 'SaaS AI Platform' : 'Piattaforma SaaS AI',
       client: 'LeaChatix',
-      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop',
       description: locale === 'ro'
         ? 'Platformă SaaS avansată pentru crearea și gestionarea chatboților AI, cu integrări multiple și dashboard analitic.'
         : locale === 'en'
@@ -101,7 +105,6 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       url: 'https://contactfirma.ro',
       category: locale === 'ro' ? 'Platformă Marketing' : locale === 'en' ? 'Marketing Platform' : 'Piattaforma Marketing',
       client: 'Contact Firma',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
       description: locale === 'ro'
         ? 'Platformă de marketing B2B pentru businessuri, cu lead generation, CRM integrat și campanii automate de outreach.'
         : locale === 'en'
@@ -115,7 +118,6 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       url: 'https://ionelanistor.ro',
       category: locale === 'ro' ? 'Site Prezentare & Cursuri' : locale === 'en' ? 'Presentation & Courses' : 'Sito Presentazione & Corsi',
       client: 'Ionel Anistor',
-      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop',
       description: locale === 'ro'
         ? 'Website personal și platformă de cursuri online cu sistem de membri, video streaming și progres de învățare.'
         : locale === 'en'
@@ -129,7 +131,6 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       url: 'https://dmddental.ro/home/',
       category: locale === 'ro' ? 'Site Medical' : locale === 'en' ? 'Medical Website' : 'Sito Medico',
       client: 'DMD Dental Clinic',
-      image: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop',
       description: locale === 'ro'
         ? 'Website modern pentru clinică stomatologică cu prezentare servicii, echipă medicală, sistem de programări și galerie before/after.'
         : locale === 'en'
@@ -143,7 +144,6 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       url: 'https://lifebody.ch',
       category: locale === 'ro' ? 'Migrare E-Commerce' : locale === 'en' ? 'E-Commerce Migration' : 'Migrazione E-Commerce',
       client: 'LifeBody',
-      image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=800&h=600&fit=crop',
       description: locale === 'ro'
         ? 'Clientul avea un magazin online pe WordPress care se strica frecvent și genera costuri și pierderi de timp. L-am reconstruit complet în cod cu PHP Laravel: încărcări dramatic mai rapide pentru site, dashboard și statistici, ore economisite săptămânal, experiență client îmbunătățită și costuri de mentenanță reduse drastic.'
         : locale === 'en'
@@ -173,7 +173,9 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
       <section className="section-padding bg-white dark:bg-gray-900">
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
+            {projects.map((project) => {
+              const shot = screenshotFor(project.url);
+              return (
               <a
                 key={project.id}
                 href={project.url}
@@ -181,15 +183,32 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
                 rel="noopener noreferrer"
                 className="card overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-300"
               >
-                {/* Project Image */}
-                <div className="aspect-video relative overflow-hidden bg-gray-200 dark:bg-gray-700">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
+                {/* Project preview in a browser frame */}
+                <div className="relative overflow-hidden border-b border-tech-border bg-tech-bg">
+                  <div className="flex items-center gap-1.5 px-3 py-2 bg-tech-surface border-b border-tech-border">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+                    <span className="ml-3 flex-1 truncate rounded bg-tech-bg px-2 py-0.5 text-[11px] font-mono text-tech-text-muted">
+                      {shot.domain}
+                    </span>
+                  </div>
+                  <div className="aspect-video relative">
+                    {shot.src ? (
+                      <Image
+                        src={shot.src}
+                        alt={`Screenshot del sito ${shot.domain}`}
+                        fill
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 tech-grid-bg">
+                        <span className="text-2xl font-display font-bold text-tech-text">{project.title}</span>
+                        <span className="text-xs font-mono text-tech-accent">{project.category}</span>
+                      </div>
+                    )}
+                  </div>
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="bg-white/90 backdrop-blur-sm rounded-full p-4 transform scale-75 group-hover:scale-100 transition-transform">
@@ -227,7 +246,8 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
                   </div>
                 </div>
               </a>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
