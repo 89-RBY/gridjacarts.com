@@ -140,5 +140,18 @@ export function getPortfolioProjects(locale: string) {
           : 'Sito per il pronto intervento serrande a Roma: montaggio, motorizzazione e riparazione, con chiamata e WhatsApp a un tocco per trasformare le visite in richieste.',
       tags: ['Web Design', 'SEO Local', 'Click-to-Call', 'WhatsApp', 'Italian Market'],
     },
+    {
+      id: 11,
+      title: 'BranCleanSolutions.de',
+      url: 'https://brancleansolutions.de',
+      category: locale === 'ro' ? 'Site de Prezentare' : locale === 'en' ? 'Presentation Website' : 'Sito Vetrina',
+      client: 'Bran Clean Solutions',
+      description: locale === 'ro'
+        ? 'Site de prezentare pentru o firmă de curățenie din Germania, activă în Renania-Palatinat, NRW și Hessa: servicii pentru birouri, cabinete, industrie și locuințe, cu cerere de ofertă și contact rapid prin telefon, email și chat.'
+        : locale === 'en'
+          ? 'Showcase website for a cleaning company in Germany, serving Rhineland-Palatinate, NRW and Hesse: offices, practices, industry and private homes, with quote requests and quick contact by phone, email and chat.'
+          : 'Sito vetrina per un\u2019impresa di pulizie in Germania, attiva in Renania-Palatinato, NRW e Assia: uffici, studi, industria e abitazioni private, con richiesta di preventivo e contatto rapido via telefono, email e chat.',
+      tags: ['Web Design', 'Quote Request', 'SEO Local', 'German Market'],
+    },
   ];
 }
