@@ -132,6 +132,11 @@
       "subtitle": "Programează un call gratuit de 30 minute. Analizăm împreună unde poți economisi ore și bani.",
       "primary": "Programează call",
       "secondary": "Scrie-ne un email"
+    },
+    "portfolio": {
+      "title": "Proiecte recente",
+      "subtitle": "Site-uri și platforme live, construite pentru clienți reali",
+      "viewAll": "Vezi toate proiectele"
     }
   },
   "products": {

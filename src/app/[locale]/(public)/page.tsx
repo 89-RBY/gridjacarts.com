@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ArrowRight,
   Code2,
@@ -20,6 +21,9 @@ import TerminalHero from '@/components/TerminalHero';
 import Tooltip from '@/components/Tooltip';
 import { getFeaturedProducts } from '@/lib/data';
 import { localeAlternates } from '@/lib/seo';
+import { getPortfolioProjects, screenshotFor } from '@/lib/portfolio';
+
+const HOME_PROJECT_URLS = ['https://lifebody.ch', 'https://cumparatura.ro', 'https://leachatix.com'];
 
 interface HomePageProps {
   params: { locale: string };
@@ -115,6 +119,11 @@ function HomePageContent({
   ];
 
   const valuePropIcons = [Target, Zap, GitBranch, CheckCircle2];
+
+  const allProjects = getPortfolioProjects(locale);
+  const homeProjects = HOME_PROJECT_URLS.map((url) => allProjects.find((p) => p.url === url)).filter(
+    (p): p is (typeof allProjects)[number] => Boolean(p)
+  );
 
   const terminalLines = [
     t('hero.terminal.line1'),
@@ -338,6 +347,72 @@ function HomePageContent({
           </div>
         </section>
       )}
+
+      {/* ======================= RECENT PROJECTS ======================= */}
+      <section className="section-padding relative">
+        <div className="container-custom relative z-10">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4">
+            <div>
+              <div className="tech-badge mb-4">
+                <span className="font-mono">{'//'} PORTFOLIO</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-display font-bold text-tech-text">
+                {t('portfolio.title')}
+              </h2>
+              <p className="text-lg text-tech-text-dim mt-3">{t('portfolio.subtitle')}</p>
+            </div>
+            <Link href={`/${locale}/portfolio`} className="btn-ghost whitespace-nowrap">
+              {t('portfolio.viewAll')}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {homeProjects.map((project) => {
+              const shot = screenshotFor(project.url);
+              return (
+                <a
+                  key={project.id}
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="tech-card !p-0 overflow-hidden group"
+                >
+                  <div className="flex items-center gap-1.5 px-3 py-2 bg-tech-surface border-b border-tech-border">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+                    <span className="ml-3 flex-1 truncate rounded bg-tech-bg px-2 py-0.5 text-[11px] font-mono text-tech-text-muted">
+                      {shot.domain}
+                    </span>
+                  </div>
+                  <div className="aspect-[11/5] relative bg-tech-bg">
+                    {shot.src ? (
+                      <Image
+                        src={shot.src}
+                        alt={`Screenshot del sito ${shot.domain}`}
+                        fill
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center tech-grid-bg">
+                        <span className="text-xl font-display font-bold text-tech-text">{project.title}</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-5">
+                    <div className="text-xs font-mono text-tech-accent mb-1">{project.category}</div>
+                    <h3 className="text-lg font-display font-bold text-tech-text group-hover:text-tech-accent transition-colors">
+                      {project.title}
+                    </h3>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* ======================= PROCESS ======================= */}
       <section className="section-padding relative">

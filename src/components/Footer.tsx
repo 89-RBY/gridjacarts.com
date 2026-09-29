@@ -23,6 +23,7 @@ export default function Footer({ locale }: FooterProps) {
   const quickLinks = [
     { name: tNav('products'), href: `/${locale}/products` },
     { name: tNav('services'), href: `/${locale}/services` },
+    { name: tNav('portfolio'), href: `/${locale}/portfolio` },
     { name: tNav('labs'), href: `/${locale}/labs` },
     { name: tNav('about'), href: `/${locale}/about` },
     { name: tNav('blog'), href: `/${locale}/blog` },

@@ -132,6 +132,11 @@
       "subtitle": "Prenota una call gratuita di 30 minuti. Analizziamo insieme dove puoi risparmiare ore e soldi.",
       "primary": "Prenota call",
       "secondary": "Scrivici un'email"
+    },
+    "portfolio": {
+      "title": "Progetti recenti",
+      "subtitle": "Siti e piattaforme online, costruiti per clienti reali",
+      "viewAll": "Vedi tutti i progetti"
     }
   },
   "products": {

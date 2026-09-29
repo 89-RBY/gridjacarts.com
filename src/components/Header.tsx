@@ -37,6 +37,7 @@ export default function Header({ locale, blogPostSlugs }: HeaderProps) {
   const navigation = [
     { name: t('products'), href: `/${locale}/products` },
     { name: t('services'), href: `/${locale}/services` },
+    { name: t('portfolio'), href: `/${locale}/portfolio` },
     { name: t('labs'), href: `/${locale}/labs` },
     { name: t('about'), href: `/${locale}/about` },
     { name: t('blog'), href: `/${locale}/blog` },

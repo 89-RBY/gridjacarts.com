@@ -132,6 +132,11 @@
       "subtitle": "Book a free 30-minute call. Let's find where you can save hours and money together.",
       "primary": "Book a call",
       "secondary": "Send us an email"
+    },
+    "portfolio": {
+      "title": "Recent projects",
+      "subtitle": "Live websites and platforms, built for real clients",
+      "viewAll": "View all projects"
     }
   },
   "products": {
