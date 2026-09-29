@@ -127,10 +127,10 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
     },
     {
       id: 8,
-      title: 'DMDDentalClinic.ro',
+      title: 'Keep Smiling · DMD Dental',
       url: 'https://dmddental.ro/home/',
       category: locale === 'ro' ? 'Site Medical' : locale === 'en' ? 'Medical Website' : 'Sito Medico',
-      client: 'DMD Dental Clinic',
+      client: 'DMD Dental Clinic (Keep Smiling)',
       description: locale === 'ro'
         ? 'Website modern pentru clinică stomatologică cu prezentare servicii, echipă medicală, sistem de programări și galerie before/after.'
         : locale === 'en'
