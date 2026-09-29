@@ -193,7 +193,7 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
                       {shot.domain}
                     </span>
                   </div>
-                  <div className="aspect-video relative">
+                  <div className="aspect-[11/5] relative">
                     {shot.src ? (
                       <Image
                         src={shot.src}
