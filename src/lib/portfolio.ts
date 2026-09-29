@@ -78,7 +78,7 @@ export function getPortfolioProjects(locale: string) {
     {
       id: 6,
       title: 'FirmaContact',
-      url: 'https://contactfirma.ro',
+      url: 'https://firmacontact.ro',
       category: locale === 'ro' ? 'Platformă B2B' : locale === 'en' ? 'B2B Platform' : 'Piattaforma B2B',
       client: 'FirmaContact',
       description: locale === 'ro'
