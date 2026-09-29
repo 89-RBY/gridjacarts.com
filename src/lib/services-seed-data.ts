@@ -605,4 +605,71 @@ export const SERVICES_SEED_DATA = [
     featured: true,
     order: 9,
   },
+  {
+    id: 'ai-locale-studi',
+    slug: 'ai-locale-studi',
+    name: 'AI Privata in Studio',
+    icon: 'ShieldCheck',
+    taglineRo: 'Asistent AI instalat în biroul tău. Datele nu pleacă nicăieri.',
+    taglineEn: 'An AI assistant installed in your office. Your data never leaves.',
+    taglineIt: 'Un assistente AI installato nel vostro studio. I dati non escono mai.',
+    problemRo:
+      'Tot mai mulți profesioniști folosesc ChatGPT și instrumente similare pe documentele clienților: fiecare fișier încărcat pleacă din birou și ajunge pe servere externe, adesea în afara țării. Pentru avocați, notari și contabili, secretul profesional și GDPR fac din acest lucru un risc real — iar arhivele dispersate și analiza manuală a contractelor lungi consumă ore în fiecare săptămână.',
+    problemEn:
+      'More and more professionals use ChatGPT and similar tools on client documents: every uploaded file leaves the office and ends up on third-party servers, often abroad. For lawyers, fiduciaries and accountants, professional secrecy and data protection law make this a real risk — while scattered archives and manual review of long contracts eat up hours every week.',
+    problemIt:
+      'Sempre più professionisti usano ChatGPT e strumenti simili sui documenti dei clienti: ogni file caricato lascia lo studio e finisce su server di terzi, spesso all’estero. Per avvocati, fiduciarie e commercialisti, il segreto professionale e le norme sulla protezione dei dati (GDPR, LPD) rendono questo un rischio concreto — mentre archivi dispersi e analisi manuale di contratti lunghi consumano ore ogni settimana.',
+    descriptionRo:
+      'Instalăm un server dedicat, silențios, direct în biroul tău, conectat doar la rețeaua internă. Asistentul AI indexează dosare, contracte, avize și modele, respectând permisiunile existente: fiecare colaborator vede doar ce avea deja dreptul să vadă.\n\nEchipa pune întrebări în limbaj natural și primește răspunsuri cu sursa citată exact — document și pagină — astfel încât orice informație poate fi verificată imediat. Fără abonamente la servicii externe, fără date în cloud: dacă deconectezi internetul, funcționează în continuare. Ne ocupăm noi de instalare, actualizări și asistență.',
+    descriptionEn:
+      'We install a dedicated, quiet server directly in your office, connected only to your internal network. The AI assistant indexes case files, contracts, opinions and templates while respecting existing permissions: each person only sees what they were already allowed to see.\n\nYour team asks questions in plain language and gets answers with the exact source cited — document and page — so every answer can be checked immediately. No subscriptions to external services, no data in the cloud: unplug the internet and it keeps working. Installation, updates and support are on us.',
+    descriptionIt:
+      'Installiamo un server dedicato e silenzioso direttamente nel vostro studio, collegato solo alla rete interna. L’assistente AI indicizza pratiche, contratti, pareri e modelli rispettando i permessi esistenti: ogni collaboratore vede solo ciò che poteva già vedere.\n\nIl team fa domande in linguaggio naturale e riceve risposte con la fonte citata esatta — documento e pagina — così ogni informazione è verificabile subito. Nessun abbonamento a servizi esteri, nessun dato in cloud: se staccate internet, continua a funzionare. Installazione, aggiornamenti e assistenza sono a cura nostra.',
+    benefitsRo: [
+      'Datele clienților rămân fizic în birou',
+      'Răspunsuri cu sursa citată: document și pagină',
+      'Permisiuni de acces respectate pentru fiecare utilizator',
+      'Căutare în arhivă și rezumate de contracte în câteva secunde',
+      'Prime schițe de acte pornind de la modelele biroului',
+      'Instalare, actualizări și asistență incluse',
+    ],
+    benefitsEn: [
+      'Client data physically stays in your office',
+      'Answers with the source cited: document and page',
+      'Access permissions respected for every user',
+      'Archive search and contract summaries in seconds',
+      'First drafts based on your own templates',
+      'Installation, updates and support included',
+    ],
+    benefitsIt: [
+      'I dati dei clienti restano fisicamente nello studio',
+      'Risposte con la fonte citata: documento e pagina',
+      'Permessi di accesso rispettati per ogni utente',
+      'Ricerca nell’archivio e sintesi di contratti in pochi secondi',
+      'Prime bozze a partire dai modelli dello studio',
+      'Installazione, aggiornamenti e assistenza inclusi',
+    ],
+    processRo: [
+      { step: 'Instalare în birou', description: 'Server dedicat, conectat doar la rețeaua internă' },
+      { step: 'Indexarea documentelor', description: 'Dosare, contracte și modele, cu permisiunile existente' },
+      { step: 'Instruirea echipei', description: 'Arătăm cum se pun întrebări și cum se verifică sursele' },
+      { step: 'Asistență continuă', description: 'Actualizări, backup și suport incluse' },
+    ],
+    processEn: [
+      { step: 'On-site installation', description: 'Dedicated server, connected only to your internal network' },
+      { step: 'Document indexing', description: 'Case files, contracts and templates, with existing permissions' },
+      { step: 'Team onboarding', description: 'We show how to ask questions and check the sources' },
+      { step: 'Ongoing support', description: 'Updates, backup and support included' },
+    ],
+    processIt: [
+      { step: 'Installazione in studio', description: 'Server dedicato, collegato solo alla rete interna' },
+      { step: 'Indicizzazione dei documenti', description: 'Pratiche, contratti e modelli, con i permessi esistenti' },
+      { step: 'Formazione del team', description: 'Mostriamo come fare domande e verificare le fonti' },
+      { step: 'Assistenza continuativa', description: 'Aggiornamenti, backup e supporto inclusi' },
+    ],
+    techStack: ['LLM locale', 'RAG', 'Server on-premise', 'Rete interna (LAN)'],
+    relatedProducts: [],
+    featured: true,
+    order: 0,
+  },
 ];

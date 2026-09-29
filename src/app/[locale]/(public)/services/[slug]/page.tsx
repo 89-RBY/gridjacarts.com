@@ -39,7 +39,7 @@ export default async function ServiceDetailPage({ params: { locale, slug } }: Se
   const tCommon = await getTranslations({ locale, namespace: 'common' });
 
   // Get related products
-  const allProducts = await getAllProducts();
+  const allProducts = await getAllProducts().catch(() => []);
   const relatedProducts = allProducts.filter((p) =>
     service.relatedProducts.includes(p.slug)
   );

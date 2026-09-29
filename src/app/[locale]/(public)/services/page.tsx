@@ -15,6 +15,7 @@ import {
   Utensils,
   Store,
   BookOpen,
+  ShieldCheck,
 } from 'lucide-react';
 import { getAllServicePages } from '@/lib/data';
 import { localeAlternates } from '@/lib/seo';
@@ -55,6 +56,7 @@ export default function ServicesPage({ params: { locale } }: ServicesPageProps) 
     Rocket,
     Palette,
     Search,
+    ShieldCheck,
   };
 
   const services = servicePages.map((service) => ({
