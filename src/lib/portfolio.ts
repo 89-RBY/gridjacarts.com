@@ -53,13 +53,13 @@ export function getPortfolioProjects(locale: string) {
       id: 4,
       title: 'VreauProaspat.ro',
       url: 'https://vreauproaspat.ro',
-      category: locale === 'ro' ? 'E-Commerce Full-Stack' : locale === 'en' ? 'Full-Stack E-Commerce' : 'E-Commerce Full-Stack',
+      category: locale === 'ro' ? 'E-Commerce · În lansare' : locale === 'en' ? 'E-Commerce · Launching soon' : 'E-Commerce · In lancio',
       client: 'Vreau Proaspat',
       description: locale === 'ro'
-        ? 'Platformă completă de vânzare produse proaspete online cu sistem de comenzi, livrări și gestionare inventar în timp real.'
+        ? 'Platformă de vânzare online a produselor proaspete, cu comenzi, livrări și gestionare a stocului, în curs de lansare. Între timp, site-ul colectează înscrieri pentru a anunța lansarea.'
         : locale === 'en'
-          ? 'Complete fresh products online sales platform with order system, deliveries and real-time inventory management.'
-          : 'Piattaforma completa di vendita prodotti freschi online con sistema ordini, consegne e gestione inventario in tempo reale.',
+          ? 'Online sales platform for fresh products, with orders, deliveries and stock management, launching soon. Meanwhile the site collects sign-ups to announce the launch.'
+          : 'Piattaforma di vendita online di prodotti freschi, con ordini, consegne e gestione del magazzino, in fase di lancio. Nel frattempo il sito raccoglie le iscrizioni per annunciare l\u2019apertura.',
       tags: ['E-Commerce', 'Real-time Inventory', 'Delivery System', 'Payment Gateway'],
     },
     {
@@ -77,29 +77,29 @@ export function getPortfolioProjects(locale: string) {
     },
     {
       id: 6,
-      title: 'ContactFirma.ro',
+      title: 'FirmaContact',
       url: 'https://contactfirma.ro',
-      category: locale === 'ro' ? 'Platformă Marketing' : locale === 'en' ? 'Marketing Platform' : 'Piattaforma Marketing',
-      client: 'Contact Firma',
+      category: locale === 'ro' ? 'Platformă B2B' : locale === 'en' ? 'B2B Platform' : 'Piattaforma B2B',
+      client: 'FirmaContact',
       description: locale === 'ro'
-        ? 'Platformă de marketing B2B pentru businessuri, cu lead generation, CRM integrat și campanii automate de outreach.'
+        ? 'Bază de date cu firmele active din România, cu cifră de afaceri, profit și angajați din datele ONRC, plus campanii SMS și email trimise din aceeași platformă.'
         : locale === 'en'
-          ? 'B2B marketing platform for businesses, with lead generation, integrated CRM and automated outreach campaigns.'
-          : 'Piattaforma marketing B2B per aziende, con lead generation, CRM integrato e campagne outreach automatizzate.',
-      tags: ['B2B', 'Lead Generation', 'CRM', 'Marketing Automation', 'Email Campaigns'],
+          ? 'Database of active companies in Romania, with turnover, profit and employees from official registry data, plus SMS and email campaigns sent from the same platform.'
+          : 'Database delle aziende attive in Romania, con fatturato, utile e dipendenti dai dati ufficiali del registro imprese, più campagne SMS ed email inviate dalla stessa piattaforma.',
+      tags: ['B2B', 'Company Database', 'Lead Generation', 'SMS Campaigns', 'Email Campaigns'],
     },
     {
       id: 7,
-      title: 'IonelAnistor.ro',
+      title: 'Ionela Nistor Academy',
       url: 'https://ionelanistor.ro',
-      category: locale === 'ro' ? 'Site Prezentare & Cursuri' : locale === 'en' ? 'Presentation & Courses' : 'Sito Presentazione & Corsi',
-      client: 'Ionel Anistor',
+      category: locale === 'ro' ? 'Site Academie & Cursuri' : locale === 'en' ? 'Academy & Courses Website' : 'Sito Academy & Corsi',
+      client: 'Ionela Nistor Academy',
       description: locale === 'ro'
-        ? 'Website personal și platformă de cursuri online cu sistem de membri, video streaming și progres de învățare.'
+        ? 'Site pentru o academie acreditată de manichiură și pedichiură din Rădăuți: cursuri cu diplomă, echipă, servicii, galerie și rezervări online.'
         : locale === 'en'
-          ? 'Personal website and online course platform with membership system, video streaming and learning progress.'
-          : 'Sito web personale e piattaforma corsi online con sistema membri, video streaming e progresso apprendimento.',
-      tags: ['LMS', 'Video Streaming', 'Membership', 'Progress Tracking'],
+          ? 'Website for an accredited manicure and pedicure academy in Rădăuți, Romania: certified courses, team, services, gallery and online booking.'
+          : 'Sito per un\u2019accademia accreditata di manicure e pedicure a Rădăuți, in Romania: corsi con diploma, team, servizi, galleria e prenotazioni online.',
+      tags: ['Web Design', 'Courses', 'Online Booking', 'Gallery', 'Local SEO'],
     },
     {
       id: 8,
