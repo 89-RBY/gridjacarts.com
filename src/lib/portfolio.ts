@@ -16,6 +16,7 @@ export function getPortfolioProjects(locale: string) {
       url: 'https://cumparatura.ro',
       category: locale === 'ro' ? 'Platformă Full-Stack' : locale === 'en' ? 'Full-Stack Platform' : 'Piattaforma Full-Stack',
       client: 'Cumparatura',
+      ownProduct: true,
       description: locale === 'ro'
         ? 'Platformă avansată de vânzări auto online cu sistem de listări, căutare avansată, gestionare anunțuri și integrare plăți.'
         : locale === 'en'
@@ -81,6 +82,7 @@ export function getPortfolioProjects(locale: string) {
       url: 'https://firmacontact.ro',
       category: locale === 'ro' ? 'Platformă B2B' : locale === 'en' ? 'B2B Platform' : 'Piattaforma B2B',
       client: 'FirmaContact',
+      ownProduct: true,
       description: locale === 'ro'
         ? 'Bază de date cu firmele active din România, cu cifră de afaceri, profit și angajați din datele ONRC, plus campanii SMS și email trimise din aceeași platformă.'
         : locale === 'en'
@@ -121,10 +123,15 @@ export function getPortfolioProjects(locale: string) {
       category: locale === 'ro' ? 'Migrare E-Commerce' : locale === 'en' ? 'E-Commerce Migration' : 'Migrazione E-Commerce',
       client: 'LifeBody',
       description: locale === 'ro'
-        ? 'Clientul avea un magazin online pe WordPress care se strica frecvent și genera costuri și pierderi de timp. L-am reconstruit complet în cod cu PHP Laravel: încărcări dramatic mai rapide pentru site, dashboard și statistici, ore economisite săptămânal, experiență client îmbunătățită și costuri de mentenanță reduse drastic.'
+        ? 'Clientul avea un magazin online pe WordPress care se strica frecvent și genera costuri și pierderi de timp. L-am reconstruit complet în cod cu PHP Laravel: timpul de încărcare a scăzut de la 7–12 secunde la sub o secundă, ore economisite săptămânal, experiență client îmbunătățită și costuri de mentenanță reduse drastic.'
         : locale === 'en'
-          ? 'The client had a WordPress ecommerce that broke often, wasting time and money. We rebuilt it entirely in code with PHP Laravel: dramatically faster load times for site, dashboard and stats, several hours saved every week, better customer experience and drastically lower maintenance costs.'
-          : "Il cliente aveva un ecommerce in WordPress che si rompeva spesso, facendogli perdere tempo e denaro. Lo abbiamo ricostruito completamente in codice con PHP Laravel: caricamenti drasticamente più veloci per sito, dashboard e statistiche, diverse ore risparmiate ogni settimana, esperienza cliente migliorata e costi di manutenzione ridotti drasticamente.",
+          ? 'The client had a WordPress ecommerce that broke often, wasting time and money. We rebuilt it entirely in code with PHP Laravel: load time dropped from 7–12 seconds to under one second, several hours saved every week, better customer experience and drastically lower maintenance costs.'
+          : "Il cliente aveva un ecommerce in WordPress che si rompeva spesso, facendogli perdere tempo e denaro. Lo abbiamo ricostruito completamente in codice con PHP Laravel: tempo di caricamento sceso da 7–12 secondi a meno di un secondo, diverse ore risparmiate ogni settimana, esperienza cliente migliorata e costi di manutenzione ridotti drasticamente.",
+      result: locale === 'ro'
+        ? 'Încărcare: de la 7–12 s la sub 1 s'
+        : locale === 'en'
+          ? 'Load time: from 7–12 s to under 1 s'
+          : 'Caricamento: da 7–12 s a meno di 1 s',
       tags: ['PHP', 'Laravel', 'E-Commerce', 'WordPress Migration', 'Performance'],
     },
     {

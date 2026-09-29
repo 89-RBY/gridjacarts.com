@@ -406,6 +406,12 @@ function HomePageContent({
                     <h3 className="text-lg font-display font-bold text-tech-text group-hover:text-tech-accent transition-colors">
                       {project.title}
                     </h3>
+                    {project.result && (
+                      <div className="inline-flex items-center gap-1.5 mt-3 rounded-md border border-tech-accent/30 bg-tech-accent/10 px-2.5 py-1 text-xs font-mono font-semibold text-tech-accent">
+                        <Zap className="w-3.5 h-3.5" />
+                        {project.result}
+                      </div>
+                    )}
                   </div>
                 </a>
               );

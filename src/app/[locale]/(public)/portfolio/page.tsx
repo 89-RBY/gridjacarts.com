@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Zap } from 'lucide-react';
 import { localeAlternates } from '@/lib/seo';
 import { getPortfolioProjects, screenshotFor } from '@/lib/portfolio';
 
@@ -100,8 +100,14 @@ export default function PortfolioPage({ params: { locale } }: PortfolioPageProps
                   <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                     {project.title}
                   </h3>
+                  {project.result && (
+                    <div className="inline-flex items-center gap-1.5 mb-3 rounded-md border border-tech-accent/30 bg-tech-accent/10 px-2.5 py-1 text-xs font-mono font-semibold text-tech-accent">
+                      <Zap className="w-3.5 h-3.5" />
+                      {project.result}
+                    </div>
+                  )}
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                    {t('client')}: {project.client}
+                    {project.ownProduct ? t('ownProduct') : `${t('client')}: ${project.client}`}
                   </p>
                   <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4">
                     {project.description}

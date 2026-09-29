@@ -135,7 +135,7 @@
     },
     "portfolio": {
       "title": "Progetti recenti",
-      "subtitle": "Siti e piattaforme online, costruiti per clienti reali",
+      "subtitle": "Siti e piattaforme online, per i nostri clienti e come prodotti nostri",
       "viewAll": "Vedi tutti i progetti"
     }
   },
@@ -242,10 +242,11 @@
   },
   "portfolio": {
     "title": "Portfolio",
-    "subtitle": "Progetti costruiti per clienti reali",
+    "subtitle": "Progetti per clienti reali e prodotti nostri",
     "viewProject": "Vedi progetto",
     "category": "Categoria",
-    "client": "Cliente"
+    "client": "Cliente",
+    "ownProduct": "Prodotto Gridjac Arts"
   },
   "contact": {
     "title": "Costruiamo qualcosa insieme",

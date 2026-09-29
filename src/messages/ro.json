@@ -135,7 +135,7 @@
     },
     "portfolio": {
       "title": "Proiecte recente",
-      "subtitle": "Site-uri și platforme live, construite pentru clienți reali",
+      "subtitle": "Site-uri și platforme live, pentru clienții noștri și produse proprii",
       "viewAll": "Vezi toate proiectele"
     }
   },
@@ -242,10 +242,11 @@
   },
   "portfolio": {
     "title": "Portofoliu",
-    "subtitle": "Proiecte construite pentru clienți reali",
+    "subtitle": "Proiecte pentru clienți reali și produse proprii",
     "viewProject": "Vezi proiectul",
     "category": "Categorie",
-    "client": "Client"
+    "client": "Client",
+    "ownProduct": "Produs Gridjac Arts"
   },
   "contact": {
     "title": "Hai să construim ceva împreună",

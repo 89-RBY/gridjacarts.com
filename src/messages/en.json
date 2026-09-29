@@ -135,7 +135,7 @@
     },
     "portfolio": {
       "title": "Recent projects",
-      "subtitle": "Live websites and platforms, built for real clients",
+      "subtitle": "Live websites and platforms, for our clients and as our own products",
       "viewAll": "View all projects"
     }
   },
@@ -242,10 +242,11 @@
   },
   "portfolio": {
     "title": "Portfolio",
-    "subtitle": "Projects built for real clients",
+    "subtitle": "Projects for real clients and our own products",
     "viewProject": "View Project",
     "category": "Category",
-    "client": "Client"
+    "client": "Client",
+    "ownProduct": "Gridjac Arts product"
   },
   "contact": {
     "title": "Let's build something together",
