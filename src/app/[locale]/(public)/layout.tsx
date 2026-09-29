@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export default function PublicLayout({
         {children}
       </main>
       <Footer locale={locale} />
+      <WhatsAppButton locale={locale} />
     </div>
   );
 }
